@@ -21,4 +21,20 @@ public class Config {
     public static final String URL_GET_ALL_EVENTS = "sukien";
     public static final String URL_GET_ALL_TOURS = "thamquan";
     public static final String URL_GET_ALL_ENTERTAINMENTS = "vuichoi";
+
+    public static final String URL_GET_TYPE_OF_EVENT = "loaihinhsukien/";
+    public static final String URL_GET_EAT = "anuong/";
+    public static final String URL_GET_COMMENT = "binhluan/";
+    public static final String URL_GET_SCHEDULE_DETAIL = "chitietlichtrinh/";
+    public static final String URL_GET_RATE = "danhgia/";
+    public static final String URL_GET_PLACE = "diadiem/";
+    public static final String URL_GET_SERVICE = "dichvu/";
+    public static final String URL_GET_IMAGE = "hinhanh/";
+    public static final String URL_GET_HOTEL = "khachsan/";
+    public static final String URL_GET_SCHEDULE = "lichtrinh/";
+    public static final String URL_GET_USER = "nguoidung/";
+    public static final String URL_GET_VEHICLE = "phuongtien/";
+    public static final String URL_GET_EVENT = "sukien/";
+    public static final String URL_GET_TOUR = "thamquan/";
+    public static final String URL_GET_ENTERTAINMENT = "vuichoi/";
 }

@@ -15,9 +15,9 @@ import java.net.URL;
  */
 
 public class HttpRequestAdapter {
-    HttpURLConnection urlConnection;
+    private static HttpURLConnection urlConnection;
 
-    public String httpGet(String url) {
+    public static String httpGet(String url) {
         StringBuilder result = new StringBuilder();
         try {
             URL obj = new URL(url);
@@ -26,7 +26,7 @@ public class HttpRequestAdapter {
             urlConnection.setRequestMethod("GET");
             InputStream in = new BufferedInputStream(urlConnection.getInputStream());
             BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-            String line;
+            String line = "";
             while ((line = reader.readLine()) != null) {
                 result.append(line);
             }
@@ -38,7 +38,7 @@ public class HttpRequestAdapter {
         return result.toString();
     }
 
-    public String httpPost(String url, JSONObject json){
+    public static String httpPost(String url, JSONObject json){
         try {
             URL obj = new URL(url);
             urlConnection = (HttpURLConnection) obj.openConnection();
@@ -74,7 +74,7 @@ public class HttpRequestAdapter {
         }
     }
 
-    public String httpPut(String url, JSONObject json){
+    public static String httpPut(String url, JSONObject json){
         try {
             URL obj = new URL(url);
             urlConnection = (HttpURLConnection) obj.openConnection();
@@ -107,7 +107,7 @@ public class HttpRequestAdapter {
             urlConnection.disconnect();
         }
     }
-    public String httpDelete(String url){
+    public static String httpDelete(String url){
         try {
             URL obj = new URL(url);
             urlConnection = (HttpURLConnection) obj.openConnection();
