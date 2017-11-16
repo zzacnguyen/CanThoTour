@@ -1,17 +1,20 @@
-package com.doan3.canthotour.View;
+package com.doan3.canthotour.View.ThongBao;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.doan3.canthotour.Helper.BottomNavigationViewHelper;
 import com.doan3.canthotour.R;
+import com.doan3.canthotour.View.YeuThich.ActivityYeuThich;
+import com.doan3.canthotour.View.CaNhan.ActivityCaNhan;
+import com.doan3.canthotour.View.TrangChu.MainActivity;
 
-public class MainActivity extends AppCompatActivity {
+public class ActivityThongBao extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
 
         Menu menu = bottomNavigationView.getMenu();
-        MenuItem menuItem = menu.getItem(0);
+        MenuItem menuItem = menu.getItem(2);
         menuItem.setChecked(true);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -30,15 +33,16 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()){
                     case R.id.ic_trangchu:
+                        startActivity(new Intent(ActivityThongBao.this, MainActivity.class));
                         break;
                     case R.id.ic_yeuthich:
-                        startActivity(new Intent(MainActivity.this, ActivityYeuThich.class));
+                        startActivity(new Intent(ActivityThongBao.this, ActivityYeuThich.class));
                         break;
                     case R.id.ic_thongbao:
-                        startActivity(new Intent(MainActivity.this, ActivityThongBao.class));
+
                         break;
                     case R.id.ic_canhan:
-                        startActivity(new Intent(MainActivity.this, ActivityCaNhan.class));
+                        startActivity(new Intent(ActivityThongBao.this, ActivityCaNhan.class));
                         break;
                 }
                 return false;
