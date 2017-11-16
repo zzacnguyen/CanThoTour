@@ -1,28 +1,43 @@
-package com.doan3.canthotour.View;
+package com.doan3.canthotour.View.TrangChu;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.support.v7.widget.Toolbar;
 
 import com.doan3.canthotour.Helper.BottomNavigationViewHelper;
 import com.doan3.canthotour.R;
+import com.doan3.canthotour.View.CaNhan.ActivityCaNhan;
+import com.doan3.canthotour.View.ThongBao.ActivityThongBao;
+import com.doan3.canthotour.View.YeuThich.ActivityYeuThich;
 
-public class ActivityYeuThich extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
+
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_yeuthich);
+        setContentView(R.layout.activity_main);
 
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        setSupportActionBar(toolbar);
+
+        menuBotNavBar();
+
+    }
+
+    private void menuBotNavBar(){
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavView_Bar);
         BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
 
         Menu menu = bottomNavigationView.getMenu();
-        MenuItem menuItem = menu.getItem(1);
+        MenuItem menuItem = menu.getItem(0);
         menuItem.setChecked(true);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -30,20 +45,30 @@ public class ActivityYeuThich extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()){
                     case R.id.ic_trangchu:
-                        startActivity(new Intent(ActivityYeuThich.this, MainActivity.class));
                         break;
                     case R.id.ic_yeuthich:
-
+                        startActivity(new Intent(MainActivity.this, ActivityYeuThich.class));
                         break;
                     case R.id.ic_thongbao:
-                        startActivity(new Intent(ActivityYeuThich.this, ActivityThongBao.class));
+                        startActivity(new Intent(MainActivity.this, ActivityThongBao.class));
                         break;
                     case R.id.ic_canhan:
-                        startActivity(new Intent(ActivityYeuThich.this, ActivityCaNhan.class));
+                        startActivity(new Intent(MainActivity.this, ActivityCaNhan.class));
                         break;
                 }
                 return false;
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menutrangchu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return super.onOptionsItemSelected(item);
     }
 }

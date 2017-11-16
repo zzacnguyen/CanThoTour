@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.doan3.canthotour.View.MainActivity">
+    tools:context="com.doan3.canthotour.View.TrangChu.MainActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -17,6 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:layout_collapseMode="pin"
+            android:layout_gravity="center"
             android:background="@color/bgToolbar">
 
             <TextView
@@ -25,6 +26,7 @@
                 android:layout_height="wrap_content"
                 android:text="Trang chủ"
                 android:gravity="center"
+                android:textAlignment="center"
                 android:textColor="@color/colorWhite"
                 android:textSize="18sp"
                 />
