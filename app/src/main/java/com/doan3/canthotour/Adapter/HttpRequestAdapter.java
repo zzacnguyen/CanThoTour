@@ -4,6 +4,7 @@ import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -26,7 +27,7 @@ public class HttpRequestAdapter {
             urlConnection.setRequestMethod("GET");
             InputStream in = new BufferedInputStream(urlConnection.getInputStream());
             BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-            String line = "";
+            String line;
             while ((line = reader.readLine()) != null) {
                 result.append(line);
             }
@@ -47,26 +48,18 @@ public class HttpRequestAdapter {
             urlConnection.setRequestProperty("Content-Type", "application/json");
             urlConnection.setRequestProperty("Accept", "application/json");
             urlConnection.setRequestMethod("POST");
-            OutputStreamWriter streamWriter = new OutputStreamWriter(urlConnection.getOutputStream());
-            streamWriter.write(json.toString());
-            streamWriter.flush();
-            streamWriter.close();
-            StringBuilder stringBuilder = new StringBuilder();
+            DataOutputStream dataOutputStream = new DataOutputStream(urlConnection.getOutputStream());
+            dataOutputStream.writeBytes(json.toString());
+            dataOutputStream.flush();
+            dataOutputStream.close();
             if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK){
-                InputStreamReader streamReader = new InputStreamReader(urlConnection.getInputStream());
-                BufferedReader bufferedReader = new BufferedReader(streamReader);
-                String response = null;
-                while ((response = bufferedReader.readLine()) != null) {
-                    stringBuilder.append(response + "\n");
-                }
-                bufferedReader.close();
-                return stringBuilder.toString();
+                return "thành công";
             } else {
-                return null;
+                return "thất bại";
             }
         } catch (Exception e){
             e.printStackTrace();
-            return null;
+            return "lỗi";
         } finally {
             if (urlConnection != null){
                 urlConnection.disconnect();
@@ -87,22 +80,14 @@ public class HttpRequestAdapter {
             streamWriter.write(json.toString());
             streamWriter.flush();
             streamWriter.close();
-            StringBuilder stringBuilder = new StringBuilder();
             if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK){
-                InputStreamReader streamReader = new InputStreamReader(urlConnection.getInputStream());
-                BufferedReader bufferedReader = new BufferedReader(streamReader);
-                String response = null;
-                while ((response = bufferedReader.readLine()) != null) {
-                    stringBuilder.append(response + "\n");
-                }
-                bufferedReader.close();
-                return stringBuilder.toString();
+                return "thành công";
             } else {
-                return null;
+                return "thất bại";
             }
         } catch (Exception e){
             e.printStackTrace();
-            return null;
+            return "lỗi";
         } finally {
             urlConnection.disconnect();
         }
@@ -114,22 +99,14 @@ public class HttpRequestAdapter {
             urlConnection.setDoInput(true);
             urlConnection.setRequestProperty("Content-Type", "application/json");
             urlConnection.setRequestMethod("DELETE");
-            StringBuilder stringBuilder = new StringBuilder();
             if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK){
-                InputStreamReader streamReader = new InputStreamReader(urlConnection.getInputStream());
-                BufferedReader bufferedReader = new BufferedReader(streamReader);
-                String response = null;
-                while ((response = bufferedReader.readLine()) != null) {
-                    stringBuilder.append(response + "\n");
-                }
-                bufferedReader.close();
-                return stringBuilder.toString();
+                return "thành công";
             } else {
-                return null;
+                return "thất bại";
             }
         } catch (Exception e){
             e.printStackTrace();
-            return null;
+            return "lỗi";
         } finally {
             urlConnection.disconnect();
         }
