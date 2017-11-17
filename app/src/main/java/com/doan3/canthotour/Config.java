@@ -1,5 +1,9 @@
 package com.doan3.canthotour;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+
 /**
  * Created by zzacn on 11/14/2017.
  */
@@ -37,4 +41,8 @@ public class Config {
     public static final String URL_GET_EVENT = "sukien/";
     public static final String URL_GET_TOUR = "thamquan/";
     public static final String URL_GET_ENTERTAINMENT = "vuichoi/";
+
+    public static final ArrayList<String> JSON_USER = new ArrayList<String>(Arrays.asList("nd_tendoanhnghiep",
+            "nd_tendangnhap", "nd_sodienthoai","nd_matkhau", "nd_website","nd_email", "nd_diachi", "nd_quocgia",
+            "nd_ngonngu", "nd_ghichu", "nd_loainguoidung"));
 }
