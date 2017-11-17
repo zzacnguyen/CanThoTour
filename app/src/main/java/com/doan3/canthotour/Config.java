@@ -45,4 +45,25 @@ public class Config {
     public static final ArrayList<String> JSON_USER = new ArrayList<String>(Arrays.asList("nd_tendoanhnghiep",
             "nd_tendangnhap", "nd_sodienthoai","nd_matkhau", "nd_website","nd_email", "nd_diachi", "nd_quocgia",
             "nd_ngonngu", "nd_ghichu", "nd_loainguoidung"));
+    public static final ArrayList<String> JSON_EAT = new ArrayList<String>(Arrays.asList("au_ten", "au_gioithieu", "dv_iddichvu"));
+    public static final ArrayList<String> JSON_COMMENT = new ArrayList<String>(Arrays.asList("bl_binhluan",
+            "bl_trangthai", "dv_iddichvu","nd_idnguoidung"));
+    public static final ArrayList<String> JSON_SCHEDULE_DETAIL= new ArrayList<String>(Arrays.asList("ctlt_gioithieu",
+            "ctlt_ngaygiodukien", "lt_idlichtrinh","dd_iddiadiem"));
+    public static final ArrayList<String> JSON_RATE = new ArrayList<String>(Arrays.asList("dv_iddichvu", "nd_idnguoidung", "dg_diem"));
+    public static final ArrayList<String> JSON_PLACE = new ArrayList<String>(Arrays.asList("dd_tendiadiem",
+            "dd_gioithieu", "dn_diachi","dd_sodienthoai","dd_kinhdo","dd_vido","nd_idnguoidung"));
+    public static final ArrayList<String> JSON_SERVICE = new ArrayList<String>(Arrays.asList("dv_gioithieu",
+            "dv_giomocua", "dv_giodongcua","dv_giacaonhat","dv_giathapnhat","dd_iddiadiem","dv_trangthai"));
+    public static final ArrayList<String> JSON_IMAGE = new ArrayList<String>(Arrays.asList("ha_hinhanh1",
+            "ha_hinhanh2", "ha_hinhanh3","ha_thumb","ha_icon"));
+    public static final ArrayList<String> JSON_HOTEL = new ArrayList<String>(Arrays.asList("ks_tenkhachsan",
+            "ks_website ", "ks_gioithieu","dv_iddichvu"));
+    public static final ArrayList<String> JSON_SHEDULE = new ArrayList<String>(Arrays.asList("lt_ngaylichtrinh", "lt_tenlichtrinh", "lt_gioithieu"));
+    public static final ArrayList<String> JSON_TYPE_OF_EVENT = new ArrayList<String>(Arrays.asList("lhsk_ten"));
+    public static final ArrayList<String> JSON_VEHICLE = new ArrayList<String>(Arrays.asList("pt_tenphuongtien", "pt_loaihinh", "dv_iddichvu"));
+    public static final ArrayList<String> JSON_EVENT = new ArrayList<String>(Arrays.asList("sk_tensukien",
+            "sk_ngaybatdau", "sk_trangthai","dd_iddiadiem","lhsk_idloaihinhsukien"));
+    public static final ArrayList<String> JSON_TOUR = new ArrayList<String>(Arrays.asList("tq_tendiemthamquan", "tq_gioithieu", "dv_iddichvu"));
+    public static final ArrayList<String> JSON_ENTERTAINMENT = new ArrayList<String>(Arrays.asList("vc_tendiemvuichoi", "vc_gioithieu", "dv_iddichvu"));
 }
