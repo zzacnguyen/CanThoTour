@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
 
-//        initView_DiaDanh();
+        initView_DiaDanh();
 
         menuBotNavBar();
 
@@ -70,23 +70,23 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-//    private void initView_DiaDanh(){
-//        RecyclerView recyclerView = (RecyclerView)findViewById(R.id.recycle_diadanh);
-//        recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
-//
-//        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-//        recyclerView.setLayoutManager(linearLayoutManager);
-//
-//        //Add item
-//        ArrayList<DiaDiem> arrayList = new ArrayList<>();
-//        arrayList.add(new DiaDiem(R.drawable.ben_ninh_kieu, "Bến Ninh Kiều"));
-//        arrayList.add(new DiaDiem(R.drawable.cho_noi_cai_rang, "Chợ nổi Cái Răng"));
-//        arrayList.add(new DiaDiem(R.drawable.dinh_binh_thuy, "Đình Bình Thủy"));
-//
-//        DiaDiemAdapter diaDiemAdapter = new DiaDiemAdapter(arrayList, getApplicationContext());
-//        recyclerView.setAdapter(diaDiemAdapter);
-//
-//    }
+    private void initView_DiaDanh(){
+        RecyclerView recyclerView = (RecyclerView)findViewById(R.id.RecyclerView_DiaDanh);
+        recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        recyclerView.setLayoutManager(linearLayoutManager);
+
+        //Add item
+        ArrayList<DiaDiem> arrayList = new ArrayList<>();
+        arrayList.add(new DiaDiem(R.drawable.ben_ninh_kieu, "Bến Ninh Kiều"));
+        arrayList.add(new DiaDiem(R.drawable.cho_noi_cai_rang, "Chợ nổi Cái Răng"));
+        arrayList.add(new DiaDiem(R.drawable.dinh_binh_thuy, "Đình Bình Thủy"));
+
+        DiaDiemAdapter diaDiemAdapter = new DiaDiemAdapter(arrayList, getApplicationContext());
+        recyclerView.setAdapter(diaDiemAdapter);
+
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

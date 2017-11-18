@@ -47,82 +47,42 @@
             android:orientation="vertical"
             android:background="@color/colorWhite">
 
-            <!--Địa danh-->
-            <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="10dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:layout_weight="2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Các địa danh ở Cần Thơ"
-                    android:textSize="16sp"/>
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@color/colorWhite"
-                    android:drawableRight="@drawable/ic_arrow"
-                    android:text="Tất cả"
-                    android:textAllCaps="false"/>
-
-            </LinearLayout>
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="vertical"
+                android:padding="10dp">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="10dp">
-
-                    <ImageView
-                        android:background="@color/colorWhite"
-                        android:src="@drawable/ben_ninh_kieu"
-                        android:layout_width="150dp"
-                        android:layout_height="120dp" />
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
                     <TextView
+                        android:layout_weight="2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Bến Ninh Kiều"/>
+                        android:text="Các địa danh ở Cần Thơ"
+                        android:textSize="16sp"/>
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/colorWhite"
+                        android:drawableRight="@drawable/ic_arrow"
+                        android:text="Tất cả"
+                        android:textAllCaps="false"/>
 
                 </LinearLayout>
 
-                <LinearLayout
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/RecyclerView_DiaDanh"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="10dp">
-
-                    <ImageView
-                        android:background="@color/colorWhite"
-                        android:src="@drawable/cho_noi_cai_rang"
-                        android:layout_width="150dp"
-                        android:layout_height="120dp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Chợ nổi Cái Răng"/>
-
-                </LinearLayout>
+                    android:layout_height="wrap_content">
+                </android.support.v7.widget.RecyclerView>
 
             </LinearLayout>
 
-        </LinearLayout>
-            <!--Ăn uống-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -151,59 +111,19 @@
 
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="10dp">
-
-                        <ImageView
-                            android:background="@color/colorWhite"
-                            android:src="@drawable/banhxeo7toi"
-                            android:layout_width="150dp"
-                            android:layout_height="120dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Bánh xèo 7 Tới"/>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="10dp">
-
-                        <ImageView
-                            android:background="@color/colorWhite"
-                            android:src="@drawable/nuoc_mia_my_tho"
-                            android:layout_width="150dp"
-                            android:layout_height="120dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Nước mía Mỹ Tho - MT68"/>
-
-                    </LinearLayout>
-
-                </LinearLayout>
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/RecyclerView_AnUong"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                </android.support.v7.widget.RecyclerView>
 
             </LinearLayout>
-            <!--Chỗ ở-->
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="10dp"
-                android:layout_marginBottom="?attr/actionBarSize">
+                android:padding="10dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -227,50 +147,11 @@
 
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="10dp">
-
-                        <ImageView
-                            android:background="@color/colorWhite"
-                            android:src="@drawable/ninhkieu2"
-                            android:layout_width="150dp"
-                            android:layout_height="120dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Ninh Kiều 2 Hotel"/>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="10dp">
-
-                        <ImageView
-                            android:background="@color/colorWhite"
-                            android:src="@drawable/muongthanh"
-                            android:layout_width="150dp"
-                            android:layout_height="120dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Mường Thanh Hotel"/>
-
-                    </LinearLayout>
-
-                </LinearLayout>
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/RecyclerView_KhachSan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                </android.support.v7.widget.RecyclerView>
 
             </LinearLayout>
 

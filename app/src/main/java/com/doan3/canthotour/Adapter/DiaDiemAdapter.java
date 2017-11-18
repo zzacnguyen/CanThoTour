@@ -51,8 +51,8 @@ public class DiaDiemAdapter extends RecyclerView.Adapter<DiaDiemAdapter.ViewHold
         public ViewHolder(View itemView) {
             super(itemView);
 
-            txtTenDD = (TextView) itemView.findViewById(R.id.imgViewHinhDD);
-            imgHinhDD = (ImageView) itemView.findViewById(R.id.txtViewTenDD);
+            txtTenDD = (TextView) itemView.findViewById(R.id.txtTenDD);
+            imgHinhDD = (ImageView) itemView.findViewById(R.id.imgHinhDD);
         }
     }
 }
