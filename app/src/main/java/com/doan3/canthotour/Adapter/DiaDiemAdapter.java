@@ -1,6 +1,8 @@
 package com.doan3.canthotour.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +12,7 @@ import android.widget.TextView;
 
 import com.doan3.canthotour.Model.DiaDiem;
 import com.doan3.canthotour.R;
+import com.doan3.canthotour.View.TrangChu.ActivityChiTietDiaDiem;
 
 import java.util.ArrayList;
 
@@ -37,6 +40,14 @@ public class DiaDiemAdapter extends RecyclerView.Adapter<DiaDiemAdapter.ViewHold
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.txtTenDD.setText(diaDiems.get(position).getTenDD());
         holder.imgHinhDD.setImageResource(diaDiems.get(position).getHinhDD());
+
+//        holder.cardView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent_chitietdiadiem = new Intent(context, ActivityChiTietDiaDiem.class);
+//                context.startActivity(intent_chitietdiadiem);
+//            }
+//        });
     }
 
     @Override
@@ -47,12 +58,14 @@ public class DiaDiemAdapter extends RecyclerView.Adapter<DiaDiemAdapter.ViewHold
     public class ViewHolder extends RecyclerView.ViewHolder{
         TextView txtTenDD;
         ImageView imgHinhDD;
+        CardView cardView;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
             txtTenDD = (TextView) itemView.findViewById(R.id.txtTenDD);
             imgHinhDD = (ImageView) itemView.findViewById(R.id.imgHinhDD);
+            cardView = (CardView) itemView.findViewById(R.id.cardView);
         }
     }
 }

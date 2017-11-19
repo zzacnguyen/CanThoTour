@@ -19,6 +19,7 @@
         <activity android:name=".View.YeuThich.ActivityYeuThich"></activity>
         <activity android:name=".View.ThongBao.ActivityThongBao"></activity>
         <activity android:name=".View.CaNhan.ActivityCaNhan"></activity>
+        <activity android:name=".View.TrangChu.ActivityChiTietDiaDiem"></activity>
     </application>
 
 </manifest>

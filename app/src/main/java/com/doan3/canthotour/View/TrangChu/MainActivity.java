@@ -36,11 +36,15 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         initView_DiaDanh();
+        initView_AnUong();
+        initView_KhachSan();
+
+
 
         menuBotNavBar();
 
     }
-
+    //Bottom navigation bar
     private void menuBotNavBar(){
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavView_Bar);
         BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
@@ -70,6 +74,9 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    //region Nội dung chính (content-view)
+
+    //View địa danh
     private void initView_DiaDanh(){
         RecyclerView recyclerView = (RecyclerView)findViewById(R.id.RecyclerView_DiaDanh);
         recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
@@ -85,9 +92,50 @@ public class MainActivity extends AppCompatActivity {
 
         DiaDiemAdapter diaDiemAdapter = new DiaDiemAdapter(arrayList, getApplicationContext());
         recyclerView.setAdapter(diaDiemAdapter);
+    }
+
+    private void initView_AnUong(){
+        RecyclerView recyclerView = (RecyclerView)findViewById(R.id.RecyclerView_AnUong);
+        recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        recyclerView.setLayoutManager(linearLayoutManager);
+
+        //Add item
+        ArrayList<DiaDiem> arrayList = new ArrayList<>();
+        arrayList.add(new DiaDiem(R.drawable.banhxeo7toi, "Bánh xèo 7 Tới"));
+        arrayList.add(new DiaDiem(R.drawable.nuoc_mia_my_tho, "Nước mía Mỹ Thơ"));
+        arrayList.add(new DiaDiem(R.drawable.comgahungky, "Cơm gà Hùng Ký"));
+
+        DiaDiemAdapter diaDiemAdapter = new DiaDiemAdapter(arrayList, getApplicationContext());
+        recyclerView.setAdapter(diaDiemAdapter);
 
     }
 
+    private void initView_KhachSan(){
+        RecyclerView recyclerView = (RecyclerView)findViewById(R.id.RecyclerView_KhachSan);
+        recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        recyclerView.setLayoutManager(linearLayoutManager);
+
+        //Add item
+        ArrayList<DiaDiem> arrayList = new ArrayList<>();
+        arrayList.add(new DiaDiem(R.drawable.muongthanh, "Mường Thanh Hotel"));
+        arrayList.add(new DiaDiem(R.drawable.ninhkieu2, "Ninh Kiều 2 Hotel"));
+        arrayList.add(new DiaDiem(R.drawable.vinpearl, "Vinpearl Hotel"));
+
+        DiaDiemAdapter diaDiemAdapter = new DiaDiemAdapter(arrayList, getApplicationContext());
+        recyclerView.setAdapter(diaDiemAdapter);
+
+    }
+
+    //endregion
+
+
+
+
+    //region Topbar button
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menutrangchu, menu);
@@ -99,5 +147,5 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
+    //endregion
 }
