@@ -30,18 +30,18 @@ public class DiaDiemAdapter extends RecyclerView.Adapter<DiaDiemAdapter.ViewHold
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) { //Khi gọi DiaDiemAdapter thì hàm này chạy đầu tiên
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View itemView = layoutInflater.inflate(R.layout.trangchu_list_item, parent, false);
         return new ViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, int position) { //Mỗi 1 lần chạy hàm này tương ứng với load 1 item trong recycler view
         holder.txtTenDD.setText(diaDiems.get(position).getTenDD());
         holder.imgHinhDD.setImageResource(diaDiems.get(position).getHinhDD());
 
-//        holder.cardView.setOnClickListener(new View.OnClickListener() {
+//        holder.cardView.setOnClickListener(new View.OnClickListener() {  //Bắt sự kiện click vào 1 item cardview
 //            @Override
 //            public void onClick(View view) {
 //                Intent intent_chitietdiadiem = new Intent(context, ActivityChiTietDiaDiem.class);
@@ -55,7 +55,7 @@ public class DiaDiemAdapter extends RecyclerView.Adapter<DiaDiemAdapter.ViewHold
         return diaDiems.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder{ //ViewHolder chạy thứ 2, phần này giúp cho recycler view ko bị load lại dữ liệu khi thực hiện thao tác vuốt màn hình
         TextView txtTenDD;
         ImageView imgHinhDD;
         CardView cardView;
