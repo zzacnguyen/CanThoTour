@@ -5,19 +5,25 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.Button;
 
-import com.doan3.canthotour.Adapter.DiaDiemAdapter;
+import com.doan3.canthotour.Adapter.AnUongAdapter;
+import com.doan3.canthotour.Adapter.DiaDanhAdapter;
+import com.doan3.canthotour.Adapter.KhachSan;
+import com.doan3.canthotour.Adapter.KhachSanAdapter;
 import com.doan3.canthotour.Helper.BottomNavigationViewHelper;
-import com.doan3.canthotour.Model.DiaDiem;
+import com.doan3.canthotour.Model.AnUong;
+import com.doan3.canthotour.Model.DiaDanh;
 import com.doan3.canthotour.R;
 import com.doan3.canthotour.View.CaNhan.ActivityCaNhan;
 import com.doan3.canthotour.View.ThongBao.ActivityThongBao;
+import com.doan3.canthotour.View.TrangChu.NoiDung.ActivityDiaDanh;
 import com.doan3.canthotour.View.YeuThich.ActivityYeuThich;
 
 import java.util.ArrayList;
@@ -25,6 +31,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     Toolbar toolbar;
+    Button btnDiaDanh;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,14 +39,20 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        btnDiaDanh = (Button) findViewById(R.id.btnTatCaDiaDanh);
 
-        setSupportActionBar(toolbar);
+        btnDiaDanh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, ActivityDiaDanh.class));
+            }
+        });
+
+//        setSupportActionBar(toolbar);
 
         initView_DiaDanh();
         initView_AnUong();
         initView_KhachSan();
-
-
 
         menuBotNavBar();
 
@@ -85,13 +98,13 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
 
         //Add item
-        ArrayList<DiaDiem> arrayList = new ArrayList<>();
-        arrayList.add(new DiaDiem(R.drawable.ben_ninh_kieu, "Bến Ninh Kiều"));
-        arrayList.add(new DiaDiem(R.drawable.cho_noi_cai_rang, "Chợ nổi Cái Răng"));
-        arrayList.add(new DiaDiem(R.drawable.dinh_binh_thuy, "Đình Bình Thủy"));
+        ArrayList<DiaDanh> listDiaDanh = new ArrayList<>();
+        listDiaDanh.add(new DiaDanh(R.drawable.ben_ninh_kieu, "Bến Ninh Kiều"));
+        listDiaDanh.add(new DiaDanh(R.drawable.cho_noi_cai_rang, "Chợ nổi Cái Răng"));
+        listDiaDanh.add(new DiaDanh(R.drawable.dinh_binh_thuy, "Đình Bình Thủy"));
 
-        DiaDiemAdapter diaDiemAdapter = new DiaDiemAdapter(arrayList, getApplicationContext());
-        recyclerView.setAdapter(diaDiemAdapter);
+        DiaDanhAdapter diaDanhAdapter = new DiaDanhAdapter(listDiaDanh, getApplicationContext());
+        recyclerView.setAdapter(diaDanhAdapter);
     }
 
     private void initView_AnUong(){
@@ -102,14 +115,13 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
 
         //Add item
-        ArrayList<DiaDiem> arrayList = new ArrayList<>();
-        arrayList.add(new DiaDiem(R.drawable.banhxeo7toi, "Bánh xèo 7 Tới"));
-        arrayList.add(new DiaDiem(R.drawable.nuoc_mia_my_tho, "Nước mía Mỹ Thơ"));
-        arrayList.add(new DiaDiem(R.drawable.comgahungky, "Cơm gà Hùng Ký"));
+        ArrayList<AnUong> listAnUong = new ArrayList<>();
+        listAnUong.add(new AnUong(R.drawable.banhxeo7toi, "Bánh xèo 7 Tới"));
+        listAnUong.add(new AnUong(R.drawable.nuoc_mia_my_tho, "Nước mía Mỹ Thơ"));
+        listAnUong.add(new AnUong(R.drawable.comgahungky, "Cơm gà Hùng Ký"));
 
-        DiaDiemAdapter diaDiemAdapter = new DiaDiemAdapter(arrayList, getApplicationContext());
-        recyclerView.setAdapter(diaDiemAdapter);
-
+        AnUongAdapter anUongAdapter = new AnUongAdapter(listAnUong, getApplicationContext());
+        recyclerView.setAdapter(anUongAdapter);
     }
 
     private void initView_KhachSan(){
@@ -120,13 +132,13 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
 
         //Add item
-        ArrayList<DiaDiem> arrayList = new ArrayList<>();
-        arrayList.add(new DiaDiem(R.drawable.muongthanh, "Mường Thanh Hotel"));
-        arrayList.add(new DiaDiem(R.drawable.ninhkieu2, "Ninh Kiều 2 Hotel"));
-        arrayList.add(new DiaDiem(R.drawable.vinpearl, "Vinpearl Hotel"));
+        ArrayList<KhachSan> listKhachSan = new ArrayList<>();
+        listKhachSan.add(new KhachSan(R.drawable.muongthanh, "Mường Thanh Hotel"));
+        listKhachSan.add(new KhachSan(R.drawable.ninhkieu2, "Ninh Kiều 2 Hotel"));
+        listKhachSan.add(new KhachSan(R.drawable.vinpearl, "Vinpearl Hotel"));
 
-        DiaDiemAdapter diaDiemAdapter = new DiaDiemAdapter(arrayList, getApplicationContext());
-        recyclerView.setAdapter(diaDiemAdapter);
+        KhachSanAdapter khachSanAdapter = new KhachSanAdapter(listKhachSan, getApplicationContext());
+        recyclerView.setAdapter(khachSanAdapter);
 
     }
 

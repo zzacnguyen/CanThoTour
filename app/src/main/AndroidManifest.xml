@@ -20,6 +20,7 @@
         <activity android:name=".View.ThongBao.ActivityThongBao"></activity>
         <activity android:name=".View.CaNhan.ActivityCaNhan"></activity>
         <activity android:name=".View.TrangChu.ActivityChiTietDiaDiem"></activity>
+        <activity android:name=".View.TrangChu.NoiDung.ActivityDiaDanh"></activity>
     </application>
 
 </manifest>

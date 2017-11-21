@@ -1,7 +1,6 @@
 package com.doan3.canthotour.Adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,27 +9,27 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.doan3.canthotour.Model.DiaDiem;
+import com.doan3.canthotour.Model.AnUong;
+import com.doan3.canthotour.Model.DiaDanh;
 import com.doan3.canthotour.R;
-import com.doan3.canthotour.View.TrangChu.ActivityChiTietDiaDiem;
 
 import java.util.ArrayList;
 
 /**
- * Created by zzacn on 11/17/2017.
+ * Created by zzacn on 11/21/2017.
  */
 
-public class DiaDiemAdapter extends RecyclerView.Adapter<DiaDiemAdapter.ViewHolder> {
-    ArrayList<DiaDiem> diaDiems;
+public class AnUongAdapter extends RecyclerView.Adapter<AnUongAdapter.ViewHolder> {
+    ArrayList<AnUong> anUongs;
     Context context;
 
-    public DiaDiemAdapter(ArrayList<DiaDiem> diaDiems, Context context) {
-        this.diaDiems = diaDiems;
+    public AnUongAdapter(ArrayList<AnUong> anUongs, Context context) {
+        this.anUongs = anUongs;
         this.context = context;
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) { //Khi gọi DiaDiemAdapter thì hàm này chạy đầu tiên
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) { //Khi gọi DiaDanhAdapter thì hàm này chạy đầu tiên
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View itemView = layoutInflater.inflate(R.layout.trangchu_list_item, parent, false);
         return new ViewHolder(itemView);
@@ -38,21 +37,14 @@ public class DiaDiemAdapter extends RecyclerView.Adapter<DiaDiemAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) { //Mỗi 1 lần chạy hàm này tương ứng với load 1 item trong recycler view
-        holder.txtTenDD.setText(diaDiems.get(position).getTenDD());
-        holder.imgHinhDD.setImageResource(diaDiems.get(position).getHinhDD());
+        holder.txtTenDD.setText(anUongs.get(position).getTenAU());
+        holder.imgHinhDD.setImageResource(anUongs.get(position).getHinhAU());
 
-//        holder.cardView.setOnClickListener(new View.OnClickListener() {  //Bắt sự kiện click vào 1 item cardview
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent_chitietdiadiem = new Intent(context, ActivityChiTietDiaDiem.class);
-//                context.startActivity(intent_chitietdiadiem);
-//            }
-//        });
     }
 
     @Override
     public int getItemCount() {
-        return diaDiems.size();
+        return anUongs.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{ //ViewHolder chạy thứ 2, phần này giúp cho recycler view ko bị load lại dữ liệu khi thực hiện thao tác vuốt màn hình
