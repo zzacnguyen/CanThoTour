@@ -9,7 +9,7 @@ import java.util.Arrays;
  */
 
 public class Config {
-    public static final String URL_HOST = "http://localhost:8080/doan3/public/";
+    public static final String URL_HOST = "http://192.168.1.19/doan3/public/";
     public static final String URL_GET_ALL_TYPE_OF_EVENTS = "loaihinhsukien";
     public static final String URL_GET_ALL_EATS = "anuong";
     public static final String URL_GET_ALL_COMMENTS = "binhluan";
@@ -25,22 +25,6 @@ public class Config {
     public static final String URL_GET_ALL_EVENTS = "sukien";
     public static final String URL_GET_ALL_TOURS = "thamquan";
     public static final String URL_GET_ALL_ENTERTAINMENTS = "vuichoi";
-
-    public static final String URL_GET_TYPE_OF_EVENT = "loaihinhsukien/";
-    public static final String URL_GET_EAT = "anuong/";
-    public static final String URL_GET_COMMENT = "binhluan/";
-    public static final String URL_GET_SCHEDULE_DETAIL = "chitietlichtrinh/";
-    public static final String URL_GET_RATE = "danhgia/";
-    public static final String URL_GET_PLACE = "diadiem/";
-    public static final String URL_GET_SERVICE = "dichvu/";
-    public static final String URL_GET_IMAGE = "hinhanh/";
-    public static final String URL_GET_HOTEL = "khachsan/";
-    public static final String URL_GET_SCHEDULE = "lichtrinh/";
-    public static final String URL_GET_USER = "nguoidung/";
-    public static final String URL_GET_VEHICLE = "phuongtien/";
-    public static final String URL_GET_EVENT = "sukien/";
-    public static final String URL_GET_TOUR = "thamquan/";
-    public static final String URL_GET_ENTERTAINMENT = "vuichoi/";
 
     public static final ArrayList<String> JSON_USER = new ArrayList<String>(Arrays.asList("nd_tendoanhnghiep",
             "nd_tendangnhap", "nd_sodienthoai","nd_matkhau", "nd_website","nd_email", "nd_diachi", "nd_quocgia",
