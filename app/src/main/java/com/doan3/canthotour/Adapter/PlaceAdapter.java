@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.doan3.canthotour.Model.DiaDanh;
+import com.doan3.canthotour.Model.Place;
 import com.doan3.canthotour.R;
 
 import java.util.ArrayList;
@@ -18,12 +18,12 @@ import java.util.ArrayList;
  * Created by zzacn on 11/17/2017.
  */
 
-public class DiaDanhAdapter extends RecyclerView.Adapter<DiaDanhAdapter.ViewHolder> {
-    ArrayList<DiaDanh> diaDanhs;
+public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> {
+    ArrayList<Place> place;
     Context context;
 
-    public DiaDanhAdapter(ArrayList<DiaDanh> diaDanhs, Context context) {
-        this.diaDanhs = diaDanhs;
+    public PlaceAdapter(ArrayList<Place> place, Context context) {
+        this.place = place;
         this.context = context;
     }
 
@@ -36,8 +36,8 @@ public class DiaDanhAdapter extends RecyclerView.Adapter<DiaDanhAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) { //Mỗi 1 lần chạy hàm này tương ứng với load 1 item trong recycler view
-        holder.txtTenDD.setText(diaDanhs.get(position).getTenDD());
-        holder.imgHinhDD.setImageResource(diaDanhs.get(position).getHinhDD());
+        holder.txtTenDD.setText(place.get(position).getTenDD());
+        holder.imgHinhDD.setImageResource(place.get(position).getHinhDD());
 
 //        holder.cardView.setOnClickListener(new View.OnClickListener() {  //Bắt sự kiện click vào 1 item cardview
 //            @Override
@@ -50,7 +50,7 @@ public class DiaDanhAdapter extends RecyclerView.Adapter<DiaDanhAdapter.ViewHold
 
     @Override
     public int getItemCount() {
-        return diaDanhs.size();
+        return place.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{ //ViewHolder chạy thứ 2, phần này giúp cho recycler view ko bị load lại dữ liệu khi thực hiện thao tác vuốt màn hình

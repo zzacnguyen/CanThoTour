@@ -1,4 +1,4 @@
-package com.doan3.canthotour.View.TrangChu.NoiDung;
+package com.doan3.canthotour.View.Main.Content;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,20 +11,19 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.doan3.canthotour.Adapter.DanhSachDiaDanhAdapter;
-import com.doan3.canthotour.Adapter.DiaDanhAdapter;
+import com.doan3.canthotour.Adapter.ListOfPlaceAdapter;
 import com.doan3.canthotour.Helper.BottomNavigationViewHelper;
-import com.doan3.canthotour.Model.DiaDanh;
+import com.doan3.canthotour.Model.Place;
 import com.doan3.canthotour.R;
-import com.doan3.canthotour.View.CaNhan.ActivityCaNhan;
-import com.doan3.canthotour.View.ThongBao.ActivityThongBao;
-import com.doan3.canthotour.View.TrangChu.MainActivity;
-import com.doan3.canthotour.View.YeuThich.ActivityYeuThich;
+import com.doan3.canthotour.View.Personal.ActivityPersonal;
+import com.doan3.canthotour.View.Notify.ActivityNotify;
+import com.doan3.canthotour.View.Main.MainActivity;
+import com.doan3.canthotour.View.Favorite.ActivityFavorite;
 
 import java.util.ArrayList;
 
 
-public class ActivityDiaDanh extends AppCompatActivity {
+public class ActivityPlace extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,16 +47,16 @@ public class ActivityDiaDanh extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()){
                     case R.id.ic_trangchu:
-                        startActivity(new Intent(ActivityDiaDanh.this, MainActivity.class));
+                        startActivity(new Intent(ActivityPlace.this, MainActivity.class));
                         break;
                     case R.id.ic_yeuthich:
-                        startActivity(new Intent(ActivityDiaDanh.this, ActivityYeuThich.class));
+                        startActivity(new Intent(ActivityPlace.this, ActivityFavorite.class));
                         break;
                     case R.id.ic_thongbao:
-                        startActivity(new Intent(ActivityDiaDanh.this, ActivityThongBao.class));
+                        startActivity(new Intent(ActivityPlace.this, ActivityNotify.class));
                         break;
                     case R.id.ic_canhan:
-                        startActivity(new Intent(ActivityDiaDanh.this, ActivityCaNhan.class));
+                        startActivity(new Intent(ActivityPlace.this, ActivityPersonal.class));
                         break;
                 }
                 return false;
@@ -73,12 +72,12 @@ public class ActivityDiaDanh extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
 
         //Add item
-        ArrayList<DiaDanh> listDiaDanh = new ArrayList<>();
-        listDiaDanh.add(new DiaDanh(R.drawable.ben_ninh_kieu, "Bến Ninh Kiều"));
-        listDiaDanh.add(new DiaDanh(R.drawable.cho_noi_cai_rang, "Chợ nổi Cái Răng"));
-        listDiaDanh.add(new DiaDanh(R.drawable.dinh_binh_thuy, "Đình Bình Thủy"));
+        ArrayList<Place> listPlace = new ArrayList<>();
+        listPlace.add(new Place(R.drawable.ben_ninh_kieu, "Bến Ninh Kiều"));
+        listPlace.add(new Place(R.drawable.cho_noi_cai_rang, "Chợ nổi Cái Răng"));
+        listPlace.add(new Place(R.drawable.dinh_binh_thuy, "Đình Bình Thủy"));
 
-        DanhSachDiaDanhAdapter danhSachDiaDanhAdapter = new DanhSachDiaDanhAdapter(listDiaDanh, getApplicationContext());
-        recyclerView.setAdapter(danhSachDiaDanhAdapter);
+        ListOfPlaceAdapter listOfPlaceAdapter = new ListOfPlaceAdapter(listPlace, getApplicationContext());
+        recyclerView.setAdapter(listOfPlaceAdapter);
     }
 }

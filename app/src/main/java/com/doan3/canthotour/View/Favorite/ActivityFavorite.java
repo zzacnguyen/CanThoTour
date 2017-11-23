@@ -1,4 +1,4 @@
-package com.doan3.canthotour.View.YeuThich;
+package com.doan3.canthotour.View.Favorite;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,11 +10,11 @@ import android.view.MenuItem;
 
 import com.doan3.canthotour.Helper.BottomNavigationViewHelper;
 import com.doan3.canthotour.R;
-import com.doan3.canthotour.View.CaNhan.ActivityCaNhan;
-import com.doan3.canthotour.View.ThongBao.ActivityThongBao;
-import com.doan3.canthotour.View.TrangChu.MainActivity;
+import com.doan3.canthotour.View.Personal.ActivityPersonal;
+import com.doan3.canthotour.View.Notify.ActivityNotify;
+import com.doan3.canthotour.View.Main.MainActivity;
 
-public class ActivityYeuThich extends AppCompatActivity {
+public class ActivityFavorite extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,16 +33,16 @@ public class ActivityYeuThich extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()){
                     case R.id.ic_trangchu:
-                        startActivity(new Intent(ActivityYeuThich.this, MainActivity.class));
+                        startActivity(new Intent(ActivityFavorite.this, MainActivity.class));
                         break;
                     case R.id.ic_yeuthich:
 
                         break;
                     case R.id.ic_thongbao:
-                        startActivity(new Intent(ActivityYeuThich.this, ActivityThongBao.class));
+                        startActivity(new Intent(ActivityFavorite.this, ActivityNotify.class));
                         break;
                     case R.id.ic_canhan:
-                        startActivity(new Intent(ActivityYeuThich.this, ActivityCaNhan.class));
+                        startActivity(new Intent(ActivityFavorite.this, ActivityPersonal.class));
                         break;
                 }
                 return false;

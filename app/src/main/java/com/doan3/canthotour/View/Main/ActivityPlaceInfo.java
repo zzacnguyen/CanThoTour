@@ -1,4 +1,4 @@
-package com.doan3.canthotour.View.TrangChu;
+package com.doan3.canthotour.View.Main;
 
 
 import android.os.Bundle;
@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.doan3.canthotour.R;
 
-public class ActivityChiTietDiaDiem extends AppCompatActivity{
+public class ActivityPlaceInfo extends AppCompatActivity{
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

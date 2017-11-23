@@ -4,11 +4,11 @@ package com.doan3.canthotour.Model;
  * Created by zzacn on 11/21/2017.
  */
 
-public class AnUong {
+public class Eat {
     private int hinhAU;
     private String tenAU;
 
-    public AnUong(int hinhAU, String tenAU) {
+    public Eat(int hinhAU, String tenAU) {
         this.hinhAU = hinhAU;
         this.tenAU = tenAU;
     }

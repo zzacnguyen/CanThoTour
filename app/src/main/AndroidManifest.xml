@@ -9,18 +9,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".View.TrangChu.MainActivity">
+        <activity android:name=".View.Main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".View.YeuThich.ActivityYeuThich"></activity>
-        <activity android:name=".View.ThongBao.ActivityThongBao"></activity>
-        <activity android:name=".View.CaNhan.ActivityCaNhan"></activity>
-        <activity android:name=".View.TrangChu.ActivityChiTietDiaDiem"></activity>
-        <activity android:name=".View.TrangChu.NoiDung.ActivityDiaDanh"></activity>
+        <activity android:name=".View.Favorite.ActivityFavorite"></activity>
+        <activity android:name=".View.Notify.ActivityNotify"></activity>
+        <activity android:name=".View.Personal.ActivityPersonal"></activity>
+        <activity android:name=".View.Main.ActivityPlaceInfo"></activity>
+        <activity android:name=".View.Main.Content.ActivityPlace"></activity>
     </application>
 
 </manifest>

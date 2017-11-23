@@ -4,11 +4,11 @@ package com.doan3.canthotour.Model;
  * Created by zzacn on 11/17/2017.
  */
 
-public class DiaDanh {
+public class Place {
     private int hinhDD;
     private String tenDD;
 
-    public DiaDanh(int hinhDD, String tenDD) {
+    public Place(int hinhDD, String tenDD) {
         this.hinhDD = hinhDD;
         this.tenDD = tenDD;
     }

@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.doan3.canthotour.Model.AnUong;
+import com.doan3.canthotour.Model.Hotel;
 import com.doan3.canthotour.R;
 
 import java.util.ArrayList;
@@ -18,12 +18,12 @@ import java.util.ArrayList;
  * Created by zzacn on 11/21/2017.
  */
 
-public class KhachSanAdapter extends RecyclerView.Adapter<KhachSanAdapter.ViewHolder> {
-    ArrayList<KhachSan> khachSans;
+public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.ViewHolder> {
+    ArrayList<Hotel> hotel;
     Context context;
 
-    public KhachSanAdapter(ArrayList<KhachSan> khachSans, Context context) {
-        this.khachSans = khachSans;
+    public HotelAdapter(ArrayList<Hotel> hotel, Context context) {
+        this.hotel = hotel;
         this.context = context;
     }
 
@@ -36,14 +36,14 @@ public class KhachSanAdapter extends RecyclerView.Adapter<KhachSanAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) { //Mỗi 1 lần chạy hàm này tương ứng với load 1 item trong recycler view
-        holder.txtTenDD.setText(khachSans.get(position).getTenKS());
-        holder.imgHinhDD.setImageResource(khachSans.get(position).getHinhKS());
+        holder.txtTenDD.setText(hotel.get(position).getTenKS());
+        holder.imgHinhDD.setImageResource(hotel.get(position).getHinhKS());
 
     }
 
     @Override
     public int getItemCount() {
-        return khachSans.size();
+        return hotel.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{ //ViewHolder chạy thứ 2, phần này giúp cho recycler view ko bị load lại dữ liệu khi thực hiện thao tác vuốt màn hình

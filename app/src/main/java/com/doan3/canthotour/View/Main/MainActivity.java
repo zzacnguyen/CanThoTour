@@ -1,4 +1,4 @@
-package com.doan3.canthotour.View.TrangChu;
+package com.doan3.canthotour.View.Main;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -13,18 +13,18 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 
-import com.doan3.canthotour.Adapter.AnUongAdapter;
-import com.doan3.canthotour.Adapter.DiaDanhAdapter;
-import com.doan3.canthotour.Adapter.KhachSan;
-import com.doan3.canthotour.Adapter.KhachSanAdapter;
+import com.doan3.canthotour.Adapter.EatAdapter;
+import com.doan3.canthotour.Adapter.HotelAdapter;
+import com.doan3.canthotour.Adapter.PlaceAdapter;
 import com.doan3.canthotour.Helper.BottomNavigationViewHelper;
-import com.doan3.canthotour.Model.AnUong;
-import com.doan3.canthotour.Model.DiaDanh;
+import com.doan3.canthotour.Model.Eat;
+import com.doan3.canthotour.Model.Place;
+import com.doan3.canthotour.Model.Hotel;
 import com.doan3.canthotour.R;
-import com.doan3.canthotour.View.CaNhan.ActivityCaNhan;
-import com.doan3.canthotour.View.ThongBao.ActivityThongBao;
-import com.doan3.canthotour.View.TrangChu.NoiDung.ActivityDiaDanh;
-import com.doan3.canthotour.View.YeuThich.ActivityYeuThich;
+import com.doan3.canthotour.View.Personal.ActivityPersonal;
+import com.doan3.canthotour.View.Notify.ActivityNotify;
+import com.doan3.canthotour.View.Main.Content.ActivityPlace;
+import com.doan3.canthotour.View.Favorite.ActivityFavorite;
 
 import java.util.ArrayList;
 
@@ -44,15 +44,15 @@ public class MainActivity extends AppCompatActivity {
         btnDiaDanh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, ActivityDiaDanh.class));
+                startActivity(new Intent(MainActivity.this, ActivityPlace.class));
             }
         });
 
 //        setSupportActionBar(toolbar);
 
-        initView_DiaDanh();
-        initView_AnUong();
-        initView_KhachSan();
+        initView_Place();
+        initView_Eat();
+        initView_Hotel();
 
         menuBotNavBar();
 
@@ -73,13 +73,13 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.ic_trangchu:
                         break;
                     case R.id.ic_yeuthich:
-                        startActivity(new Intent(MainActivity.this, ActivityYeuThich.class));
+                        startActivity(new Intent(MainActivity.this, ActivityFavorite.class));
                         break;
                     case R.id.ic_thongbao:
-                        startActivity(new Intent(MainActivity.this, ActivityThongBao.class));
+                        startActivity(new Intent(MainActivity.this, ActivityNotify.class));
                         break;
                     case R.id.ic_canhan:
-                        startActivity(new Intent(MainActivity.this, ActivityCaNhan.class));
+                        startActivity(new Intent(MainActivity.this, ActivityPersonal.class));
                         break;
                 }
                 return false;
@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
     //region Nội dung chính (content-view)
 
     //View địa danh
-    private void initView_DiaDanh(){
+    private void initView_Place(){
         RecyclerView recyclerView = (RecyclerView)findViewById(R.id.RecyclerView_DiaDanh);
         recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
 
@@ -98,16 +98,16 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
 
         //Add item
-        ArrayList<DiaDanh> listDiaDanh = new ArrayList<>();
-        listDiaDanh.add(new DiaDanh(R.drawable.ben_ninh_kieu, "Bến Ninh Kiều"));
-        listDiaDanh.add(new DiaDanh(R.drawable.cho_noi_cai_rang, "Chợ nổi Cái Răng"));
-        listDiaDanh.add(new DiaDanh(R.drawable.dinh_binh_thuy, "Đình Bình Thủy"));
+        ArrayList<Place> listPlace = new ArrayList<>();
+        listPlace.add(new Place(R.drawable.ben_ninh_kieu, "Bến Ninh Kiều"));
+        listPlace.add(new Place(R.drawable.cho_noi_cai_rang, "Chợ nổi Cái Răng"));
+        listPlace.add(new Place(R.drawable.dinh_binh_thuy, "Đình Bình Thủy"));
 
-        DiaDanhAdapter diaDanhAdapter = new DiaDanhAdapter(listDiaDanh, getApplicationContext());
-        recyclerView.setAdapter(diaDanhAdapter);
+        PlaceAdapter placeAdapter = new PlaceAdapter(listPlace, getApplicationContext());
+        recyclerView.setAdapter(placeAdapter);
     }
 
-    private void initView_AnUong(){
+    private void initView_Eat(){
         RecyclerView recyclerView = (RecyclerView)findViewById(R.id.RecyclerView_AnUong);
         recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
 
@@ -115,16 +115,16 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
 
         //Add item
-        ArrayList<AnUong> listAnUong = new ArrayList<>();
-        listAnUong.add(new AnUong(R.drawable.banhxeo7toi, "Bánh xèo 7 Tới"));
-        listAnUong.add(new AnUong(R.drawable.nuoc_mia_my_tho, "Nước mía Mỹ Thơ"));
-        listAnUong.add(new AnUong(R.drawable.comgahungky, "Cơm gà Hùng Ký"));
+        ArrayList<Eat> listEat = new ArrayList<>();
+        listEat.add(new Eat(R.drawable.banhxeo7toi, "Bánh xèo 7 Tới"));
+        listEat.add(new Eat(R.drawable.nuoc_mia_my_tho, "Nước mía Mỹ Thơ"));
+        listEat.add(new Eat(R.drawable.comgahungky, "Cơm gà Hùng Ký"));
 
-        AnUongAdapter anUongAdapter = new AnUongAdapter(listAnUong, getApplicationContext());
-        recyclerView.setAdapter(anUongAdapter);
+        EatAdapter eatAdapter = new EatAdapter(listEat, getApplicationContext());
+        recyclerView.setAdapter(eatAdapter);
     }
 
-    private void initView_KhachSan(){
+    private void initView_Hotel(){
         RecyclerView recyclerView = (RecyclerView)findViewById(R.id.RecyclerView_KhachSan);
         recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
 
@@ -132,19 +132,17 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
 
         //Add item
-        ArrayList<KhachSan> listKhachSan = new ArrayList<>();
-        listKhachSan.add(new KhachSan(R.drawable.muongthanh, "Mường Thanh Hotel"));
-        listKhachSan.add(new KhachSan(R.drawable.ninhkieu2, "Ninh Kiều 2 Hotel"));
-        listKhachSan.add(new KhachSan(R.drawable.vinpearl, "Vinpearl Hotel"));
+        ArrayList<Hotel> listHotel = new ArrayList<>();
+        listHotel.add(new Hotel(R.drawable.muongthanh, "Mường Thanh Hotel"));
+        listHotel.add(new Hotel(R.drawable.ninhkieu2, "Ninh Kiều 2 Hotel"));
+        listHotel.add(new Hotel(R.drawable.vinpearl, "Vinpearl Hotel"));
 
-        KhachSanAdapter khachSanAdapter = new KhachSanAdapter(listKhachSan, getApplicationContext());
-        recyclerView.setAdapter(khachSanAdapter);
+        HotelAdapter hotelAdapter = new HotelAdapter(listHotel, getApplicationContext());
+        recyclerView.setAdapter(hotelAdapter);
 
     }
 
     //endregion
-
-
 
 
     //region Topbar button
