@@ -101,11 +101,11 @@ public class ActivityPlace extends AppCompatActivity {
                 // json địa danh có 8 phần tử, phần tử 1 là tên địa danh nên i % 8 == 1 để lấy tên địa danh
                 for (int i = 0; i < arrayList.size(); i++){
                     if (i % 8 == 1)
-                        listPlace.add(new Place(R.drawable.ben_ninh_kieu, arrayList.get(i)));
+                        listPlace.add(new Place(R.drawable.benninhkieu1, arrayList.get(i)));
                 }
 
-                PlaceAdapter placeAdapter = new PlaceAdapter(listPlace, getApplicationContext());
-                recyclerView.setAdapter(placeAdapter);
+                ListOfPlaceAdapter listOfPlaceAdapter = new ListOfPlaceAdapter(listPlace, getApplicationContext());
+                recyclerView.setAdapter(listOfPlaceAdapter);
 
             } catch (JSONException e) {
                 e.printStackTrace();

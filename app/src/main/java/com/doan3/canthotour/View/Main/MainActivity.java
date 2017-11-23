@@ -125,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
                 // nếu không giới hạn thì thay 40 = arrayList.size()
                 for (int i = 0; i < 40; i++){
                     if (i % 8 == 1)
-                        listPlace.add(new Place(R.drawable.ben_ninh_kieu, arrayList.get(i)));
+                        listPlace.add(new Place(R.drawable.benninhkieu1, arrayList.get(i)));
                 }
 
                 PlaceAdapter placeAdapter = new PlaceAdapter(listPlace, getApplicationContext());
