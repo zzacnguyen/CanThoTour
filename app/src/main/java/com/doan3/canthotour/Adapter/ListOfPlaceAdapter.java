@@ -52,7 +52,6 @@ public class ListOfPlaceAdapter extends RecyclerView.Adapter<ListOfPlaceAdapter.
 
             txtTenDD = (TextView) itemView.findViewById(R.id.txtTenDiaDiem);
             imgHinhDD = (ImageView) itemView.findViewById(R.id.imgHinhDiaDiem);
-            cardView = (CardView) itemView.findViewById(R.id.cardView);
         }
     }
 }

@@ -46,14 +46,12 @@ public class EatAdapter extends RecyclerView.Adapter<EatAdapter.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder{ //ViewHolder chạy thứ 2, phần này giúp cho recycler view ko bị load lại dữ liệu khi thực hiện thao tác vuốt màn hình
         TextView txtTenDD;
         ImageView imgHinhDD;
-        CardView cardView;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
             txtTenDD = (TextView) itemView.findViewById(R.id.txtTenDD);
             imgHinhDD = (ImageView) itemView.findViewById(R.id.imgHinhDD);
-            cardView = (CardView) itemView.findViewById(R.id.cardView);
         }
     }
 }
