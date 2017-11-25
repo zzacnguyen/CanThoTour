@@ -15,12 +15,14 @@ import android.view.View;
 import android.widget.Button;
 
 import com.doan3.canthotour.Adapter.EatAdapter;
+import com.doan3.canthotour.Adapter.HotelAdapter;
 import com.doan3.canthotour.Adapter.HttpRequestAdapter;
 import com.doan3.canthotour.Adapter.PlaceAdapter;
 import com.doan3.canthotour.Config;
 import com.doan3.canthotour.Helper.BottomNavigationViewHelper;
 import com.doan3.canthotour.Helper.JsonHelper;
 import com.doan3.canthotour.Model.Eat;
+import com.doan3.canthotour.Model.Hotel;
 import com.doan3.canthotour.Model.Place;
 import com.doan3.canthotour.R;
 import com.doan3.canthotour.View.Favorite.ActivityFavorite;
@@ -57,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
 //        setSupportActionBar(toolbar);
 
         initView_Place();
-//        initView_Eat();
+        initView_Eat();
 //        initView_Hotel();
 
         menuBotNavBar();
@@ -102,6 +104,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void initView_Eat(){
         new eat().execute(Config.URL_HOST+Config.URL_GET_ALL_EATS);
+    }
+
+    private void initView_Hotel(){
+        new hotel().execute(Config.URL_HOST + Config.URL_GET_ALL_HOTELS);
     }
 
     private class place extends AsyncTask<String,Void,String>{
@@ -166,10 +172,10 @@ public class MainActivity extends AppCompatActivity {
                 ArrayList<Eat> listEat = new ArrayList<>();
 
                 // json địa danh có 8 phần tử, phần tử 1 là tên địa danh nên i % 8 == 1 để lấy tên địa danh
-                // giới hạn load 5 phần tử nên 8 * 5 = 40
-                // nếu không giới hạn thì thay 40 = arrayList.size()
-                for (int i = 0; i < 40; i++){
-                    if (i % 8 == 1)
+                // giới hạn load 5 phần tử nên 4 * 5 = 20
+                // nếu không giới hạn thì thay 20 = arrayList.size()
+                for (int i = 0; i < 20; i++){
+                    if (i % 4 == 1)
                         listEat.add(new Eat(R.drawable.benninhkieu1, arrayList.get(i)));
                 }
 
@@ -182,24 +188,44 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private class hotel extends AsyncTask<String,Void,String>{
+        @Override
+        protected String doInBackground(String... strings) {
+            return HttpRequestAdapter.httpGet(strings[0]);
+        }
 
-//    private void initView_Hotel(){
-//        RecyclerView recyclerView = (RecyclerView)findViewById(R.id.RecyclerView_KhachSan);
-//        recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
-//
-//        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-//        recyclerView.setLayoutManager(linearLayoutManager);
-//
-//        //Add item
-//        ArrayList<Hotel> listHotel = new ArrayList<>();
-//        listHotel.add(new Hotel(R.drawable.muongthanh, "Mường Thanh Hotel"));
-//        listHotel.add(new Hotel(R.drawable.ninhkieu2, "Ninh Kiều 2 Hotel"));
-//        listHotel.add(new Hotel(R.drawable.vinpearl, "Vinpearl Hotel"));
-//
-//        HotelAdapter hotelAdapter = new HotelAdapter(listHotel, getApplicationContext());
-//        recyclerView.setAdapter(hotelAdapter);
-//
-//    }
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            try {
+                // parse json ra arraylist
+                ArrayList<String> arrayList = JsonHelper.parseJson(new JSONArray(s), Config.JSON_HOTEL);
+
+                RecyclerView recyclerView = (RecyclerView)findViewById(R.id.RecyclerView_KhachSan);
+                recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
+
+                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false);
+                recyclerView.setLayoutManager(linearLayoutManager);
+
+                //Add item
+                ArrayList<Hotel> listHotel = new ArrayList<>();
+
+                // json địa danh có 8 phần tử, phần tử 1 là tên địa danh nên i % 8 == 1 để lấy tên địa danh
+                // giới hạn load 5 phần tử nên 5 * 5 = 25
+                // nếu không giới hạn thì thay 25 = arrayList.size()
+                for (int i = 0; i < 25; i++){
+                    if (i % 5 == 1)
+                        listHotel.add(new Hotel(R.drawable.benninhkieu1, arrayList.get(i)));
+                }
+
+                HotelAdapter hotelAdapter = new HotelAdapter(listHotel, getApplicationContext());
+                recyclerView.setAdapter(hotelAdapter);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     //endregion
 
