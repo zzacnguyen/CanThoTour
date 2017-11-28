@@ -26,6 +26,8 @@ import com.doan3.canthotour.Model.Hotel;
 import com.doan3.canthotour.Model.Place;
 import com.doan3.canthotour.R;
 import com.doan3.canthotour.View.Favorite.ActivityFavorite;
+import com.doan3.canthotour.View.Main.Content.ActivityEat;
+import com.doan3.canthotour.View.Main.Content.ActivityHotel;
 import com.doan3.canthotour.View.Main.Content.ActivityPlace;
 import com.doan3.canthotour.View.Notify.ActivityNotify;
 import com.doan3.canthotour.View.Personal.ActivityPersonal;
@@ -38,8 +40,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     Toolbar toolbar;
-    Button btnDiaDanh;
-    private ArrayList<String> diaDanh;
+    Button btnDiaDanh, btnAnUong, btnKhachSan;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +49,10 @@ public class MainActivity extends AppCompatActivity {
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         btnDiaDanh = (Button) findViewById(R.id.btnTatCaDiaDanh);
+        btnAnUong = (Button) findViewById(R.id.btnTatCaQuanAn);
+        btnKhachSan = (Button) findViewById(R.id.btnTatCaKhachSan);
+
+                setSupportActionBar(toolbar);
 
         btnDiaDanh.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,7 +61,21 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-//        setSupportActionBar(toolbar);
+        btnAnUong.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, ActivityEat.class));
+            }
+        });
+
+        btnKhachSan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, ActivityHotel.class));
+            }
+        });
+
+
 
         initView_Place();
         initView_Eat();
@@ -65,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
         menuBotNavBar();
 
     }
+
     //Bottom navigation bar
     private void menuBotNavBar(){
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavView_Bar);
@@ -97,19 +117,22 @@ public class MainActivity extends AppCompatActivity {
 
     //region Nội dung chính (content-view)
 
-    //View địa danh
+    //Get view place
     private void initView_Place(){
         new place().execute(Config.URL_HOST+Config.URL_GET_ALL_PLACES);
     }
 
+    //Get view eat
     private void initView_Eat(){
         new eat().execute(Config.URL_HOST+Config.URL_GET_ALL_EATS);
     }
 
+    //Get view hotel
     private void initView_Hotel(){
         new hotel().execute(Config.URL_HOST + Config.URL_GET_ALL_HOTELS);
     }
 
+    //Custom view place
     private class place extends AsyncTask<String,Void,String>{
         @Override
         protected String doInBackground(String... strings) {
@@ -149,6 +172,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //Custom view eat
     private class eat extends AsyncTask<String,Void,String>{
         @Override
         protected String doInBackground(String... strings) {
@@ -188,6 +212,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //Custom view hotel
     private class hotel extends AsyncTask<String,Void,String>{
         @Override
         protected String doInBackground(String... strings) {

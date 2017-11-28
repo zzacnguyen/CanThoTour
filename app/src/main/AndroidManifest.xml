@@ -22,6 +22,8 @@
         <activity android:name=".View.Personal.ActivityPersonal"></activity>
         <activity android:name=".View.Main.ActivityPlaceInfo"></activity>
         <activity android:name=".View.Main.Content.ActivityPlace"></activity>
+        <activity android:name=".View.Main.Content.ActivityEat"></activity>
+        <activity android:name=".View.Main.Content.ActivityHotel"></activity>
     </application>
 
 </manifest>

@@ -20,6 +20,11 @@
             android:layout_gravity="center"
             android:background="@color/bgToolbar">
 
+            <ImageView
+                android:layout_width="46dp"
+                android:layout_height="match_parent"
+                android:background="@null"/>
+
             <TextView
                 android:id="@+id/toolbarTitle"
                 android:layout_width="match_parent"
@@ -60,7 +65,7 @@
                     android:background="@color/colorWhite">
 
                     <TextView
-                        android:layout_weight="2"
+                        android:layout_weight="1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Các địa danh ở Cần Thơ"
@@ -70,11 +75,12 @@
                         android:id="@+id/btnTatCaDiaDanh"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@color/colorWhite"
+                        android:layout_weight="0"
+                        android:background="@null"
                         android:drawableRight="@drawable/ic_arrow"
                         android:text="Tất cả"
-                        android:textAllCaps="false"/>
+                        android:textAllCaps="false"
+                        android:textSize="12sp"/>
 
                 </LinearLayout>
 
@@ -97,23 +103,25 @@
                     android:layout_height="wrap_content">
 
                     <TextView
-                        android:layout_weight="2"
+                        android:layout_weight="1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Quán ngon ở Cần Thơ"
                         android:textSize="16sp"/>
 
                     <Button
+                        android:id="@+id/btnTatCaQuanAn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@color/colorWhite"
+                        android:layout_weight="0"
+                        android:background="@null"
                         android:drawableRight="@drawable/ic_arrow"
                         android:text="Tất cả"
-                        android:textAllCaps="false"/>
+                        android:textAllCaps="false"
+                        android:textSize="12sp"/>
 
                 </LinearLayout>
-<!--Khách sạn-->
+
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/RecyclerView_AnUong"
                     android:layout_width="wrap_content"
@@ -122,6 +130,7 @@
 
             </LinearLayout>
 
+            <!--Khách sạn-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -133,20 +142,22 @@
                     android:layout_height="wrap_content">
 
                     <TextView
-                        android:layout_weight="2"
+                        android:layout_weight="1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Khách sạn ở Cần Thơ"
                         android:textSize="16sp"/>
 
                     <Button
+                        android:id="@+id/btnTatCaKhachSan"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@color/colorWhite"
+                        android:layout_weight="0"
+                        android:background="@null"
                         android:drawableRight="@drawable/ic_arrow"
                         android:text="Tất cả"
-                        android:textAllCaps="false"/>
+                        android:textAllCaps="false"
+                        android:textSize="12sp"/>
 
                 </LinearLayout>
 

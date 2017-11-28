@@ -10,9 +10,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-/**
- * Created by zzacn on 11/14/2017.
- */
 
 public class JsonHelper {
 

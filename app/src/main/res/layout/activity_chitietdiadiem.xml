@@ -26,7 +26,7 @@
 
                 <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
+                    android:layout_height="180dp"
                     android:scaleType="centerCrop"
                     android:src="@drawable/ben_ninh_kieu"/>
 
@@ -58,6 +58,7 @@
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginBottom="?attr/actionBarSize"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
@@ -123,6 +124,7 @@
                 android:background="@drawable/white_grey_border_bottom">
 
                 <Button
+                    android:id="@+id/btnLuuDiaDiem"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -133,6 +135,7 @@
                     android:background="@color/colorWhite"/>
 
                 <Button
+                    android:id="@+id/btnDiaDiemLanCan"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -143,6 +146,7 @@
                     android:background="@color/colorWhite"/>
 
                 <Button
+                    android:id="@+id/btnChiaSe"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -225,7 +229,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:padding="10dp">
+                    android:padding="5dp">
 
                     <ImageView
                         android:layout_width="match_parent"
@@ -233,6 +237,10 @@
                         android:scaleType="centerCrop"
                         android:layout_weight="1"
                         android:src="@drawable/benninhkieu1"/>
+
+                    <View
+                        android:layout_width="5dp"
+                        android:layout_height="match_parent"/>
 
                     <ImageView
                         android:layout_width="match_parent"
@@ -252,7 +260,8 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:background="@drawable/white_grey_border_bottom"
-                android:paddingTop="10dp">
+                android:layout_marginTop="10dp"
+                android:padding="10dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -267,7 +276,8 @@
                     android:scaleX=".5"
                     android:scaleY=".5"
                     android:transformPivotX="0dp"
-                    android:transformPivotY="0dp"/>
+                    android:transformPivotY="0dp"
+                    android:isIndicator="true"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -282,6 +292,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:padding="10dp"
                 android:orientation="vertical">
 
                 <TextView

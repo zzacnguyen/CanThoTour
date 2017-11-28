@@ -8,9 +8,6 @@ import android.util.Log;
 
 import java.lang.reflect.Field;
 
-/**
- * Created by zzacn on 11/14/2017.
- */
 
 public class BottomNavigationViewHelper {
     @SuppressLint("RestrictedApi")

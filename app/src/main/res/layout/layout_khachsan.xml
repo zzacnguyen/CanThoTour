@@ -23,7 +23,7 @@
                 android:id="@+id/toolbarTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Các địa danh ở Cần Thơ"
+                android:text="Khách sạn ở Cần Thơ"
                 android:gravity="center"
                 android:textColor="@color/colorWhite"
                 android:textSize="18sp"

@@ -13,17 +13,18 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.doan3.canthotour.Adapter.HttpRequestAdapter;
+import com.doan3.canthotour.Adapter.ListOfEatAdapter;
 import com.doan3.canthotour.Adapter.ListOfPlaceAdapter;
-import com.doan3.canthotour.Adapter.PlaceAdapter;
 import com.doan3.canthotour.Config;
 import com.doan3.canthotour.Helper.BottomNavigationViewHelper;
 import com.doan3.canthotour.Helper.JsonHelper;
+import com.doan3.canthotour.Model.Eat;
 import com.doan3.canthotour.Model.Place;
 import com.doan3.canthotour.R;
-import com.doan3.canthotour.View.Personal.ActivityPersonal;
-import com.doan3.canthotour.View.Notify.ActivityNotify;
-import com.doan3.canthotour.View.Main.MainActivity;
 import com.doan3.canthotour.View.Favorite.ActivityFavorite;
+import com.doan3.canthotour.View.Main.MainActivity;
+import com.doan3.canthotour.View.Notify.ActivityNotify;
+import com.doan3.canthotour.View.Personal.ActivityPersonal;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,11 +32,11 @@ import org.json.JSONException;
 import java.util.ArrayList;
 
 
-public class ActivityPlace extends AppCompatActivity {
+public class ActivityEat extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.layout_diadanh);
+        setContentView(R.layout.layout_anuong);
 
         initView_Place();
 
@@ -55,16 +56,16 @@ public class ActivityPlace extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()){
                     case R.id.ic_trangchu:
-                        startActivity(new Intent(ActivityPlace.this, MainActivity.class));
+                        startActivity(new Intent(ActivityEat.this, MainActivity.class));
                         break;
                     case R.id.ic_yeuthich:
-                        startActivity(new Intent(ActivityPlace.this, ActivityFavorite.class));
+                        startActivity(new Intent(ActivityEat.this, ActivityFavorite.class));
                         break;
                     case R.id.ic_thongbao:
-                        startActivity(new Intent(ActivityPlace.this, ActivityNotify.class));
+                        startActivity(new Intent(ActivityEat.this, ActivityNotify.class));
                         break;
                     case R.id.ic_canhan:
-                        startActivity(new Intent(ActivityPlace.this, ActivityPersonal.class));
+                        startActivity(new Intent(ActivityEat.this, ActivityPersonal.class));
                         break;
                 }
                 return false;
@@ -73,7 +74,7 @@ public class ActivityPlace extends AppCompatActivity {
     }
 
     private void initView_Place(){
-        new place().execute(Config.URL_HOST+Config.URL_GET_ALL_PLACES);
+        new place().execute(Config.URL_HOST+Config.URL_GET_ALL_EATS);
     }
 
     private class place extends AsyncTask<String,Void,String> {
@@ -87,25 +88,25 @@ public class ActivityPlace extends AppCompatActivity {
             super.onPostExecute(s);
             try {
                 // parse json ra arraylist
-                ArrayList<String> arrayList = JsonHelper.parseJson(new JSONArray(s), Config.JSON_PLACE);
+                ArrayList<String> arrayList = JsonHelper.parseJson(new JSONArray(s), Config.JSON_EAT);
 
                 RecyclerView recyclerView = findViewById(R.id.RecyclerView_DanhSachDiaDiem);
                 recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
 
-                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ActivityPlace.this, LinearLayoutManager.VERTICAL, false);
+                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ActivityEat.this, LinearLayoutManager.VERTICAL, false);
                 recyclerView.setLayoutManager(linearLayoutManager);
 
                 //Add item
-                ArrayList<Place> listPlace = new ArrayList<>();
+                ArrayList<Eat> listEat = new ArrayList<>();
 
                 // json địa danh có 8 phần tử, phần tử 1 là tên địa danh nên i % 8 == 1 để lấy tên địa danh
                 for (int i = 0; i < arrayList.size(); i++){
                     if (i % 8 == 1)
-                        listPlace.add(new Place(R.drawable.benninhkieu1, arrayList.get(i)));
+                        listEat.add(new Eat(R.drawable.benninhkieu1, arrayList.get(i)));
                 }
 
-                ListOfPlaceAdapter listOfPlaceAdapter = new ListOfPlaceAdapter(listPlace, getApplicationContext());
-                recyclerView.setAdapter(listOfPlaceAdapter);
+                ListOfEatAdapter listOfEatAdapter = new ListOfEatAdapter(listEat, getApplicationContext());
+                recyclerView.setAdapter(listOfEatAdapter);
 
             } catch (JSONException e) {
                 e.printStackTrace();
