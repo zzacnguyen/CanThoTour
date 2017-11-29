@@ -8,13 +8,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp">
+        android:padding="10dp"
+        android:background="@drawable/white_grey_border_bottom">
 
         <ImageView
             android:id="@+id/imageViewYeuThich"
             android:src="@drawable/ben_ninh_kieu"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="80dp"
+            android:layout_height="60dp"
             android:scaleType="centerCrop"/>
 
         <TextView
