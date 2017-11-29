@@ -72,6 +72,8 @@ public class ActivityPlace extends AppCompatActivity {
         });
     }
 
+
+
     private void initView_Place(){
         new place().execute(Config.URL_HOST+Config.URL_GET_ALL_PLACES);
     }

@@ -4,12 +4,9 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-/**
- * Created by zzacn on 11/14/2017.
- */
 
 public class Config {
-    public static final String URL_HOST = "http://192.168.3.51/doan3/public/";
+    public static final String URL_HOST = "http://192.168.3.52:8080/doan3/public/";
     public static final String URL_GET_ALL_TYPE_OF_EVENTS = "loaihinhsukien";
     public static final String URL_GET_ALL_EATS = "anuong";
     public static final String URL_GET_ALL_COMMENTS = "binhluan";

@@ -75,8 +75,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-
         initView_Place();
         initView_Eat();
 //        initView_Hotel();

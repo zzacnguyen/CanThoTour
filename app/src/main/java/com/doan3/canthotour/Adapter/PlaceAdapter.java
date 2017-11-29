@@ -19,9 +19,6 @@ import com.doan3.canthotour.View.Main.MainActivity;
 
 import java.util.ArrayList;
 
-/**
- * Created by zzacn on 11/17/2017.
- */
 
 public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> {
     ArrayList<Place> place;
@@ -48,6 +45,7 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> 
             @Override
             public void onClick(View view) {
                 Intent iPlaceInfo = new Intent(context, ActivityPlaceInfo.class);
+                iPlaceInfo.putExtra("masp", position+1+"");
                 iPlaceInfo.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(iPlaceInfo);
             }
