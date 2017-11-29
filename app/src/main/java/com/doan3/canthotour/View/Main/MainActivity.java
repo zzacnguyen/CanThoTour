@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
 
         initView_Place();
         initView_Eat();
-//        initView_Hotel();
+        initView_Hotel();
 
         menuBotNavBar();
 
@@ -156,7 +156,8 @@ public class MainActivity extends AppCompatActivity {
                 // json địa danh có 8 phần tử, phần tử 1 là tên địa danh nên i % 8 == 1 để lấy tên địa danh
                 // giới hạn load 5 phần tử nên 8 * 5 = 40
                 // nếu không giới hạn thì thay 40 = arrayList.size()
-                for (int i = 0; i < 40; i++){
+                int size = (arrayList.size() > 40)? 40 : arrayList.size();
+                for (int i = 0; i < size; i++){
                     if (i % 8 == 1)
                         listPlace.add(new Place(R.drawable.benninhkieu1, arrayList.get(i)));
                 }
@@ -196,7 +197,8 @@ public class MainActivity extends AppCompatActivity {
                 // json địa danh có 8 phần tử, phần tử 1 là tên địa danh nên i % 8 == 1 để lấy tên địa danh
                 // giới hạn load 5 phần tử nên 4 * 5 = 20
                 // nếu không giới hạn thì thay 20 = arrayList.size()
-                for (int i = 0; i < 20; i++){
+                int size = (arrayList.size() > 20)? 20 : arrayList.size();
+                for (int i = 0; i < size; i++){
                     if (i % 4 == 1)
                         listEat.add(new Eat(R.drawable.benninhkieu1, arrayList.get(i)));
                 }
@@ -236,7 +238,8 @@ public class MainActivity extends AppCompatActivity {
                 // json địa danh có 8 phần tử, phần tử 1 là tên địa danh nên i % 8 == 1 để lấy tên địa danh
                 // giới hạn load 5 phần tử nên 5 * 5 = 25
                 // nếu không giới hạn thì thay 25 = arrayList.size()
-                for (int i = 0; i < 25; i++){
+                int size = (arrayList.size() > 25)? 25 : arrayList.size();
+                for (int i = 0; i < size; i++){
                     if (i % 5 == 1)
                         listHotel.add(new Hotel(R.drawable.benninhkieu1, arrayList.get(i)));
                 }
