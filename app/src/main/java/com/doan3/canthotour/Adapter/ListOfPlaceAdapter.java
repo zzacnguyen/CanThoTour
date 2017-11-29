@@ -35,6 +35,7 @@ public class ListOfPlaceAdapter extends RecyclerView.Adapter<ListOfPlaceAdapter.
     public void onBindViewHolder(ViewHolder holder, int position) { //Mỗi 1 lần chạy hàm này tương ứng với load 1 item trong recycler view
         holder.txtTenDD.setText(place.get(position).getTenDD());
         holder.imgHinhDD.setImageResource(place.get(position).getHinhDD());
+        holder.txtDiaChiDD.setText(place.get(position).getMoTaDD());
     }
 
     @Override
@@ -43,15 +44,16 @@ public class ListOfPlaceAdapter extends RecyclerView.Adapter<ListOfPlaceAdapter.
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{ //ViewHolder chạy thứ 2, phần này giúp cho recycler view ko bị load lại dữ liệu khi thực hiện thao tác vuốt màn hình
-        TextView txtTenDD;
+        TextView txtTenDD, txtDiaChiDD;
         ImageView imgHinhDD;
         CardView cardView;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
-            txtTenDD = (TextView) itemView.findViewById(R.id.txtTenDiaDiem);
-            imgHinhDD = (ImageView) itemView.findViewById(R.id.imgHinhDiaDiem);
+            txtTenDD = itemView.findViewById(R.id.txtTenDiaDiem);
+            imgHinhDD = itemView.findViewById(R.id.imgHinhDiaDiem);
+            txtDiaChiDD = itemView.findViewById(R.id.txtDiaChiDD);
         }
     }
 }

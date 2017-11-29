@@ -7,10 +7,17 @@ package com.doan3.canthotour.Model;
 public class Place {
     private int hinhDD;
     private String tenDD;
+    private String diaChiDD;
 
     public Place(int hinhDD, String tenDD) {
         this.hinhDD = hinhDD;
         this.tenDD = tenDD;
+    }
+
+    public Place(int hinhDD, String tenDD, String moTaDD) {
+        this.hinhDD = hinhDD;
+        this.tenDD = tenDD;
+        this.diaChiDD = moTaDD;
     }
 
     public int getHinhDD() {
@@ -28,4 +35,8 @@ public class Place {
     public void setTenDD(String tenDD) {
         this.tenDD = tenDD;
     }
+
+    public String getMoTaDD() { return diaChiDD; }
+
+    public void setMoTaDD(String moTaDD) { this.diaChiDD = moTaDD; }
 }
