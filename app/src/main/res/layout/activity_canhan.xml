@@ -58,7 +58,6 @@
                     android:layout_gravity="center"
                     android:padding="10dp"
                     android:text="Đông Tường"
-                    android:textStyle="bold"
                     android:textSize="18sp"/>
             </LinearLayout>
 

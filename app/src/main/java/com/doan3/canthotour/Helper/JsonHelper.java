@@ -1,5 +1,7 @@
 package com.doan3.canthotour.Helper;
 
+import android.os.Environment;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -73,9 +75,9 @@ public class JsonHelper {
     }
 
     public static void writeJson(String name, JSONObject json) {
-        FileWriter file = null;
         try {
-            file = new FileWriter(new File(name + ".json"));
+            File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES);
+            FileWriter file = new FileWriter(new File(path, "/" + name + ".json"));
             file.write(json.toString());
             file.flush();
             file.close();
@@ -86,7 +88,8 @@ public class JsonHelper {
 
     public static void writeJson(String name, JSONArray json) {
         try {
-            FileWriter file = new FileWriter(new File(name + ".json"));
+            File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES);
+            FileWriter file = new FileWriter(new File(path, "/" + name + ".json"));
             file.write(json.toString());
             file.flush();
             file.close();
@@ -97,7 +100,8 @@ public class JsonHelper {
 
     public static String readJson(String name) {
         try {
-            FileInputStream is = new FileInputStream(new File(name + ".json"));
+            File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES);
+            FileInputStream is = new FileInputStream(new File(path, "/" + name + ".json"));
             byte[] buffer = new byte[is.available()];
             is.read(buffer);
             is.close();
