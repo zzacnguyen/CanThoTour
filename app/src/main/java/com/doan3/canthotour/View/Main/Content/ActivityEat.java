@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.doan3.canthotour.Adapter.EatAdapter;
 import com.doan3.canthotour.Adapter.HttpRequestAdapter;
 import com.doan3.canthotour.Adapter.ListOfEatAdapter;
 import com.doan3.canthotour.Adapter.ListOfPlaceAdapter;
@@ -38,7 +39,7 @@ public class ActivityEat extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_anuong);
 
-        initView_Place();
+        initView_Eat();
 
         menuBotNavBar();
     }
@@ -73,11 +74,11 @@ public class ActivityEat extends AppCompatActivity {
         });
     }
 
-    private void initView_Place(){
-        new place().execute(Config.URL_HOST+Config.URL_GET_ALL_EATS);
+    private void initView_Eat(){
+        new eat().execute(Config.URL_HOST+Config.URL_GET_ALL_EATS);
     }
 
-    private class place extends AsyncTask<String,Void,String> {
+    private class eat extends AsyncTask<String,Void,String>{
         @Override
         protected String doInBackground(String... strings) {
             return HttpRequestAdapter.httpGet(strings[0]);
@@ -90,7 +91,7 @@ public class ActivityEat extends AppCompatActivity {
                 // parse json ra arraylist
                 ArrayList<String> arrayList = JsonHelper.parseJson(new JSONArray(s), Config.JSON_EAT);
 
-                RecyclerView recyclerView = findViewById(R.id.RecyclerView_DanhSachDiaDiem);
+                RecyclerView recyclerView = findViewById(R.id.RecyclerView_DanhSachAnUong);
                 recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
 
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ActivityEat.this, LinearLayoutManager.VERTICAL, false);
@@ -99,9 +100,12 @@ public class ActivityEat extends AppCompatActivity {
                 //Add item
                 ArrayList<Eat> listEat = new ArrayList<>();
 
-                // json địa danh có 8 phần tử, phần tử 1 là tên địa danh nên i % 8 == 1 để lấy tên địa danh
-                for (int i = 0; i < arrayList.size(); i++){
-                    if (i % 8 == 1)
+                // json ăn uống có 4 phần tử, phần tử 1 là tên địa danh nên i % 4 == 1 để lấy tên địa danh
+                // giới hạn load 5 phần tử nên 4 * 5 = 20
+                // nếu không giới hạn thì thay 20 = arrayList.size()
+                int size = (arrayList.size() > 20)? 20 : arrayList.size();
+                for (int i = 0; i < size; i++){
+                    if (i % 4 == 1)
                         listEat.add(new Eat(R.drawable.benninhkieu1, arrayList.get(i)));
                 }
 

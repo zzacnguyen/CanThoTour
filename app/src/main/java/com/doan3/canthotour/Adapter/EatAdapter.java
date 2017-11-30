@@ -1,7 +1,6 @@
 package com.doan3.canthotour.Adapter;
 
 import android.content.Context;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,7 +26,7 @@ public class EatAdapter extends RecyclerView.Adapter<EatAdapter.ViewHolder> {
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) { //Khi gọi DiaDanhAdapter thì hàm này chạy đầu tiên
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View itemView = layoutInflater.inflate(R.layout.trangchu_list_item, parent, false);
+        View itemView = layoutInflater.inflate(R.layout.custom_trangchu_list_item, parent, false);
         return new ViewHolder(itemView);
     }
 

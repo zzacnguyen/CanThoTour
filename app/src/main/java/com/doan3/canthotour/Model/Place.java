@@ -14,10 +14,10 @@ public class Place {
         this.tenDD = tenDD;
     }
 
-    public Place(int hinhDD, String tenDD, String moTaDD) {
+    public Place(int hinhDD, String tenDD, String diaChiDD) {
         this.hinhDD = hinhDD;
         this.tenDD = tenDD;
-        this.diaChiDD = moTaDD;
+        this.diaChiDD = diaChiDD;
     }
 
     public int getHinhDD() {
@@ -36,7 +36,7 @@ public class Place {
         this.tenDD = tenDD;
     }
 
-    public String getMoTaDD() { return diaChiDD; }
+    public String getDiaChiDD() { return diaChiDD; }
 
-    public void setMoTaDD(String moTaDD) { this.diaChiDD = moTaDD; }
+    public void setMoTaDD(String moTaDD) { this.diaChiDD = diaChiDD; }
 }

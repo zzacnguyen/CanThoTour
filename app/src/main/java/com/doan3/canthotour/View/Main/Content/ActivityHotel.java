@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.doan3.canthotour.Adapter.HotelAdapter;
 import com.doan3.canthotour.Adapter.HttpRequestAdapter;
 import com.doan3.canthotour.Adapter.ListOfHotelAdapter;
 import com.doan3.canthotour.Adapter.ListOfPlaceAdapter;
@@ -38,7 +39,7 @@ public class ActivityHotel extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_khachsan);
 
-        initView_Place();
+        initView_Hotel();
 
         menuBotNavBar();
     }
@@ -73,11 +74,11 @@ public class ActivityHotel extends AppCompatActivity {
         });
     }
 
-    private void initView_Place(){
-        new place().execute(Config.URL_HOST+Config.URL_GET_ALL_HOTELS);
+    private void initView_Hotel(){
+        new hotel().execute(Config.URL_HOST+Config.URL_GET_ALL_HOTELS);
     }
 
-    private class place extends AsyncTask<String,Void,String> {
+    private class hotel extends AsyncTask<String,Void,String>{
         @Override
         protected String doInBackground(String... strings) {
             return HttpRequestAdapter.httpGet(strings[0]);
@@ -90,18 +91,21 @@ public class ActivityHotel extends AppCompatActivity {
                 // parse json ra arraylist
                 ArrayList<String> arrayList = JsonHelper.parseJson(new JSONArray(s), Config.JSON_HOTEL);
 
-                RecyclerView recyclerView = findViewById(R.id.RecyclerView_DanhSachDiaDiem);
+                RecyclerView recyclerView = (RecyclerView)findViewById(R.id.RecyclerView_DanhSachKhachSan);
                 recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
 
-                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ActivityHotel.this, LinearLayoutManager.VERTICAL, false);
+                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ActivityHotel.this, LinearLayoutManager.HORIZONTAL, false);
                 recyclerView.setLayoutManager(linearLayoutManager);
 
                 //Add item
                 ArrayList<Hotel> listHotel = new ArrayList<>();
 
-                // json địa danh có 8 phần tử, phần tử 1 là tên địa danh nên i % 8 == 1 để lấy tên địa danh
-                for (int i = 0; i < arrayList.size(); i++){
-                    if (i % 8 == 1)
+                // json khách sạn có 5 phần tử, phần tử 1 là tên địa danh nên i % 5 == 1 để lấy tên địa danh
+                // giới hạn load 5 phần tử nên 5 * 5 = 25
+                // nếu không giới hạn thì thay 25 = arrayList.size()
+                int size = (arrayList.size() > 25)? 25 : arrayList.size();
+                for (int i = 0; i < size; i++){
+                    if (i % 5 == 1)
                         listHotel.add(new Hotel(R.drawable.benninhkieu1, arrayList.get(i)));
                 }
 

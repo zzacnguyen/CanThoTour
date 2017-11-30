@@ -1,6 +1,5 @@
 package com.doan3.canthotour.Adapter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.CardView;
@@ -9,18 +8,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.doan3.canthotour.Model.Place;
 import com.doan3.canthotour.R;
 import com.doan3.canthotour.View.Main.ActivityPlaceInfo;
-import com.doan3.canthotour.View.Main.Content.ActivityPlace;
-import com.doan3.canthotour.View.Main.MainActivity;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> {
@@ -36,7 +30,7 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) { //Khi gọi DiaDanhAdapter thì hàm này chạy đầu tiên
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View itemView = layoutInflater.inflate(R.layout.trangchu_list_item, parent, false);
+        View itemView = layoutInflater.inflate(R.layout.custom_trangchu_list_item, parent, false);
         return new ViewHolder(itemView);
     }
 

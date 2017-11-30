@@ -3,11 +3,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@null"
     android:id="@+id/cardViewDiaDiem">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/colorWhite"
         android:orientation="vertical"
         android:padding="10dp">
 
@@ -31,7 +33,7 @@
             android:id="@+id/txtDiaChiDD"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Mô tả"
+            android:text="Địa chỉ"
             android:textSize="14sp"
             android:textColor="#000"/>
 

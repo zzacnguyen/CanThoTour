@@ -1,6 +1,7 @@
 package com.doan3.canthotour.Adapter;
 
 import android.content.Context;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,7 +38,6 @@ public class ListOfHotelAdapter extends RecyclerView.Adapter<ListOfHotelAdapter.
     public void onBindViewHolder(ViewHolder holder, int position) { //Mỗi 1 lần chạy hàm này tương ứng với load 1 item trong recycler view
         holder.txtTenDD.setText(hotel.get(position).getTenKS());
         holder.imgHinhDD.setImageResource(hotel.get(position).getHinhKS());
-
     }
 
     @Override
@@ -48,12 +48,14 @@ public class ListOfHotelAdapter extends RecyclerView.Adapter<ListOfHotelAdapter.
     public class ViewHolder extends RecyclerView.ViewHolder{ //ViewHolder chạy thứ 2, phần này giúp cho recycler view ko bị load lại dữ liệu khi thực hiện thao tác vuốt màn hình
         TextView txtTenDD;
         ImageView imgHinhDD;
+        CardView cardView;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
-            txtTenDD = (TextView) itemView.findViewById(R.id.txtTenDD);
-            imgHinhDD = (ImageView) itemView.findViewById(R.id.imgHinhDD);
+            txtTenDD = itemView.findViewById(R.id.txtTenDiaDiem);
+            imgHinhDD = itemView.findViewById(R.id.imgHinhDiaDiem);
+            cardView = itemView.findViewById(R.id.cardViewDiaDiem);
         }
     }
 }
