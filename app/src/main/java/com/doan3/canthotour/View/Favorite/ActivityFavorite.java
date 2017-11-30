@@ -63,7 +63,7 @@ public class ActivityFavorite extends AppCompatActivity {
             super.onPostExecute(s);
             try {
                 // parse json ra arraylist
-                ArrayList<String> arrayList = JsonHelper.parseJson(new JSONObject(s), Config.JSON_PLACE);
+                ArrayList<String> arrayList = JsonHelper.parseJson(new JSONObject(s), Config.JSON_FAVORITE);
 
                 RecyclerView recyclerView = findViewById(R.id.RecyclerView_DanhSachYeuThich);
                 recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
