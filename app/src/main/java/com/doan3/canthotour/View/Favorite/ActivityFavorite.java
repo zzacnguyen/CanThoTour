@@ -63,7 +63,7 @@ public class ActivityFavorite extends AppCompatActivity {
             super.onPostExecute(s);
             try {
                 // parse json ra arraylist
-                ArrayList<String> arrayList = JsonHelper.parseJson(new JSONObject(s), Config.JSON_FAVORITE);
+                ArrayList<String> arrayList = JsonHelper.parseJson(new JSONArray(s), Config.JSON_FAVORITE);
 
                 RecyclerView recyclerView = findViewById(R.id.RecyclerView_DanhSachYeuThich);
                 recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
@@ -74,11 +74,12 @@ public class ActivityFavorite extends AppCompatActivity {
                 //Add item
                 ArrayList<Place> listPlace = new ArrayList<>();
 
-                // json địa danh có 8 phần tử, phần tử 1 là tên địa danh nên i % 8 == 1 để lấy tên địa danh
-                // giới hạn load 5 phần tử nên 8 * 5 = 40
-                // nếu không giới hạn thì thay 40 = arrayList.size()
-                for (int i = 0; i < arrayList.size(); i++){
-                    if (i % 8 == 1)
+                // json địa danh có 3 phần tử, phần tử 1 là tên địa danh nên i % 3 == 1 để lấy tên địa danh
+                // giới hạn load 5 phần tử nên 3 * 5 = 15
+                // nếu không giới hạn thì thay 15 = arrayList.size()
+                int size = (arrayList.size() > 15)? 15 : arrayList.size();
+                for (int i = 0; i < size; i++){
+                    if (i % 3 == 1)
                         listPlace.add(new Place(R.drawable.benninhkieu1, arrayList.get(i)));
                 }
 

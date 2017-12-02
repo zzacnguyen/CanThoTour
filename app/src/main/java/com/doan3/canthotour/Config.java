@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 
 public class Config {
-    public static final String URL_HOST = "http://192.168.1.6:8888/doan3/public/";
+    public static final String URL_HOST = "http://192.168.1.18/doan3/public/";
     public static final String URL_GET_ALL_TYPE_OF_EVENTS = "loaihinhsukien";
     public static final String URL_GET_ALL_EATS = "anuong";
     public static final String URL_GET_ALL_COMMENTS = "binhluan";
@@ -22,6 +22,7 @@ public class Config {
     public static final String URL_GET_ALL_EVENTS = "sukien";
     public static final String URL_GET_ALL_TOURS = "thamquan";
     public static final String URL_GET_ALL_ENTERTAINMENTS = "vuichoi";
+    public static final String URL_GET_ALL_FAVORITE = "yeuthich";
 
     public static final ArrayList<String> JSON_USER = new ArrayList<String>(Arrays.asList("nd_tendoanhnghiep",
             "nd_tendangnhap", "nd_sodienthoai","nd_matkhau", "nd_website","nd_email", "nd_diachi", "nd_quocgia",
@@ -39,7 +40,7 @@ public class Config {
     public static final ArrayList<String> JSON_IMAGE = new ArrayList<String>(Arrays.asList("ha_hinhanh1",
             "ha_hinhanh2", "ha_hinhanh3","ha_thumb","ha_icon"));
     public static final ArrayList<String> JSON_HOTEL = new ArrayList<String>(Arrays.asList("ks_tenkhachsan",
-            "ks_website ", "ks_gioithieu","dv_iddichvu"));
+            "ks_website", "ks_gioithieu","dv_iddichvu"));
     public static final ArrayList<String> JSON_SHEDULE = new ArrayList<String>(Arrays.asList("lt_ngaylichtrinh", "lt_tenlichtrinh", "lt_gioithieu"));
     public static final ArrayList<String> JSON_TYPE_OF_EVENT = new ArrayList<String>(Arrays.asList("lhsk_ten"));
     public static final ArrayList<String> JSON_VEHICLE = new ArrayList<String>(Arrays.asList("pt_tenphuongtien", "pt_loaihinh", "dv_iddichvu"));
@@ -47,6 +48,6 @@ public class Config {
             "sk_ngaybatdau", "sk_trangthai","dd_iddiadiem","lhsk_idloaihinhsukien"));
     public static final ArrayList<String> JSON_TOUR = new ArrayList<String>(Arrays.asList("tq_tendiemthamquan", "tq_gioithieu", "dv_iddichvu"));
     public static final ArrayList<String> JSON_ENTERTAINMENT = new ArrayList<String>(Arrays.asList("vc_tendiemvuichoi", "vc_gioithieu", "dv_iddichvu"));
-    public static final ArrayList<String> JSON_FAVORITE = new ArrayList<String>(Arrays.asList("txt_nd_idnguoidung"));
+    public static final ArrayList<String> JSON_FAVORITE = new ArrayList<String>(Arrays.asList("dd_iddiadiem","nd_idnguoidung"));
 
 }

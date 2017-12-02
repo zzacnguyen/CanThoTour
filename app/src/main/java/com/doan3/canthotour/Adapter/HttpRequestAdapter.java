@@ -53,13 +53,13 @@ public class HttpRequestAdapter {
             dataOutputStream.flush();
             dataOutputStream.close();
             if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK){
-                return "thành công";
+                return "success";
             } else {
-                return "thất bại";
+                return "failure";
             }
         } catch (Exception e){
             e.printStackTrace();
-            return "lỗi";
+            return "error";
         } finally {
             if (urlConnection != null){
                 urlConnection.disconnect();
@@ -81,13 +81,13 @@ public class HttpRequestAdapter {
             streamWriter.flush();
             streamWriter.close();
             if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK){
-                return "thành công";
+                return "success";
             } else {
-                return "thất bại";
+                return "failure";
             }
         } catch (Exception e){
             e.printStackTrace();
-            return "lỗi";
+            return "error";
         } finally {
             urlConnection.disconnect();
         }
@@ -100,13 +100,13 @@ public class HttpRequestAdapter {
             urlConnection.setRequestProperty("Content-Type", "application/json");
             urlConnection.setRequestMethod("DELETE");
             if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK){
-                return "thành công";
+                return "success";
             } else {
-                return "thất bại";
+                return "failure";
             }
         } catch (Exception e){
             e.printStackTrace();
-            return "lỗi";
+            return "error";
         } finally {
             urlConnection.disconnect();
         }

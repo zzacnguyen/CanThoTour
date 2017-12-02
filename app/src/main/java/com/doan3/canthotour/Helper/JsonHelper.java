@@ -76,11 +76,28 @@ public class JsonHelper {
 
     public static void writeJson(String name, JSONObject json) {
         try {
-            File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES);
-            FileWriter file = new FileWriter(new File(path, "/" + name + ".json"));
-            file.write(json.toString());
-            file.flush();
-            file.close();
+            File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
+            path.mkdirs();
+            File file = new File(path, "/" + name + ".json");
+            JSONArray jsonFile = new JSONArray();
+            if (file.exists()) {
+                FileInputStream fileInputStream = new FileInputStream(file);
+                byte[] buffer = new byte[fileInputStream.available()];
+                fileInputStream.read(buffer);
+                JSONArray jsonRead = null;
+                try {
+                    jsonRead = new JSONArray(new String(buffer));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                jsonFile = mergeJson(jsonRead, json);
+            } else {
+                jsonFile.put(json);
+            }
+            FileWriter fileWriter = new FileWriter(file);
+            fileWriter.write(jsonFile.toString());
+            fileWriter.flush();
+            fileWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -88,11 +105,28 @@ public class JsonHelper {
 
     public static void writeJson(String name, JSONArray json) {
         try {
-            File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES);
-            FileWriter file = new FileWriter(new File(path, "/" + name + ".json"));
-            file.write(json.toString());
-            file.flush();
-            file.close();
+            File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
+            path.mkdirs();
+            File file = new File(path, "/" + name + ".json");
+            JSONArray jsonFile = new JSONArray();
+            if (file.exists()) {
+                FileInputStream fileInputStream = new FileInputStream(file);
+                byte[] buffer = new byte[fileInputStream.available()];
+                fileInputStream.read(buffer);
+                JSONArray jsonRead = null;
+                try {
+                    jsonRead = new JSONArray(new String(buffer));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                jsonFile = mergeJson(jsonRead, json);
+            } else {
+                jsonFile = json;
+            }
+            FileWriter fileWriter = new FileWriter(file);
+            fileWriter.write(jsonFile.toString());
+            fileWriter.flush();
+            fileWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -100,7 +134,7 @@ public class JsonHelper {
 
     public static String readJson(String name) {
         try {
-            File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES);
+            File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
             FileInputStream is = new FileInputStream(new File(path, "/" + name + ".json"));
             byte[] buffer = new byte[is.available()];
             is.read(buffer);
