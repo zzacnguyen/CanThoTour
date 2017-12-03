@@ -106,7 +106,7 @@ public class ActivityPlaceInfo extends AppCompatActivity {
                 // parse json ra arraylist
                 ArrayList<String> arrayList = JsonHelper.parseJson(new JSONArray(s), Config.JSON_PLACE);
 
-                object = new JSONObject("{\"dd_iddiadiem\":\""+arrayList.get(0)+"\",\"nd_idnguoidung\":\"1\"}");
+                object = new JSONObject("{\"id\":\"1\", \"dd_iddiadiem\":\""+arrayList.get(0)+"\",\"nd_idnguoidung\":\"1\"}");
                 txtTenDD.setText(arrayList.get(1));
                 txtDiaChi.setText(arrayList.get(3));
                 txtSDT.setText(arrayList.get(4));

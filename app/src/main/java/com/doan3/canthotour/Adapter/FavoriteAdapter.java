@@ -1,7 +1,6 @@
 package com.doan3.canthotour.Adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,7 +11,6 @@ import android.widget.TextView;
 
 import com.doan3.canthotour.Model.Place;
 import com.doan3.canthotour.R;
-import com.doan3.canthotour.View.Main.ActivityPlaceInfo;
 
 import java.util.ArrayList;
 
@@ -29,7 +27,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) { //Khi gọi DiaDanhAdapter thì hàm này chạy đầu tiên
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View itemView = layoutInflater.inflate(R.layout.layout_yeuthich, parent, false);
+        View itemView = layoutInflater.inflate(R.layout.custom_yeuthich, parent, false);
         return new ViewHolder(itemView);
     }
 
