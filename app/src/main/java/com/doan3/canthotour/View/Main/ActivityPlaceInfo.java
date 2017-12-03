@@ -42,10 +42,10 @@ public class ActivityPlaceInfo extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chitietdiadiem);
 
-        btnLuuDiaDiem = (Button) findViewById(R.id.btnLuuDiaDiem);
-        btnLanCan = (Button) findViewById(R.id.btnDiaDiemLanCan);
-        btnChiaSe = (Button) findViewById(R.id.btnChiaSe);
-        txtTenDD = (TextView) findViewById(R.id.textViewTenDD);
+        btnLuuDiaDiem = findViewById(R.id.btnLuuDiaDiem);
+        btnLanCan = findViewById(R.id.btnDiaDiemLanCan);
+        btnChiaSe = findViewById(R.id.btnChiaSe);
+        txtTenDD = findViewById(R.id.textViewTenDD);
         txtDiaChi = findViewById(R.id.textViewDiaChi);
         txtSDT = findViewById(R.id.textViewSDT);
         txtGioiThieu = findViewById(R.id.textViewGioiThieu);
@@ -53,12 +53,10 @@ public class ActivityPlaceInfo extends AppCompatActivity {
 
         masp = getIntent().getStringExtra("masp");
         new place().execute(Config.URL_HOST + Config.URL_GET_ALL_PLACES + "/" + masp);
-//        new postJson().execute(Config.URL_HOST + Config.URL_GET_ALL_FAVORITE);
         btnLuuDiaDiem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 JsonHelper.writeJson("dsyeuthich", object);
-                Toast.makeText(ActivityPlaceInfo.this, "Đã lưu", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -67,7 +65,7 @@ public class ActivityPlaceInfo extends AppCompatActivity {
     }
 
     private void menuBotNavBar() {
-        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavView_Bar);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavView_Bar);
         BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
 
         Menu menu = bottomNavigationView.getMenu();
@@ -95,24 +93,6 @@ public class ActivityPlaceInfo extends AppCompatActivity {
         });
     }
 
-    private class postJson extends AsyncTask<String,Void,String>{
-        @Override
-        protected String doInBackground(String... strings) {
-            return HttpRequestAdapter.httpPost(strings[0],object);
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-            if (s.equals("success")){
-                Toast.makeText(ActivityPlaceInfo.this, "Thành công", Toast.LENGTH_SHORT).show();
-            } else if (s.equals("failure")){
-                Toast.makeText(ActivityPlaceInfo.this, "Thất bại", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(ActivityPlaceInfo.this, "Lỗi", Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
     private class place extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... strings) {
@@ -126,7 +106,7 @@ public class ActivityPlaceInfo extends AppCompatActivity {
                 // parse json ra arraylist
                 ArrayList<String> arrayList = JsonHelper.parseJson(new JSONArray(s), Config.JSON_PLACE);
 
-                object = new JSONObject("{\"id\":\"1\",\"dd_iddiadiem\":\""+arrayList.get(0)+"\",\"nd_idnguoidung\":\"1\"}");
+                object = new JSONObject("{\"dd_iddiadiem\":\""+arrayList.get(0)+"\",\"nd_idnguoidung\":\"1\"}");
                 txtTenDD.setText(arrayList.get(1));
                 txtDiaChi.setText(arrayList.get(3));
                 txtSDT.setText(arrayList.get(4));

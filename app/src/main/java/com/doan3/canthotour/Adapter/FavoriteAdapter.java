@@ -62,9 +62,9 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
         public ViewHolder(View itemView) {
             super(itemView);
 
-            txtTenDD = (TextView) itemView.findViewById(R.id.textViewYeuThich);
-            imgHinhDD = (ImageView) itemView.findViewById(R.id.imageViewYeuThich);
-            cardView = (CardView) itemView.findViewById(R.id.cardView);
+            txtTenDD = itemView.findViewById(R.id.textViewYeuThich);
+            imgHinhDD = itemView.findViewById(R.id.imageViewYeuThich);
+            cardView = itemView.findViewById(R.id.cardView);
         }
     }
 }
