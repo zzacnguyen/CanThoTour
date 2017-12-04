@@ -42,7 +42,7 @@
                     android:id="@+id/toolbarTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Chi tiết địa điểm"
+                    android:text="Chi tiết dịch vụ"
                     android:gravity="center"
                     android:textColor="@color/colorWhite"
                     android:textSize="18sp"
@@ -79,7 +79,7 @@
                     android:id="@+id/textViewTenDD"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text=""
+                    android:text="Tên địa điểm"
                     android:textStyle="bold"
                     android:textSize="16sp"
                     android:textColor="@color/colorWhite"/>
@@ -177,8 +177,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
+                        android:text="Địa chỉ"
                         android:layout_gravity="center"
-                        android:text=""
                         android:textColor="#000"
                         android:textSize="14sp" />
 
@@ -196,16 +196,86 @@
                         android:tint="@color/bgToolbar"/>
 
                     <TextView
-                        android:id="@+id/textViewSDT"
+                        android:id="@+id/textViewSDTDV"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
+                        android:text="Số điện thoại"
                         android:layout_gravity="center"
-                        android:text=""
                         android:textColor="#000"
                         android:textSize="14sp" />
 
                 </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="3dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_loaihinh_24dp"
+                        android:tint="@color/bgToolbar"/>
+
+                    <TextView
+                        android:id="@+id/textViewLoaiHinh"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:text="Loại hình"
+                        android:layout_gravity="center"
+                        android:textColor="#000"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="3dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_gia_24dp"
+                        android:tint="@color/bgToolbar"/>
+
+                    <TextView
+                        android:id="@+id/textViewGia"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:text="Giá"
+                        android:layout_gravity="center"
+                        android:textColor="#000"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="3dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_thoigian_24dp"
+                        android:tint="@color/bgToolbar"/>
+
+                    <TextView
+                        android:id="@+id/textViewGio"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:text="Thời gian hoạt động"
+                        android:layout_gravity="center"
+                        android:textColor="#000"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
 
             </LinearLayout>
 
