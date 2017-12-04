@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.doan3.canthotour.Adapter.EatAdapter;
+import com.doan3.canthotour.Adapter.EntertainmentAdapter;
 import com.doan3.canthotour.Adapter.HotelAdapter;
 import com.doan3.canthotour.Adapter.HttpRequestAdapter;
 import com.doan3.canthotour.Adapter.PlaceAdapter;
@@ -22,11 +23,13 @@ import com.doan3.canthotour.Config;
 import com.doan3.canthotour.Helper.BottomNavigationViewHelper;
 import com.doan3.canthotour.Helper.JsonHelper;
 import com.doan3.canthotour.Model.Eat;
+import com.doan3.canthotour.Model.Entertainment;
 import com.doan3.canthotour.Model.Hotel;
 import com.doan3.canthotour.Model.Place;
 import com.doan3.canthotour.R;
 import com.doan3.canthotour.View.Favorite.ActivityFavorite;
 import com.doan3.canthotour.View.Main.Content.ActivityEat;
+import com.doan3.canthotour.View.Main.Content.ActivityEntertainment;
 import com.doan3.canthotour.View.Main.Content.ActivityHotel;
 import com.doan3.canthotour.View.Main.Content.ActivityPlace;
 import com.doan3.canthotour.View.Notify.ActivityNotify;
@@ -40,7 +43,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     Toolbar toolbar;
-    Button btnDiaDanh, btnAnUong, btnKhachSan;
+    Button btnDiaDanh, btnAnUong, btnKhachSan, btnVuiChoi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,8 +54,9 @@ public class MainActivity extends AppCompatActivity {
         btnDiaDanh = (Button) findViewById(R.id.btnTatCaDiaDanh);
         btnAnUong = (Button) findViewById(R.id.btnTatCaQuanAn);
         btnKhachSan = (Button) findViewById(R.id.btnTatCaKhachSan);
+        btnVuiChoi = (Button) findViewById(R.id.btnTatCaVuiChoi);
 
-                setSupportActionBar(toolbar);
+        setSupportActionBar(toolbar);
 
         btnDiaDanh.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,9 +79,17 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        btnVuiChoi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, ActivityEntertainment.class));
+            }
+        });
+
         initView_Place();
         initView_Eat();
         initView_Hotel();
+        initView_Entertainment();
 
         menuBotNavBar();
 
@@ -128,6 +140,10 @@ public class MainActivity extends AppCompatActivity {
     //Get view hotel
     private void initView_Hotel(){
         new hotel().execute(Config.URL_HOST + Config.URL_GET_ALL_HOTELS);
+    }
+
+    private void initView_Entertainment(){
+        new entertainment().execute(Config.URL_HOST + Config.URL_GET_ALL_ENTERTAINMENTS);
     }
 
     //Custom view place
@@ -246,6 +262,47 @@ public class MainActivity extends AppCompatActivity {
 
                 HotelAdapter hotelAdapter = new HotelAdapter(listHotel, getApplicationContext());
                 recyclerView.setAdapter(hotelAdapter);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    //Custom view entertain
+    private class entertainment extends AsyncTask<String,Void,String>{
+        @Override
+        protected String doInBackground(String... strings) {
+            return HttpRequestAdapter.httpGet(strings[0]);
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            try {
+                // parse json ra arraylist
+                ArrayList<String> arrayList = JsonHelper.parseJson(new JSONArray(s), Config.JSON_ENTERTAINMENT);
+
+                RecyclerView recyclerView = (RecyclerView)findViewById(R.id.RecyclerView_VuiChoi);
+                recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
+
+                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false);
+                recyclerView.setLayoutManager(linearLayoutManager);
+
+                //Add item
+                ArrayList<Entertainment> listEntertainment = new ArrayList<>();
+
+                // json khách sạn có 5 phần tử, phần tử 1 là tên địa danh nên i % 5 == 1 để lấy tên địa danh
+                // giới hạn load 5 phần tử nên 5 * 5 = 25
+                // nếu không giới hạn thì thay 25 = arrayList.size()
+                int size = (arrayList.size() > 25)? 25 : arrayList.size();
+                for (int i = 0; i < size; i++){
+                    if (i % 5 == 1)
+                        listEntertainment.add(new Entertainment(R.drawable.benninhkieu1, arrayList.get(i)));
+                }
+
+                EntertainmentAdapter entertainmentAdapter = new EntertainmentAdapter(listEntertainment, getApplicationContext());
+                recyclerView.setAdapter(entertainmentAdapter);
 
             } catch (JSONException e) {
                 e.printStackTrace();
