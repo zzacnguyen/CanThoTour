@@ -169,6 +169,45 @@
 
             </LinearLayout>
 
+            <!--Địa điểm vui chơi giải trí-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Vui chơi tại Cần Thơ"
+                        android:textSize="16sp"/>
+
+                    <Button
+                        android:id="@+id/btnTatCaVuiChoi"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0"
+                        android:background="@null"
+                        android:drawableRight="@drawable/ic_arrow"
+                        android:text="Tất cả"
+                        android:textAllCaps="false"
+                        android:textSize="12sp"/>
+
+                </LinearLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/RecyclerView_VuiChoi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                </android.support.v7.widget.RecyclerView>
+
+            </LinearLayout>
+
         </LinearLayout>
 
 
