@@ -9,38 +9,38 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.doan3.canthotour.Model.Favorite;
-import com.doan3.canthotour.Model.Place;
+
+import com.doan3.canthotour.Model.Entertainment;
 import com.doan3.canthotour.R;
 
 import java.util.ArrayList;
 
 
-public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHolder> {
-    ArrayList<Favorite> favorite;
+public class ListOfEntertainmentAdapter extends RecyclerView.Adapter<ListOfEntertainmentAdapter.ViewHolder> {
+    ArrayList<Entertainment> entertain;
     Context context;
 
-    public FavoriteAdapter(ArrayList<Favorite> favorite, Context context) {
-        this.favorite = favorite;
+    public ListOfEntertainmentAdapter(ArrayList<Entertainment> entertain, Context context) {
+        this.entertain = entertain;
         this.context = context;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) { //Khi gọi DiaDanhAdapter thì hàm này chạy đầu tiên
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View itemView = layoutInflater.inflate(R.layout.custom_yeuthich, parent, false);
+        View itemView = layoutInflater.inflate(R.layout.custom_diadiem_list, parent, false);
         return new ViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, final int position) { //Mỗi 1 lần chạy hàm này tương ứng với load 1 item trong recycler view
-        holder.txtTenDD.setText(favorite.get(position).getTenYT());
-        holder.imgHinhDD.setImageResource(favorite.get(position).getHinhYT());
+    public void onBindViewHolder(ViewHolder holder, int position) { //Mỗi 1 lần chạy hàm này tương ứng với load 1 item trong recycler view
+        holder.txtTenDD.setText(entertain.get(position).getTenVC());
+        holder.imgHinhDD.setImageResource(entertain.get(position).getHinhVC());
     }
 
     @Override
     public int getItemCount() {
-        return favorite.size();
+        return entertain.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{ //ViewHolder chạy thứ 2, phần này giúp cho recycler view ko bị load lại dữ liệu khi thực hiện thao tác vuốt màn hình
@@ -51,9 +51,9 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
         public ViewHolder(View itemView) {
             super(itemView);
 
-            txtTenDD = itemView.findViewById(R.id.textViewYeuThich);
-            imgHinhDD = itemView.findViewById(R.id.imageViewYeuThich);
-            cardView = itemView.findViewById(R.id.cardView);
+            txtTenDD = itemView.findViewById(R.id.txtTenDiaDiem);
+            imgHinhDD = itemView.findViewById(R.id.imgHinhDiaDiem);
+            cardView = itemView.findViewById(R.id.cardViewDiaDiem);
         }
     }
 }

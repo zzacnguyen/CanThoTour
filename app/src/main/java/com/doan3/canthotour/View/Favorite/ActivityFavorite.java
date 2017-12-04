@@ -18,7 +18,7 @@ import com.doan3.canthotour.Adapter.HttpRequestAdapter;
 import com.doan3.canthotour.Config;
 import com.doan3.canthotour.Helper.BottomNavigationViewHelper;
 import com.doan3.canthotour.Helper.JsonHelper;
-import com.doan3.canthotour.Model.Place;
+import com.doan3.canthotour.Model.Favorite;
 import com.doan3.canthotour.R;
 import com.doan3.canthotour.View.Main.MainActivity;
 import com.doan3.canthotour.View.Notify.ActivityNotify;
@@ -47,9 +47,13 @@ public class ActivityFavorite extends AppCompatActivity {
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavView_Bar);
         BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
 
+<<<<<<< HEAD
         new GetId().execute(Config.URL_HOST + Config.URL_GET_ALL_FAVORITE);
 
         new Load().execute();
+=======
+        new favorite().execute(Config.URL_HOST + Config.URL_GET_ALL_FAVORITE);
+>>>>>>> 99b44aac013317cb5f8fc9163ad3cab082d8fe05
 
         menuBotNavBar();
     }
@@ -84,7 +88,11 @@ public class ActivityFavorite extends AppCompatActivity {
         });
     }
 
+<<<<<<< HEAD
     private class GetId extends AsyncTask<String, Void, Void> {
+=======
+    private class favorite extends AsyncTask<String, Void, String> {
+>>>>>>> 99b44aac013317cb5f8fc9163ad3cab082d8fe05
         @Override
         protected Void doInBackground(String... strings) {
             try {
@@ -99,11 +107,27 @@ public class ActivityFavorite extends AppCompatActivity {
                 // parse json ra arraylist
                 ArrayList<String> arrayList = JsonHelper.parseJsonNoId(jsonArray, Config.JSON_FAVORITE);
 
+<<<<<<< HEAD
                 // thêm id địa danh vào biến id
                 for (int i = 0; i < arrayList.size(); i++) {
                     if (i % 2 == 0) {
                         id.add(arrayList.get(i));
                     }
+=======
+                RecyclerView recyclerView = findViewById(R.id.RecyclerView_DanhSachYeuThich);
+                recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
+
+                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ActivityFavorite.this, LinearLayoutManager.VERTICAL, false);
+                recyclerView.setLayoutManager(linearLayoutManager);
+
+                //Add item
+                ArrayList<Favorite> listFavorite = new ArrayList<>();
+
+                // load địa danh yêu thích
+                for (int i = 0; i < arrayList.size(); i++) {
+                    if (i % 2 == 1)
+                        listFavorite.add(new Favorite(R.drawable.benninhkieu1, arrayList.get(i)));
+>>>>>>> 99b44aac013317cb5f8fc9163ad3cab082d8fe05
                 }
             } catch (JSONException ex) {
                 ex.printStackTrace();
@@ -112,6 +136,7 @@ public class ActivityFavorite extends AppCompatActivity {
         }
     }
 
+<<<<<<< HEAD
     private class Load extends AsyncTask<Void, Void, ArrayList<Place>> {
         @Override
         protected ArrayList<Place> doInBackground(Void... voids) {
@@ -127,6 +152,13 @@ public class ActivityFavorite extends AppCompatActivity {
                 } catch (JSONException ex){
                     ex.printStackTrace();
                 }
+=======
+                FavoriteAdapter favoriteAdapter = new FavoriteAdapter(listFavorite, getApplicationContext());
+                recyclerView.setAdapter(favoriteAdapter);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+>>>>>>> 99b44aac013317cb5f8fc9163ad3cab082d8fe05
             }
             return arrIdPlace;
         }
