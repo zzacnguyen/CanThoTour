@@ -18,7 +18,7 @@ import com.doan3.canthotour.Adapter.HttpRequestAdapter;
 import com.doan3.canthotour.Config;
 import com.doan3.canthotour.Helper.BottomNavigationViewHelper;
 import com.doan3.canthotour.Helper.JsonHelper;
-import com.doan3.canthotour.Model.Place;
+import com.doan3.canthotour.Model.Favorite;
 import com.doan3.canthotour.R;
 import com.doan3.canthotour.View.Main.MainActivity;
 import com.doan3.canthotour.View.Notify.ActivityNotify;
@@ -46,7 +46,7 @@ public class ActivityFavorite extends AppCompatActivity {
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavView_Bar);
         BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
 
-        new place().execute(Config.URL_HOST + Config.URL_GET_ALL_FAVORITE);
+        new favorite().execute(Config.URL_HOST + Config.URL_GET_ALL_FAVORITE);
 
         menuBotNavBar();
     }
@@ -81,7 +81,7 @@ public class ActivityFavorite extends AppCompatActivity {
         });
     }
 
-    private class place extends AsyncTask<String, Void, String> {
+    private class favorite extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... strings) {
             return HttpRequestAdapter.httpGet(strings[0]);
@@ -108,15 +108,15 @@ public class ActivityFavorite extends AppCompatActivity {
                 recyclerView.setLayoutManager(linearLayoutManager);
 
                 //Add item
-                ArrayList<Place> listPlace = new ArrayList<>();
+                ArrayList<Favorite> listFavorite = new ArrayList<>();
 
                 // load địa danh yêu thích
                 for (int i = 0; i < arrayList.size(); i++) {
                     if (i % 2 == 1)
-                        listPlace.add(new Place(R.drawable.benninhkieu1, arrayList.get(i)));
+                        listFavorite.add(new Favorite(R.drawable.benninhkieu1, arrayList.get(i)));
                 }
 
-                FavoriteAdapter favoriteAdapter = new FavoriteAdapter(listPlace, getApplicationContext());
+                FavoriteAdapter favoriteAdapter = new FavoriteAdapter(listFavorite, getApplicationContext());
                 recyclerView.setAdapter(favoriteAdapter);
 
             } catch (JSONException e) {
