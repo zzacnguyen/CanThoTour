@@ -32,6 +32,7 @@ import java.util.ArrayList;
 
 public class ActivityFavorite extends AppCompatActivity {
 
+    private ArrayList<String> id = new ArrayList<>();
     TextView txtTenDD;
     ImageView imgHinhDD;
 
@@ -46,7 +47,9 @@ public class ActivityFavorite extends AppCompatActivity {
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavView_Bar);
         BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
 
-        new place().execute(Config.URL_HOST + Config.URL_GET_ALL_FAVORITE);
+        new GetId().execute(Config.URL_HOST + Config.URL_GET_ALL_FAVORITE);
+
+        new Load().execute();
 
         menuBotNavBar();
     }
@@ -81,47 +84,64 @@ public class ActivityFavorite extends AppCompatActivity {
         });
     }
 
-    private class place extends AsyncTask<String, Void, String> {
+    private class GetId extends AsyncTask<String, Void, Void> {
         @Override
-        protected String doInBackground(String... strings) {
-            return HttpRequestAdapter.httpGet(strings[0]);
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
+        protected Void doInBackground(String... strings) {
             try {
-                // parse json ra arraylist
+                // merge 2 json
                 JSONArray jsonGet = new JSONArray();
-                ArrayList<String> arrJsonGet = JsonHelper.parseJsonNoId(new JSONArray(s), Config.JSON_FAVORITE);
-                for (int i = 0; i < arrJsonGet.size(); i+=2){
-                    jsonGet.put(new JSONObject("{\"dd_iddiadiem\":\"" + arrJsonGet.get(i) + "\",\"nd_idnguoidung\":\"" + arrJsonGet.get(i+1) + "\"}"));
+                ArrayList<String> arrJsonGet = JsonHelper.parseJsonNoId(new JSONArray(HttpRequestAdapter.httpGet(strings[0])), Config.JSON_FAVORITE);
+                for (int i = 0; i < arrJsonGet.size(); i += 2) {
+                    jsonGet.put(new JSONObject("{\"dd_iddiadiem\":\"" + arrJsonGet.get(i) + "\",\"nd_idnguoidung\":\"" + arrJsonGet.get(i + 1) + "\"}"));
                 }
 
                 JSONArray jsonArray = JsonHelper.mergeJson(jsonGet, new JSONArray(JsonHelper.readJson("dsyeuthich")));
+                // parse json ra arraylist
                 ArrayList<String> arrayList = JsonHelper.parseJsonNoId(jsonArray, Config.JSON_FAVORITE);
 
-                RecyclerView recyclerView = findViewById(R.id.RecyclerView_DanhSachYeuThich);
-                recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
-
-                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ActivityFavorite.this, LinearLayoutManager.VERTICAL, false);
-                recyclerView.setLayoutManager(linearLayoutManager);
-
-                //Add item
-                ArrayList<Place> listPlace = new ArrayList<>();
-
-                // load địa danh yêu thích
+                // thêm id địa danh vào biến id
                 for (int i = 0; i < arrayList.size(); i++) {
-                    if (i % 2 == 1)
-                        listPlace.add(new Place(R.drawable.benninhkieu1, arrayList.get(i)));
+                    if (i % 2 == 0) {
+                        id.add(arrayList.get(i));
+                    }
                 }
-
-                FavoriteAdapter favoriteAdapter = new FavoriteAdapter(listPlace, getApplicationContext());
-                recyclerView.setAdapter(favoriteAdapter);
-
-            } catch (JSONException e) {
-                e.printStackTrace();
+            } catch (JSONException ex) {
+                ex.printStackTrace();
             }
+            return null;
+        }
+    }
+
+    private class Load extends AsyncTask<Void, Void, ArrayList<Place>> {
+        @Override
+        protected ArrayList<Place> doInBackground(Void... voids) {
+            ArrayList<Place> arrIdPlace = new ArrayList<>();
+            for (int i = 0; i < id.size(); i++) {
+                try {
+                    String get = HttpRequestAdapter.httpGet(Config.URL_HOST + Config.URL_GET_ALL_PLACES + "/" + id.get(i));
+                    ArrayList<String> arrayList = JsonHelper.parseJsonNoId(new JSONArray(get), Config.JSON_PLACE);
+                    for (int j = 0; j < arrayList.size(); j++) {
+                        if (j % 7 == 0)
+                            arrIdPlace.add(new Place(R.drawable.benninhkieu1, arrayList.get(j)));
+                    }
+                } catch (JSONException ex){
+                    ex.printStackTrace();
+                }
+            }
+            return arrIdPlace;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<Place> places) {
+            super.onPostExecute(places);
+            RecyclerView recyclerView = findViewById(R.id.RecyclerView_DanhSachYeuThich);
+            recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
+
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ActivityFavorite.this, LinearLayoutManager.VERTICAL, false);
+            recyclerView.setLayoutManager(linearLayoutManager);
+
+            FavoriteAdapter favoriteAdapter = new FavoriteAdapter(places, getApplicationContext());
+            recyclerView.setAdapter(favoriteAdapter);
         }
     }
 }
