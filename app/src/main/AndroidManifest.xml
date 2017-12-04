@@ -26,7 +26,6 @@
         <activity android:name=".View.Main.Content.ActivityPlace"></activity>
         <activity android:name=".View.Main.Content.ActivityEat"></activity>
         <activity android:name=".View.Main.Content.ActivityHotel"></activity>
-        <activity android:name=".View.Main.Content.ActivityEntertainment"></activity>
     </application>
 
 </manifest>
