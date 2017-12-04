@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 
 public class Config {
-    public static final String URL_HOST = "http://192.168.1.18/doan3/public/";
+    public static final String URL_HOST = "http://192.168.1.6/doan3/public/";
     public static final String URL_GET_ALL_TYPE_OF_EVENTS = "loaihinhsukien";
     public static final String URL_GET_ALL_EATS = "anuong";
     public static final String URL_GET_ALL_COMMENTS = "binhluan";

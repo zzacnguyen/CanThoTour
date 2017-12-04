@@ -12,7 +12,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.doan3.canthotour.Adapter.FavoriteAdapter;
 import com.doan3.canthotour.Adapter.HttpRequestAdapter;
@@ -27,6 +26,7 @@ import com.doan3.canthotour.View.Personal.ActivityPersonal;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -92,13 +92,19 @@ public class ActivityFavorite extends AppCompatActivity {
             super.onPostExecute(s);
             try {
                 // parse json ra arraylist
-                JSONArray jsonArray = JsonHelper.mergeJson(new JSONArray(s),new JSONArray(JsonHelper.readJson("dsyeuthich")));
-                ArrayList<String> arrayList = JsonHelper.parseJson(jsonArray, Config.JSON_FAVORITE);
+                JSONArray jsonGet = new JSONArray();
+                ArrayList<String> arrJsonGet = JsonHelper.parseJsonNoId(new JSONArray(s), Config.JSON_FAVORITE);
+                for (int i = 0; i < arrJsonGet.size(); i+=2){
+                    jsonGet.put(new JSONObject("{\"dd_iddiadiem\":\"" + arrJsonGet.get(i) + "\",\"nd_idnguoidung\":\"" + arrJsonGet.get(i+1) + "\"}"));
+                }
+
+                JSONArray jsonArray = JsonHelper.mergeJson(jsonGet, new JSONArray(JsonHelper.readJson("dsyeuthich")));
+                ArrayList<String> arrayList = JsonHelper.parseJsonNoId(jsonArray, Config.JSON_FAVORITE);
 
                 RecyclerView recyclerView = findViewById(R.id.RecyclerView_DanhSachYeuThich);
                 recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
 
-                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ActivityFavorite.this, LinearLayoutManager.HORIZONTAL, false);
+                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ActivityFavorite.this, LinearLayoutManager.VERTICAL, false);
                 recyclerView.setLayoutManager(linearLayoutManager);
 
                 //Add item
@@ -106,7 +112,7 @@ public class ActivityFavorite extends AppCompatActivity {
 
                 // load địa danh yêu thích
                 for (int i = 0; i < arrayList.size(); i++) {
-                    if (i % 3 == 1)
+                    if (i % 2 == 1)
                         listPlace.add(new Place(R.drawable.benninhkieu1, arrayList.get(i)));
                 }
 
