@@ -76,7 +76,7 @@
                 android:padding="10dp">
 
                 <TextView
-                    android:id="@+id/textViewTenDD"
+                    android:id="@+id/textViewTenDV"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Tên địa điểm"
@@ -173,7 +173,7 @@
                         />
 
                     <TextView
-                        android:id="@+id/textViewDiaChi"
+                        android:id="@+id/textViewDiaChiDV"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
@@ -219,7 +219,7 @@
                         android:tint="@color/bgToolbar"/>
 
                     <TextView
-                        android:id="@+id/textViewLoaiHinh"
+                        android:id="@+id/textViewLoaiHinhDV"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
@@ -242,12 +242,12 @@
                         android:tint="@color/bgToolbar"/>
 
                     <TextView
-                        android:id="@+id/textViewGia"
+                        android:id="@+id/textViewGiaDV"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
                         android:layout_marginLeft="5dp"
                         android:text="Giá"
-                        android:layout_gravity="center"
                         android:textColor="#000"
                         android:textSize="14sp" />
 
@@ -265,12 +265,12 @@
                         android:tint="@color/bgToolbar"/>
 
                     <TextView
-                        android:id="@+id/textViewGio"
+                        android:id="@+id/textViewGioDV"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
                         android:layout_marginLeft="5dp"
                         android:text="Thời gian hoạt động"
-                        android:layout_gravity="center"
                         android:textColor="#000"
                         android:textSize="14sp" />
 
