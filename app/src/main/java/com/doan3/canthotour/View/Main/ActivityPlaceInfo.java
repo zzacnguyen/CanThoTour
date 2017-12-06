@@ -77,6 +77,7 @@ public class ActivityPlaceInfo extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.ic_trangchu:
+                        startActivity(new Intent(ActivityPlaceInfo.this, MainActivity.class));
                         break;
                     case R.id.ic_yeuthich:
                         startActivity(new Intent(ActivityPlaceInfo.this, ActivityFavorite.class));

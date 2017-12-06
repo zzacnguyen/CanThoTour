@@ -63,9 +63,9 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> 
         public ViewHolder(View itemView) {
             super(itemView);
 
-            txtTenDD = (TextView) itemView.findViewById(R.id.txtTenDD);
-            imgHinhDD = (ImageView) itemView.findViewById(R.id.imgHinhDD);
-            cardView = (CardView) itemView.findViewById(R.id.cardView);
+            txtTenDD = itemView.findViewById(R.id.txtTenDD);
+            imgHinhDD = itemView.findViewById(R.id.imgHinhDD);
+            cardView = itemView.findViewById(R.id.cardView);
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.doan3.canthotour.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import com.doan3.canthotour.Model.Hotel;
 import com.doan3.canthotour.R;
+import com.doan3.canthotour.View.Main.ActivityHotelInfo;
 
 import java.util.ArrayList;
 
@@ -35,9 +37,19 @@ public class ListOfHotelAdapter extends RecyclerView.Adapter<ListOfHotelAdapter.
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) { //Mỗi 1 lần chạy hàm này tương ứng với load 1 item trong recycler view
+    public void onBindViewHolder(ViewHolder holder, final int position) { //Mỗi 1 lần chạy hàm này tương ứng với load 1 item trong recycler view
         holder.txtTenDD.setText(hotel.get(position).getTenKS());
         holder.imgHinhDD.setImageResource(hotel.get(position).getHinhKS());
+
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent iPlaceInfo = new Intent(context, ActivityHotelInfo.class);
+                iPlaceInfo.putExtra("masp", position + 1 + "");
+                iPlaceInfo.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(iPlaceInfo);
+            }
+        });
     }
 
     @Override
@@ -45,7 +57,7 @@ public class ListOfHotelAdapter extends RecyclerView.Adapter<ListOfHotelAdapter.
         return hotel.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{ //ViewHolder chạy thứ 2, phần này giúp cho recycler view ko bị load lại dữ liệu khi thực hiện thao tác vuốt màn hình
+    public class ViewHolder extends RecyclerView.ViewHolder { //ViewHolder chạy thứ 2, phần này giúp cho recycler view ko bị load lại dữ liệu khi thực hiện thao tác vuốt màn hình
         TextView txtTenDD;
         ImageView imgHinhDD;
         CardView cardView;

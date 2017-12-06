@@ -23,6 +23,9 @@
         <activity android:name=".View.Notify.ActivityNotify"></activity>
         <activity android:name=".View.Personal.ActivityPersonal"></activity>
         <activity android:name=".View.Main.ActivityPlaceInfo"></activity>
+        <activity android:name=".View.Main.ActivityEatInfo"></activity>
+        <activity android:name=".View.Main.ActivityHotelInfo"></activity>
+        <activity android:name=".View.Main.ActivityEntertainmentInfo"></activity>
         <activity android:name=".View.Main.Content.ActivityPlace"></activity>
         <activity android:name=".View.Main.Content.ActivityEat"></activity>
         <activity android:name=".View.Main.Content.ActivityHotel"></activity>

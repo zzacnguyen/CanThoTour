@@ -94,7 +94,7 @@ public class ActivityHotel extends AppCompatActivity {
                 RecyclerView recyclerView = (RecyclerView)findViewById(R.id.RecyclerView_DanhSachKhachSan);
                 recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
 
-                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ActivityHotel.this, LinearLayoutManager.HORIZONTAL, false);
+                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ActivityHotel.this, LinearLayoutManager.VERTICAL, false);
                 recyclerView.setLayoutManager(linearLayoutManager);
 
                 //Add item

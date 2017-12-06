@@ -76,10 +76,10 @@
                 android:padding="10dp">
 
                 <TextView
-                    android:id="@+id/textViewTenDV"
+                    android:id="@+id/textViewTenDv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Tên địa điểm"
+                    android:text=""
                     android:textStyle="bold"
                     android:textSize="16sp"
                     android:textColor="@color/colorWhite"/>
@@ -116,7 +116,7 @@
                 android:background="@drawable/white_grey_border_bottom">
 
                 <Button
-                    android:id="@+id/btnLuuDiaDiem"
+                    android:id="@+id/btnLuuDiaDiemDv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -127,7 +127,7 @@
                     android:background="@color/colorWhite"/>
 
                 <Button
-                    android:id="@+id/btnDiaDiemLanCan"
+                    android:id="@+id/btnDiaDiemLanCanDv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -138,7 +138,7 @@
                     android:background="@color/colorWhite"/>
 
                 <Button
-                    android:id="@+id/btnChiaSe"
+                    android:id="@+id/btnChiaSeDv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -173,11 +173,11 @@
                         />
 
                     <TextView
-                        android:id="@+id/textViewDiaChiDV"
+                        android:id="@+id/textViewDiaChiDv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
-                        android:text="Địa chỉ"
+                        android:text=""
                         android:layout_gravity="center"
                         android:textColor="#000"
                         android:textSize="14sp" />
@@ -196,11 +196,11 @@
                         android:tint="@color/bgToolbar"/>
 
                     <TextView
-                        android:id="@+id/textViewSDTDV"
+                        android:id="@+id/textViewSdtDv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
-                        android:text="Số điện thoại"
+                        android:text=""
                         android:layout_gravity="center"
                         android:textColor="#000"
                         android:textSize="14sp" />
@@ -219,11 +219,11 @@
                         android:tint="@color/bgToolbar"/>
 
                     <TextView
-                        android:id="@+id/textViewLoaiHinhDV"
+                        android:id="@+id/textViewLoaiHinhDv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
-                        android:text="Loại hình"
+                        android:text=""
                         android:layout_gravity="center"
                         android:textColor="#000"
                         android:textSize="14sp" />
@@ -242,12 +242,12 @@
                         android:tint="@color/bgToolbar"/>
 
                     <TextView
-                        android:id="@+id/textViewGiaDV"
+                        android:id="@+id/textViewGiaDv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginLeft="5dp"
-                        android:text="Giá"
+                        android:text=""
                         android:textColor="#000"
                         android:textSize="14sp" />
 
@@ -265,12 +265,12 @@
                         android:tint="@color/bgToolbar"/>
 
                     <TextView
-                        android:id="@+id/textViewGioDV"
+                        android:id="@+id/textViewGioDv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginLeft="5dp"
-                        android:text="Thời gian hoạt động"
+                        android:text=""
                         android:textColor="#000"
                         android:textSize="14sp" />
 
@@ -290,7 +290,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Hình ảnh"
+                    android:text=""
                     android:textSize="16sp"
                     android:textStyle="bold"/>
 
@@ -372,10 +372,10 @@
                     android:textStyle="bold"/>
 
                 <TextView
-                    android:id="@+id/textViewGioiThieu"
+                    android:id="@+id/textViewGioiThieuDv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus mattis posuere quam, non finibus augue tempus id. Curabitur ut ultricies mi. Donec eget consectetur metus. Duis maximus lacinia orci, pellentesque commodo diam ultricies condimentum. Morbi consectetur rutrum vehicula."
+                    android:text=""
                     android:textSize="14sp"
                     android:textStyle="bold"/>
 

@@ -36,7 +36,7 @@ public class Config {
     public static final ArrayList<String> JSON_PLACE = new ArrayList<String>(Arrays.asList("dd_tendiadiem",
             "dd_gioithieu", "dn_diachi","dd_sodienthoai","dd_kinhdo","dd_vido","nd_idnguoidung"));
     public static final ArrayList<String> JSON_SERVICE = new ArrayList<String>(Arrays.asList("dv_gioithieu",
-            "dv_giomocua", "dv_giodongcua","dv_giacaonhat","dv_giathapnhat","dd_iddiadiem","dv_trangthai"));
+            "dv_giomocua", "dv_giodongcua","dv_giacaonhat","dv_giathapnhat","dv_trangthai","dd_iddiadiem"));
     public static final ArrayList<String> JSON_IMAGE = new ArrayList<String>(Arrays.asList("ha_hinhanh1",
             "ha_hinhanh2", "ha_hinhanh3","ha_thumb","ha_icon"));
     public static final ArrayList<String> JSON_HOTEL = new ArrayList<String>(Arrays.asList("ks_tenkhachsan",

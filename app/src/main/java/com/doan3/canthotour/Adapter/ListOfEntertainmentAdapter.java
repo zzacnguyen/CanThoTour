@@ -1,6 +1,7 @@
 package com.doan3.canthotour.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 
 import com.doan3.canthotour.Model.Entertainment;
 import com.doan3.canthotour.R;
+import com.doan3.canthotour.View.Main.ActivityEntertainmentInfo;
 
 import java.util.ArrayList;
 
@@ -33,9 +35,19 @@ public class ListOfEntertainmentAdapter extends RecyclerView.Adapter<ListOfEnter
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) { //Mỗi 1 lần chạy hàm này tương ứng với load 1 item trong recycler view
+    public void onBindViewHolder(ViewHolder holder, final int position) { //Mỗi 1 lần chạy hàm này tương ứng với load 1 item trong recycler view
         holder.txtTenDD.setText(entertain.get(position).getTenVC());
         holder.imgHinhDD.setImageResource(entertain.get(position).getHinhVC());
+
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent iPlaceInfo = new Intent(context, ActivityEntertainmentInfo.class);
+                iPlaceInfo.putExtra("masp", position + 1 + "");
+                iPlaceInfo.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(iPlaceInfo);
+            }
+        });
     }
 
     @Override
