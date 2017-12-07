@@ -29,6 +29,7 @@ import com.doan3.canthotour.View.Personal.ActivityPersonal;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -89,7 +90,8 @@ public class ActivityHotel extends AppCompatActivity {
             super.onPostExecute(s);
             try {
                 // parse json ra arraylist
-                ArrayList<String> arrayList = JsonHelper.parseJson(new JSONArray(s), Config.JSON_HOTEL);
+                ArrayList<String> arr = JsonHelper.parseJsonNoId(new JSONObject(s), Config.JSON_LOAD);
+                ArrayList<String> arrayList = JsonHelper.parseJson(new JSONArray(arr.get(0)), Config.JSON_HOTEL);
 
                 RecyclerView recyclerView = findViewById(R.id.RecyclerView_DanhSachKhachSan);
                 recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
