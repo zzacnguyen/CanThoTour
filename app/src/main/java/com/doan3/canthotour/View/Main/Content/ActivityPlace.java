@@ -12,21 +12,19 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.doan3.canthotour.Adapter.HttpRequestAdapter;
 import com.doan3.canthotour.Adapter.ListOfPlaceAdapter;
-import com.doan3.canthotour.Adapter.PlaceAdapter;
 import com.doan3.canthotour.Config;
 import com.doan3.canthotour.Helper.BottomNavigationViewHelper;
 import com.doan3.canthotour.Helper.JsonHelper;
 import com.doan3.canthotour.Interface.OnLoadMoreListener;
 import com.doan3.canthotour.Model.Place;
 import com.doan3.canthotour.R;
-import com.doan3.canthotour.View.Personal.ActivityPersonal;
-import com.doan3.canthotour.View.Notify.ActivityNotify;
-import com.doan3.canthotour.View.Main.MainActivity;
 import com.doan3.canthotour.View.Favorite.ActivityFavorite;
+import com.doan3.canthotour.View.Main.MainActivity;
+import com.doan3.canthotour.View.Notify.ActivityNotify;
+import com.doan3.canthotour.View.Personal.ActivityPersonal;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -45,7 +43,7 @@ public class ActivityPlace extends AppCompatActivity {
         menuBotNavBar();
     }
 
-    private void menuBotNavBar(){
+    private void menuBotNavBar() {
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavView_Bar);
         BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
 
@@ -56,7 +54,7 @@ public class ActivityPlace extends AppCompatActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()){
+                switch (item.getItemId()) {
                     case R.id.ic_trangchu:
                         startActivity(new Intent(ActivityPlace.this, MainActivity.class));
                         break;
@@ -76,12 +74,15 @@ public class ActivityPlace extends AppCompatActivity {
     }
 
 
-
-    private void initView_Place(){
-        new place().execute(Config.URL_HOST+Config.URL_GET_ALL_PLACES);
+    private void initView_Place() {
+        new place().execute(Config.URL_HOST + Config.URL_GET_ALL_PLACES);
     }
 
-    private class place extends AsyncTask<String,Void,String> {
+    private class place extends AsyncTask<String, Void, String> {
+        ArrayList<String> arrayList = new ArrayList<>();
+        ArrayList<Place> listPlace = new ArrayList<>();
+        ListOfPlaceAdapter listOfPlaceAdapter;
+
         @Override
         protected String doInBackground(String... strings) {
             return HttpRequestAdapter.httpGet(strings[0]);
@@ -92,7 +93,7 @@ public class ActivityPlace extends AppCompatActivity {
             super.onPostExecute(s);
             try {
                 // parse json ra arraylist
-                final ArrayList<String> arrayList = JsonHelper.parseJson(new JSONArray(s), Config.JSON_PLACE);
+                arrayList = JsonHelper.parseJson(new JSONArray(s), Config.JSON_PLACE);
 
                 RecyclerView recyclerView = findViewById(R.id.RecyclerView_DanhSachDiaDanh);
                 recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
@@ -101,24 +102,24 @@ public class ActivityPlace extends AppCompatActivity {
                 recyclerView.setLayoutManager(linearLayoutManager);
 
                 //Add item
-                final ArrayList<Place> listPlace = new ArrayList<>();
-
                 // json địa danh có 8 phần tử, phần tử 1 là tên địa danh nên i % 8 == 1 để lấy tên địa danh
-                int size = (arrayList.size() > 40)? 40 : arrayList.size();
+                int size = (arrayList.size() > 80) ? 80 : arrayList.size();
 
-                for (int i = 0; i < size; i++){
+                for (int i = 0; i < size; i++) {
                     if (i % 8 == 1)
-                        listPlace.add(new Place(R.drawable.benninhkieu1, arrayList.get(i),arrayList.get(i+2)));
+                        listPlace.add(new Place(R.drawable.benninhkieu1, arrayList.get(i), arrayList.get(i + 2)));
                 }
 
-                final ListOfPlaceAdapter listOfPlaceAdapter = new ListOfPlaceAdapter(recyclerView, listPlace, getApplicationContext());
+                listOfPlaceAdapter = new ListOfPlaceAdapter(recyclerView, listPlace, getApplicationContext());
                 recyclerView.setAdapter(listOfPlaceAdapter);
 
                 //set load more listener for the RecyclerView adapter
                 listOfPlaceAdapter.setOnLoadMoreListener(new OnLoadMoreListener() {
+                    int size = arrayList.size(), position = 0, j = 0;
+
                     @Override
                     public void onLoadMore() {
-                        if (listPlace.size() <= arrayList.size()) {
+                        if (listPlace.size() <= (arrayList.size() / 8)) {
                             listPlace.add(null);
                             listOfPlaceAdapter.notifyItemInserted(listPlace.size() - 1);
                             new Handler().postDelayed(new Runnable() {
@@ -127,12 +128,18 @@ public class ActivityPlace extends AppCompatActivity {
                                     listPlace.remove(listPlace.size() - 1);
                                     listOfPlaceAdapter.notifyItemRemoved(listPlace.size());
 
+                                    size -= 80;
+                                    size = (size >= 80) ? 80 : size;
+                                    position += 80;
                                     //Generating more data
                                     int index = listPlace.size();
                                     int end = index + 10;
                                     for (int i = index; i < end; i++) {
-                                        if (i % 8 == 1)
-                                            listPlace.add(new Place(R.drawable.benninhkieu1, arrayList.get(i),arrayList.get(i+2)));
+                                        for (j += 80; j < position + size; j++) {
+                                            System.out.println(position +"+"+size);
+                                            if (j % 8 == 1)
+                                                listPlace.add(new Place(R.drawable.benninhkieu1, arrayList.get(j), arrayList.get(j + 2)));
+                                        }
                                     }
                                     listOfPlaceAdapter.notifyDataSetChanged();
                                     listOfPlaceAdapter.setLoaded();

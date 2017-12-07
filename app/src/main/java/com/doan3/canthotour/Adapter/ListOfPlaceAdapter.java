@@ -45,10 +45,9 @@ public class ListOfPlaceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 totalItemCount = linearLayoutManager.getItemCount();
                 lastVisibleItem = linearLayoutManager.findLastVisibleItemPosition();
                 if (!isLoading && totalItemCount <= (lastVisibleItem + visibleThreshold)) {
-                    if (onLoadMoreListener != null) {
+                    if (onLoadMoreListener != null)
                         onLoadMoreListener.onLoadMore();
                         isLoading = true;
-                    }
                 }
             }
         });
