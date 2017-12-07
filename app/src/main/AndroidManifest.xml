@@ -30,6 +30,8 @@
         <activity android:name=".View.Main.Content.ActivityEat"></activity>
         <activity android:name=".View.Main.Content.ActivityHotel"></activity>
         <activity android:name=".View.Main.Content.ActivityEntertainment"></activity>
+        <activity android:name=".View.Personal.ActivityAddPlace"></activity>
+        <activity android:name=".View.Search.ActivitySearch"></activity>
     </application>
 
 </manifest>

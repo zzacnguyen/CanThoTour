@@ -3,47 +3,27 @@ package com.doan3.canthotour.View.Personal;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 
 import com.doan3.canthotour.Helper.BottomNavigationViewHelper;
 import com.doan3.canthotour.R;
-import com.doan3.canthotour.View.Notify.ActivityNotify;
 import com.doan3.canthotour.View.Favorite.ActivityFavorite;
 import com.doan3.canthotour.View.Main.MainActivity;
-import com.doan3.canthotour.View.Search.ActivitySearch;
+import com.doan3.canthotour.View.Notify.ActivityNotify;
 
-public class ActivityPersonal extends AppCompatActivity {
+/**
+ * Created by zzacn on 12/7/2017.
+ */
 
-    Button btnThemDiaDiem, btnTimDiaDiem;
-
+public class ActivityAddPlace extends AppCompatActivity {
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_canhan);
-
-        btnThemDiaDiem = findViewById(R.id.buttonThemDiaDiem);
-        btnTimDiaDiem = findViewById(R.id.buttonTimDiaDiem);
-
-        btnThemDiaDiem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent iThemDiaDiem = new Intent(ActivityPersonal.this, ActivityAddPlace.class);
-                startActivity(iThemDiaDiem);
-            }
-        });
-
-        btnTimDiaDiem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent iTimDiaDiem = new Intent(ActivityPersonal.this, ActivitySearch.class);
-                startActivity(iTimDiaDiem);
-            }
-        });
+        setContentView(R.layout.activity_themdiadiem);
 
         menuBotNarBar();
     }
@@ -61,16 +41,16 @@ public class ActivityPersonal extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()){
                     case R.id.ic_trangchu:
-                        startActivity(new Intent(ActivityPersonal.this, MainActivity.class));
+                        startActivity(new Intent(ActivityAddPlace.this, MainActivity.class));
                         break;
                     case R.id.ic_yeuthich:
-                        startActivity(new Intent(ActivityPersonal.this, ActivityFavorite.class));
+                        startActivity(new Intent(ActivityAddPlace.this, ActivityFavorite.class));
                         break;
                     case R.id.ic_thongbao:
-                        startActivity(new Intent(ActivityPersonal.this, ActivityNotify.class));
+                        startActivity(new Intent(ActivityAddPlace.this, ActivityNotify.class));
                         break;
                     case R.id.ic_canhan:
-
+                        startActivity(new Intent(ActivityAddPlace.this, ActivityPersonal.class));
                         break;
                 }
                 return false;
