@@ -47,8 +47,8 @@ public class ListOfPlaceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 if (!isLoading && totalItemCount <= (lastVisibleItem + visibleThreshold)) {
                     if (onLoadMoreListener != null) {
                         onLoadMoreListener.onLoadMore();
+                        isLoading = true;
                     }
-                    isLoading = true;
                 }
             }
         });
@@ -101,7 +101,7 @@ public class ListOfPlaceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public int getItemCount() {
-        return place == null ? 0 : place.size();
+        return  place.size();
     }
 
     public void setLoaded() {

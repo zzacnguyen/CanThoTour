@@ -118,7 +118,7 @@ public class ActivityPlace extends AppCompatActivity {
                 listOfPlaceAdapter.setOnLoadMoreListener(new OnLoadMoreListener() {
                     @Override
                     public void onLoadMore() {
-                        if (listPlace.size() <= 20) {
+                        if (listPlace.size() <= arrayList.size()) {
                             listPlace.add(null);
                             listOfPlaceAdapter.notifyItemInserted(listPlace.size() - 1);
                             new Handler().postDelayed(new Runnable() {
@@ -137,7 +137,7 @@ public class ActivityPlace extends AppCompatActivity {
                                     listOfPlaceAdapter.notifyDataSetChanged();
                                     listOfPlaceAdapter.setLoaded();
                                 }
-                            }, 5000);
+                            }, 2000);
                         }
                     }
                 });
