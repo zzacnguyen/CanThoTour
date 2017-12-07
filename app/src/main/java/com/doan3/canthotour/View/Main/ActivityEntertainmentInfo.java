@@ -1,6 +1,5 @@
 package com.doan3.canthotour.View.Main;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -32,7 +31,7 @@ import java.util.concurrent.ExecutionException;
  * Created by sieut on 12/6/2017.
  */
 
-public class ActivityENTERTAINMENTInfo extends AppCompatActivity {
+public class ActivityEntertainmentInfo extends AppCompatActivity {
     Button btnLuuDiaDiem, btnLanCan, btnChiaSe;
     TextView txtTenDD, txtDiaChi, txtSDT, txtLoaiHinh, txtGia, txtGioiThieu, txtGio;
     String masp;
@@ -83,16 +82,16 @@ public class ActivityENTERTAINMENTInfo extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.ic_trangchu:
-                        startActivity(new Intent(ActivityENTERTAINMENTInfo.this, MainActivity.class));
+                        startActivity(new Intent(ActivityEntertainmentInfo.this, MainActivity.class));
                         break;
                     case R.id.ic_yeuthich:
-                        startActivity(new Intent(ActivityENTERTAINMENTInfo.this, ActivityFavorite.class));
+                        startActivity(new Intent(ActivityEntertainmentInfo.this, ActivityFavorite.class));
                         break;
                     case R.id.ic_thongbao:
-                        startActivity(new Intent(ActivityENTERTAINMENTInfo.this, ActivityNotify.class));
+                        startActivity(new Intent(ActivityEntertainmentInfo.this, ActivityNotify.class));
                         break;
                     case R.id.ic_canhan:
-                        startActivity(new Intent(ActivityENTERTAINMENTInfo.this, ActivityPersonal.class));
+                        startActivity(new Intent(ActivityEntertainmentInfo.this, ActivityPersonal.class));
                         break;
                 }
                 return false;
