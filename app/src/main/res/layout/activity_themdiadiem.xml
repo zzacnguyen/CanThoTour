@@ -78,9 +78,10 @@
                 android:background="@color/colorWhite"
                 android:layout_marginTop="?attr/actionBarSize">
 
-                <TextView
+                <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@null"
                     android:textSize="16sp"
                     android:hint="Tên địa điểm"
                     android:padding="5dp"/>
@@ -101,7 +102,7 @@
                 android:padding="10dp"
                 android:background="@color/colorWhite">
 
-                <TextView
+                <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="16sp"
@@ -109,10 +110,11 @@
                     android:background="@drawable/white_grey_border_bottom"
                     android:padding="5dp"/>
 
-                <TextView
+                <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="16sp"
+                    android:background="@null"
                     android:hint="Số điện thoại"
                     android:padding="5dp"/>
 
@@ -138,12 +140,13 @@
                     android:textSize="16sp"
                     android:hint="Chọn vị trí (MapView)"
                     android:background="@drawable/white_grey_border_bottom"
-                    android:padding="5dp"/>
+                    android:padding="10dp"/>
 
-                <TextView
+                <EditText
                     android:layout_width="match_parent"
-                    android:layout_height="80dp"
+                    android:layout_height="150dp"
                     android:textSize="16sp"
+                    android:background="@null"
                     android:hint="Mô tả địa điểm"
                     android:padding="5dp"/>
 

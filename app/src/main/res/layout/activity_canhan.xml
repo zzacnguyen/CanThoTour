@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true"
-        android:background="@color/colorWhite">
+        android:background="@color/colorGrey">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
@@ -36,6 +36,7 @@
             android:layout_height="wrap_content"
             android:background="@color/colorGrey"
             android:orientation="vertical"
+            android:layout_marginTop="20dp"
             app:layout_scrollFlags="scroll|enterAlways">
 
             <LinearLayout
@@ -43,7 +44,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:padding="10dp"
-                android:background="@color/colorWhite">
+                android:background="@drawable/white_grey_border_bottom">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:layout_width="50dp"
@@ -63,7 +64,7 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="20dp"
                 android:background="@color/colorGrey"
                 android:layout_marginTop="10dp"
                 />
@@ -76,12 +77,13 @@
                 android:padding="5dp">
 
                 <Button
+                    android:id="@+id/buttonThemDiaDiem"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/ic_themdiadiem"
                     android:textAlignment="textStart"
                     android:textAllCaps="false"
-                    android:background="@color/colorWhite"
+                    android:background="@null"
                     android:text="Thêm địa điểm"
                     android:layout_weight="1"/>
 
@@ -101,12 +103,13 @@
                 android:padding="5dp">
 
                 <Button
+                    android:id="@+id/buttonTimDiaDiem"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/ic_timdiadiem"
                     android:textAlignment="textStart"
                     android:textAllCaps="false"
-                    android:background="@color/colorWhite"
+                    android:background="@null"
                     android:text="Tìm địa điểm"
                     android:layout_weight="1"/>
 
@@ -126,12 +129,13 @@
                 android:padding="5dp">
 
                 <Button
+                    android:id="@+id/buttonDangKyDoanhNghiep"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/ic_dangkydoanhnghiep"
                     android:textAlignment="textStart"
                     android:textAllCaps="false"
-                    android:background="@color/colorWhite"
+                    android:background="@null"
                     android:text="Đăng ký doanh nghiệp"
                     android:layout_weight="1"/>
 
@@ -147,7 +151,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/colorGrey"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="20dp"
                 />
 
             <LinearLayout
@@ -158,12 +162,13 @@
                 android:padding="5dp">
 
                 <Button
+                    android:id="@+id/buttonCaiDat"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/ic_caidat"
                     android:textAlignment="textStart"
                     android:textAllCaps="false"
-                    android:background="@color/colorWhite"
+                    android:background="@null"
                     android:text="Cài đặt"
                     android:layout_weight="1"/>
 
@@ -183,12 +188,13 @@
                 android:padding="5dp">
 
                 <Button
+                    android:id="@+id/buttonDangXuat"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/ic_dangxuat"
                     android:textAlignment="textStart"
                     android:textAllCaps="false"
-                    android:background="@color/colorWhite"
+                    android:background="@null"
                     android:text="Đăng xuất"
                     android:layout_weight="1"/>
 
