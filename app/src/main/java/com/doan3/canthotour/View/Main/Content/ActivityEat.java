@@ -45,7 +45,7 @@ public class ActivityEat extends AppCompatActivity {
     }
 
     private void menuBotNavBar(){
-        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavView_Bar);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavView_Bar);
         BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
 
         Menu menu = bottomNavigationView.getMenu();
@@ -101,10 +101,7 @@ public class ActivityEat extends AppCompatActivity {
                 ArrayList<Eat> listEat = new ArrayList<>();
 
                 // json ăn uống có 4 phần tử, phần tử 1 là tên địa danh nên i % 4 == 1 để lấy tên địa danh
-                // giới hạn load 5 phần tử nên 4 * 5 = 20
-                // nếu không giới hạn thì thay 20 = arrayList.size()
-                int size = (arrayList.size() > 20)? 20 : arrayList.size();
-                for (int i = 0; i < size; i++){
+                for (int i = 0; i < arrayList.size(); i++){
                     if (i % 4 == 1)
                         listEat.add(new Eat(R.drawable.benninhkieu1, arrayList.get(i)));
                 }

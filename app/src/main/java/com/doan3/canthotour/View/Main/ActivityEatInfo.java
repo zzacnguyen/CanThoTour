@@ -25,6 +25,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by sieut on 12/6/2017.
@@ -33,7 +35,7 @@ import java.util.ArrayList;
 public class ActivityEatInfo extends AppCompatActivity {
     Button btnLuuDiaDiem, btnLanCan, btnChiaSe;
     TextView txtTenDD, txtDiaChi, txtSDT, txtLoaiHinh, txtGia, txtGioiThieu, txtGio;
-    String masp, idService = "", idPlace = "";
+    String masp;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -52,12 +54,18 @@ public class ActivityEatInfo extends AppCompatActivity {
         txtGio = findViewById(R.id.textViewGioDv);
 
         masp = getIntent().getStringExtra("masp");
-
+        String idService = "", idPlace = "";
+        try {
+            idService = new GetIdService().execute(Config.URL_HOST + Config.URL_GET_ALL_EATS + "/" + masp).get();
+            idPlace = new GetIdPlace().execute(Config.URL_HOST + Config.URL_GET_ALL_SERVICES + "/" + idService).get();
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
         new GetIdService().execute(Config.URL_HOST + Config.URL_GET_ALL_EATS + "/" + masp);
-        new GetIdPlace().execute();
+        new GetIdPlace().execute(Config.URL_HOST + Config.URL_GET_ALL_SERVICES + "/" + idService);
         new LoadPlace().execute(Config.URL_HOST + Config.URL_GET_ALL_EATS + "/" + masp);
-        new LoadServiceInfo().execute();
-        new LoadPlaceInfo().execute();
+        new LoadServiceInfo().execute(Config.URL_HOST + Config.URL_GET_ALL_SERVICES + "/" + idService);
+        new LoadPlaceInfo().execute(Config.URL_HOST + Config.URL_GET_ALL_PLACES + "/" + idPlace);
 
         menuBotNavBar();
     }
@@ -92,31 +100,31 @@ public class ActivityEatInfo extends AppCompatActivity {
         });
     }
 
-    private class GetIdService extends AsyncTask<String, Void, Void> {
+    private class GetIdService extends AsyncTask<String, Void, String> {
         @Override
-        protected Void doInBackground(String... strings) {
+        protected String doInBackground(String... strings) {
+            ArrayList<String> arrJsonGet = new ArrayList<>();
             try {
                 JSONArray json = new JSONArray(HttpRequestAdapter.httpGet(strings[0]));
-                ArrayList<String> arrJsonGet = JsonHelper.parseJsonNoId(json, Config.JSON_EAT);
-                idService = arrJsonGet.get(2);
+                arrJsonGet = JsonHelper.parseJsonNoId(json, Config.JSON_EAT);
             } catch (JSONException ex) {
                 ex.printStackTrace();
             }
-            return null;
+            return arrJsonGet.get(2);
         }
     }
 
-    private class GetIdPlace extends AsyncTask<Void, Void, Void> {
+    private class GetIdPlace extends AsyncTask<String, Void, String> {
         @Override
-        protected Void doInBackground(Void... voids) {
+        protected String doInBackground(String... strings) {
+            ArrayList<String> arrJsonGet = new ArrayList<>();
             try {
-                JSONArray json = new JSONArray(HttpRequestAdapter.httpGet(Config.URL_HOST + Config.URL_GET_ALL_SERVICES + "/" + idService));
-                ArrayList<String> arrJsonGet = JsonHelper.parseJsonNoId(json, Config.JSON_SERVICE);
-                idPlace = arrJsonGet.get(6);
+                JSONArray json = new JSONArray(HttpRequestAdapter.httpGet(strings[0]));
+                arrJsonGet = JsonHelper.parseJsonNoId(json, Config.JSON_SERVICE);
             } catch (JSONException ex) {
                 ex.printStackTrace();
             }
-            return null;
+            return arrJsonGet.get(6);
         }
     }
 
@@ -140,10 +148,10 @@ public class ActivityEatInfo extends AppCompatActivity {
         }
     }
 
-    private class LoadServiceInfo extends AsyncTask<Void, Void, String> {
+    private class LoadServiceInfo extends AsyncTask<String, Void, String> {
         @Override
-        protected String doInBackground(Void... voids) {
-            return HttpRequestAdapter.httpGet(Config.URL_HOST + Config.URL_GET_ALL_SERVICES + "/" + idService);
+        protected String doInBackground(String... strings) {
+            return HttpRequestAdapter.httpGet(strings[0]);
         }
 
         @Override
@@ -161,10 +169,10 @@ public class ActivityEatInfo extends AppCompatActivity {
         }
     }
 
-    private class LoadPlaceInfo extends AsyncTask<Void, Void, String> {
+    private class LoadPlaceInfo extends AsyncTask<String, Void, String> {
         @Override
-        protected String doInBackground(Void... voids) {
-            return HttpRequestAdapter.httpGet(Config.URL_HOST + Config.URL_GET_ALL_PLACES + "/" + idPlace);
+        protected String doInBackground(String... strings) {
+            return HttpRequestAdapter.httpGet(strings[0]);
         }
 
         @Override
