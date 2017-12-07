@@ -44,6 +44,17 @@ public class JsonHelper {
         return stringJson;
     }
 
+    public static ArrayList<String> parseJsonNoId(JSONObject json, ArrayList<String> arr) {
+        ArrayList<String> stringJson = new ArrayList<>();
+        try {
+            for (int j = 0; j < arr.size(); j++) {
+                stringJson.add(json.getString(arr.get(j)));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return stringJson;
+    }
 
     public static JSONArray mergeJson(JSONArray json1, JSONArray json2) {
         for (int i = 0; i < json2.length(); i++) {
