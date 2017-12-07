@@ -32,24 +32,25 @@ import java.util.ArrayList;
 
 public class ActivityHotelInfo extends AppCompatActivity {
     Button btnLuuDiaDiem, btnLanCan, btnChiaSe;
-    TextView txtTenDD, txtDiaChi, txtSDT, txtLoaiHinh, txtGia, txtGioiThieu, txtGio;
+    TextView txtTenDD, txtDiaChi, txtSDT, txtLoaiHinh, txtGia, txtGioiThieu, txtGio, txtWebsite;
     String masp, idService = "", idPlace = "";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chitietdichvu);
+        setContentView(R.layout.activity_chitietkhachsan);
 
-        btnLuuDiaDiem = findViewById(R.id.btnLuuDiaDiemDv);
-        btnLanCan = findViewById(R.id.btnDiaDiemLanCanDv);
-        btnChiaSe = findViewById(R.id.btnChiaSeDv);
-        txtTenDD = findViewById(R.id.textViewTenDv);
-        txtDiaChi = findViewById(R.id.textViewDiaChiDv);
-        txtSDT = findViewById(R.id.textViewSdtDv);
-        txtLoaiHinh = findViewById(R.id.textViewLoaiHinhDv);
-        txtGia = findViewById(R.id.textViewGiaDv);
-        txtGioiThieu = findViewById(R.id.textViewGioiThieuDv);
-        txtGio = findViewById(R.id.textViewGioDv);
+        btnLuuDiaDiem = findViewById(R.id.btnLuuKS);
+        btnLanCan = findViewById(R.id.btnDiaDiemLanCanKS);
+        btnChiaSe = findViewById(R.id.btnChiaSeKS);
+        txtTenDD = findViewById(R.id.textViewTenKS);
+        txtDiaChi = findViewById(R.id.textViewDiaChiKS);
+        txtSDT = findViewById(R.id.textViewSdtKS);
+        txtLoaiHinh = findViewById(R.id.textViewLoaiHinhKS);
+        txtGia = findViewById(R.id.textViewGiaKS);
+        txtGioiThieu = findViewById(R.id.textViewGioiThieuKS);
+        txtGio = findViewById(R.id.textViewGioKS);
+        txtWebsite = findViewById(R.id.textViewWebsite);
 
         masp = getIntent().getStringExtra("masp");
 
@@ -133,6 +134,7 @@ public class ActivityHotelInfo extends AppCompatActivity {
                 // parse json ra arraylist
                 ArrayList<String> arrayList = JsonHelper.parseJsonNoId(new JSONArray(s), Config.JSON_HOTEL);
                 txtTenDD.setText(arrayList.get(0));
+                txtWebsite.setText(arrayList.get(1));
                 txtGioiThieu.setText(arrayList.get(2));
             } catch (JSONException e) {
                 e.printStackTrace();
