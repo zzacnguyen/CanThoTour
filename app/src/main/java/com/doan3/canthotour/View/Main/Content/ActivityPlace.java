@@ -28,8 +28,10 @@ import com.doan3.canthotour.View.Personal.ActivityPersonal;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 
 public class ActivityPlace extends AppCompatActivity {
@@ -44,7 +46,7 @@ public class ActivityPlace extends AppCompatActivity {
     }
 
     private void menuBotNavBar() {
-        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavView_Bar);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavView_Bar);
         BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
 
         Menu menu = bottomNavigationView.getMenu();
@@ -81,6 +83,7 @@ public class ActivityPlace extends AppCompatActivity {
     private class place extends AsyncTask<String, Void, String> {
         ArrayList<String> arrayList = new ArrayList<>();
         ArrayList<Place> listPlace = new ArrayList<>();
+        ArrayList<String> arr = new ArrayList<>();
         ListOfPlaceAdapter listOfPlaceAdapter;
 
         @Override
@@ -93,9 +96,10 @@ public class ActivityPlace extends AppCompatActivity {
             super.onPostExecute(s);
             try {
                 // parse json ra arraylist
-                arrayList = JsonHelper.parseJson(new JSONArray(s), Config.JSON_PLACE);
+                arr = JsonHelper.parseJsonNoId(new JSONObject(s), Config.JSON_LOAD);
+                arrayList = JsonHelper.parseJson(new JSONArray(arr.get(0)), Config.JSON_PLACE);
 
-                RecyclerView recyclerView = findViewById(R.id.RecyclerView_DanhSachDiaDanh);
+                final RecyclerView recyclerView = findViewById(R.id.RecyclerView_DanhSachDiaDanh);
                 recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
 
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ActivityPlace.this, LinearLayoutManager.VERTICAL, false);
@@ -103,9 +107,7 @@ public class ActivityPlace extends AppCompatActivity {
 
                 //Add item
                 // json địa danh có 8 phần tử, phần tử 1 là tên địa danh nên i % 8 == 1 để lấy tên địa danh
-                int size = (arrayList.size() > 80) ? 80 : arrayList.size();
-
-                for (int i = 0; i < size; i++) {
+                for (int i = 0; i < arrayList.size(); i++) {
                     if (i % 8 == 1)
                         listPlace.add(new Place(R.drawable.benninhkieu1, arrayList.get(i), arrayList.get(i + 2)));
                 }
@@ -115,31 +117,38 @@ public class ActivityPlace extends AppCompatActivity {
 
                 //set load more listener for the RecyclerView adapter
                 listOfPlaceAdapter.setOnLoadMoreListener(new OnLoadMoreListener() {
-                    int size = arrayList.size(), position = 0, j = 0;
 
                     @Override
                     public void onLoadMore() {
-                        if (listPlace.size() <= (arrayList.size() / 8)) {
+                        if (listPlace.size() < Integer.parseInt(arr.get(2))) {
                             listPlace.add(null);
-                            listOfPlaceAdapter.notifyItemInserted(listPlace.size() - 1);
+                            recyclerView.post(new Runnable() {
+                                public void run() {
+                                    listOfPlaceAdapter.notifyItemInserted(listPlace.size() - 1);
+                                }
+                            });
                             new Handler().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
                                     listPlace.remove(listPlace.size() - 1);
                                     listOfPlaceAdapter.notifyItemRemoved(listPlace.size());
+                                    String string = "";
+                                    try {
+                                        string = new NextPage().execute(arr.get(1)).get();
+                                    } catch (InterruptedException | ExecutionException e) {
+                                        e.printStackTrace();
+                                    }
 
-                                    size -= 80;
-                                    size = (size >= 80) ? 80 : size;
-                                    position += 80;
-                                    //Generating more data
-                                    int index = listPlace.size();
-                                    int end = index + 10;
-                                    for (int i = index; i < end; i++) {
-                                        for (j += 80; j < position + size; j++) {
-                                            System.out.println(position +"+"+size);
-                                            if (j % 8 == 1)
-                                                listPlace.add(new Place(R.drawable.benninhkieu1, arrayList.get(j), arrayList.get(j + 2)));
-                                        }
+                                    try {
+                                        arr = JsonHelper.parseJsonNoId(new JSONObject(string), Config.JSON_LOAD);
+                                        arrayList = JsonHelper.parseJson(new JSONArray(arr.get(0)), Config.JSON_PLACE);
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+
+                                    for (int i = 0; i < arrayList.size(); i++) {
+                                        if (i % 8 == 1)
+                                            listPlace.add(new Place(R.drawable.benninhkieu1, arrayList.get(i), arrayList.get(i + 2)));
                                     }
                                     listOfPlaceAdapter.notifyDataSetChanged();
                                     listOfPlaceAdapter.setLoaded();
@@ -152,6 +161,13 @@ public class ActivityPlace extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    private class NextPage extends AsyncTask<String,Void,String>{
+        @Override
+        protected String doInBackground(String... strings) {
+            return HttpRequestAdapter.httpGet(strings[0]);
         }
     }
 }
