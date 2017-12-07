@@ -37,6 +37,7 @@ import com.doan3.canthotour.View.Personal.ActivityPersonal;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -50,11 +51,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        btnDiaDanh = (Button) findViewById(R.id.btnTatCaDiaDanh);
-        btnAnUong = (Button) findViewById(R.id.btnTatCaQuanAn);
-        btnKhachSan = (Button) findViewById(R.id.btnTatCaKhachSan);
-        btnVuiChoi = (Button) findViewById(R.id.btnTatCaVuiChoi);
+        toolbar = findViewById(R.id.toolbar);
+        btnDiaDanh = findViewById(R.id.btnTatCaDiaDanh);
+        btnAnUong = findViewById(R.id.btnTatCaQuanAn);
+        btnKhachSan = findViewById(R.id.btnTatCaKhachSan);
+        btnVuiChoi = findViewById(R.id.btnTatCaVuiChoi);
 
         setSupportActionBar(toolbar);
 
@@ -97,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
 
     //Bottom navigation bar
     private void menuBotNavBar(){
-        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavView_Bar);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavView_Bar);
         BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
 
         Menu menu = bottomNavigationView.getMenu();
@@ -158,7 +159,8 @@ public class MainActivity extends AppCompatActivity {
             super.onPostExecute(s);
             try {
                 // parse json ra arraylist
-                ArrayList<String> arrayList = JsonHelper.parseJson(new JSONArray(s), Config.JSON_PLACE);
+                ArrayList<String> arr = JsonHelper.parseJsonNoId(new JSONObject(s), Config.JSON_LOAD);
+                ArrayList<String> arrayList = JsonHelper.parseJson(new JSONArray(arr.get(0)), Config.JSON_PLACE);
 
                 RecyclerView recyclerView = findViewById(R.id.RecyclerView_DiaDanh);
                 recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
@@ -199,7 +201,8 @@ public class MainActivity extends AppCompatActivity {
             super.onPostExecute(s);
             try {
                 // parse json ra arraylist
-                ArrayList<String> arrayList = JsonHelper.parseJson(new JSONArray(s), Config.JSON_EAT);
+                ArrayList<String> arr = JsonHelper.parseJsonNoId(new JSONObject(s), Config.JSON_LOAD);
+                ArrayList<String> arrayList = JsonHelper.parseJson(new JSONArray(arr.get(0)), Config.JSON_EAT);
 
                 RecyclerView recyclerView = findViewById(R.id.RecyclerView_AnUong);
                 recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
@@ -240,9 +243,10 @@ public class MainActivity extends AppCompatActivity {
             super.onPostExecute(s);
             try {
                 // parse json ra arraylist
-                ArrayList<String> arrayList = JsonHelper.parseJson(new JSONArray(s), Config.JSON_HOTEL);
+                ArrayList<String> arr = JsonHelper.parseJsonNoId(new JSONObject(s), Config.JSON_LOAD);
+                ArrayList<String> arrayList = JsonHelper.parseJson(new JSONArray(arr.get(0)), Config.JSON_HOTEL);
 
-                RecyclerView recyclerView = (RecyclerView)findViewById(R.id.RecyclerView_KhachSan);
+                RecyclerView recyclerView = findViewById(R.id.RecyclerView_KhachSan);
                 recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
 
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false);
@@ -281,9 +285,10 @@ public class MainActivity extends AppCompatActivity {
             super.onPostExecute(s);
             try {
                 // parse json ra arraylist
-                ArrayList<String> arrayList = JsonHelper.parseJson(new JSONArray(s), Config.JSON_ENTERTAINMENT);
+                ArrayList<String> arr = JsonHelper.parseJsonNoId(new JSONObject(s), Config.JSON_LOAD);
+                ArrayList<String> arrayList = JsonHelper.parseJson(new JSONArray(arr.get(0)), Config.JSON_ENTERTAINMENT);
 
-                RecyclerView recyclerView = (RecyclerView)findViewById(R.id.RecyclerView_VuiChoi);
+                RecyclerView recyclerView = findViewById(R.id.RecyclerView_VuiChoi);
                 recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
 
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false);
