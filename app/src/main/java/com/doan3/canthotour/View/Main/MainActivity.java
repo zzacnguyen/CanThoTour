@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //Bottom navigation bar
-    private void menuBotNavBar(){
+    private void menuBotNavBar() {
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavView_Bar);
         BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
 
@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()){
+                switch (item.getItemId()) {
                     case R.id.ic_trangchu:
                         break;
                     case R.id.ic_yeuthich:
@@ -129,26 +129,38 @@ public class MainActivity extends AppCompatActivity {
     //region Nội dung chính (content-view)
 
     //Get view place
-    private void initView_Place(){
-        new place().execute(Config.URL_HOST+Config.URL_GET_ALL_PLACES);
+    private void initView_Place() {
+        new place().execute(Config.URL_HOST + Config.URL_GET_ALL_PLACES);
     }
 
     //Get view eat
-    private void initView_Eat(){
-        new eat().execute(Config.URL_HOST+Config.URL_GET_ALL_EATS);
+    private void initView_Eat() {
+        new eat().execute(Config.URL_HOST + Config.URL_GET_ALL_EATS);
     }
 
     //Get view hotel
-    private void initView_Hotel(){
+    private void initView_Hotel() {
         new hotel().execute(Config.URL_HOST + Config.URL_GET_ALL_HOTELS);
     }
 
-    private void initView_Entertainment(){
+    private void initView_Entertainment() {
         new entertainment().execute(Config.URL_HOST + Config.URL_GET_ALL_ENTERTAINMENTS);
     }
 
+    //region Topbar button
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menutrangchu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return super.onOptionsItemSelected(item);
+    }
+
     //Custom view place
-    private class place extends AsyncTask<String,Void,String>{
+    private class place extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... strings) {
             return HttpRequestAdapter.httpGet(strings[0]);
@@ -174,8 +186,8 @@ public class MainActivity extends AppCompatActivity {
                 // json địa danh có 8 phần tử, phần tử 1 là tên địa danh nên i % 8 == 1 để lấy tên địa danh
                 // giới hạn load 5 phần tử nên 8 * 5 = 40
                 // nếu không giới hạn thì thay 40 = arrayList.size()
-                int size = (arrayList.size() > 40)? 40 : arrayList.size();
-                for (int i = 0; i < size; i++){
+                int size = (arrayList.size() > 40) ? 40 : arrayList.size();
+                for (int i = 0; i < size; i++) {
                     if (i % 8 == 1)
                         listPlace.add(new Place(R.drawable.benninhkieu1, arrayList.get(i)));
                 }
@@ -190,7 +202,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //Custom view eat
-    private class eat extends AsyncTask<String,Void,String>{
+    private class eat extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... strings) {
             return HttpRequestAdapter.httpGet(strings[0]);
@@ -216,8 +228,8 @@ public class MainActivity extends AppCompatActivity {
                 // json ăn uống có 4 phần tử, phần tử 1 là tên địa danh nên i % 4 == 1 để lấy tên địa danh
                 // giới hạn load 5 phần tử nên 4 * 5 = 20
                 // nếu không giới hạn thì thay 20 = arrayList.size()
-                int size = (arrayList.size() > 20)? 20 : arrayList.size();
-                for (int i = 0; i < size; i++){
+                int size = (arrayList.size() > 20) ? 20 : arrayList.size();
+                for (int i = 0; i < size; i++) {
                     if (i % 4 == 1)
                         listEat.add(new Eat(R.drawable.benninhkieu1, arrayList.get(i)));
                 }
@@ -231,8 +243,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //endregion
+
     //Custom view hotel
-    private class hotel extends AsyncTask<String,Void,String>{
+    private class hotel extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... strings) {
             return HttpRequestAdapter.httpGet(strings[0]);
@@ -258,8 +272,8 @@ public class MainActivity extends AppCompatActivity {
                 // json khách sạn có 5 phần tử, phần tử 1 là tên địa danh nên i % 5 == 1 để lấy tên địa danh
                 // giới hạn load 5 phần tử nên 5 * 5 = 25
                 // nếu không giới hạn thì thay 25 = arrayList.size()
-                int size = (arrayList.size() > 25)? 25 : arrayList.size();
-                for (int i = 0; i < size; i++){
+                int size = (arrayList.size() > 25) ? 25 : arrayList.size();
+                for (int i = 0; i < size; i++) {
                     if (i % 5 == 1)
                         listHotel.add(new Hotel(R.drawable.benninhkieu1, arrayList.get(i)));
                 }
@@ -274,7 +288,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //Custom view entertain
-    private class entertainment extends AsyncTask<String,Void,String>{
+    private class entertainment extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... strings) {
             return HttpRequestAdapter.httpGet(strings[0]);
@@ -300,8 +314,8 @@ public class MainActivity extends AppCompatActivity {
                 // json khách sạn có 5 phần tử, phần tử 1 là tên địa danh nên i % 5 == 1 để lấy tên địa danh
                 // giới hạn load 5 phần tử nên 5 * 5 = 25
                 // nếu không giới hạn thì thay 25 = arrayList.size()
-                int size = (arrayList.size() > 25)? 25 : arrayList.size();
-                for (int i = 0; i < size; i++){
+                int size = (arrayList.size() > 25) ? 25 : arrayList.size();
+                for (int i = 0; i < size; i++) {
                     if (i % 5 == 1)
                         listEntertainment.add(new Entertainment(R.drawable.benninhkieu1, arrayList.get(i)));
                 }
@@ -313,21 +327,6 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
-    }
-
-    //endregion
-
-
-    //region Topbar button
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menutrangchu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        return super.onOptionsItemSelected(item);
     }
 
     //endregion
