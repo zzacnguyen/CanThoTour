@@ -53,11 +53,11 @@ public class ActivityEatInfo extends AppCompatActivity {
         // lấy id dịch vụ trong ăn uống, lấy id địa điểm trong dịch vụ
         try {
             urlEat.add(Config.URL_HOST + Config.URL_GET_ALL_EATS + "/" + masp);
-
-            idService = new GetIdService().execute(urlEat, Config.JSON_EAT).get();
-            idPlace = new GetIdPlace().execute(Config.URL_HOST + Config.URL_GET_ALL_SERVICES + "/" + idService).get();
-            urlService = Config.URL_HOST + Config.URL_GET_ALL_SERVICES + "/" + idService;
-            urlPlace = Config.URL_HOST + Config.URL_GET_ALL_PLACES + "/" + idPlace;
+            //Chỗ này t chưa thông đc
+            idService = new GetIdService().execute(urlEat, Config.JSON_EAT).get(); //(*)
+            idPlace = new GetIdPlace().execute(Config.URL_HOST + Config.URL_GET_ALL_SERVICES + "/" + idService).get();//(*)
+            urlService = Config.URL_HOST + Config.URL_GET_ALL_SERVICES + "/" + idService;//(*)
+            urlPlace = Config.URL_HOST + Config.URL_GET_ALL_PLACES + "/" + idPlace;//(*)
 
             new GetIdService().execute(urlEat, Config.JSON_EAT);
 
@@ -101,13 +101,13 @@ public class ActivityEatInfo extends AppCompatActivity {
         });
     }
 
-    public static class GetIdService extends AsyncTask<ArrayList<String>, Void, String> {
+    public static class GetIdService extends AsyncTask<ArrayList<String>, Void, String> { //Lấy id của dv_iddichvu trong eat, hotel, entertainment
         @Override
         protected String doInBackground(ArrayList<String>... strings) {
             ArrayList<String> arrJsonGet = new ArrayList<>();
             try {
                 JSONArray json = new JSONArray(HttpRequestAdapter.httpGet(strings[0].get(0)));
-                arrJsonGet = JsonHelper.parseJsonNoId(json, strings[1]);
+                arrJsonGet = JsonHelper.parseJsonNoId(json, strings[1]); //Chưa hiểu strings[1] chỗ này (*)
             } catch (JSONException ex) {
                 ex.printStackTrace();
             }
@@ -115,7 +115,7 @@ public class ActivityEatInfo extends AppCompatActivity {
         }
     }
 
-    public static class GetIdPlace extends AsyncTask<String, Void, String> {
+    public static class GetIdPlace extends AsyncTask<String, Void, String> {  //Lấy id của dd_iddiadiem trong bảng dịch vụ
         @Override
         protected String doInBackground(String... strings) {
             ArrayList<String> arrJsonGet = new ArrayList<>();
@@ -128,8 +128,8 @@ public class ActivityEatInfo extends AppCompatActivity {
             return arrJsonGet.get(6);
         }
     }
-
-    public static class LoadPlace extends AsyncTask<ArrayList<String>, ArrayList<String>, Void> {
+                                        //Asynctask params là ArrayList<String> chưa hiểu luôn @@
+    public static class LoadPlace extends AsyncTask<ArrayList<String>, ArrayList<String>, Void> { //Load tên địa điểm và giới thiệu
         Activity activity;
         TextView txtTenDD, txtGioiThieu;
 
@@ -143,7 +143,7 @@ public class ActivityEatInfo extends AppCompatActivity {
         protected Void doInBackground(ArrayList<String>... strings) {
             try {
                 JSONArray jsonArray = new JSONArray(HttpRequestAdapter.httpGet(strings[0].get(0)));
-                ArrayList<String> arrayList = JsonHelper.parseJsonNoId(jsonArray, strings[1]);
+                ArrayList<String> arrayList = JsonHelper.parseJsonNoId(jsonArray, strings[1]); //String 1 ?
                 publishProgress(arrayList);
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -152,7 +152,7 @@ public class ActivityEatInfo extends AppCompatActivity {
         }
 
         @Override
-        protected void onProgressUpdate(ArrayList<String>... values) {
+        protected void onProgressUpdate(ArrayList<String>... values) { //Đưa dữ liệu ra màn hình
             super.onProgressUpdate(values);
             txtTenDD.setText(values[0].get(0));
             txtGioiThieu.setText(values[0].get(1));
