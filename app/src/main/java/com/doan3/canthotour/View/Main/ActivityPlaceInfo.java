@@ -4,6 +4,7 @@ package com.doan3.canthotour.View.Main;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
@@ -28,6 +29,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class ActivityPlaceInfo extends AppCompatActivity {
@@ -56,7 +58,28 @@ public class ActivityPlaceInfo extends AppCompatActivity {
         btnLuuDiaDiem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                JsonHelper.writeJson("dsyeuthich", object);
+                JSONArray getDataJsonFile;
+                File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
+                File file = new File(path, "/dsyeuthich.json");
+                try {
+                    if (file.exists()) {
+                        getDataJsonFile = new JSONArray(JsonHelper.readJson(file));
+                        for (int i = 0; i < getDataJsonFile.length(); i++) {
+                            if (!object.toString().equals(getDataJsonFile.getJSONObject(i).toString())) {
+                                JsonHelper.writeJson(file, object);
+                                Toast.makeText(ActivityPlaceInfo.this, "Lưu thành công", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(ActivityPlaceInfo.this, "Đã lưu trước đó", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    } else {
+                        JsonHelper.writeJson(file, object);
+                        Toast.makeText(ActivityPlaceInfo.this, "Lưu thành công", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
             }
         });
 
@@ -112,7 +135,7 @@ public class ActivityPlaceInfo extends AppCompatActivity {
         protected void onProgressUpdate(ArrayList<String>[] arrayList) {
             super.onProgressUpdate(arrayList);
             try {
-                object = new JSONObject("{\"dd_iddiadiem\":\""+arrayList[0].get(0)+"\",\"nd_idnguoidung\":\"1\"}");
+                object = new JSONObject("{\"dd_iddiadiem\":\"" + arrayList[0].get(0) + "\",\"nd_idnguoidung\":\"1\"}");
             } catch (JSONException e) {
                 e.printStackTrace();
             }
