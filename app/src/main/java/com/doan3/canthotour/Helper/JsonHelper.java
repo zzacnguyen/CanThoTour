@@ -1,7 +1,5 @@
 package com.doan3.canthotour.Helper;
 
-import android.os.Environment;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -87,11 +85,8 @@ public class JsonHelper {
         return json2;
     }
 
-    public static void writeJson(String name, JSONObject json) {
+    public static void writeJson(File file, JSONObject json) {
         try {
-            File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
-            path.mkdirs();
-            File file = new File(path, "/" + name + ".json");
             JSONArray jsonFile = new JSONArray();
             if (file.exists()) {
                 FileInputStream fileInputStream = new FileInputStream(file);
@@ -116,11 +111,8 @@ public class JsonHelper {
         }
     }
 
-    public static void writeJson(String name, JSONArray json) {
+    public static void writeJson(File file, JSONArray json) {
         try {
-            File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
-            path.mkdirs();
-            File file = new File(path, "/" + name + ".json");
             JSONArray jsonFile = new JSONArray();
             if (file.exists()) {
                 FileInputStream fileInputStream = new FileInputStream(file);
@@ -145,10 +137,9 @@ public class JsonHelper {
         }
     }
 
-    public static String readJson(String name) {
+    public static String readJson(File file) {
         try {
-            File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
-            FileInputStream is = new FileInputStream(new File(path, "/" + name + ".json"));
+            FileInputStream is = new FileInputStream(file);
             byte[] buffer = new byte[is.available()];
             is.read(buffer);
             is.close();

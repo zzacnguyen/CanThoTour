@@ -39,7 +39,7 @@ public class HttpRequestAdapter {
         return result.toString();
     }
 
-    public static String httpPost(String url, JSONObject json){
+    public static String httpPost(String url, JSONObject json) {
         try {
             URL obj = new URL(url);
             urlConnection = (HttpURLConnection) obj.openConnection();
@@ -52,22 +52,22 @@ public class HttpRequestAdapter {
             dataOutputStream.writeBytes(json.toString());
             dataOutputStream.flush();
             dataOutputStream.close();
-            if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK){
+            if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
                 return "success";
             } else {
                 return "failure";
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return "error";
         } finally {
-            if (urlConnection != null){
+            if (urlConnection != null) {
                 urlConnection.disconnect();
             }
         }
     }
 
-    public static String httpPut(String url, JSONObject json){
+    public static String httpPut(String url, JSONObject json) {
         try {
             URL obj = new URL(url);
             urlConnection = (HttpURLConnection) obj.openConnection();
@@ -80,31 +80,32 @@ public class HttpRequestAdapter {
             streamWriter.write(json.toString());
             streamWriter.flush();
             streamWriter.close();
-            if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK){
+            if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
                 return "success";
             } else {
                 return "failure";
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return "error";
         } finally {
             urlConnection.disconnect();
         }
     }
-    public static String httpDelete(String url){
+
+    public static String httpDelete(String url) {
         try {
             URL obj = new URL(url);
             urlConnection = (HttpURLConnection) obj.openConnection();
             urlConnection.setDoInput(true);
             urlConnection.setRequestProperty("Content-Type", "application/json");
             urlConnection.setRequestMethod("DELETE");
-            if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK){
+            if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
                 return "success";
             } else {
                 return "failure";
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return "error";
         } finally {
