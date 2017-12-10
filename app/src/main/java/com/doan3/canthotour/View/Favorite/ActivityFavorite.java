@@ -3,6 +3,7 @@ package com.doan3.canthotour.View.Favorite;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
@@ -28,6 +29,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class ActivityFavorite extends AppCompatActivity {
@@ -50,6 +52,8 @@ public class ActivityFavorite extends AppCompatActivity {
         new GetId().execute(Config.URL_HOST + Config.URL_GET_ALL_FAVORITE);
 
         new Load().execute();
+
+        new PostJson().execute(Config.URL_HOST + Config.URL_GET_ALL_FAVORITE);
 
         menuBotNavBar();
     }
@@ -89,14 +93,23 @@ public class ActivityFavorite extends AppCompatActivity {
         @Override
         protected Void doInBackground(String... strings) {
             try {
-                // merge 2 json
-                JSONArray jsonGet = new JSONArray();
-                ArrayList<String> arrJsonGet = JsonHelper.parseJsonNoId(new JSONArray(HttpRequestAdapter.httpGet(strings[0])), Config.JSON_FAVORITE);
+                JSONArray jsonArray, jsonGet = new JSONArray();
+                // parse json vừa get về bỏ id để đồng bộ với file json trong máy
+                ArrayList<String> arrJsonGet =
+                        JsonHelper.parseJsonNoId(new JSONArray(HttpRequestAdapter.httpGet(strings[0])), Config.JSON_FAVORITE);
                 for (int i = 0; i < arrJsonGet.size(); i += 2) {
-                    jsonGet.put(new JSONObject("{\"dd_iddiadiem\":\"" + arrJsonGet.get(i) + "\",\"nd_idnguoidung\":\"" + arrJsonGet.get(i + 1) + "\"}"));
+                    jsonGet.put(new JSONObject("{\"dd_iddiadiem\":\""
+                            + arrJsonGet.get(i) + "\",\"nd_idnguoidung\":\"" + arrJsonGet.get(i + 1) + "\"}"));
                 }
 
-                JSONArray jsonArray = JsonHelper.mergeJson(jsonGet, new JSONArray(JsonHelper.readJson("dsyeuthich")));
+                // merge 2 json
+                File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
+                File file = new File(path, "/dsyeuthich.json");
+                if (file.exists()) {
+                    jsonArray = JsonHelper.mergeJson(jsonGet, new JSONArray(JsonHelper.readJson(file)));
+                } else {
+                    jsonArray = jsonGet;
+                }
                 // parse json ra arraylist
                 ArrayList<String> arrayList = JsonHelper.parseJsonNoId(jsonArray, Config.JSON_FAVORITE);
 
@@ -113,37 +126,60 @@ public class ActivityFavorite extends AppCompatActivity {
         }
     }
 
-
-    private class Load extends AsyncTask<Void, Void, ArrayList<Favorite>> {
+    private class Load extends AsyncTask<Void, ArrayList<Favorite>, Void> {
         @Override
-        protected ArrayList<Favorite> doInBackground(Void... voids) {
+        protected Void doInBackground(Void... voids) {
             ArrayList<Favorite> arrIdPlace = new ArrayList<>();
             for (int i = 0; i < id.size(); i++) {
                 try {
                     String get = HttpRequestAdapter.httpGet(Config.URL_HOST + Config.URL_GET_ALL_PLACES + "/" + id.get(i));
                     ArrayList<String> arrayList = JsonHelper.parseJsonNoId(new JSONArray(get), Config.JSON_PLACE);
                     for (int j = 0; j < arrayList.size(); j++) {
-                        if (j % 7 == 0)
+                        if (j % 7 == 0) {
                             arrIdPlace.add(new Favorite(R.drawable.benninhkieu1, arrayList.get(j)));
+                            publishProgress(arrIdPlace);
+                        }
                     }
                 } catch (JSONException ex) {
                     ex.printStackTrace();
                 }
             }
-            return arrIdPlace;
+            return null;
         }
 
         @Override
-        protected void onPostExecute(ArrayList<Favorite> favorites) {
-            super.onPostExecute(favorites);
+        protected void onProgressUpdate(ArrayList<Favorite>[] values) {
+            super.onProgressUpdate(values);
             RecyclerView recyclerView = findViewById(R.id.RecyclerView_DanhSachYeuThich);
             recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
 
-            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ActivityFavorite.this, LinearLayoutManager.VERTICAL, false);
+            LinearLayoutManager linearLayoutManager =
+                    new LinearLayoutManager(ActivityFavorite.this, LinearLayoutManager.VERTICAL, false);
             recyclerView.setLayoutManager(linearLayoutManager);
 
-            FavoriteAdapter favoriteAdapter = new FavoriteAdapter(favorites, getApplicationContext());
+            FavoriteAdapter favoriteAdapter = new FavoriteAdapter(values[0], getApplicationContext());
             recyclerView.setAdapter(favoriteAdapter);
+        }
+    }
+
+    private class PostJson extends AsyncTask<String, Void, Void> {
+        @Override
+        protected Void doInBackground(String... strings) {
+            JSONArray jsonFile;
+            try {
+                File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
+                File file = new File(path, "/dsyeuthich.json");
+                if (file.exists()) {
+                    jsonFile = new JSONArray(JsonHelper.readJson(file));
+                    for (int i = 0; i < jsonFile.length(); i++) {
+                        HttpRequestAdapter.httpPost(strings[0], jsonFile.getJSONObject(i));
+                    }
+                    file.delete();
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return null;
         }
     }
 }
