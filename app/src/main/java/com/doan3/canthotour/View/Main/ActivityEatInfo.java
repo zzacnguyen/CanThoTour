@@ -150,7 +150,7 @@ public class ActivityEatInfo extends AppCompatActivity {
         protected Void doInBackground(ArrayList<String>... strings) {
             try {
                 JSONArray jsonArray = new JSONArray(HttpRequestAdapter.httpGet(strings[0].get(0)));
-                ArrayList<String> arrayList = JsonHelper.parseJsonNoId(jsonArray, strings[1]); //String 1 ?
+                ArrayList<String> arrayList = JsonHelper.parseJsonNoId(jsonArray, strings[1]);
                 publishProgress(arrayList);
             } catch (JSONException e) {
                 e.printStackTrace();

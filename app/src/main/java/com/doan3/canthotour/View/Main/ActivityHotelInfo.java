@@ -44,8 +44,8 @@ public class ActivityHotelInfo extends AppCompatActivity {
         btnLuuDiaDiem = findViewById(R.id.btnLuuKS);
         btnLanCan = findViewById(R.id.btnDiaDiemLanCanKS);
         btnChiaSe = findViewById(R.id.btnChiaSeKS);
-        txtTenDD = findViewById(R.id.textViewTenKS);
-        txtGioiThieu = findViewById(R.id.textViewGioiThieuKS);
+        txtTenDD = this.findViewById(R.id.textViewTenDv);
+        txtGioiThieu = this.findViewById(R.id.textViewGioiThieuDv);
         txtWebsite = findViewById(R.id.textViewWebsite);
 
         masp = getIntent().getStringExtra("masp");

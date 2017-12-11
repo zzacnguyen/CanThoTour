@@ -1,5 +1,6 @@
 package com.doan3.canthotour.View.Main.Content;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -73,44 +74,56 @@ public class ActivityEntertainment extends AppCompatActivity {
     }
 
     private void initView_Entertain() {
-        new entertain().execute(Config.URL_HOST + Config.URL_GET_ALL_ENTERTAINMENTS);
+        LoadInfo loadInfo = new LoadInfo(this);
+        loadInfo.execute(Config.URL_HOST + Config.URL_GET_ALL_ENTERTAINMENTS);
     }
 
-    private class entertain extends AsyncTask<String, Void, String> {
-        @Override
-        protected String doInBackground(String... strings) {
-            return HttpRequestAdapter.httpGet(strings[0]);
+    private class LoadInfo extends AsyncTask<String, ArrayList<Entertainment>, Void> {
+        Activity activity;
+        RecyclerView recyclerView;
+        LinearLayoutManager linearLayoutManager;
+
+        // khởi tạo class truyền vào 2 đối số là activity và recyclerview
+        public LoadInfo(Activity act) {
+            activity = act;
+            recyclerView = findViewById(R.id.RecyclerView_DanhSachVuiChoi);
+            recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
+
+            linearLayoutManager = new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false);
+            recyclerView.setLayoutManager(linearLayoutManager);
         }
 
         @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
+        protected Void doInBackground(String... strings) {
+
+            // parse json vừa get về ra arraylist
+            ArrayList<String> arr, arrayList = new ArrayList<>();
             try {
-                // parse json ra arraylist
-                ArrayList<String> arr = JsonHelper.parseJsonNoId(new JSONObject(s), Config.JSON_LOAD);
-                ArrayList<String> arrayList = JsonHelper.parseJson(new JSONArray(arr.get(0)), Config.JSON_ENTERTAINMENT);
-
-                RecyclerView recyclerView = findViewById(R.id.RecyclerView_DanhSachVuiChoi);
-                recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
-
-                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ActivityEntertainment.this, LinearLayoutManager.VERTICAL, false);
-                recyclerView.setLayoutManager(linearLayoutManager);
-
-                //Add item
-                ArrayList<Entertainment> listEntertainment = new ArrayList<>();
-
-                // json vui chơi có 4 phần tử, phần tử 1 là tên địa điểm vui chơi nên i % 4 == 1 để lấy tên địa điểm vui chơi
-                for (int i = 0; i < arrayList.size(); i++) {
-                    if (i % 4 == 1)
-                        listEntertainment.add(new Entertainment(R.drawable.benninhkieu1, arrayList.get(i)));
-                }
-
-                ListOfEntertainmentAdapter listOfEntertainmentAdapter = new ListOfEntertainmentAdapter(listEntertainment, getApplicationContext());
-                recyclerView.setAdapter(listOfEntertainmentAdapter);
-
+                arr = JsonHelper.parseJsonNoId(new JSONObject(HttpRequestAdapter.httpGet(strings[0])), Config.JSON_LOAD);
+                arrayList = JsonHelper.parseJson(new JSONArray(arr.get(0)), Config.JSON_ENTERTAINMENT);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+
+            ArrayList<Entertainment> list = new ArrayList<>();
+
+            int size = (arrayList.size() > 25) ? 25 : arrayList.size();
+            // lấy tên địa điểm vào list và cập nhật lên giao diện
+            for (int i = 0; i < size; i++) {
+                if (i % 5 == 1) {
+                    list.add(new Entertainment(R.drawable.benninhkieu1, arrayList.get(i)));
+                    publishProgress(list);
+                }
+            }
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(ArrayList<Entertainment>[] values) {
+            super.onProgressUpdate(values);
+            ListOfEntertainmentAdapter listOfEntertainmentAdapter =
+                    new ListOfEntertainmentAdapter(values[0], getApplicationContext());
+            recyclerView.setAdapter(listOfEntertainmentAdapter);
         }
     }
 }

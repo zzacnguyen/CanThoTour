@@ -1,5 +1,6 @@
 package com.doan3.canthotour.View.Main.Content;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -77,94 +78,107 @@ public class ActivityPlace extends AppCompatActivity {
 
 
     private void initView_Place() {
-        new place().execute(Config.URL_HOST + Config.URL_GET_ALL_PLACES);
+        LoadPlace loadPlace = new LoadPlace(this);
+        loadPlace.execute(Config.URL_HOST + Config.URL_GET_ALL_PLACES);
     }
 
-    private class place extends AsyncTask<String, Void, String> {
-        ArrayList<String> arrayList = new ArrayList<>();
+    private class LoadPlace extends AsyncTask<String, ArrayList<Place>, ArrayList<Place>> {
+        ArrayList<String> arr = new ArrayList<>(), arrayList = new ArrayList<>();
         ArrayList<Place> listPlace = new ArrayList<>();
-        ArrayList<String> arr = new ArrayList<>();
         ListOfPlaceAdapter listOfPlaceAdapter;
+        Activity activity;
+        RecyclerView recyclerView;
+        LinearLayoutManager linearLayoutManager;
 
-        @Override
-        protected String doInBackground(String... strings) {
-            return HttpRequestAdapter.httpGet(strings[0]);
+        // khởi tạo class truyền vào 2 đối số là activity và recyclerview
+        public LoadPlace(Activity act) {
+            activity = act;
+            recyclerView = findViewById(R.id.RecyclerView_DanhSachDiaDanh);
+            recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
+
+            linearLayoutManager = new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false);
+            recyclerView.setLayoutManager(linearLayoutManager);
         }
 
         @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
+        protected ArrayList<Place> doInBackground(String... strings) {
+
+            // parse json vừa get về ra arraylist
             try {
-                // parse json ra arraylist
-                arr = JsonHelper.parseJsonNoId(new JSONObject(s), Config.JSON_LOAD);
+                arr = JsonHelper.parseJsonNoId(new JSONObject(HttpRequestAdapter.httpGet(strings[0])), Config.JSON_LOAD);
                 arrayList = JsonHelper.parseJson(new JSONArray(arr.get(0)), Config.JSON_PLACE);
-
-                final RecyclerView recyclerView = findViewById(R.id.RecyclerView_DanhSachDiaDanh);
-                recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
-
-                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ActivityPlace.this, LinearLayoutManager.VERTICAL, false);
-                recyclerView.setLayoutManager(linearLayoutManager);
-
-                //Add item
-                // json địa danh có 8 phần tử, phần tử 1 là tên địa danh nên i % 8 == 1 để lấy tên địa danh
-                for (int i = 0; i < arrayList.size(); i++) {
-                    if (i % 8 == 1)
-                        listPlace.add(new Place(R.drawable.benninhkieu1, arrayList.get(i), arrayList.get(i + 2)));
-                }
-
-                listOfPlaceAdapter = new ListOfPlaceAdapter(recyclerView, listPlace, getApplicationContext());
-                recyclerView.setAdapter(listOfPlaceAdapter);
-
-                //set load more listener for the RecyclerView adapter
-                listOfPlaceAdapter.setOnLoadMoreListener(new OnLoadMoreListener() {
-
-                    @Override
-                    public void onLoadMore() {
-                        if (listPlace.size() < Integer.parseInt(arr.get(2))) {
-                            listPlace.add(null);
-                            recyclerView.post(new Runnable() {
-                                public void run() {
-                                    listOfPlaceAdapter.notifyItemInserted(listPlace.size() - 1);
-                                }
-                            });
-                            new Handler().postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    listPlace.remove(listPlace.size() - 1);
-                                    listOfPlaceAdapter.notifyItemRemoved(listPlace.size());
-                                    String string = "";
-                                    try {
-                                        string = new NextPage().execute(arr.get(1)).get();
-                                    } catch (InterruptedException | ExecutionException e) {
-                                        e.printStackTrace();
-                                    }
-
-                                    try {
-                                        arr = JsonHelper.parseJsonNoId(new JSONObject(string), Config.JSON_LOAD);
-                                        arrayList = JsonHelper.parseJson(new JSONArray(arr.get(0)), Config.JSON_PLACE);
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
-
-                                    for (int i = 0; i < arrayList.size(); i++) {
-                                        if (i % 8 == 1)
-                                            listPlace.add(new Place(R.drawable.benninhkieu1, arrayList.get(i), arrayList.get(i + 2)));
-                                    }
-                                    listOfPlaceAdapter.notifyDataSetChanged();
-                                    listOfPlaceAdapter.setLoaded();
-                                }
-                            }, 2000);
-                        }
-                    }
-                });
-
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+            ArrayList<Place> list = new ArrayList<>();
+
+            // lấy tên địa điểm vào list và cập nhật lên giao diện
+            for (int i = 0; i < arrayList.size(); i++) {
+                if (i % 8 == 1) {
+                    list.add(new Place(R.drawable.benninhkieu1, arrayList.get(i)));
+                    publishProgress(list);
+                }
+            }
+            return list;
+        }
+
+        @Override
+        protected void onProgressUpdate(final ArrayList<Place>[] values) {
+            super.onProgressUpdate(values);
+            listOfPlaceAdapter = new ListOfPlaceAdapter(recyclerView, values[0], getApplicationContext());
+            recyclerView.setAdapter(listOfPlaceAdapter);
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<Place> places) {
+            super.onPostExecute(places);
+            listPlace = places;
+            //set load more listener for the RecyclerView adapter
+            listOfPlaceAdapter.setOnLoadMoreListener(new OnLoadMoreListener() {
+
+                @Override
+                public void onLoadMore() {
+                    if (listPlace.size() < Integer.parseInt(arr.get(2))) {
+                        listPlace.add(null);
+                        recyclerView.post(new Runnable() {
+                            public void run() {
+                                listOfPlaceAdapter.notifyItemInserted(listPlace.size() - 1);
+                            }
+                        });
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                listPlace.remove(listPlace.size() - 1);
+                                listOfPlaceAdapter.notifyItemRemoved(listPlace.size());
+                                String string = "";
+                                try {
+                                    string = new NextPage().execute(arr.get(1)).get();
+                                } catch (InterruptedException | ExecutionException e) {
+                                    e.printStackTrace();
+                                }
+
+                                try {
+                                    arr = JsonHelper.parseJsonNoId(new JSONObject(string), Config.JSON_LOAD);
+                                    arrayList = JsonHelper.parseJson(new JSONArray(arr.get(0)), Config.JSON_PLACE);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+
+                                for (int i = 0; i < arrayList.size(); i++) {
+                                    if (i % 8 == 1)
+                                        listPlace.add(new Place(R.drawable.benninhkieu1, arrayList.get(i), arrayList.get(i + 2)));
+                                }
+                                listOfPlaceAdapter.notifyDataSetChanged();
+                                listOfPlaceAdapter.setLoaded();
+                            }
+                        }, 1000);
+                    }
+                }
+            });
         }
     }
 
-    private class NextPage extends AsyncTask<String,Void,String>{
+    private class NextPage extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... strings) {
             return HttpRequestAdapter.httpGet(strings[0]);

@@ -1,5 +1,6 @@
 package com.doan3.canthotour.View.Main.Content;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -12,15 +13,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.doan3.canthotour.Adapter.HotelAdapter;
 import com.doan3.canthotour.Adapter.HttpRequestAdapter;
 import com.doan3.canthotour.Adapter.ListOfHotelAdapter;
-import com.doan3.canthotour.Adapter.ListOfPlaceAdapter;
 import com.doan3.canthotour.Config;
 import com.doan3.canthotour.Helper.BottomNavigationViewHelper;
 import com.doan3.canthotour.Helper.JsonHelper;
 import com.doan3.canthotour.Model.Hotel;
-import com.doan3.canthotour.Model.Place;
 import com.doan3.canthotour.R;
 import com.doan3.canthotour.View.Favorite.ActivityFavorite;
 import com.doan3.canthotour.View.Main.MainActivity;
@@ -45,7 +43,7 @@ public class ActivityHotel extends AppCompatActivity {
         menuBotNavBar();
     }
 
-    private void menuBotNavBar(){
+    private void menuBotNavBar() {
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavView_Bar);
         BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
 
@@ -56,7 +54,7 @@ public class ActivityHotel extends AppCompatActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()){
+                switch (item.getItemId()) {
                     case R.id.ic_trangchu:
                         startActivity(new Intent(ActivityHotel.this, MainActivity.class));
                         break;
@@ -75,45 +73,56 @@ public class ActivityHotel extends AppCompatActivity {
         });
     }
 
-    private void initView_Hotel(){
-        new hotel().execute(Config.URL_HOST+Config.URL_GET_ALL_HOTELS);
+    private void initView_Hotel() {
+        LoadInfo loadInfo = new LoadInfo(this);
+        loadInfo.execute(Config.URL_HOST + Config.URL_GET_ALL_HOTELS);
     }
 
-    private class hotel extends AsyncTask<String,Void,String>{
-        @Override
-        protected String doInBackground(String... strings) {
-            return HttpRequestAdapter.httpGet(strings[0]);
+    private class LoadInfo extends AsyncTask<String, ArrayList<Hotel>, Void> {
+        Activity activity;
+        RecyclerView recyclerView;
+        LinearLayoutManager linearLayoutManager;
+
+        // khởi tạo class truyền vào 2 đối số là activity và recyclerview
+        public LoadInfo(Activity act) {
+            activity = act;
+            recyclerView = findViewById(R.id.RecyclerView_DanhSachKhachSan);
+            recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
+
+            linearLayoutManager = new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false);
+            recyclerView.setLayoutManager(linearLayoutManager);
         }
 
         @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
+        protected Void doInBackground(String... strings) {
+
+            // parse json vừa get về ra arraylist
+            ArrayList<String> arr, arrayList = new ArrayList<>();
             try {
-                // parse json ra arraylist
-                ArrayList<String> arr = JsonHelper.parseJsonNoId(new JSONObject(s), Config.JSON_LOAD);
-                ArrayList<String> arrayList = JsonHelper.parseJson(new JSONArray(arr.get(0)), Config.JSON_HOTEL);
-
-                RecyclerView recyclerView = findViewById(R.id.RecyclerView_DanhSachKhachSan);
-                recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
-
-                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ActivityHotel.this, LinearLayoutManager.VERTICAL, false);
-                recyclerView.setLayoutManager(linearLayoutManager);
-
-                //Add item
-                ArrayList<Hotel> listHotel = new ArrayList<>();
-
-                // json khách sạn có 5 phần tử, phần tử 1 là tên khách sạn nên i % 5 == 1 để lấy tên khách sạn
-                for (int i = 0; i < arrayList.size(); i++){
-                    if (i % 5 == 1)
-                        listHotel.add(new Hotel(R.drawable.benninhkieu1, arrayList.get(i)));
-                }
-
-                ListOfHotelAdapter listOfHotelAdapter = new ListOfHotelAdapter(listHotel, getApplicationContext());
-                recyclerView.setAdapter(listOfHotelAdapter);
-
+                arr = JsonHelper.parseJsonNoId(new JSONObject(HttpRequestAdapter.httpGet(strings[0])), Config.JSON_LOAD);
+                arrayList = JsonHelper.parseJson(new JSONArray(arr.get(0)), Config.JSON_HOTEL);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+
+            ArrayList<Hotel> list = new ArrayList<>();
+
+            int size = (arrayList.size() > 25) ? 25 : arrayList.size();
+            // lấy tên địa điểm vào list và cập nhật lên giao diện
+            for (int i = 0; i < size; i++) {
+                if (i % 5 == 1) {
+                    list.add(new Hotel(R.drawable.benninhkieu1, arrayList.get(i)));
+                    publishProgress(list);
+                }
+            }
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(ArrayList<Hotel>[] values) {
+            super.onProgressUpdate(values);
+            ListOfHotelAdapter listOfHotelAdapter = new ListOfHotelAdapter(values[0], getApplicationContext());
+            recyclerView.setAdapter(listOfHotelAdapter);
         }
     }
 }
