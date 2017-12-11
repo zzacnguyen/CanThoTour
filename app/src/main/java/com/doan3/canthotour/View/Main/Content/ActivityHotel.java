@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
@@ -18,6 +19,7 @@ import com.doan3.canthotour.Adapter.ListOfHotelAdapter;
 import com.doan3.canthotour.Config;
 import com.doan3.canthotour.Helper.BottomNavigationViewHelper;
 import com.doan3.canthotour.Helper.JsonHelper;
+import com.doan3.canthotour.Interface.OnLoadMoreListener;
 import com.doan3.canthotour.Model.Hotel;
 import com.doan3.canthotour.R;
 import com.doan3.canthotour.View.Favorite.ActivityFavorite;
@@ -30,6 +32,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 
 public class ActivityHotel extends AppCompatActivity {
@@ -78,7 +81,10 @@ public class ActivityHotel extends AppCompatActivity {
         loadInfo.execute(Config.URL_HOST + Config.URL_GET_ALL_HOTELS);
     }
 
-    private class LoadInfo extends AsyncTask<String, ArrayList<Hotel>, Void> {
+    private class LoadInfo extends AsyncTask<String, ArrayList<Hotel>, ArrayList<Hotel>> {
+        ArrayList<String> arr = new ArrayList<>(), arrayList = new ArrayList<>();
+        ArrayList<Hotel> listHotel = new ArrayList<>();
+        ListOfHotelAdapter listOfHotelAdapter;
         Activity activity;
         RecyclerView recyclerView;
         LinearLayoutManager linearLayoutManager;
@@ -94,10 +100,9 @@ public class ActivityHotel extends AppCompatActivity {
         }
 
         @Override
-        protected Void doInBackground(String... strings) {
-
+        protected ArrayList<Hotel> doInBackground(String... strings) {
             // parse json vừa get về ra arraylist
-            ArrayList<String> arr, arrayList = new ArrayList<>();
+
             try {
                 arr = JsonHelper.parseJsonNoId(new JSONObject(HttpRequestAdapter.httpGet(strings[0])), Config.JSON_LOAD);
                 arrayList = JsonHelper.parseJson(new JSONArray(arr.get(0)), Config.JSON_HOTEL);
@@ -107,22 +112,76 @@ public class ActivityHotel extends AppCompatActivity {
 
             ArrayList<Hotel> list = new ArrayList<>();
 
-            int size = (arrayList.size() > 25) ? 25 : arrayList.size();
-            // lấy tên địa điểm vào list và cập nhật lên giao diện
-            for (int i = 0; i < size; i++) {
+            for (int i = 0; i < arrayList.size(); i++) {
                 if (i % 5 == 1) {
                     list.add(new Hotel(R.drawable.benninhkieu1, arrayList.get(i)));
                     publishProgress(list);
                 }
             }
-            return null;
+            return list;
         }
 
         @Override
         protected void onProgressUpdate(ArrayList<Hotel>[] values) {
             super.onProgressUpdate(values);
-            ListOfHotelAdapter listOfHotelAdapter = new ListOfHotelAdapter(values[0], getApplicationContext());
+            listOfHotelAdapter = new ListOfHotelAdapter(recyclerView, values[0], getApplicationContext());
             recyclerView.setAdapter(listOfHotelAdapter);
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<Hotel> hotels) {
+            super.onPostExecute(hotels);
+            listHotel = hotels;
+            //set load more listener for the RecyclerView adapter
+            listOfHotelAdapter.setOnLoadMoreListener(new OnLoadMoreListener() {
+
+                @Override
+                public void onLoadMore() {
+                    if (listHotel.size() < Integer.parseInt(arr.get(2))) {
+                        listHotel.add(null);
+                        recyclerView.post(new Runnable() {
+                            public void run() {
+                                listOfHotelAdapter.notifyItemInserted(listHotel.size() - 1);
+                            }
+                        });
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                listHotel.remove(listHotel.size() - 1);
+                                listOfHotelAdapter.notifyItemRemoved(listHotel.size());
+                                String string = "";
+                                try {
+                                    string = new NextPage().execute(arr.get(1)).get();
+                                } catch (InterruptedException | ExecutionException e) {
+                                    e.printStackTrace();
+                                }
+
+                                try {
+                                    arr = JsonHelper.parseJsonNoId(new JSONObject(string), Config.JSON_LOAD);
+                                    arrayList = JsonHelper.parseJson(new JSONArray(arr.get(0)), Config.JSON_HOTEL);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+
+                                for (int i = 0; i < arrayList.size(); i++) {
+                                    if (i % 5 == 1)
+                                        listHotel.add(new Hotel(R.drawable.benninhkieu1, arrayList.get(i)));
+                                }
+                                listOfHotelAdapter.notifyDataSetChanged();
+                                listOfHotelAdapter.setLoaded();
+                            }
+                        }, 1000);
+                    }
+                }
+            });
+        }
+    }
+
+    private class NextPage extends AsyncTask<String, Void, String>{
+
+        @Override
+        protected String doInBackground(String... strings) {
+            return HttpRequestAdapter.httpGet(strings[0]);
         }
     }
 }

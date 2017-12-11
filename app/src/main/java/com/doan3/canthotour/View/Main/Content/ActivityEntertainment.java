@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
@@ -18,6 +19,7 @@ import com.doan3.canthotour.Adapter.ListOfEntertainmentAdapter;
 import com.doan3.canthotour.Config;
 import com.doan3.canthotour.Helper.BottomNavigationViewHelper;
 import com.doan3.canthotour.Helper.JsonHelper;
+import com.doan3.canthotour.Interface.OnLoadMoreListener;
 import com.doan3.canthotour.Model.Entertainment;
 import com.doan3.canthotour.R;
 import com.doan3.canthotour.View.Favorite.ActivityFavorite;
@@ -30,6 +32,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 
 public class ActivityEntertainment extends AppCompatActivity {
@@ -78,7 +81,10 @@ public class ActivityEntertainment extends AppCompatActivity {
         loadInfo.execute(Config.URL_HOST + Config.URL_GET_ALL_ENTERTAINMENTS);
     }
 
-    private class LoadInfo extends AsyncTask<String, ArrayList<Entertainment>, Void> {
+    private class LoadInfo extends AsyncTask<String, ArrayList<Entertainment>, ArrayList<Entertainment>> {
+        ArrayList<String> arr = new ArrayList<>(), arrayList = new ArrayList<>();
+        ArrayList<Entertainment> listEntertainment = new ArrayList<>();
+        ListOfEntertainmentAdapter listOfEntertainmentAdapter;
         Activity activity;
         RecyclerView recyclerView;
         LinearLayoutManager linearLayoutManager;
@@ -94,10 +100,9 @@ public class ActivityEntertainment extends AppCompatActivity {
         }
 
         @Override
-        protected Void doInBackground(String... strings) {
-
+        protected ArrayList<Entertainment> doInBackground(String... strings) {
             // parse json vừa get về ra arraylist
-            ArrayList<String> arr, arrayList = new ArrayList<>();
+
             try {
                 arr = JsonHelper.parseJsonNoId(new JSONObject(HttpRequestAdapter.httpGet(strings[0])), Config.JSON_LOAD);
                 arrayList = JsonHelper.parseJson(new JSONArray(arr.get(0)), Config.JSON_ENTERTAINMENT);
@@ -107,23 +112,76 @@ public class ActivityEntertainment extends AppCompatActivity {
 
             ArrayList<Entertainment> list = new ArrayList<>();
 
-            int size = (arrayList.size() > 25) ? 25 : arrayList.size();
-            // lấy tên địa điểm vào list và cập nhật lên giao diện
-            for (int i = 0; i < size; i++) {
-                if (i % 5 == 1) {
+            for (int i = 0; i < arrayList.size(); i++) {
+                if (i % 4 == 1) {
                     list.add(new Entertainment(R.drawable.benninhkieu1, arrayList.get(i)));
                     publishProgress(list);
                 }
             }
-            return null;
+            return list;
         }
 
         @Override
         protected void onProgressUpdate(ArrayList<Entertainment>[] values) {
             super.onProgressUpdate(values);
-            ListOfEntertainmentAdapter listOfEntertainmentAdapter =
-                    new ListOfEntertainmentAdapter(values[0], getApplicationContext());
+            listOfEntertainmentAdapter = new ListOfEntertainmentAdapter(recyclerView, values[0], getApplicationContext());
             recyclerView.setAdapter(listOfEntertainmentAdapter);
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<Entertainment> entertainments) {
+            super.onPostExecute(entertainments);
+            listEntertainment = entertainments;
+            //set load more listener for the RecyclerView adapter
+            listOfEntertainmentAdapter.setOnLoadMoreListener(new OnLoadMoreListener() {
+
+                @Override
+                public void onLoadMore() {
+                    if (listEntertainment.size() < Integer.parseInt(arr.get(2))) {
+                        listEntertainment.add(null);
+                        recyclerView.post(new Runnable() {
+                            public void run() {
+                                listOfEntertainmentAdapter.notifyItemInserted(listEntertainment.size() - 1);
+                            }
+                        });
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                listEntertainment.remove(listEntertainment.size() - 1);
+                                listOfEntertainmentAdapter.notifyItemRemoved(listEntertainment.size());
+                                String string = "";
+                                try {
+                                    string = new ActivityEntertainment.NextPage().execute(arr.get(1)).get();
+                                } catch (InterruptedException | ExecutionException e) {
+                                    e.printStackTrace();
+                                }
+
+                                try {
+                                    arr = JsonHelper.parseJsonNoId(new JSONObject(string), Config.JSON_LOAD);
+                                    arrayList = JsonHelper.parseJson(new JSONArray(arr.get(0)), Config.JSON_ENTERTAINMENT);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+
+                                for (int i = 0; i < arrayList.size(); i++) {
+                                    if (i % 4 == 1)
+                                        listEntertainment.add(new Entertainment(R.drawable.benninhkieu1, arrayList.get(i)));
+                                }
+                                listOfEntertainmentAdapter.notifyDataSetChanged();
+                                listOfEntertainmentAdapter.setLoaded();
+                            }
+                        }, 1000);
+                    }
+                }
+            });
+        }
+    }
+
+    private class NextPage extends AsyncTask<String, Void, String>{
+
+        @Override
+        protected String doInBackground(String... strings) {
+            return HttpRequestAdapter.httpGet(strings[0]);
         }
     }
 }

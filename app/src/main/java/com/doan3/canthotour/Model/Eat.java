@@ -7,10 +7,17 @@ package com.doan3.canthotour.Model;
 public class Eat {
     private int hinhAU;
     private String tenAU;
+    private String diaChiAU;
 
     public Eat(int hinhAU, String tenAU) {
         this.hinhAU = hinhAU;
         this.tenAU = tenAU;
+    }
+
+    public Eat(int hinhAU, String tenAU, String diaChiAU) {
+        this.hinhAU = hinhAU;
+        this.tenAU = tenAU;
+        this.diaChiAU = diaChiAU;
     }
 
     public int getHinhAU() {
@@ -27,5 +34,13 @@ public class Eat {
 
     public void setTenAU(String tenAU) {
         this.tenAU = tenAU;
+    }
+
+    public String getDiaChiAU() {
+        return diaChiAU;
+    }
+
+    public void setDiaChiAU(String diaChiAU) {
+        this.diaChiAU = diaChiAU;
     }
 }

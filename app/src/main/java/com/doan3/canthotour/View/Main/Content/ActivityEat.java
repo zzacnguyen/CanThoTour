@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
@@ -18,7 +19,9 @@ import com.doan3.canthotour.Adapter.ListOfEatAdapter;
 import com.doan3.canthotour.Config;
 import com.doan3.canthotour.Helper.BottomNavigationViewHelper;
 import com.doan3.canthotour.Helper.JsonHelper;
+import com.doan3.canthotour.Interface.OnLoadMoreListener;
 import com.doan3.canthotour.Model.Eat;
+import com.doan3.canthotour.Model.Place;
 import com.doan3.canthotour.R;
 import com.doan3.canthotour.View.Favorite.ActivityFavorite;
 import com.doan3.canthotour.View.Main.MainActivity;
@@ -30,6 +33,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 
 public class ActivityEat extends AppCompatActivity {
@@ -41,6 +45,115 @@ public class ActivityEat extends AppCompatActivity {
         initView_Eat();
 
         menuBotNavBar();
+    }
+
+    private void initView_Eat() {
+        LoadInfo loadInfo = new LoadInfo(this);
+        loadInfo.execute(Config.URL_HOST + Config.URL_GET_ALL_EATS);
+    }
+
+    private class LoadInfo extends AsyncTask<String, ArrayList<Eat>, ArrayList<Eat>> {
+        ArrayList<String> arr = new ArrayList<>(), arrayList = new ArrayList<>();
+        ArrayList<Eat> listEat = new ArrayList<>();
+        ListOfEatAdapter listOfEatAdapter;
+        Activity activity;
+        RecyclerView recyclerView;
+        LinearLayoutManager linearLayoutManager;
+
+        // khởi tạo class truyền vào 2 đối số là activity và recyclerview
+        public LoadInfo(Activity act) {
+            activity = act;
+            recyclerView = findViewById(R.id.RecyclerView_DanhSachAnUong);
+            recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
+
+            linearLayoutManager = new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false);
+            recyclerView.setLayoutManager(linearLayoutManager);
+        }
+
+        @Override
+        protected ArrayList<Eat> doInBackground(String... strings) {
+            // parse json vừa get về ra arraylist
+
+            try {
+                arr = JsonHelper.parseJsonNoId(new JSONObject(HttpRequestAdapter.httpGet(strings[0])), Config.JSON_LOAD);
+                arrayList = JsonHelper.parseJson(new JSONArray(arr.get(0)), Config.JSON_EAT);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            ArrayList<Eat> list = new ArrayList<>();
+
+            for (int i = 0; i < arrayList.size(); i++) {
+                if (i % 4 == 1) {
+                    list.add(new Eat(R.drawable.benninhkieu1, arrayList.get(i)));
+                    publishProgress(list);
+                }
+            }
+            return list;
+        }
+
+        @Override
+        protected void onProgressUpdate(ArrayList<Eat>[] values) {
+            super.onProgressUpdate(values);
+            listOfEatAdapter = new ListOfEatAdapter(recyclerView, values[0], getApplicationContext());
+            recyclerView.setAdapter(listOfEatAdapter);
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<Eat> eats) {
+            super.onPostExecute(eats);
+            listEat = eats;
+            //set load more listener for the RecyclerView adapter
+            listOfEatAdapter.setOnLoadMoreListener(new OnLoadMoreListener() {
+
+                @Override
+                public void onLoadMore() {
+                    if (listEat.size() < Integer.parseInt(arr.get(2))) {
+                        listEat.add(null);
+                        recyclerView.post(new Runnable() {
+                            public void run() {
+                                listOfEatAdapter.notifyItemInserted(listEat.size() - 1);
+                            }
+                        });
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                listEat.remove(listEat.size() - 1);
+                                listOfEatAdapter.notifyItemRemoved(listEat.size());
+                                String string = "";
+                                try {
+                                    string = new NextPage().execute(arr.get(1)).get();
+                                } catch (InterruptedException | ExecutionException e) {
+                                    e.printStackTrace();
+                                }
+
+                                try {
+                                    arr = JsonHelper.parseJsonNoId(new JSONObject(string), Config.JSON_LOAD);
+                                    arrayList = JsonHelper.parseJson(new JSONArray(arr.get(0)), Config.JSON_EAT);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+
+                                for (int i = 0; i < arrayList.size(); i++) {
+                                    if (i % 4 == 1)
+                                        listEat.add(new Eat(R.drawable.benninhkieu1, arrayList.get(i)));
+                                }
+                                listOfEatAdapter.notifyDataSetChanged();
+                                listOfEatAdapter.setLoaded();
+                            }
+                        }, 1000);
+                    }
+                }
+            });
+        }
+    }
+
+    private class NextPage extends AsyncTask<String, Void, String>{
+
+        @Override
+        protected String doInBackground(String... strings) {
+            return HttpRequestAdapter.httpGet(strings[0]);
+        }
     }
 
     private void menuBotNavBar() {
@@ -71,57 +184,5 @@ public class ActivityEat extends AppCompatActivity {
                 return false;
             }
         });
-    }
-
-    private void initView_Eat() {
-        LoadInfo loadInfo = new LoadInfo(this);
-        loadInfo.execute(Config.URL_HOST + Config.URL_GET_ALL_EATS);
-    }
-
-    private class LoadInfo extends AsyncTask<String, ArrayList<Eat>, Void> {
-        Activity activity;
-        RecyclerView recyclerView;
-        LinearLayoutManager linearLayoutManager;
-
-        // khởi tạo class truyền vào 2 đối số là activity và recyclerview
-        public LoadInfo(Activity act) {
-            activity = act;
-            recyclerView = findViewById(R.id.RecyclerView_DanhSachAnUong);
-            recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
-
-            linearLayoutManager = new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false);
-            recyclerView.setLayoutManager(linearLayoutManager);
-        }
-
-        @Override
-        protected Void doInBackground(String... strings) {
-            // parse json vừa get về ra arraylist
-            ArrayList<String> arr, arrayList = new ArrayList<>();
-            try {
-                arr = JsonHelper.parseJsonNoId(new JSONObject(HttpRequestAdapter.httpGet(strings[0])), Config.JSON_LOAD);
-                arrayList = JsonHelper.parseJson(new JSONArray(arr.get(0)), Config.JSON_EAT);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-            ArrayList<Eat> list = new ArrayList<>();
-
-            int size = (arrayList.size() > 20) ? 20 : arrayList.size();
-            // lấy tên địa điểm vào list và cập nhật lên giao diện
-            for (int i = 0; i < size; i++) {
-                if (i % 4 == 1) {
-                    list.add(new Eat(R.drawable.benninhkieu1, arrayList.get(i)));
-                    publishProgress(list);
-                }
-            }
-            return null;
-        }
-
-        @Override
-        protected void onProgressUpdate(ArrayList<Eat>[] values) {
-            super.onProgressUpdate(values);
-            ListOfEatAdapter listOfEatAdapter = new ListOfEatAdapter(values[0], getApplicationContext());
-            recyclerView.setAdapter(listOfEatAdapter);
-        }
     }
 }
