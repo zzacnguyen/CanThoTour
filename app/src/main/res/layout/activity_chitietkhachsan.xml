@@ -76,7 +76,7 @@
                 android:padding="10dp">
 
                 <TextView
-                    android:id="@+id/textViewTenKS"
+                    android:id="@+id/textViewTenDv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text=""
@@ -173,7 +173,7 @@
                         />
 
                     <TextView
-                        android:id="@+id/textViewDiaChiKS"
+                        android:id="@+id/textViewDiaChiDv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
@@ -196,7 +196,7 @@
                         android:tint="@color/bgToolbar"/>
 
                     <TextView
-                        android:id="@+id/textViewSdtKS"
+                        android:id="@+id/textViewSdtDv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
@@ -242,7 +242,7 @@
                         android:tint="@color/bgToolbar"/>
 
                     <TextView
-                        android:id="@+id/textViewLoaiHinhKS"
+                        android:id="@+id/textViewLoaiHinhDv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
@@ -265,7 +265,7 @@
                         android:tint="@color/bgToolbar"/>
 
                     <TextView
-                        android:id="@+id/textViewGiaKS"
+                        android:id="@+id/textViewGiaDv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -288,7 +288,7 @@
                         android:tint="@color/bgToolbar"/>
 
                     <TextView
-                        android:id="@+id/textViewGioKS"
+                        android:id="@+id/textViewGioDv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -395,7 +395,7 @@
                     android:textStyle="bold"/>
 
                 <TextView
-                    android:id="@+id/textViewGioiThieuKS"
+                    android:id="@+id/textViewGioiThieuDv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=""
