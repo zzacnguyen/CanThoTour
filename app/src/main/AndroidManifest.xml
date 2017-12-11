@@ -32,6 +32,8 @@
         <activity android:name=".View.Main.Content.ActivityEntertainment"></activity>
         <activity android:name=".View.Personal.ActivityAddPlace"></activity>
         <activity android:name=".View.Search.ActivitySearch"></activity>
+        <activity android:name=".View.Personal.ActivityRegCoop"></activity>
+        <activity android:name=".View.Personal.ActivityOption"></activity>
     </application>
 
 </manifest>

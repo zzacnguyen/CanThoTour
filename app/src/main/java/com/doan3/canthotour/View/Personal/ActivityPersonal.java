@@ -19,7 +19,7 @@ import com.doan3.canthotour.View.Search.ActivitySearch;
 
 public class ActivityPersonal extends AppCompatActivity {
 
-    Button btnThemDiaDiem, btnTimDiaDiem;
+    Button btnThemDiaDiem, btnTimDiaDiem, btnDangKyDoanhNghiep, btnCaiDat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +28,8 @@ public class ActivityPersonal extends AppCompatActivity {
 
         btnThemDiaDiem = findViewById(R.id.buttonThemDiaDiem);
         btnTimDiaDiem = findViewById(R.id.buttonTimDiaDiem);
+        btnDangKyDoanhNghiep = findViewById(R.id.buttonDangKyDoanhNghiep);
+        btnCaiDat = findViewById(R.id.buttonCaiDat);
 
         btnThemDiaDiem.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -42,6 +44,22 @@ public class ActivityPersonal extends AppCompatActivity {
             public void onClick(View view) {
                 Intent iTimDiaDiem = new Intent(ActivityPersonal.this, ActivitySearch.class);
                 startActivity(iTimDiaDiem);
+            }
+        });
+
+        btnDangKyDoanhNghiep.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent iDangKyDoanhNghiep = new Intent(ActivityPersonal.this, ActivityRegCoop.class);
+                startActivity(iDangKyDoanhNghiep);
+            }
+        });
+
+        btnCaiDat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent iCaiDat = new Intent(ActivityPersonal.this, ActivityOption.class);
+                startActivity(iCaiDat);
             }
         });
 

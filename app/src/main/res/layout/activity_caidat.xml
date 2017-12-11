@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.doan3.canthotour.View.Main.MainActivity">
+    tools:context="com.doan3.canthotour.View.Main.MainActivity"
+    android:background="@color/colorGrey">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -12,22 +13,44 @@
         android:fitsSystemWindows="true"
         android:background="@color/colorGrey">
 
+
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:layout_collapseMode="pin"
-            android:background="@color/bgToolbar">
+            android:background="@color/bgToolbar"
+            app:layout_collapseMode="pin">
 
-            <TextView
-                android:id="@+id/toolbarTitle"
+            <LinearLayout
+                android:weightSum="10"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Cá nhân"
-                android:gravity="center"
-                android:textColor="@color/colorWhite"
-                android:textSize="18sp"
-                />
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_weight="1"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:tint="@color/colorWhite"
+                    android:src="@drawable/ic_arrow_left_36dp"/>
+
+                <TextView
+                    android:id="@+id/toolbarTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="8"
+                    android:gravity="center"
+                    android:text="Cài đặt"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="18sp" />
+
+                <ImageView
+                    android:layout_weight="1"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    />
+            </LinearLayout>
 
         </android.support.v7.widget.Toolbar>
 
@@ -42,24 +65,21 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:padding="10dp"
-                android:background="@drawable/white_grey_border_bottom">
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:src="@drawable/avatar"
-                    app:civ_border_color="@android:color/white"
-                    app:civ_border_width="4dp" />
+                android:background="@color/colorWhite"
+                android:layout_marginTop="10dp">
 
                 <TextView
+                    android:id="@+id/btnDoiMatKhau"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:padding="10dp"
-                    android:text="Username"
-                    android:textSize="18sp" />
+                    android:background="@null"
+                    android:textSize="14sp"
+                    android:textColor="@color/colorBlack"
+                    android:text="Đổi mật khẩu"
+                    android:padding="5dp"/>
+
             </LinearLayout>
 
             <View
@@ -74,17 +94,17 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:background="@drawable/white_grey_border_bottom"
-                android:padding="5dp">
+                android:padding="10dp">
 
-                <Button
-                    android:id="@+id/buttonThemDiaDiem"
+                <TextView
+                    android:id="@+id/buttonDieuKhoan"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/ic_themdiadiem"
-                    android:textAlignment="textStart"
-                    android:textAllCaps="false"
                     android:background="@null"
-                    android:text="Thêm địa điểm"
+                    android:textSize="14sp"
+                    android:padding="5dp"
+                    android:textColor="@color/colorBlack"
+                    android:text="Điều khoản"
                     android:layout_weight="1"/>
 
                 <ImageView
@@ -100,24 +120,24 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:background="@drawable/white_grey_border_bottom"
-                android:padding="5dp">
+                android:padding="10dp">
 
-                <Button
-                    android:id="@+id/buttonTimDiaDiem"
+                <TextView
+                    android:id="@+id/buttonGioiThieu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/ic_timdiadiem"
-                    android:textAlignment="textStart"
-                    android:textAllCaps="false"
                     android:background="@null"
-                    android:text="Tìm địa điểm"
+                    android:textSize="14sp"
+                    android:padding="5dp"
+                    android:textColor="@color/colorBlack"
+                    android:text="Giới thiệu Cần Thơ Tour"
                     android:layout_weight="1"/>
 
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:src="@drawable/ic_arrow"
-                    android:layout_gravity="center"/>
+                    android:layout_gravity="center" />
 
             </LinearLayout>
 
@@ -126,89 +146,58 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:background="@drawable/white_grey_border_bottom"
-                android:padding="5dp">
+                android:padding="10dp">
 
-                <Button
-                    android:id="@+id/buttonDangKyDoanhNghiep"
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/ic_dangkydoanhnghiep"
-                    android:textAlignment="textStart"
-                    android:textAllCaps="false"
                     android:background="@null"
-                    android:text="Đăng ký doanh nghiệp"
+                    android:textSize="14sp"
+                    android:padding="5dp"
+                    android:textColor="@color/colorBlack"
+                    android:text="Phiên bản"
                     android:layout_weight="1"/>
 
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/ic_arrow"
-                    android:layout_gravity="center"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="5dp"
+                    android:textSize="16sp"
+                    android:text="1.0"/>
 
             </LinearLayout>
 
-            <View
+                <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/colorGrey"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 />
 
-            <LinearLayout
+                <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:background="@drawable/white_grey_border_bottom"
-                android:padding="5dp">
+                android:padding="10dp">
 
-                <Button
-                    android:id="@+id/buttonCaiDat"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/ic_caidat"
-                    android:textAlignment="textStart"
-                    android:textAllCaps="false"
-                    android:background="@null"
-                    android:text="Cài đặt"
-                    android:layout_weight="1"/>
+             <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:textSize="14sp"
+                android:padding="5dp"
+                android:textColor="@color/colorBlack"
+                android:text="Góp ý/ Báo lỗi"
+                android:layout_weight="1"/>
 
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:src="@drawable/ic_arrow"
-                    android:layout_gravity="center"/>
+                    android:layout_gravity="center" />
 
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:background="@drawable/white_grey_border_bottom"
-                android:padding="5dp">
-
-                <Button
-                    android:id="@+id/buttonDangXuat"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/ic_dangxuat"
-                    android:textAlignment="textStart"
-                    android:textAllCaps="false"
-                    android:background="@null"
-                    android:text="Đăng xuất"
-                    android:layout_weight="1"/>
-
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/ic_arrow"
-                    android:layout_gravity="center"/>
-
-            </LinearLayout>
-
-
-
-
+                </LinearLayout>
         </LinearLayout>
 
     </android.support.design.widget.AppBarLayout>
