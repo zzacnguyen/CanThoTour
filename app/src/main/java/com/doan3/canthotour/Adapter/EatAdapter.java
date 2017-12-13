@@ -13,7 +13,6 @@ import android.widget.TextView;
 import com.doan3.canthotour.Model.Eat;
 import com.doan3.canthotour.R;
 import com.doan3.canthotour.View.Main.ActivityEatInfo;
-import com.doan3.canthotour.View.Main.ActivityPlaceInfo;
 
 import java.util.ArrayList;
 
@@ -43,7 +42,7 @@ public class EatAdapter extends RecyclerView.Adapter<EatAdapter.ViewHolder> {
             @Override
             public void onClick(View view) {
                 Intent iPlaceInfo = new Intent(context, ActivityEatInfo.class);
-                iPlaceInfo.putExtra("masp", position+1+"");
+                iPlaceInfo.putExtra("masp", position + "");
                 iPlaceInfo.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(iPlaceInfo);
             }
@@ -55,7 +54,7 @@ public class EatAdapter extends RecyclerView.Adapter<EatAdapter.ViewHolder> {
         return eat.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{ //ViewHolder chạy thứ 2, phần này giúp cho recycler view ko bị load lại dữ liệu khi thực hiện thao tác vuốt màn hình
+    public class ViewHolder extends RecyclerView.ViewHolder { //ViewHolder chạy thứ 2, phần này giúp cho recycler view ko bị load lại dữ liệu khi thực hiện thao tác vuốt màn hình
         TextView txtTenDD;
         ImageView imgHinhDD;
         CardView cardView;

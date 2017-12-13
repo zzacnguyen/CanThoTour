@@ -16,7 +16,6 @@ import com.doan3.canthotour.Interface.OnLoadMoreListener;
 import com.doan3.canthotour.Model.Hotel;
 import com.doan3.canthotour.R;
 import com.doan3.canthotour.View.Main.ActivityHotelInfo;
-import com.doan3.canthotour.View.Main.Content.ActivityHotel;
 
 import java.util.ArrayList;
 
@@ -45,7 +44,7 @@ public class ListOfHotelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 if (!isLoading && totalItemCount <= (lastVisibleItem + visibleThreshold)) {
                     if (onLoadMoreListener != null)
                         onLoadMoreListener.onLoadMore();
-                        isLoading = true;
+                    isLoading = true;
                 }
             }
         });
@@ -85,7 +84,7 @@ public class ListOfHotelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 @Override
                 public void onClick(View view) {
                     Intent iHotelInfo = new Intent(context, ActivityHotelInfo.class);
-                    iHotelInfo.putExtra("masp", position+1+"");
+                    iHotelInfo.putExtra("masp", position + "");
                     iHotelInfo.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(iHotelInfo);
                 }
@@ -98,7 +97,7 @@ public class ListOfHotelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public int getItemCount() {
-        return  hotel.size();
+        return hotel.size();
     }
 
     public void setLoaded() {
@@ -116,7 +115,7 @@ public class ListOfHotelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     //"Normal item" Viewholder
-    private class ViewHolder extends RecyclerView.ViewHolder{ //ViewHolder chạy thứ 2, phần này giúp cho recycler view ko bị load lại dữ liệu khi thực hiện thao tác vuốt màn hình
+    private class ViewHolder extends RecyclerView.ViewHolder { //ViewHolder chạy thứ 2, phần này giúp cho recycler view ko bị load lại dữ liệu khi thực hiện thao tác vuốt màn hình
         TextView txtTenDD, txtDiaChiDD;
         ImageView imgHinhDD;
         CardView cardView;

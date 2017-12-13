@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
@@ -127,7 +128,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    //region Nội dung chính (content-view)
 
     //Get view place
     private void initView_Place() {
@@ -152,6 +152,7 @@ public class MainActivity extends AppCompatActivity {
         threadLoadHotel.execute(Config.URL_HOST + Config.URL_GET_ALL_HOTELS);
     }
 
+    //Get view entertainment
     private void initView_Entertainment() {
         RecyclerView recyclerView = findViewById(R.id.RecyclerView_VuiChoi);
 
@@ -170,7 +171,8 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         return super.onOptionsItemSelected(item);
     }
-
+    // endregion
+    
     //Custom view place
     private class LoadPlace extends AsyncTask<String, ArrayList<Place>, Void> {
         Activity activity;

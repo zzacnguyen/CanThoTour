@@ -49,13 +49,20 @@ public class ActivityHotelInfo extends AppCompatActivity {
         txtWebsite = findViewById(R.id.textViewWebsite);
 
         masp = getIntent().getStringExtra("masp");
+        ArrayList<String> arr = new ArrayList<>();
+        try {
+            arr = new GetId().execute().get();
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+
         String idService, idPlace;
         String urlService = null, urlPlace = null;
         ArrayList<String> urlHotel = new ArrayList<>();
 
         // lấy id dịch vụ trong ăn uống, lấy id địa điểm trong dịch vụ
         try {
-            urlHotel.add(Config.URL_HOST + Config.URL_GET_ALL_HOTELS + "/" + masp);
+            urlHotel.add(Config.URL_HOST + Config.URL_GET_ALL_HOTELS + "/" + arr.get(Integer.parseInt(masp)));
 
             idService = new ActivityEatInfo.GetIdService().execute(urlHotel, Config.JSON_HOTEL).get();
             idPlace = new ActivityEatInfo.GetIdPlace().execute(Config.URL_HOST + Config.URL_GET_ALL_SERVICES + "/" + idService).get();
@@ -122,6 +129,20 @@ public class ActivityHotelInfo extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    private class GetId extends AsyncTask<Void, Void, ArrayList<String>> {
+        @Override
+        protected ArrayList<String> doInBackground(Void... voids) {
+            ArrayList<String> arr = new ArrayList<>();
+            try {
+                JSONArray jsonArray = new JSONArray(HttpRequestAdapter.httpGet(Config.URL_HOST + "lay-id-khach-san"));
+                arr = JsonHelper.parseJson(jsonArray, new ArrayList<String>());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return arr;
         }
     }
 }

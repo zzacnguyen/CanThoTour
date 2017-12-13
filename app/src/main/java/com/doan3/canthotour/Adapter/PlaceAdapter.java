@@ -43,7 +43,7 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> 
             @Override
             public void onClick(View view) {
                 Intent iPlaceInfo = new Intent(context, ActivityPlaceInfo.class);
-                iPlaceInfo.putExtra("masp", position+1+"");
+                iPlaceInfo.putExtra("masp", position + "");
                 iPlaceInfo.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(iPlaceInfo);
             }
@@ -55,7 +55,7 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> 
         return place == null ? 0 : place.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{ //ViewHolder chạy thứ 2, phần này giúp cho recycler view ko bị load lại dữ liệu khi thực hiện thao tác vuốt màn hình
+    public class ViewHolder extends RecyclerView.ViewHolder { //ViewHolder chạy thứ 2, phần này giúp cho recycler view ko bị load lại dữ liệu khi thực hiện thao tác vuốt màn hình
         TextView txtTenDD;
         ImageView imgHinhDD;
         CardView cardView;

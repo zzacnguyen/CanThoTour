@@ -16,7 +16,6 @@ import com.doan3.canthotour.Interface.OnLoadMoreListener;
 import com.doan3.canthotour.Model.Eat;
 import com.doan3.canthotour.R;
 import com.doan3.canthotour.View.Main.ActivityEatInfo;
-import com.doan3.canthotour.View.Main.Content.ActivityEat;
 
 import java.util.ArrayList;
 
@@ -45,7 +44,7 @@ public class ListOfEatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 if (!isLoading && totalItemCount <= (lastVisibleItem + visibleThreshold)) {
                     if (onLoadMoreListener != null)
                         onLoadMoreListener.onLoadMore();
-                        isLoading = true;
+                    isLoading = true;
                 }
             }
         });
@@ -85,7 +84,7 @@ public class ListOfEatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 @Override
                 public void onClick(View view) {
                     Intent iEatInfo = new Intent(context, ActivityEatInfo.class);
-                    iEatInfo.putExtra("masp", position+1+"");
+                    iEatInfo.putExtra("masp", position + "");
                     iEatInfo.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(iEatInfo);
                 }
@@ -98,7 +97,7 @@ public class ListOfEatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     @Override
     public int getItemCount() {
-        return  eat.size();
+        return eat.size();
     }
 
     public void setLoaded() {
@@ -116,7 +115,7 @@ public class ListOfEatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     }
 
     //"Normal item" Viewholder
-    private class ViewHolder extends RecyclerView.ViewHolder{ //ViewHolder chạy thứ 2, phần này giúp cho recycler view ko bị load lại dữ liệu khi thực hiện thao tác vuốt màn hình
+    private class ViewHolder extends RecyclerView.ViewHolder { //ViewHolder chạy thứ 2, phần này giúp cho recycler view ko bị load lại dữ liệu khi thực hiện thao tác vuốt màn hình
         TextView txtTenDD, txtDiaChiDD;
         ImageView imgHinhDD;
         CardView cardView;

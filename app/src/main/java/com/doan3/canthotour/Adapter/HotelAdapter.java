@@ -45,7 +45,7 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.ViewHolder> 
             @Override
             public void onClick(View view) {
                 Intent iPlaceInfo = new Intent(context, ActivityHotelInfo.class);
-                iPlaceInfo.putExtra("masp", position + 1 + "");
+                iPlaceInfo.putExtra("masp", position + "");
                 iPlaceInfo.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(iPlaceInfo);
             }

@@ -44,7 +44,7 @@ public class ListOfEntertainmentAdapter extends RecyclerView.Adapter<RecyclerVie
                 if (!isLoading && totalItemCount <= (lastVisibleItem + visibleThreshold)) {
                     if (onLoadMoreListener != null)
                         onLoadMoreListener.onLoadMore();
-                        isLoading = true;
+                    isLoading = true;
                 }
             }
         });
@@ -84,7 +84,7 @@ public class ListOfEntertainmentAdapter extends RecyclerView.Adapter<RecyclerVie
                 @Override
                 public void onClick(View view) {
                     Intent iEntertainmentInfo = new Intent(context, ActivityEntertainmentInfo.class);
-                    iEntertainmentInfo.putExtra("masp", position+1+"");
+                    iEntertainmentInfo.putExtra("masp", position + "");
                     iEntertainmentInfo.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(iEntertainmentInfo);
                 }
@@ -97,7 +97,7 @@ public class ListOfEntertainmentAdapter extends RecyclerView.Adapter<RecyclerVie
 
     @Override
     public int getItemCount() {
-        return  entertainment.size();
+        return entertainment.size();
     }
 
     public void setLoaded() {
@@ -115,7 +115,7 @@ public class ListOfEntertainmentAdapter extends RecyclerView.Adapter<RecyclerVie
     }
 
     //"Normal item" Viewholder
-    private class ViewHolder extends RecyclerView.ViewHolder{ //ViewHolder chạy thứ 2, phần này giúp cho recycler view ko bị load lại dữ liệu khi thực hiện thao tác vuốt màn hình
+    private class ViewHolder extends RecyclerView.ViewHolder { //ViewHolder chạy thứ 2, phần này giúp cho recycler view ko bị load lại dữ liệu khi thực hiện thao tác vuốt màn hình
         TextView txtTenDD, txtDiaChiDD;
         ImageView imgHinhDD;
         CardView cardView;

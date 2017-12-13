@@ -1,4 +1,4 @@
-package com.doan3.canthotour.View.Main;
+package com.doan3.canthotour.View.Favorite;
 
 
 import android.content.Intent;
@@ -21,7 +21,7 @@ import com.doan3.canthotour.Config;
 import com.doan3.canthotour.Helper.BottomNavigationViewHelper;
 import com.doan3.canthotour.Helper.JsonHelper;
 import com.doan3.canthotour.R;
-import com.doan3.canthotour.View.Favorite.ActivityFavorite;
+import com.doan3.canthotour.View.Main.MainActivity;
 import com.doan3.canthotour.View.Notify.ActivityNotify;
 import com.doan3.canthotour.View.Personal.ActivityPersonal;
 
@@ -33,7 +33,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
-public class ActivityPlaceInfo extends AppCompatActivity {
+public class ActivityFavoriteInfo extends AppCompatActivity {
 
     Button btnLuuDiaDiem, btnLanCan, btnChiaSe;
     TextView txtTenDD, txtDiaChi, txtSDT, txtGioiThieu;
@@ -56,12 +56,19 @@ public class ActivityPlaceInfo extends AppCompatActivity {
 
         masp = getIntent().getStringExtra("masp");
         ArrayList<String> arr = new ArrayList<>();
+        String id = null;
         try {
             arr = new GetId().execute().get();
+            GetIdPlace getIdPlace = new GetIdPlace();
+            getIdPlace.execute(Config.URL_HOST + Config.URL_GET_ALL_FAVORITE + "/" + arr.get(Integer.parseInt(masp)));
+            id = getIdPlace.get();
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
-        new LoadPlace().execute(Config.URL_HOST + Config.URL_GET_ALL_PLACES + "/" + arr.get(Integer.parseInt(masp)));
+
+        new LoadPlace().execute(Config.URL_HOST + Config.URL_GET_ALL_PLACES + "/" + id);
+
+
         btnLuuDiaDiem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -74,16 +81,16 @@ public class ActivityPlaceInfo extends AppCompatActivity {
                         for (int i = 0; i < getDataJsonFile.length(); i++) {
                             if (!object.toString().equals(getDataJsonFile.getJSONObject(i).toString())) {
                                 JsonHelper.writeJson(file, object);
-                                Toast.makeText(ActivityPlaceInfo.this,
+                                Toast.makeText(ActivityFavoriteInfo.this,
                                         "Lưu thành công", Toast.LENGTH_SHORT).show();
                             } else {
-                                Toast.makeText(ActivityPlaceInfo.this,
+                                Toast.makeText(ActivityFavoriteInfo.this,
                                         "Đã lưu trước đó", Toast.LENGTH_SHORT).show();
                             }
                         }
                     } else {
                         JsonHelper.writeJson(file, object);
-                        Toast.makeText(ActivityPlaceInfo.this, "Lưu thành công", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ActivityFavoriteInfo.this, "Lưu thành công", Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -109,21 +116,35 @@ public class ActivityPlaceInfo extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.ic_trangchu:
-                        startActivity(new Intent(ActivityPlaceInfo.this, MainActivity.class));
+                        startActivity(new Intent(ActivityFavoriteInfo.this, MainActivity.class));
                         break;
                     case R.id.ic_yeuthich:
-                        startActivity(new Intent(ActivityPlaceInfo.this, ActivityFavorite.class));
+                        startActivity(new Intent(ActivityFavoriteInfo.this, ActivityFavorite.class));
                         break;
                     case R.id.ic_thongbao:
-                        startActivity(new Intent(ActivityPlaceInfo.this, ActivityNotify.class));
+                        startActivity(new Intent(ActivityFavoriteInfo.this, ActivityNotify.class));
                         break;
                     case R.id.ic_canhan:
-                        startActivity(new Intent(ActivityPlaceInfo.this, ActivityPersonal.class));
+                        startActivity(new Intent(ActivityFavoriteInfo.this, ActivityPersonal.class));
                         break;
                 }
                 return false;
             }
         });
+    }
+
+    private class GetIdPlace extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... strings) {
+            ArrayList<String> arr = new ArrayList<>();
+            try {
+                arr = JsonHelper.parseJsonNoId(new JSONArray(HttpRequestAdapter.httpGet(strings[0])), Config.JSON_FAVORITE);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return arr.get(0);
+        }
     }
 
     private class LoadPlace extends AsyncTask<String, ArrayList<String>, Void> {
@@ -155,13 +176,13 @@ public class ActivityPlaceInfo extends AppCompatActivity {
         }
     }
 
-    private class GetId extends AsyncTask<Void, Void, ArrayList<String>>{
+    private class GetId extends AsyncTask<Void, Void, ArrayList<String>> {
         @Override
         protected ArrayList<String> doInBackground(Void... voids) {
             ArrayList<String> arr = new ArrayList<>();
             try {
-                JSONArray jsonArray = new JSONArray(HttpRequestAdapter.httpGet(Config.URL_HOST+"lay-id-dia-diem"));
-                arr = JsonHelper.parseJson(jsonArray,new ArrayList<String>());
+                JSONArray jsonArray = new JSONArray(HttpRequestAdapter.httpGet(Config.URL_HOST + "lay-id-yeu-thich"));
+                arr = JsonHelper.parseJson(jsonArray, new ArrayList<String>());
             } catch (JSONException e) {
                 e.printStackTrace();
             }

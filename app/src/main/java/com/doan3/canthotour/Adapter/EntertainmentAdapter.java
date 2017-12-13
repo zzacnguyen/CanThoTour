@@ -42,7 +42,7 @@ public class EntertainmentAdapter extends RecyclerView.Adapter<EntertainmentAdap
             @Override
             public void onClick(View view) {
                 Intent iPlaceInfo = new Intent(context, ActivityEntertainmentInfo.class);
-                iPlaceInfo.putExtra("masp", position + 1 + "");
+                iPlaceInfo.putExtra("masp", position + "");
                 iPlaceInfo.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(iPlaceInfo);
             }

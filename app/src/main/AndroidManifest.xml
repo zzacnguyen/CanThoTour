@@ -20,6 +20,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".View.Favorite.ActivityFavorite"></activity>
+        <activity android:name=".View.Favorite.ActivityFavoriteInfo"></activity>
         <activity android:name=".View.Notify.ActivityNotify"></activity>
         <activity android:name=".View.Personal.ActivityPersonal"></activity>
         <activity android:name=".View.Main.ActivityPlaceInfo"></activity>
