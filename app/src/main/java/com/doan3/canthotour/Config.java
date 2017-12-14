@@ -77,4 +77,7 @@ public class Config {
 
     public static final ArrayList<String> JSON_LOAD =
             new ArrayList<String>(Arrays.asList("data", "next_page_url", "total"));
+
+    public static final ArrayList<String> JSON_NEAR_LOCATION =
+            new ArrayList<String>(Arrays.asList("khoangcach", "vido", "kinhdo"));
 }
