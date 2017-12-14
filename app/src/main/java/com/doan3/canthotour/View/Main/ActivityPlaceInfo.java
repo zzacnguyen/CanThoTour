@@ -2,6 +2,7 @@ package com.doan3.canthotour.View.Main;
 
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
@@ -40,7 +41,7 @@ public class ActivityPlaceInfo extends AppCompatActivity {
     TextView txtTenDD, txtDiaChi, txtSDT, txtGioiThieu;
     String masp;
     JSONObject object;
-
+    String kinhDo, viDo;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -100,6 +101,15 @@ public class ActivityPlaceInfo extends AppCompatActivity {
             }
         });
 
+        btnLanCan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ActivityPlaceInfo.this , ActivityNearLocation.class);
+                intent.putExtra("url", Config.URL_HOST + "timkiemSort/location="+kinhDo+","+viDo+"&radius=500&keyword=can+tho");
+                startActivity(intent);
+            }
+        });
+
 
         menuBotNavBar();
     }
@@ -110,7 +120,7 @@ public class ActivityPlaceInfo extends AppCompatActivity {
             JSONArray jsonArray;
             try {
                 jsonArray = new JSONArray(HttpRequestAdapter.httpGet(strings[0]));
-                ArrayList<String> arrayList = JsonHelper.parseJson(jsonArray, Config.JSON_PLACE);
+                ArrayList<String> arrayList = JsonHelper.parseJsonNoId(jsonArray, Config.JSON_PLACE);
                 publishProgress(arrayList);
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -123,13 +133,15 @@ public class ActivityPlaceInfo extends AppCompatActivity {
             super.onProgressUpdate(arrayList);
             try {
                 object = new JSONObject("{\"dd_iddiadiem\":\"" + arrayList[0].get(0) + "\",\"nd_idnguoidung\":\"1\"}");
+                kinhDo = arrayList[0].get(4);
+                viDo = arrayList[0].get(5);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            txtTenDD.setText(arrayList[0].get(1));
-            txtDiaChi.setText(arrayList[0].get(3));
-            txtSDT.setText(arrayList[0].get(4));
-            txtGioiThieu.setText(arrayList[0].get(2));
+            txtTenDD.setText(arrayList[0].get(0));
+            txtDiaChi.setText(arrayList[0].get(2));
+            txtSDT.setText(arrayList[0].get(3));
+            txtGioiThieu.setText(arrayList[0].get(1));
         }
     }
 

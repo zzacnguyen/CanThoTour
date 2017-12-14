@@ -51,6 +51,36 @@ public class ActivityHotel extends AppCompatActivity {
         loadInfo.execute(Config.URL_HOST + Config.URL_GET_ALL_HOTELS);
     }
 
+    private void menuBotNavBar() {
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavView_Bar);
+        BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
+
+        Menu menu = bottomNavigationView.getMenu();
+        MenuItem menuItem = menu.getItem(0);
+        menuItem.setChecked(true);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.ic_trangchu:
+                        startActivity(new Intent(ActivityHotel.this, MainActivity.class));
+                        break;
+                    case R.id.ic_yeuthich:
+                        startActivity(new Intent(ActivityHotel.this, ActivityFavorite.class));
+                        break;
+                    case R.id.ic_thongbao:
+                        startActivity(new Intent(ActivityHotel.this, ActivityNotify.class));
+                        break;
+                    case R.id.ic_canhan:
+                        startActivity(new Intent(ActivityHotel.this, ActivityPersonal.class));
+                        break;
+                }
+                return false;
+            }
+        });
+    }
+
     private class LoadInfo extends AsyncTask<String, ArrayList<Hotel>, ArrayList<Hotel>> {
         ArrayList<String> arr = new ArrayList<>(), arrayList = new ArrayList<>();
         ArrayList<Hotel> listHotel = new ArrayList<>();
@@ -75,18 +105,16 @@ public class ActivityHotel extends AppCompatActivity {
 
             try {
                 arr = JsonHelper.parseJsonNoId(new JSONObject(HttpRequestAdapter.httpGet(strings[0])), Config.JSON_LOAD);
-                arrayList = JsonHelper.parseJson(new JSONArray(arr.get(0)), Config.JSON_HOTEL);
+                arrayList = JsonHelper.parseJsonNoId(new JSONArray(arr.get(0)), Config.JSON_HOTEL);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
 
             ArrayList<Hotel> list = new ArrayList<>();
 
-            for (int i = 0; i < arrayList.size(); i++) {
-                if (i % 5 == 1) {
-                    list.add(new Hotel(R.drawable.benninhkieu1, arrayList.get(i)));
-                    publishProgress(list);
-                }
+            for (int i = 0; i < arrayList.size(); i += 4) {
+                list.add(new Hotel(R.drawable.benninhkieu1, arrayList.get(i)));
+                publishProgress(list);
             }
             return list;
         }
@@ -128,14 +156,13 @@ public class ActivityHotel extends AppCompatActivity {
 
                                 try {
                                     arr = JsonHelper.parseJsonNoId(new JSONObject(string), Config.JSON_LOAD);
-                                    arrayList = JsonHelper.parseJson(new JSONArray(arr.get(0)), Config.JSON_HOTEL);
+                                    arrayList = JsonHelper.parseJsonNoId(new JSONArray(arr.get(0)), Config.JSON_HOTEL);
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
 
-                                for (int i = 0; i < arrayList.size(); i++) {
-                                    if (i % 5 == 1)
-                                        listHotel.add(new Hotel(R.drawable.benninhkieu1, arrayList.get(i)));
+                                for (int i = 0; i < arrayList.size(); i += 4) {
+                                    listHotel.add(new Hotel(R.drawable.benninhkieu1, arrayList.get(i)));
                                 }
                                 listOfHotelAdapter.notifyDataSetChanged();
                                 listOfHotelAdapter.setLoaded();
@@ -147,42 +174,12 @@ public class ActivityHotel extends AppCompatActivity {
         }
     }
 
-    private class NextPage extends AsyncTask<String, Void, String>{
+    private class NextPage extends AsyncTask<String, Void, String> {
 
         @Override
         protected String doInBackground(String... strings) {
             return HttpRequestAdapter.httpGet(strings[0]);
         }
-    }
-
-    private void menuBotNavBar() {
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavView_Bar);
-        BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
-
-        Menu menu = bottomNavigationView.getMenu();
-        MenuItem menuItem = menu.getItem(0);
-        menuItem.setChecked(true);
-
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.ic_trangchu:
-                        startActivity(new Intent(ActivityHotel.this, MainActivity.class));
-                        break;
-                    case R.id.ic_yeuthich:
-                        startActivity(new Intent(ActivityHotel.this, ActivityFavorite.class));
-                        break;
-                    case R.id.ic_thongbao:
-                        startActivity(new Intent(ActivityHotel.this, ActivityNotify.class));
-                        break;
-                    case R.id.ic_canhan:
-                        startActivity(new Intent(ActivityHotel.this, ActivityPersonal.class));
-                        break;
-                }
-                return false;
-            }
-        });
     }
 
 }

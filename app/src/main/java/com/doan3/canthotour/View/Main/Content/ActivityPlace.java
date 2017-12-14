@@ -40,7 +40,7 @@ public class ActivityPlace extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_diadanh);
-        
+
         initView_Place();
 
         menuBotNavBar();
@@ -49,6 +49,36 @@ public class ActivityPlace extends AppCompatActivity {
     private void initView_Place() {
         LoadPlace loadPlace = new LoadPlace(this);
         loadPlace.execute(Config.URL_HOST + Config.URL_GET_ALL_PLACES);
+    }
+
+    private void menuBotNavBar() {
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavView_Bar);
+        BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
+
+        Menu menu = bottomNavigationView.getMenu();
+        MenuItem menuItem = menu.getItem(0);
+        menuItem.setChecked(true);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.ic_trangchu:
+                        startActivity(new Intent(ActivityPlace.this, MainActivity.class));
+                        break;
+                    case R.id.ic_yeuthich:
+                        startActivity(new Intent(ActivityPlace.this, ActivityFavorite.class));
+                        break;
+                    case R.id.ic_thongbao:
+                        startActivity(new Intent(ActivityPlace.this, ActivityNotify.class));
+                        break;
+                    case R.id.ic_canhan:
+                        startActivity(new Intent(ActivityPlace.this, ActivityPersonal.class));
+                        break;
+                }
+                return false;
+            }
+        });
     }
 
     private class LoadPlace extends AsyncTask<String, ArrayList<Place>, ArrayList<Place>> {
@@ -75,18 +105,16 @@ public class ActivityPlace extends AppCompatActivity {
             // parse json vừa get về ra arraylist
             try {
                 arr = JsonHelper.parseJsonNoId(new JSONObject(HttpRequestAdapter.httpGet(strings[0])), Config.JSON_LOAD);
-                arrayList = JsonHelper.parseJson(new JSONArray(arr.get(0)), Config.JSON_PLACE);
+                arrayList = JsonHelper.parseJsonNoId(new JSONArray(arr.get(0)), Config.JSON_PLACE);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
             ArrayList<Place> list = new ArrayList<>();
 
             // lấy tên địa điểm vào list và cập nhật lên giao diện
-            for (int i = 0; i < arrayList.size(); i++) {
-                if (i % 8 == 1) {
-                    list.add(new Place(R.drawable.benninhkieu1, arrayList.get(i)));
-                    publishProgress(list);
-                }
+            for (int i = 0; i < arrayList.size(); i += 7) {
+                list.add(new Place(R.drawable.benninhkieu1, arrayList.get(i)));
+                publishProgress(list);
             }
             return list;
         }
@@ -128,14 +156,13 @@ public class ActivityPlace extends AppCompatActivity {
 
                                 try {
                                     arr = JsonHelper.parseJsonNoId(new JSONObject(string), Config.JSON_LOAD);
-                                    arrayList = JsonHelper.parseJson(new JSONArray(arr.get(0)), Config.JSON_PLACE);
+                                    arrayList = JsonHelper.parseJsonNoId(new JSONArray(arr.get(0)), Config.JSON_PLACE);
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
 
-                                for (int i = 0; i < arrayList.size(); i++) {
-                                    if (i % 8 == 1)
-                                        listPlace.add(new Place(R.drawable.benninhkieu1, arrayList.get(i), arrayList.get(i + 2)));
+                                for (int i = 0; i < arrayList.size(); i += 7) {
+                                    listPlace.add(new Place(R.drawable.benninhkieu1, arrayList.get(i), arrayList.get(i + 2)));
                                 }
                                 listOfPlaceAdapter.notifyDataSetChanged();
                                 listOfPlaceAdapter.setLoaded();
@@ -152,36 +179,6 @@ public class ActivityPlace extends AppCompatActivity {
         protected String doInBackground(String... strings) {
             return HttpRequestAdapter.httpGet(strings[0]);
         }
-    }
-
-    private void menuBotNavBar() {
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavView_Bar);
-        BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
-
-        Menu menu = bottomNavigationView.getMenu();
-        MenuItem menuItem = menu.getItem(0);
-        menuItem.setChecked(true);
-
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.ic_trangchu:
-                        startActivity(new Intent(ActivityPlace.this, MainActivity.class));
-                        break;
-                    case R.id.ic_yeuthich:
-                        startActivity(new Intent(ActivityPlace.this, ActivityFavorite.class));
-                        break;
-                    case R.id.ic_thongbao:
-                        startActivity(new Intent(ActivityPlace.this, ActivityNotify.class));
-                        break;
-                    case R.id.ic_canhan:
-                        startActivity(new Intent(ActivityPlace.this, ActivityPersonal.class));
-                        break;
-                }
-                return false;
-            }
-        });
     }
 
 }

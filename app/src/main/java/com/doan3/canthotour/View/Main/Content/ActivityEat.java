@@ -21,7 +21,6 @@ import com.doan3.canthotour.Helper.BottomNavigationViewHelper;
 import com.doan3.canthotour.Helper.JsonHelper;
 import com.doan3.canthotour.Interface.OnLoadMoreListener;
 import com.doan3.canthotour.Model.Eat;
-import com.doan3.canthotour.Model.Place;
 import com.doan3.canthotour.R;
 import com.doan3.canthotour.View.Favorite.ActivityFavorite;
 import com.doan3.canthotour.View.Main.MainActivity;
@@ -52,6 +51,36 @@ public class ActivityEat extends AppCompatActivity {
         loadInfo.execute(Config.URL_HOST + Config.URL_GET_ALL_EATS);
     }
 
+    private void menuBotNavBar() {
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavView_Bar);
+        BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
+
+        Menu menu = bottomNavigationView.getMenu();
+        MenuItem menuItem = menu.getItem(0);
+        menuItem.setChecked(true);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.ic_trangchu:
+                        startActivity(new Intent(ActivityEat.this, MainActivity.class));
+                        break;
+                    case R.id.ic_yeuthich:
+                        startActivity(new Intent(ActivityEat.this, ActivityFavorite.class));
+                        break;
+                    case R.id.ic_thongbao:
+                        startActivity(new Intent(ActivityEat.this, ActivityNotify.class));
+                        break;
+                    case R.id.ic_canhan:
+                        startActivity(new Intent(ActivityEat.this, ActivityPersonal.class));
+                        break;
+                }
+                return false;
+            }
+        });
+    }
+
     private class LoadInfo extends AsyncTask<String, ArrayList<Eat>, ArrayList<Eat>> {
         ArrayList<String> arr = new ArrayList<>(), arrayList = new ArrayList<>();
         ArrayList<Eat> listEat = new ArrayList<>();
@@ -76,18 +105,16 @@ public class ActivityEat extends AppCompatActivity {
 
             try {
                 arr = JsonHelper.parseJsonNoId(new JSONObject(HttpRequestAdapter.httpGet(strings[0])), Config.JSON_LOAD);
-                arrayList = JsonHelper.parseJson(new JSONArray(arr.get(0)), Config.JSON_EAT);
+                arrayList = JsonHelper.parseJsonNoId(new JSONArray(arr.get(0)), Config.JSON_EAT);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
 
             ArrayList<Eat> list = new ArrayList<>();
 
-            for (int i = 0; i < arrayList.size(); i++) {
-                if (i % 4 == 1) {
-                    list.add(new Eat(R.drawable.benninhkieu1, arrayList.get(i)));
-                    publishProgress(list);
-                }
+            for (int i = 0; i < arrayList.size(); i += 3) {
+                list.add(new Eat(R.drawable.benninhkieu1, arrayList.get(i)));
+                publishProgress(list);
             }
             return list;
         }
@@ -129,14 +156,13 @@ public class ActivityEat extends AppCompatActivity {
 
                                 try {
                                     arr = JsonHelper.parseJsonNoId(new JSONObject(string), Config.JSON_LOAD);
-                                    arrayList = JsonHelper.parseJson(new JSONArray(arr.get(0)), Config.JSON_EAT);
+                                    arrayList = JsonHelper.parseJsonNoId(new JSONArray(arr.get(0)), Config.JSON_EAT);
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
 
-                                for (int i = 0; i < arrayList.size(); i++) {
-                                    if (i % 4 == 1)
-                                        listEat.add(new Eat(R.drawable.benninhkieu1, arrayList.get(i)));
+                                for (int i = 0; i < arrayList.size(); i += 3) {
+                                    listEat.add(new Eat(R.drawable.benninhkieu1, arrayList.get(i)));
                                 }
                                 listOfEatAdapter.notifyDataSetChanged();
                                 listOfEatAdapter.setLoaded();
@@ -148,41 +174,11 @@ public class ActivityEat extends AppCompatActivity {
         }
     }
 
-    private class NextPage extends AsyncTask<String, Void, String>{
+    private class NextPage extends AsyncTask<String, Void, String> {
 
         @Override
         protected String doInBackground(String... strings) {
             return HttpRequestAdapter.httpGet(strings[0]);
         }
-    }
-
-    private void menuBotNavBar() {
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavView_Bar);
-        BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
-
-        Menu menu = bottomNavigationView.getMenu();
-        MenuItem menuItem = menu.getItem(0);
-        menuItem.setChecked(true);
-
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.ic_trangchu:
-                        startActivity(new Intent(ActivityEat.this, MainActivity.class));
-                        break;
-                    case R.id.ic_yeuthich:
-                        startActivity(new Intent(ActivityEat.this, ActivityFavorite.class));
-                        break;
-                    case R.id.ic_thongbao:
-                        startActivity(new Intent(ActivityEat.this, ActivityNotify.class));
-                        break;
-                    case R.id.ic_canhan:
-                        startActivity(new Intent(ActivityEat.this, ActivityPersonal.class));
-                        break;
-                }
-                return false;
-            }
-        });
     }
 }

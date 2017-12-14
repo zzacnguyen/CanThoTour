@@ -105,11 +105,9 @@ public class ActivityFavorite extends AppCompatActivity {
                 try {
                     String get = HttpRequestAdapter.httpGet(Config.URL_HOST + Config.URL_GET_ALL_PLACES + "/" + id.get(i));
                     ArrayList<String> arrayList = JsonHelper.parseJsonNoId(new JSONArray(get), Config.JSON_PLACE);
-                    for (int j = 0; j < arrayList.size(); j++) {
-                        if (j % 7 == 0) {
+                    for (int j = 0; j < arrayList.size(); j+=7) {
                             arrIdPlace.add(new Favorite(R.drawable.benninhkieu1, arrayList.get(j)));
                             publishProgress(arrIdPlace);
-                        }
                     }
                 } catch (JSONException ex) {
                     ex.printStackTrace();
