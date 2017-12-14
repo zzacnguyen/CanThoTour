@@ -49,7 +49,7 @@
         <android.support.design.widget.BottomNavigationView
             android:id="@+id/bottomNavView_Bar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             app:menu="@menu/bottom_navigation_menu"
             android:background="@color/colorWhite">
 

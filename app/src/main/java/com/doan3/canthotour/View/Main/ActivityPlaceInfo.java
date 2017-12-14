@@ -24,6 +24,7 @@ import com.doan3.canthotour.R;
 import com.doan3.canthotour.View.Favorite.ActivityFavorite;
 import com.doan3.canthotour.View.Notify.ActivityNotify;
 import com.doan3.canthotour.View.Personal.ActivityPersonal;
+import com.doan3.canthotour.View.Search.ActivityNearLocation;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -53,6 +54,13 @@ public class ActivityPlaceInfo extends AppCompatActivity {
         txtDiaChi = findViewById(R.id.textViewDiaChi);
         txtSDT = findViewById(R.id.textViewSDT);
         txtGioiThieu = findViewById(R.id.textViewGioiThieu);
+
+        btnLanCan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ActivityPlaceInfo.this, ActivityNearLocation.class));
+            }
+        });
 
         masp = getIntent().getStringExtra("masp");
         ArrayList<String> arr = new ArrayList<>();

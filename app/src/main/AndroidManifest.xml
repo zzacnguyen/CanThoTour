@@ -35,6 +35,7 @@
         <activity android:name=".View.Search.ActivitySearch"></activity>
         <activity android:name=".View.Personal.ActivityRegCoop"></activity>
         <activity android:name=".View.Personal.ActivityOption"></activity>
+        <activity android:name=".View.Search.ActivityNearLocation"></activity>
     </application>
 
 </manifest>

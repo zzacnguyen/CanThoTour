@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.doan3.canthotour.Adapter.EatAdapter;
 import com.doan3.canthotour.Adapter.EntertainmentAdapter;
@@ -35,7 +37,9 @@ import com.doan3.canthotour.View.Main.Content.ActivityEntertainment;
 import com.doan3.canthotour.View.Main.Content.ActivityHotel;
 import com.doan3.canthotour.View.Main.Content.ActivityPlace;
 import com.doan3.canthotour.View.Notify.ActivityNotify;
+import com.doan3.canthotour.View.Personal.ActivityAddPlace;
 import com.doan3.canthotour.View.Personal.ActivityPersonal;
+import com.doan3.canthotour.View.Search.ActivitySearch;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -47,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
 
     Toolbar toolbar;
     Button btnDiaDanh, btnAnUong, btnKhachSan, btnVuiChoi;
+    FloatingActionButton fab, fabThemDiaDiem;
+    boolean display = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,10 +60,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         toolbar = findViewById(R.id.toolbar);
+        fab = findViewById(R.id.fab);
+        fabThemDiaDiem = findViewById(R.id.fab_themdiadiem);
         btnDiaDanh = findViewById(R.id.btnTatCaDiaDanh);
         btnAnUong = findViewById(R.id.btnTatCaQuanAn);
         btnKhachSan = findViewById(R.id.btnTatCaKhachSan);
         btnVuiChoi = findViewById(R.id.btnTatCaVuiChoi);
+
 
         setSupportActionBar(toolbar);
 
@@ -94,6 +103,8 @@ public class MainActivity extends AppCompatActivity {
         initView_Hotel();
         initView_Entertainment();
 
+        fabOnClick();
+
         menuBotNavBar();
 
     }
@@ -108,6 +119,9 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
+        startActivity(new Intent(MainActivity.this, ActivitySearch.class));
+
         return super.onOptionsItemSelected(item);
     }
     // endregion
@@ -338,6 +352,36 @@ public class MainActivity extends AppCompatActivity {
             EntertainmentAdapter entertainmentAdapter = new EntertainmentAdapter(values[0], getApplicationContext());
             recyclerView.setAdapter(entertainmentAdapter);
         }
+    }
+
+    private void fab_display(){
+        fabThemDiaDiem.show();
+    }
+
+    private void fab_hide(){
+        fabThemDiaDiem.hide();
+    }
+
+    void fabOnClick(){ //Floating bar
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(display == false){
+                    fab_display();
+                    display = true;
+                }else{
+                    fab_hide();
+                    display = false;
+                }
+            }
+        });
+
+        fabThemDiaDiem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, ActivityAddPlace.class));
+            }
+        });
     }
 
     //Bottom navigation bar
