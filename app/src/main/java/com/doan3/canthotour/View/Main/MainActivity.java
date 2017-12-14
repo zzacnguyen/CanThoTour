@@ -98,37 +98,21 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    //Bottom navigation bar
-    private void menuBotNavBar() {
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavView_Bar);
-        BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
 
-        Menu menu = bottomNavigationView.getMenu();
-        MenuItem menuItem = menu.getItem(0);
-        menuItem.setChecked(true);
-
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.ic_trangchu:
-                        break;
-                    case R.id.ic_yeuthich:
-                        startActivity(new Intent(MainActivity.this, ActivityFavorite.class));
-                        break;
-                    case R.id.ic_thongbao:
-                        startActivity(new Intent(MainActivity.this, ActivityNotify.class));
-                        break;
-                    case R.id.ic_canhan:
-                        startActivity(new Intent(MainActivity.this, ActivityPersonal.class));
-                        break;
-                }
-                return false;
-            }
-        });
+    //region Topbar button
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menutrangchu, menu);
+        return true;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return super.onOptionsItemSelected(item);
+    }
+    // endregion
 
+    //region Init View
     //Get view place
     private void initView_Place() {
         RecyclerView recyclerView = findViewById(R.id.RecyclerView_DiaDanh);
@@ -152,6 +136,7 @@ public class MainActivity extends AppCompatActivity {
         threadLoadHotel.execute(Config.URL_HOST + Config.URL_GET_ALL_HOTELS);
     }
 
+
     //Get view entertainment
     private void initView_Entertainment() {
         RecyclerView recyclerView = findViewById(R.id.RecyclerView_VuiChoi);
@@ -160,18 +145,8 @@ public class MainActivity extends AppCompatActivity {
         threadLoadEntertainment.execute(Config.URL_HOST + Config.URL_GET_ALL_ENTERTAINMENTS);
     }
 
-    //region Topbar button
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menutrangchu, menu);
-        return true;
-    }
+    //endregion
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        return super.onOptionsItemSelected(item);
-    }
-    // endregion
     
     //Custom view place
     private class LoadPlace extends AsyncTask<String, ArrayList<Place>, Void> {
@@ -363,5 +338,35 @@ public class MainActivity extends AppCompatActivity {
             EntertainmentAdapter entertainmentAdapter = new EntertainmentAdapter(values[0], getApplicationContext());
             recyclerView.setAdapter(entertainmentAdapter);
         }
+    }
+
+    //Bottom navigation bar
+    private void menuBotNavBar() {
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavView_Bar);
+        BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
+
+        Menu menu = bottomNavigationView.getMenu();
+        MenuItem menuItem = menu.getItem(0);
+        menuItem.setChecked(true);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.ic_trangchu:
+                        break;
+                    case R.id.ic_yeuthich:
+                        startActivity(new Intent(MainActivity.this, ActivityFavorite.class));
+                        break;
+                    case R.id.ic_thongbao:
+                        startActivity(new Intent(MainActivity.this, ActivityNotify.class));
+                        break;
+                    case R.id.ic_canhan:
+                        startActivity(new Intent(MainActivity.this, ActivityPersonal.class));
+                        break;
+                }
+                return false;
+            }
+        });
     }
 }

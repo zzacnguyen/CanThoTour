@@ -46,37 +46,6 @@ public class ActivityPlace extends AppCompatActivity {
         menuBotNavBar();
     }
 
-    private void menuBotNavBar() {
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavView_Bar);
-        BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
-
-        Menu menu = bottomNavigationView.getMenu();
-        MenuItem menuItem = menu.getItem(0);
-        menuItem.setChecked(true);
-
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.ic_trangchu:
-                        startActivity(new Intent(ActivityPlace.this, MainActivity.class));
-                        break;
-                    case R.id.ic_yeuthich:
-                        startActivity(new Intent(ActivityPlace.this, ActivityFavorite.class));
-                        break;
-                    case R.id.ic_thongbao:
-                        startActivity(new Intent(ActivityPlace.this, ActivityNotify.class));
-                        break;
-                    case R.id.ic_canhan:
-                        startActivity(new Intent(ActivityPlace.this, ActivityPersonal.class));
-                        break;
-                }
-                return false;
-            }
-        });
-    }
-
-
     private void initView_Place() {
         LoadPlace loadPlace = new LoadPlace(this);
         loadPlace.execute(Config.URL_HOST + Config.URL_GET_ALL_PLACES);
@@ -184,4 +153,35 @@ public class ActivityPlace extends AppCompatActivity {
             return HttpRequestAdapter.httpGet(strings[0]);
         }
     }
+
+    private void menuBotNavBar() {
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavView_Bar);
+        BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
+
+        Menu menu = bottomNavigationView.getMenu();
+        MenuItem menuItem = menu.getItem(0);
+        menuItem.setChecked(true);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.ic_trangchu:
+                        startActivity(new Intent(ActivityPlace.this, MainActivity.class));
+                        break;
+                    case R.id.ic_yeuthich:
+                        startActivity(new Intent(ActivityPlace.this, ActivityFavorite.class));
+                        break;
+                    case R.id.ic_thongbao:
+                        startActivity(new Intent(ActivityPlace.this, ActivityNotify.class));
+                        break;
+                    case R.id.ic_canhan:
+                        startActivity(new Intent(ActivityPlace.this, ActivityPersonal.class));
+                        break;
+                }
+                return false;
+            }
+        });
+    }
+
 }

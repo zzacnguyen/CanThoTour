@@ -21,6 +21,10 @@ public class ActivityNotify extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_thongbao);
 
+        menuBotNavBar();
+    }
+
+    private void menuBotNavBar() {
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavView_Bar);
         BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
 

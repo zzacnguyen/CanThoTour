@@ -58,35 +58,6 @@ public class ActivityFavorite extends AppCompatActivity {
         menuBotNavBar();
     }
 
-    private void menuBotNavBar() {
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavView_Bar);
-        BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
-
-        Menu menu = bottomNavigationView.getMenu();
-        MenuItem menuItem = menu.getItem(1);
-        menuItem.setChecked(true);
-
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.ic_trangchu:
-                        startActivity(new Intent(ActivityFavorite.this, MainActivity.class));
-                        break;
-                    case R.id.ic_yeuthich:
-
-                        break;
-                    case R.id.ic_thongbao:
-                        startActivity(new Intent(ActivityFavorite.this, ActivityNotify.class));
-                        break;
-                    case R.id.ic_canhan:
-                        startActivity(new Intent(ActivityFavorite.this, ActivityPersonal.class));
-                        break;
-                }
-                return false;
-            }
-        });
-    }
 
     private class GetId extends AsyncTask<String, Void, Void> {
 
@@ -181,5 +152,35 @@ public class ActivityFavorite extends AppCompatActivity {
             }
             return null;
         }
+    }
+
+    private void menuBotNavBar() {
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavView_Bar);
+        BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
+
+        Menu menu = bottomNavigationView.getMenu();
+        MenuItem menuItem = menu.getItem(1);
+        menuItem.setChecked(true);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.ic_trangchu:
+                        startActivity(new Intent(ActivityFavorite.this, MainActivity.class));
+                        break;
+                    case R.id.ic_yeuthich:
+
+                        break;
+                    case R.id.ic_thongbao:
+                        startActivity(new Intent(ActivityFavorite.this, ActivityNotify.class));
+                        break;
+                    case R.id.ic_canhan:
+                        startActivity(new Intent(ActivityFavorite.this, ActivityPersonal.class));
+                        break;
+                }
+                return false;
+            }
+        });
     }
 }
