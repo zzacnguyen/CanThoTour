@@ -5,7 +5,7 @@ import java.util.Arrays;
 
 
 public class Config {
-    public static final String URL_HOST = "http://192.168.1.15/doan3/public/";
+    public static final String URL_HOST = "http://192.168.1.9/doan3/public/";
     public static final String URL_GET_ALL_TYPE_OF_EVENTS = "loaihinhsukien";
     public static final String URL_GET_ALL_EATS = "anuong";
     public static final String URL_GET_ALL_COMMENTS = "binhluan";
@@ -63,7 +63,7 @@ public class Config {
             new ArrayList<String>(Arrays.asList("pt_tenphuongtien", "pt_loaihinh", "dv_iddichvu"));
 
     public static final ArrayList<String> JSON_EVENT =
-            new ArrayList<String>(Arrays.asList("sk_tensukien", "sk_ngaybatdau", "sk_trangthai",
+            new ArrayList<String>(Arrays.asList("sk_tensukien", "sk_ngaybatdau", "sk_ngayketthuc",
                     "dd_iddiadiem", "lhsk_idloaihinhsukien"));
 
     public static final ArrayList<String> JSON_TOUR =
