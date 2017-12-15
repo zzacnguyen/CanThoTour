@@ -81,6 +81,14 @@ public class ActivityEat extends AppCompatActivity {
         });
     }
 
+    public static class NextPage extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... strings) {
+            return HttpRequestAdapter.httpGet(strings[0]);
+        }
+    }
+
     private class LoadInfo extends AsyncTask<String, ArrayList<Eat>, ArrayList<Eat>> {
         ArrayList<String> arr = new ArrayList<>(), arrayList = new ArrayList<>();
         ArrayList<Eat> listEat = new ArrayList<>();
@@ -171,14 +179,6 @@ public class ActivityEat extends AppCompatActivity {
                     }
                 }
             });
-        }
-    }
-
-    private class NextPage extends AsyncTask<String, Void, String> {
-
-        @Override
-        protected String doInBackground(String... strings) {
-            return HttpRequestAdapter.httpGet(strings[0]);
         }
     }
 }

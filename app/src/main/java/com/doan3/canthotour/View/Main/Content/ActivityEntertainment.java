@@ -149,7 +149,7 @@ public class ActivityEntertainment extends AppCompatActivity {
                                 listOfEntertainmentAdapter.notifyItemRemoved(listEntertainment.size());
                                 String string = "";
                                 try {
-                                    string = new ActivityEntertainment.NextPage().execute(arr.get(1)).get();
+                                    string = new ActivityEat.NextPage().execute(arr.get(1)).get();
                                 } catch (InterruptedException | ExecutionException e) {
                                     e.printStackTrace();
                                 }
@@ -174,12 +174,5 @@ public class ActivityEntertainment extends AppCompatActivity {
         }
     }
 
-    private class NextPage extends AsyncTask<String, Void, String> {
-
-        @Override
-        protected String doInBackground(String... strings) {
-            return HttpRequestAdapter.httpGet(strings[0]);
-        }
-    }
 
 }
