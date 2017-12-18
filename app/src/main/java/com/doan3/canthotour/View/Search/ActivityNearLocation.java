@@ -90,8 +90,8 @@ public class ActivityNearLocation extends AppCompatActivity {
             try {
                 String get = HttpRequestAdapter.httpGet(strings[0]);
                 ArrayList<String> arrayList = JsonHelper.parseJsonNoId(new JSONArray(get), Config.JSON_NEAR_LOCATION);
-                for (int i = 0; i < arrayList.size(); i += 3) {
-                    nearLocations.add(new NearLocation(arrayList.get(i + 1), arrayList.get(i), R.drawable.benninhkieu1));
+                for (int i = 0; i < arrayList.size(); i += 4) {
+                    nearLocations.add(new NearLocation(arrayList.get(i), arrayList.get(i+1), R.drawable.benninhkieu1));
                     publishProgress(nearLocations);
                 }
             } catch (JSONException ex) {
