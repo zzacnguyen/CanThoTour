@@ -178,22 +178,6 @@
                     android:layout_height="120dp">
 
                     <ImageView
-                        android:layout_gravity="center"
-                        android:scaleType="centerCrop"
-                        android:layout_width="110dp"
-                        android:layout_height="110dp"
-                        android:padding="2dp"
-                        android:src="@drawable/benninhkieu1"/>
-
-                    <ImageView
-                        android:layout_gravity="center"
-                        android:scaleType="centerCrop"
-                        android:layout_width="110dp"
-                        android:layout_height="110dp"
-                        android:padding="2dp"
-                        android:src="@drawable/benninhkieu2"/>
-
-                    <ImageView
                         android:scaleType="centerCrop"
                         android:layout_gravity="center"
                         android:layout_width="100dp"

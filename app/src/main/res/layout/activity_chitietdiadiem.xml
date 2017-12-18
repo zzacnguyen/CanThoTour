@@ -87,21 +87,28 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:layout_gravity="center">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingTop="3dp"
                         android:text="4,5"
                         android:textColor="#fff"
-                        android:textSize="16sp" />
+                        android:textSize="14sp"
+                        android:layout_gravity="center"/>
 
-                    <ImageView
+                    <RatingBar
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:src="@drawable/ic_star_white_24dp"/>
+                        android:isIndicator="true"
+                        style="?attr/ratingBarStyleSmall"
+                        android:numStars = "5"
+                        android:rating   = "4.5"
+                        android:layout_gravity="center"
+                        android:paddingLeft="3dp"
+                        android:theme="@style/RatingBar"
+                        />
 
                 </LinearLayout>
 
@@ -123,7 +130,7 @@
                     android:textSize="14sp"
                     android:text="LƯU"
                     android:textColor="@color/bgToolbar"
-                    android:drawableTop="@drawable/ic_star_blue_36dp"
+                    android:drawableTop="@drawable/ic_favorite_36dp"
                     android:background="@color/colorWhite"/>
 
                 <Button
@@ -268,15 +275,6 @@
                     android:text="Đánh giá"
                     android:textSize="16sp"
                     android:textStyle="bold"/>
-
-                <RatingBar
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:scaleX=".5"
-                    android:scaleY=".5"
-                    android:transformPivotX="0dp"
-                    android:transformPivotY="0dp"
-                    android:isIndicator="true"/>
 
                 <TextView
                     android:layout_width="wrap_content"

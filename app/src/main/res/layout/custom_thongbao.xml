@@ -9,8 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:orientation="horizontal"
-        android:background="@drawable/white_grey_border_bottom">
+        android:background="@color/colorWhite">
 
         <ImageView
             android:id="@+id/imageViewSuKien"
@@ -32,7 +31,7 @@
                 android:textSize="14sp"
                 android:text="Khoảng cách"
                 android:textColor="#000"
-                android:padding="6dp"
+                android:padding="5dp"
                 android:layout_gravity="center"/>
 
             <TextView
@@ -42,7 +41,7 @@
                 android:textSize="13sp"
                 android:text="Tên địa điểm"
                 android:textColor="#e3f700"
-                android:padding="5dp"
+                android:paddingLeft="5dp"
                 android:layout_gravity="center"/>
 
         </LinearLayout>

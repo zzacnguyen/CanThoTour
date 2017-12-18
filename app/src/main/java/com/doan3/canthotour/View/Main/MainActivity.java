@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
     Toolbar toolbar;
     Button btnDiaDanh, btnAnUong, btnKhachSan, btnVuiChoi;
     FloatingActionButton fab, fabThemDiaDiem;
-    boolean display = false;
+    boolean doanhnghiep = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
         initView_Hotel();
         initView_Entertainment();
 
-        fabOnClick();
+        display_doanhnghiep();
 
         menuBotNavBar();
 
@@ -159,34 +159,19 @@ public class MainActivity extends AppCompatActivity {
 
     //endregion
 
-    private void fab_display() {
-        fabThemDiaDiem.show();
-    }
-
-    private void fab_hide() {
-        fabThemDiaDiem.hide();
-    }
-
     void fabOnClick() { //Floating bar
         fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (display == false) {
-                    fab_display();
-                    display = true;
-                } else {
-                    fab_hide();
-                    display = false;
-                }
-            }
-        });
-
-        fabThemDiaDiem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MainActivity.this, ActivityAddPlace.class));
             }
         });
+    }
+
+    void display_doanhnghiep(){
+        if(doanhnghiep == false){
+            fabOnClick();
+        }
     }
 
     //Bottom navigation bar
