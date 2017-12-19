@@ -49,12 +49,6 @@ public class ActivityHotelInfo extends AppCompatActivity {
         txtWebsite = findViewById(R.id.textViewWebsite);
 
         masp = getIntent().getStringExtra("masp");
-        ArrayList<String> arr = new ArrayList<>();
-        try {
-            arr = new GetId().execute().get();
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
 
         String idService, idPlace;
         String urlService = null, urlPlace = null;
@@ -62,7 +56,7 @@ public class ActivityHotelInfo extends AppCompatActivity {
 
         // lấy id dịch vụ trong ăn uống, lấy id địa điểm trong dịch vụ
         try {
-            urlHotel.add(Config.URL_HOST + Config.URL_GET_ALL_HOTELS + "/" + arr.get(Integer.parseInt(masp)));
+            urlHotel.add(Config.URL_HOST + Config.URL_GET_ALL_HOTELS + "/" + masp);
 
             idService = new ActivityEatInfo.GetIdService().execute(urlHotel, Config.JSON_HOTEL).get();
             idPlace = new ActivityEatInfo.GetIdPlace().execute(Config.URL_HOST + Config.URL_GET_ALL_SERVICES + "/" + idService).get();
@@ -79,42 +73,6 @@ public class ActivityHotelInfo extends AppCompatActivity {
         new ActivityEatInfo.LoadPlaceInfo(this).execute(urlPlace);
 
         menuBotNavBar();
-    }
-
-
-    private class LoadPlace extends AsyncTask<String, Void, String> {
-        @Override
-        protected String doInBackground(String... strings) {
-            return HttpRequestAdapter.httpGet(strings[0]);
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-            try {
-                // parse json ra arraylist
-                ArrayList<String> arrayList = JsonHelper.parseJsonNoId(new JSONArray(s), Config.JSON_HOTEL);
-                txtTenDD.setText(arrayList.get(0));
-                txtWebsite.setText(arrayList.get(3));
-                txtGioiThieu.setText(arrayList.get(1));
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    private class GetId extends AsyncTask<Void, Void, ArrayList<String>> {
-        @Override
-        protected ArrayList<String> doInBackground(Void... voids) {
-            ArrayList<String> arr = new ArrayList<>();
-            try {
-                JSONArray jsonArray = new JSONArray(HttpRequestAdapter.httpGet(Config.URL_HOST + "lay-id-khach-san"));
-                arr = JsonHelper.parseJson(jsonArray, new ArrayList<String>());
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            return arr;
-        }
     }
 
     private void menuBotNavBar() {
@@ -145,6 +103,27 @@ public class ActivityHotelInfo extends AppCompatActivity {
                 return false;
             }
         });
+    }
+
+    private class LoadPlace extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... strings) {
+            return HttpRequestAdapter.httpGet(strings[0]);
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            try {
+                // parse json ra arraylist
+                ArrayList<String> arrayList = JsonHelper.parseJsonNoId(new JSONArray(s), Config.JSON_HOTEL);
+                txtTenDD.setText(arrayList.get(0));
+                txtWebsite.setText(arrayList.get(3));
+                txtGioiThieu.setText(arrayList.get(1));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 }

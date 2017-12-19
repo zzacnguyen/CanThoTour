@@ -21,6 +21,12 @@ public class Config {
     public static final String URL_GET_ALL_TOURS = "thamquan";
     public static final String URL_GET_ALL_ENTERTAINMENTS = "vuichoi";
     public static final String URL_GET_ALL_FAVORITE = "yeuthich";
+    public static final String URL_GET_ALL_ID_FAVORITE = "lay-id-yeu-thich";
+    public static final String URL_GET_ALL_ID_PLACE = "lay-id-dia-diem";
+    public static final String URL_GET_ALL_ID_EAT = "lay-id-an-uong";
+    public static final String URL_GET_ALL_ID_ENTERTAINMENT = "lay-id-vui-choi";
+    public static final String URL_GET_ALL_ID_HOTEL = "lay-id-khach-san";
+    public static final String URL_GET_ALL_ID_EVENT = "lay-id-su-kien";
 
     public static final ArrayList<String> JSON_USER =
             new ArrayList<String>(Arrays.asList("nd_tendoanhnghiep", "nd_tendangnhap", "nd_sodienthoai", "nd_matkhau",

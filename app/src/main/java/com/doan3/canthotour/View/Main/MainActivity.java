@@ -107,7 +107,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
     //region Topbar button
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -147,7 +146,6 @@ public class MainActivity extends AppCompatActivity {
         LoadHotel threadLoadHotel = new LoadHotel(this, recyclerView);
         threadLoadHotel.execute(Config.URL_HOST + Config.URL_GET_ALL_HOTELS);
     }
-
 
     //Get view entertainment
     private void initView_Entertainment() {

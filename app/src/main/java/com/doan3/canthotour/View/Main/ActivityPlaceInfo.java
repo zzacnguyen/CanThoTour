@@ -1,8 +1,8 @@
 package com.doan3.canthotour.View.Main;
 
 
+import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
@@ -33,15 +33,14 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
 
 public class ActivityPlaceInfo extends AppCompatActivity {
 
+    public static JSONObject object;
+    public static String kinhDo;
+    public static String viDo;
     Button btnLuuDiaDiem, btnLanCan, btnChiaSe;
-    TextView txtTenDD, txtDiaChi, txtSDT, txtGioiThieu;
     String masp;
-    JSONObject object;
-    String kinhDo, viDo;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,10 +50,6 @@ public class ActivityPlaceInfo extends AppCompatActivity {
         btnLuuDiaDiem = findViewById(R.id.btnLuuDiaDiem);
         btnLanCan = findViewById(R.id.btnDiaDiemLanCan);
         btnChiaSe = findViewById(R.id.btnChiaSe);
-        txtTenDD = findViewById(R.id.textViewTenDD);
-        txtDiaChi = findViewById(R.id.textViewDiaChi);
-        txtSDT = findViewById(R.id.textViewSDT);
-        txtGioiThieu = findViewById(R.id.textViewGioiThieu);
 
         btnLanCan.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,13 +59,8 @@ public class ActivityPlaceInfo extends AppCompatActivity {
         });
 
         masp = getIntent().getStringExtra("masp");
-        ArrayList<String> arr = new ArrayList<>();
-        try {
-            arr = new GetId().execute().get();
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
-        new LoadPlace().execute(Config.URL_HOST + Config.URL_GET_ALL_PLACES + "/" + arr.get(Integer.parseInt(masp)));
+
+        new LoadPlace(this).execute(Config.URL_HOST + Config.URL_GET_ALL_PLACES + "/" + masp);
         btnLuuDiaDiem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -104,59 +94,14 @@ public class ActivityPlaceInfo extends AppCompatActivity {
         btnLanCan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ActivityPlaceInfo.this , ActivityNearLocation.class);
-                intent.putExtra("url", Config.URL_HOST + "timkiemSort/location="+kinhDo+","+viDo+"&radius=500&keyword=can+tho");
+                Intent intent = new Intent(ActivityPlaceInfo.this, ActivityNearLocation.class);
+                intent.putExtra("url", Config.URL_HOST + "timkiemSort/location=" + kinhDo + "," + viDo + "&radius=500&keyword=can+tho");
                 startActivity(intent);
             }
         });
 
 
         menuBotNavBar();
-    }
-
-    private class LoadPlace extends AsyncTask<String, ArrayList<String>, Void> {
-        @Override
-        protected Void doInBackground(String... strings) {
-            JSONArray jsonArray;
-            try {
-                jsonArray = new JSONArray(HttpRequestAdapter.httpGet(strings[0]));
-                ArrayList<String> arrayList = JsonHelper.parseJsonNoId(jsonArray, Config.JSON_PLACE);
-                publishProgress(arrayList);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onProgressUpdate(ArrayList<String>[] arrayList) {
-            super.onProgressUpdate(arrayList);
-            try {
-                object = new JSONObject("{\"dd_iddiadiem\":\"" + arrayList[0].get(0) + "\",\"nd_idnguoidung\":\"1\"}");
-                kinhDo = arrayList[0].get(4);
-                viDo = arrayList[0].get(5);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            txtTenDD.setText(arrayList[0].get(0));
-            txtDiaChi.setText(arrayList[0].get(2));
-            txtSDT.setText(arrayList[0].get(3));
-            txtGioiThieu.setText(arrayList[0].get(1));
-        }
-    }
-
-    private class GetId extends AsyncTask<Void, Void, ArrayList<String>>{
-        @Override
-        protected ArrayList<String> doInBackground(Void... voids) {
-            ArrayList<String> arr = new ArrayList<>();
-            try {
-                JSONArray jsonArray = new JSONArray(HttpRequestAdapter.httpGet(Config.URL_HOST+"lay-id-dia-diem"));
-                arr = JsonHelper.parseJson(jsonArray,new ArrayList<String>());
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            return arr;
-        }
     }
 
     private void menuBotNavBar() {
@@ -187,6 +132,48 @@ public class ActivityPlaceInfo extends AppCompatActivity {
                 return false;
             }
         });
+    }
+
+    public static class LoadPlace extends AsyncTask<String, ArrayList<String>, Void> {
+        TextView txtTenDD, txtDiaChi, txtSDT, txtGioiThieu;
+        Activity activity;
+
+        public LoadPlace(Activity activityt) {
+            this.activity = activityt;
+            txtTenDD = activity.findViewById(R.id.textViewTenDD);
+            txtDiaChi = activity.findViewById(R.id.textViewDiaChi);
+            txtSDT = activity.findViewById(R.id.textViewSDT);
+            txtGioiThieu = activity.findViewById(R.id.textViewGioiThieu);
+        }
+
+        @Override
+        protected Void doInBackground(String... strings) {
+            JSONArray jsonArray;
+            try {
+                jsonArray = new JSONArray(HttpRequestAdapter.httpGet(strings[0]));
+                ArrayList<String> arrayList = JsonHelper.parseJson(jsonArray, Config.JSON_PLACE);
+                publishProgress(arrayList);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(ArrayList<String>[] arrayList) {
+            super.onProgressUpdate(arrayList);
+            try {
+                object = new JSONObject("{\"dd_iddiadiem\":\"" + arrayList[0].get(0) + "\",\"nd_idnguoidung\":\"" + arrayList[0].get(0) + "\"");
+                kinhDo = arrayList[0].get(5);
+                viDo = arrayList[0].get(6);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            txtTenDD.setText(arrayList[0].get(1));
+            txtDiaChi.setText(arrayList[0].get(3));
+            txtSDT.setText(arrayList[0].get(4));
+            txtGioiThieu.setText(arrayList[0].get(2));
+        }
     }
 
 }

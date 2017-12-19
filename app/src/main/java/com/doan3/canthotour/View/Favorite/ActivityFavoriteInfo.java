@@ -13,7 +13,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.doan3.canthotour.Adapter.HttpRequestAdapter;
@@ -21,25 +20,27 @@ import com.doan3.canthotour.Config;
 import com.doan3.canthotour.Helper.BottomNavigationViewHelper;
 import com.doan3.canthotour.Helper.JsonHelper;
 import com.doan3.canthotour.R;
+import com.doan3.canthotour.View.Main.ActivityPlaceInfo;
 import com.doan3.canthotour.View.Main.MainActivity;
 import com.doan3.canthotour.View.Notify.ActivityNotify;
 import com.doan3.canthotour.View.Personal.ActivityPersonal;
+import com.doan3.canthotour.View.Search.ActivityNearLocation;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
+import static com.doan3.canthotour.View.Main.ActivityPlaceInfo.kinhDo;
+import static com.doan3.canthotour.View.Main.ActivityPlaceInfo.object;
+import static com.doan3.canthotour.View.Main.ActivityPlaceInfo.viDo;
+
 public class ActivityFavoriteInfo extends AppCompatActivity {
 
     Button btnLuuDiaDiem, btnLanCan, btnChiaSe;
-    TextView txtTenDD, txtDiaChi, txtSDT, txtGioiThieu;
     String masp;
-    JSONObject object;
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -49,116 +50,31 @@ public class ActivityFavoriteInfo extends AppCompatActivity {
         btnLuuDiaDiem = findViewById(R.id.btnLuuDiaDiem);
         btnLanCan = findViewById(R.id.btnDiaDiemLanCan);
         btnChiaSe = findViewById(R.id.btnChiaSe);
-        txtTenDD = findViewById(R.id.textViewTenDD);
-        txtDiaChi = findViewById(R.id.textViewDiaChi);
-        txtSDT = findViewById(R.id.textViewSDT);
-        txtGioiThieu = findViewById(R.id.textViewGioiThieu);
 
         masp = getIntent().getStringExtra("masp");
-        ArrayList<String> arr = new ArrayList<>();
         String id = null;
         try {
-            arr = new GetId().execute().get();
             GetIdPlace getIdPlace = new GetIdPlace();
-            getIdPlace.execute(Config.URL_HOST + Config.URL_GET_ALL_FAVORITE + "/" + arr.get(Integer.parseInt(masp)));
+            getIdPlace.execute(Config.URL_HOST + Config.URL_GET_ALL_FAVORITE + "/" + masp);
             id = getIdPlace.get();
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
 
-        new LoadPlace().execute(Config.URL_HOST + Config.URL_GET_ALL_PLACES + "/" + id);
+        new ActivityPlaceInfo.LoadPlace(this).execute(Config.URL_HOST + Config.URL_GET_ALL_PLACES + "/" + id);
 
+        btnLuuDiaDiem.setClickable(false);
 
-        btnLuuDiaDiem.setOnClickListener(new View.OnClickListener() {
+        btnLanCan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                JSONArray getDataJsonFile;
-                File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
-                File file = new File(path, "/dsyeuthich.json");
-                try {
-                    if (file.exists()) {
-                        getDataJsonFile = new JSONArray(JsonHelper.readJson(file));
-                        for (int i = 0; i < getDataJsonFile.length(); i++) {
-                            if (!object.toString().equals(getDataJsonFile.getJSONObject(i).toString())) {
-                                JsonHelper.writeJson(file, object);
-                                Toast.makeText(ActivityFavoriteInfo.this,
-                                        "Lưu thành công", Toast.LENGTH_SHORT).show();
-                            } else {
-                                Toast.makeText(ActivityFavoriteInfo.this,
-                                        "Đã lưu trước đó", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    } else {
-                        JsonHelper.writeJson(file, object);
-                        Toast.makeText(ActivityFavoriteInfo.this, "Lưu thành công", Toast.LENGTH_SHORT).show();
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
+                Intent intent = new Intent(ActivityFavoriteInfo.this, ActivityNearLocation.class);
+                intent.putExtra("url", Config.URL_HOST + "timkiemSort/location=" + kinhDo + "," + viDo + "&radius=500&keyword=can+tho");
+                startActivity(intent);
             }
         });
 
-
         menuBotNavBar();
-    }
-
-
-    private class GetIdPlace extends AsyncTask<String, Void, String> {
-
-        @Override
-        protected String doInBackground(String... strings) {
-            ArrayList<String> arr = new ArrayList<>();
-            try {
-                arr = JsonHelper.parseJsonNoId(new JSONArray(HttpRequestAdapter.httpGet(strings[0])), Config.JSON_FAVORITE);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            return arr.get(0);
-        }
-    }
-
-    private class LoadPlace extends AsyncTask<String, ArrayList<String>, Void> {
-        @Override
-        protected Void doInBackground(String... strings) {
-            JSONArray jsonArray;
-            try {
-                jsonArray = new JSONArray(HttpRequestAdapter.httpGet(strings[0]));
-                ArrayList<String> arrayList = JsonHelper.parseJson(jsonArray, Config.JSON_PLACE);
-                publishProgress(arrayList);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onProgressUpdate(ArrayList<String>[] arrayList) {
-            super.onProgressUpdate(arrayList);
-            try {
-                object = new JSONObject("{\"dd_iddiadiem\":\"" + arrayList[0].get(0) + "\",\"nd_idnguoidung\":\"1\"}");
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            txtTenDD.setText(arrayList[0].get(1));
-            txtDiaChi.setText(arrayList[0].get(3));
-            txtSDT.setText(arrayList[0].get(4));
-            txtGioiThieu.setText(arrayList[0].get(2));
-        }
-    }
-
-    private class GetId extends AsyncTask<Void, Void, ArrayList<String>> {
-        @Override
-        protected ArrayList<String> doInBackground(Void... voids) {
-            ArrayList<String> arr = new ArrayList<>();
-            try {
-                JSONArray jsonArray = new JSONArray(HttpRequestAdapter.httpGet(Config.URL_HOST + "lay-id-yeu-thich"));
-                arr = JsonHelper.parseJson(jsonArray, new ArrayList<String>());
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            return arr;
-        }
     }
 
     private void menuBotNavBar() {
@@ -189,6 +105,20 @@ public class ActivityFavoriteInfo extends AppCompatActivity {
                 return false;
             }
         });
+    }
+
+    private class GetIdPlace extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... strings) {
+            ArrayList<String> arr = new ArrayList<>();
+            try {
+                arr = JsonHelper.parseJsonNoId(new JSONArray(HttpRequestAdapter.httpGet(strings[0])), Config.JSON_FAVORITE);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return arr.get(0);
+        }
     }
 
 }

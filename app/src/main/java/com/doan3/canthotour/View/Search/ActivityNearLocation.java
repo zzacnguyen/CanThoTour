@@ -36,7 +36,7 @@ public class ActivityNearLocation extends AppCompatActivity {
 
     TextView txtTenDd, txtKhoangCach;
     ImageView imgHinhDd;
-    String url;
+    public static String urlNearLocation;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -46,8 +46,8 @@ public class ActivityNearLocation extends AppCompatActivity {
         txtKhoangCach = findViewById(R.id.textViewKhoangCach);
         imgHinhDd = findViewById(R.id.imageViewLanCan);
 
-        url = getIntent().getStringExtra("url");
-        new Load().execute(url);
+        urlNearLocation = getIntent().getStringExtra("url");
+        new Load().execute(urlNearLocation);
 
         menuBotNavBar();
     }
