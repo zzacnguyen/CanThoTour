@@ -32,7 +32,7 @@
                 android:textSize="14sp"
                 android:text="Khoảng cách"
                 android:textColor="#000"
-                android:padding="6dp"
+                android:padding="5dp"
                 android:layout_gravity="center"/>
 
             <TextView
@@ -41,7 +41,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="13sp"
                 android:text="Tên địa điểm"
-                android:textColor="#e3f700"
+                android:textColor="@color/colorBlack"
                 android:padding="5dp"
                 android:layout_gravity="center"/>
 
