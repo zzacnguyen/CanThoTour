@@ -10,17 +10,20 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.doan3.canthotour.Config;
 import com.doan3.canthotour.Model.Favorite;
 import com.doan3.canthotour.R;
 import com.doan3.canthotour.View.Favorite.ActivityFavoriteInfo;
 import com.doan3.canthotour.View.Main.ActivityPlaceInfo;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 
 public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHolder> {
     ArrayList<Favorite> favorite;
     Context context;
+    ArrayList<String> arr = new ArrayList<>();
 
     public FavoriteAdapter(ArrayList<Favorite> favorite, Context context) {
         this.favorite = favorite;
@@ -39,13 +42,19 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
         holder.txtTenDD.setText(favorite.get(position).getTenYT());
         holder.imgHinhDD.setImageResource(favorite.get(position).getHinhYT());
 
+        try {
+            arr = new EatAdapter.GetId().execute(Config.URL_HOST + Config.URL_GET_ALL_ID_FAVORITE).get();
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+
         holder.cardView.setOnClickListener(new View.OnClickListener() {  //Bắt sự kiện click vào 1 item cardview
             @Override
             public void onClick(View view) {
-                Intent iPlaceInfo = new Intent(context, ActivityFavoriteInfo.class);
-                iPlaceInfo.putExtra("masp", position + "");
-                iPlaceInfo.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(iPlaceInfo);
+                Intent iFavoriteInfo = new Intent(context, ActivityFavoriteInfo.class);
+                iFavoriteInfo.putExtra("masp", arr.get(position));
+                iFavoriteInfo.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(iFavoriteInfo);
             }
         });
     }

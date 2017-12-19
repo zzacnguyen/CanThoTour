@@ -10,11 +10,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.doan3.canthotour.Config;
 import com.doan3.canthotour.Model.Hotel;
 import com.doan3.canthotour.R;
 import com.doan3.canthotour.View.Main.ActivityHotelInfo;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by zzacn on 11/21/2017.
@@ -23,6 +25,7 @@ import java.util.ArrayList;
 public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.ViewHolder> {
     ArrayList<Hotel> hotel;
     Context context;
+    ArrayList<String> arr = new ArrayList<>();
 
     public HotelAdapter(ArrayList<Hotel> hotel, Context context) {
         this.hotel = hotel;
@@ -41,13 +44,19 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.ViewHolder> 
         holder.txtTenDD.setText(hotel.get(position).getTenKS());
         holder.imgHinhDD.setImageResource(hotel.get(position).getHinhKS());
 
+        try {
+            arr = new EatAdapter.GetId().execute(Config.URL_HOST + Config.URL_GET_ALL_ID_HOTEL).get();
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+
         holder.cardView.setOnClickListener(new View.OnClickListener() {  //Bắt sự kiện click vào 1 item cardview
             @Override
             public void onClick(View view) {
-                Intent iPlaceInfo = new Intent(context, ActivityHotelInfo.class);
-                iPlaceInfo.putExtra("masp", position + "");
-                iPlaceInfo.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(iPlaceInfo);
+                Intent iHotelInfo = new Intent(context, ActivityHotelInfo.class);
+                iHotelInfo.putExtra("masp", arr.get(position));
+                iHotelInfo.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(iHotelInfo);
             }
         });
     }

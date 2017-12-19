@@ -2,6 +2,7 @@ package com.doan3.canthotour.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,19 +13,25 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.doan3.canthotour.Config;
+import com.doan3.canthotour.Helper.JsonHelper;
 import com.doan3.canthotour.Interface.OnLoadMoreListener;
-import com.doan3.canthotour.Model.Eat;
 import com.doan3.canthotour.Model.Event;
 import com.doan3.canthotour.R;
-import com.doan3.canthotour.View.Main.ActivityEatInfo;
 import com.doan3.canthotour.View.Main.ActivityPlaceInfo;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 
 public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final int VIEW_TYPE_ITEM = 0;
     private final int VIEW_TYPE_LOADING = 1;
+    ArrayList<String> arr = new ArrayList<>();
     private OnLoadMoreListener onLoadMoreListener;
     private boolean isLoading;
     private Context context;
@@ -82,15 +89,21 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             viewHolder.txtNgaySk.setText(event.getNgaySk());
             viewHolder.imgHinhSk.setImageResource(event.getHinhSk());
 
-//            viewHolder.cardView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    Intent iEatInfo = new Intent(context, ActivityPlaceInfo.class);
-//                    iEatInfo.putExtra("masp", position + "");
-//                    iEatInfo.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                    context.startActivity(iEatInfo);
-//                }
-//            });
+            try {
+                arr = new GetId().execute(Config.URL_HOST + Config.URL_GET_ALL_EVENTS).get();
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+            }
+
+            viewHolder.cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent iEventInfo = new Intent(context, ActivityPlaceInfo.class);
+                    iEventInfo.putExtra("masp", arr.get(position));
+                    iEventInfo.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(iEventInfo);
+                }
+            });
         } else if (holder instanceof LoadingViewHolder) {
             LoadingViewHolder loadingViewHolder = (LoadingViewHolder) holder;
             loadingViewHolder.progressBar.setIndeterminate(true);
@@ -112,12 +125,13 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
         public LoadingViewHolder(View view) {
             super(view);
-            progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
+            progressBar = view.findViewById(R.id.progressBar);
         }
     }
 
     //"Normal item" Viewholder
-    private class ViewHolder extends RecyclerView.ViewHolder { //ViewHolder chạy thứ 2, phần này giúp cho recycler view ko bị load lại dữ liệu khi thực hiện thao tác vuốt màn hình
+    private class ViewHolder extends RecyclerView.ViewHolder {
+        //ViewHolder chạy thứ 2, phần này giúp cho recycler view ko bị load lại dữ liệu khi thực hiện thao tác vuốt màn hình
         TextView txtTenSk, txtNgaySk;
         ImageView imgHinhSk;
         CardView cardView;
@@ -128,8 +142,24 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             txtTenSk = itemView.findViewById(R.id.textViewTenSk);
             imgHinhSk = itemView.findViewById(R.id.imageViewSuKien);
             txtNgaySk = itemView.findViewById(R.id.textViewNgaySk);
-            cardView = (CardView) itemView.findViewById(R.id.cardViewSuKien);
+            cardView = itemView.findViewById(R.id.cardViewSuKien);
+        }
+    }
 
+    private class GetId extends AsyncTask<String, Void, ArrayList<String>> {
+        @Override
+        protected ArrayList<String> doInBackground(String... strings) {
+            ArrayList<String> arr, array = new ArrayList<>(), arrayList = new ArrayList<>();
+            try {
+                arr = JsonHelper.parseJsonNoId(new JSONObject(HttpRequestAdapter.httpGet(strings[0])), Config.JSON_LOAD);
+                array = JsonHelper.parseJson(new JSONArray(arr.get(0)), Config.JSON_EVENT);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            for (int i = 4; i < array.size(); i += 6) {
+                arrayList.add(array.get(i));
+            }
+            return arrayList;
         }
     }
 }

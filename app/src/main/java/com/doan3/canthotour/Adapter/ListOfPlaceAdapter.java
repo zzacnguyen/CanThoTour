@@ -12,12 +12,14 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.doan3.canthotour.Config;
 import com.doan3.canthotour.Interface.OnLoadMoreListener;
 import com.doan3.canthotour.Model.Place;
 import com.doan3.canthotour.R;
 import com.doan3.canthotour.View.Main.ActivityPlaceInfo;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 
 public class ListOfPlaceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -29,6 +31,7 @@ public class ListOfPlaceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private ArrayList<Place> place;
     private int visibleThreshold = 5;
     private int lastVisibleItem, totalItemCount;
+    ArrayList<String> arr = new ArrayList<>();
 
     public ListOfPlaceAdapter(RecyclerView recyclerView, ArrayList<Place> place, Context context) {
         this.context = context;
@@ -80,11 +83,17 @@ public class ListOfPlaceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             viewHolder.txtDiaChiDD.setText(places.getDiaChiDD());
             viewHolder.imgHinhDD.setImageResource(places.getHinhDD());
 
+            try {
+                arr = new EatAdapter.GetId().execute(Config.URL_HOST + Config.URL_GET_ALL_ID_PLACE).get();
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+            }
+
             viewHolder.cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent iPlaceInfo = new Intent(context, ActivityPlaceInfo.class);
-                    iPlaceInfo.putExtra("masp", position + "");
+                    iPlaceInfo.putExtra("masp", arr.get(position));
                     iPlaceInfo.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(iPlaceInfo);
                 }

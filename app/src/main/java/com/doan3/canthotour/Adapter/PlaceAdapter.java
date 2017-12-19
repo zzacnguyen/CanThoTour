@@ -10,17 +10,19 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.doan3.canthotour.Config;
 import com.doan3.canthotour.Model.Place;
 import com.doan3.canthotour.R;
 import com.doan3.canthotour.View.Main.ActivityPlaceInfo;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 
 public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> {
     ArrayList<Place> place;
     Context context;
-
+    ArrayList<String> arr = new ArrayList<>();
 
     public PlaceAdapter(ArrayList<Place> place, Context context) {
         this.place = place;
@@ -39,11 +41,17 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> 
         holder.txtTenDD.setText(place.get(position).getTenDD());
         holder.imgHinhDD.setImageResource(place.get(position).getHinhDD());
 
+        try {
+            arr = new EatAdapter.GetId().execute(Config.URL_HOST + Config.URL_GET_ALL_ID_PLACE).get();
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+
         holder.cardView.setOnClickListener(new View.OnClickListener() {  //Bắt sự kiện click vào 1 item cardview
             @Override
             public void onClick(View view) {
                 Intent iPlaceInfo = new Intent(context, ActivityPlaceInfo.class);
-                iPlaceInfo.putExtra("masp", position + "");
+                iPlaceInfo.putExtra("masp", arr.get(position));
                 iPlaceInfo.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(iPlaceInfo);
             }

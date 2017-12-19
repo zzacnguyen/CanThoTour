@@ -12,12 +12,14 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.doan3.canthotour.Config;
 import com.doan3.canthotour.Interface.OnLoadMoreListener;
 import com.doan3.canthotour.Model.Hotel;
 import com.doan3.canthotour.R;
 import com.doan3.canthotour.View.Main.ActivityHotelInfo;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 
 public class ListOfHotelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -29,6 +31,7 @@ public class ListOfHotelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private ArrayList<Hotel> hotel;
     private int visibleThreshold = 5;
     private int lastVisibleItem, totalItemCount;
+    ArrayList<String> arr = new ArrayList<>();
 
     public ListOfHotelAdapter(RecyclerView recyclerView, ArrayList<Hotel> hotel, Context context) {
         this.context = context;
@@ -80,11 +83,17 @@ public class ListOfHotelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             viewHolder.txtDiaChiDD.setText(hotels.getDiaChiKS());
             viewHolder.imgHinhDD.setImageResource(hotels.getHinhKS());
 
+            try {
+                arr = new EatAdapter.GetId().execute(Config.URL_HOST + Config.URL_GET_ALL_ID_HOTEL).get();
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+            }
+
             viewHolder.cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent iHotelInfo = new Intent(context, ActivityHotelInfo.class);
-                    iHotelInfo.putExtra("masp", position + "");
+                    iHotelInfo.putExtra("masp", arr.get(position));
                     iHotelInfo.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(iHotelInfo);
                 }

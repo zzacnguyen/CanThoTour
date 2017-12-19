@@ -1,14 +1,20 @@
 package com.doan3.canthotour.Adapter;
 
+import android.os.Environment;
+
 import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
@@ -37,6 +43,43 @@ public class HttpRequestAdapter {
             urlConnection.disconnect();
         }
         return result.toString();
+    }
+
+    public static String httpGetImage(String url, String folderName, String fileName) {
+        String filePath = null;
+        try {
+            URL con = new URL(url);
+            HttpURLConnection urlConnection = (HttpURLConnection) con.openConnection();
+            urlConnection.setRequestMethod("GET");
+            urlConnection.setDoOutput(true);
+            urlConnection.connect();
+            File SDCardRoot = new File(Environment.getExternalStorageDirectory()
+                    + "/" + folderName);
+            if (SDCardRoot.exists()) {
+                SDCardRoot.mkdirs();
+            }
+            File file = new File(SDCardRoot, fileName);
+
+            FileOutputStream fileOutput = new FileOutputStream(file);
+            InputStream inputStream = urlConnection.getInputStream();
+            int totalSize = urlConnection.getContentLength();
+            int downloadedSize = 0;
+            byte[] buffer = new byte[inputStream.available()];
+            int bufferLength = 0;
+            while ((bufferLength = inputStream.read(buffer)) > 0) {
+                fileOutput.write(buffer, 0, bufferLength);
+                downloadedSize += bufferLength;
+            }
+            fileOutput.close();
+            if (downloadedSize == totalSize)
+                filePath = file.getPath();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            filePath = null;
+            e.printStackTrace();
+        }
+        return filePath;
     }
 
     public static String httpPost(String url, JSONObject json) {

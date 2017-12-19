@@ -12,12 +12,14 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.doan3.canthotour.Config;
 import com.doan3.canthotour.Interface.OnLoadMoreListener;
 import com.doan3.canthotour.Model.Eat;
 import com.doan3.canthotour.R;
 import com.doan3.canthotour.View.Main.ActivityEatInfo;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 
 public class ListOfEatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -29,6 +31,7 @@ public class ListOfEatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     private ArrayList<Eat> eat;
     private int visibleThreshold = 5;
     private int lastVisibleItem, totalItemCount;
+    ArrayList<String> arr = new ArrayList<>();
 
     public ListOfEatAdapter(RecyclerView recyclerView, ArrayList<Eat> eat, Context context) {
         this.context = context;
@@ -80,11 +83,17 @@ public class ListOfEatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             viewHolder.txtDiaChiDD.setText(eats.getDiaChiAU());
             viewHolder.imgHinhDD.setImageResource(eats.getHinhAU());
 
+            try {
+                arr = new EatAdapter.GetId().execute(Config.URL_HOST + Config.URL_GET_ALL_ID_EAT).get();
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+            }
+
             viewHolder.cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent iEatInfo = new Intent(context, ActivityEatInfo.class);
-                    iEatInfo.putExtra("masp", position + "");
+                    iEatInfo.putExtra("masp", arr.get(position));
                     iEatInfo.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(iEatInfo);
                 }

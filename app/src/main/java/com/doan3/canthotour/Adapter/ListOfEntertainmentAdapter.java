@@ -12,12 +12,14 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.doan3.canthotour.Config;
 import com.doan3.canthotour.Interface.OnLoadMoreListener;
 import com.doan3.canthotour.Model.Entertainment;
 import com.doan3.canthotour.R;
 import com.doan3.canthotour.View.Main.ActivityEntertainmentInfo;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 
 public class ListOfEntertainmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -29,6 +31,7 @@ public class ListOfEntertainmentAdapter extends RecyclerView.Adapter<RecyclerVie
     private ArrayList<Entertainment> entertainment;
     private int visibleThreshold = 5;
     private int lastVisibleItem, totalItemCount;
+    ArrayList<String> arr = new ArrayList<>();
 
     public ListOfEntertainmentAdapter(RecyclerView recyclerView, ArrayList<Entertainment> entertainment, Context context) {
         this.context = context;
@@ -80,11 +83,17 @@ public class ListOfEntertainmentAdapter extends RecyclerView.Adapter<RecyclerVie
             viewHolder.txtDiaChiDD.setText(entertainments.getDiaChiVC());
             viewHolder.imgHinhDD.setImageResource(entertainments.getHinhVC());
 
+            try {
+                arr = new EatAdapter.GetId().execute(Config.URL_HOST + Config.URL_GET_ALL_ID_ENTERTAINMENT).get();
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+            }
+
             viewHolder.cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent iEntertainmentInfo = new Intent(context, ActivityEntertainmentInfo.class);
-                    iEntertainmentInfo.putExtra("masp", position + "");
+                    iEntertainmentInfo.putExtra("masp", arr.get(position));
                     iEntertainmentInfo.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(iEntertainmentInfo);
                 }

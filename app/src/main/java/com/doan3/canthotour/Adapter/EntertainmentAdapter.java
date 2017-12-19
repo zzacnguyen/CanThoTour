@@ -10,16 +10,19 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.doan3.canthotour.Config;
 import com.doan3.canthotour.Model.Entertainment;
 import com.doan3.canthotour.R;
 import com.doan3.canthotour.View.Main.ActivityEntertainmentInfo;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 
 public class EntertainmentAdapter extends RecyclerView.Adapter<EntertainmentAdapter.ViewHolder> {
     ArrayList<Entertainment> entertain;
     Context context;
+    ArrayList<String> arr = new ArrayList<>();
 
     public EntertainmentAdapter(ArrayList<Entertainment> entertain, Context context) {
         this.entertain = entertain;
@@ -38,13 +41,19 @@ public class EntertainmentAdapter extends RecyclerView.Adapter<EntertainmentAdap
         holder.txtTenDD.setText(entertain.get(position).getTenVC());
         holder.imgHinhDD.setImageResource(entertain.get(position).getHinhVC());
 
+        try {
+            arr = new EatAdapter.GetId().execute(Config.URL_HOST + Config.URL_GET_ALL_ID_ENTERTAINMENT).get();
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+
         holder.cardView.setOnClickListener(new View.OnClickListener() {  //Bắt sự kiện click vào 1 item cardview
             @Override
             public void onClick(View view) {
-                Intent iPlaceInfo = new Intent(context, ActivityEntertainmentInfo.class);
-                iPlaceInfo.putExtra("masp", position + "");
-                iPlaceInfo.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(iPlaceInfo);
+                Intent iEntertainmentInfo = new Intent(context, ActivityEntertainmentInfo.class);
+                iEntertainmentInfo.putExtra("masp", arr.get(position));
+                iEntertainmentInfo.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(iEntertainmentInfo);
             }
         });
     }
