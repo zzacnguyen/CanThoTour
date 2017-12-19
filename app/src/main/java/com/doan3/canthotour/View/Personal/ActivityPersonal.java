@@ -19,7 +19,7 @@ import com.doan3.canthotour.View.Search.ActivitySearch;
 
 public class ActivityPersonal extends AppCompatActivity {
 
-    Button btnThemDiaDiem, btnTimDiaDiem, btnDangKyDoanhNghiep, btnCaiDat;
+    Button btnThemDiaDiem, btnTimThemDichVu, btnDangKyDoanhNghiep, btnCaiDat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +27,7 @@ public class ActivityPersonal extends AppCompatActivity {
         setContentView(R.layout.activity_canhan);
 
         btnThemDiaDiem = findViewById(R.id.buttonThemDiaDiem);
-        btnTimDiaDiem = findViewById(R.id.buttonTimDiaDiem);
+        btnTimThemDichVu = findViewById(R.id.buttonThemDichVu);
         btnDangKyDoanhNghiep = findViewById(R.id.buttonDangKyDoanhNghiep);
         btnCaiDat = findViewById(R.id.buttonCaiDat);
 
@@ -39,11 +39,11 @@ public class ActivityPersonal extends AppCompatActivity {
             }
         });
 
-        btnTimDiaDiem.setOnClickListener(new View.OnClickListener() {
+        btnTimThemDichVu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent iTimDiaDiem = new Intent(ActivityPersonal.this, ActivitySearch.class);
-                startActivity(iTimDiaDiem);
+                Intent iThemDichVu = new Intent(ActivityPersonal.this, ActivityAddService.class);
+                startActivity(iThemDichVu);
             }
         });
 

@@ -51,15 +51,31 @@
                     android:layout_height="50dp"
                     android:src="@drawable/avatar"
                     app:civ_border_color="@android:color/white"
-                    app:civ_border_width="4dp" />
+                    app:civ_border_width="4dp"
+                    android:layout_gravity="center"/>
 
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:padding="10dp"
-                    android:text="Username"
-                    android:textSize="18sp" />
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Username"
+                        android:textSize="16sp"
+                        android:textColor="@color/colorBlack"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Doanh nghiệp"
+                        android:textSize="12sp" />
+
+                </LinearLayout>
             </LinearLayout>
 
             <View
@@ -103,14 +119,15 @@
                 android:padding="5dp">
 
                 <Button
-                    android:id="@+id/buttonTimDiaDiem"
+                    android:id="@+id/buttonThemDichVu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/ic_timdiadiem"
+                    android:drawableLeft="@drawable/ic_service_24dp"
                     android:textAlignment="textStart"
+                    android:drawableTint="@color/bgToolbar"
                     android:textAllCaps="false"
                     android:background="@null"
-                    android:text="Tìm kiếm nâng cao"
+                    android:text="Thêm dịch vụ"
                     android:layout_weight="1"/>
 
                 <ImageView

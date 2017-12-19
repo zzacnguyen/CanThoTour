@@ -29,7 +29,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
-                android:text="Khoảng cách"
+                android:text="Tên sự kiện"
                 android:textColor="#000"
                 android:padding="5dp"
                 android:layout_gravity="center"/>
@@ -39,8 +39,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="13sp"
-                android:text="Tên địa điểm"
-                android:textColor="#e3f700"
+                android:text="Ngày tổ chức"
+                android:textColor="#ff0516"
                 android:paddingLeft="5dp"
                 android:layout_gravity="center"/>
 

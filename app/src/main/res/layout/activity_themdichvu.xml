@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.doan3.canthotour.View.Main.MainActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        android:background="@color/colorWhite">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_collapseMode="pin"
+            android:background="@color/bgToolbar">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="5">
+
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Hủy"
+                    android:textSize="18sp"
+                    android:textColor="@color/colorWhite"/>
+
+                <TextView
+                    android:layout_weight="3"
+                    android:id="@+id/toolbarTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Thêm dịch vụ"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Gửi"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="18sp"
+                    android:gravity="center"/>
+
+            </LinearLayout>
+
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:background="@color/colorGrey"
+        android:layout_marginBottom="50dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="10dp"
+                android:background="@color/colorWhite"
+                android:layout_marginTop="?attr/actionBarSize">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:textSize="16sp"
+                    android:hint="Chọn loại hình dịch vụ"
+                    android:padding="5dp"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorGrey"
+                android:layout_marginTop="10dp"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="10dp"
+                android:background="@color/colorWhite">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:hint="Tên dịch vụ"
+                    android:background="@drawable/white_grey_border_bottom"
+                    android:padding="5dp"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorGrey"
+                android:layout_marginTop="10dp"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="10dp"
+                android:background="@color/colorWhite">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:textSize="16sp"
+                    android:background="@null"
+                    android:hint="Mô tả địa điểm"
+                    android:padding="5dp"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorGrey"
+                android:layout_marginTop="10dp"
+                />
+
+        </LinearLayout>
+
+
+    </android.support.v4.widget.NestedScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:layout_gravity="top"
+            android:background="@drawable/shadow"
+            />
+
+        <android.support.design.widget.BottomNavigationView
+            android:id="@+id/bottomNavView_Bar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            app:menu="@menu/bottom_navigation_menu"
+            android:background="@color/colorWhite">
+
+        </android.support.design.widget.BottomNavigationView>
+
+    </LinearLayout>
+
+</android.support.design.widget.CoordinatorLayout>
