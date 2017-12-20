@@ -163,7 +163,7 @@ public class ActivityPlaceInfo extends AppCompatActivity {
         protected void onProgressUpdate(ArrayList<String>[] arrayList) {
             super.onProgressUpdate(arrayList);
             try {
-                object = new JSONObject("{\"dd_iddiadiem\":\"" + arrayList[0].get(0) + "\",\"nd_idnguoidung\":\"" + arrayList[0].get(0) + "\"");
+                object = new JSONObject("{\"dd_iddiadiem\":\"" + arrayList[0].get(0) + "\",\"nd_idnguoidung\":\"" + arrayList[0].get(0) + "\"}");
                 kinhDo = arrayList[0].get(5);
                 viDo = arrayList[0].get(6);
             } catch (JSONException e) {

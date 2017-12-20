@@ -1,6 +1,5 @@
 package com.doan3.canthotour.View.Main.Content;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -41,17 +40,12 @@ public class ActivityHotel extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_khachsan);
 
-        initView_Hotel();
+        new LoadInfo().execute(Config.URL_HOST + Config.URL_GET_ALL_HOTELS);
 
         menuBotNavBar();
     }
 
-    private void initView_Hotel() {
-        LoadInfo loadInfo = new LoadInfo(this);
-        loadInfo.execute(Config.URL_HOST + Config.URL_GET_ALL_HOTELS);
-    }
-
-    private void menuBotNavBar() {
+    public void menuBotNavBar() {
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavView_Bar);
         BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
 
@@ -85,19 +79,7 @@ public class ActivityHotel extends AppCompatActivity {
         ArrayList<String> arr = new ArrayList<>(), arrayList = new ArrayList<>();
         ArrayList<Hotel> listHotel = new ArrayList<>();
         ListOfHotelAdapter listOfHotelAdapter;
-        Activity activity;
         RecyclerView recyclerView;
-        LinearLayoutManager linearLayoutManager;
-
-        // khởi tạo class truyền vào 2 đối số là activity và recyclerview
-        public LoadInfo(Activity act) {
-            activity = act;
-            recyclerView = findViewById(R.id.RecyclerView_DanhSachKhachSan);
-            recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
-
-            linearLayoutManager = new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false);
-            recyclerView.setLayoutManager(linearLayoutManager);
-        }
 
         @Override
         protected ArrayList<Hotel> doInBackground(String... strings) {
@@ -109,6 +91,12 @@ public class ActivityHotel extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+
+            recyclerView = findViewById(R.id.RecyclerView_DanhSachKhachSan);
+            recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
+
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ActivityHotel.this, LinearLayoutManager.VERTICAL, false);
+            recyclerView.setLayoutManager(linearLayoutManager);
 
             ArrayList<Hotel> list = new ArrayList<>();
 

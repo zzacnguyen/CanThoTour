@@ -54,9 +54,7 @@ public class ActivityFavoriteInfo extends AppCompatActivity {
         masp = getIntent().getStringExtra("masp");
         String id = null;
         try {
-            GetIdPlace getIdPlace = new GetIdPlace();
-            getIdPlace.execute(Config.URL_HOST + Config.URL_GET_ALL_FAVORITE + "/" + masp);
-            id = getIdPlace.get();
+            id = new GetIdPlace().execute(Config.URL_HOST + Config.URL_GET_ALL_FAVORITE + "/" + masp).get();
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }

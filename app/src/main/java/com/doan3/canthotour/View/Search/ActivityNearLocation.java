@@ -34,9 +34,9 @@ import java.util.ArrayList;
 
 public class ActivityNearLocation extends AppCompatActivity {
 
+    public static String urlNearLocation;
     TextView txtTenDd, txtKhoangCach;
     ImageView imgHinhDd;
-    public static String urlNearLocation;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -84,6 +84,17 @@ public class ActivityNearLocation extends AppCompatActivity {
     }
 
     private class Load extends AsyncTask<String, ArrayList<NearLocation>, Void> {
+        RecyclerView recyclerView;
+
+        private Load() {
+            recyclerView = findViewById(R.id.RecyclerView_DiaDiemLanCan);
+            recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
+
+            LinearLayoutManager linearLayoutManager =
+                    new LinearLayoutManager(ActivityNearLocation.this, LinearLayoutManager.VERTICAL, false);
+            recyclerView.setLayoutManager(linearLayoutManager);
+        }
+
         @Override
         protected Void doInBackground(String... strings) {
             ArrayList<NearLocation> nearLocations = new ArrayList<>();
@@ -91,7 +102,7 @@ public class ActivityNearLocation extends AppCompatActivity {
                 String get = HttpRequestAdapter.httpGet(strings[0]);
                 ArrayList<String> arrayList = JsonHelper.parseJsonNoId(new JSONArray(get), Config.JSON_NEAR_LOCATION);
                 for (int i = 0; i < arrayList.size(); i += 4) {
-                    nearLocations.add(new NearLocation(arrayList.get(i), arrayList.get(i+1), R.drawable.benninhkieu1));
+                    nearLocations.add(new NearLocation(arrayList.get(i), arrayList.get(i + 1), R.drawable.benninhkieu1));
                     publishProgress(nearLocations);
                 }
             } catch (JSONException ex) {
@@ -103,13 +114,6 @@ public class ActivityNearLocation extends AppCompatActivity {
         @Override
         protected void onProgressUpdate(ArrayList<NearLocation>[] values) {
             super.onProgressUpdate(values);
-            RecyclerView recyclerView = findViewById(R.id.RecyclerView_DiaDiemLanCan);
-            recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
-
-            LinearLayoutManager linearLayoutManager =
-                    new LinearLayoutManager(ActivityNearLocation.this, LinearLayoutManager.VERTICAL, false);
-            recyclerView.setLayoutManager(linearLayoutManager);
-
             NearLocationAdapter nearLocationAdapter = new NearLocationAdapter(values[0], getApplicationContext());
             recyclerView.setAdapter(nearLocationAdapter);
         }

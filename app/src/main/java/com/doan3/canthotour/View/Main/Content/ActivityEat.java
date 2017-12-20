@@ -1,6 +1,5 @@
 package com.doan3.canthotour.View.Main.Content;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -41,17 +40,12 @@ public class ActivityEat extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_anuong);
 
-        initView_Eat();
+        new LoadInfo().execute(Config.URL_HOST + Config.URL_GET_ALL_EATS);
 
         menuBotNavBar();
     }
 
-    private void initView_Eat() {
-        LoadInfo loadInfo = new LoadInfo(this);
-        loadInfo.execute(Config.URL_HOST + Config.URL_GET_ALL_EATS);
-    }
-
-    private void menuBotNavBar() {
+    public void menuBotNavBar() {
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavView_Bar);
         BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
 
@@ -93,19 +87,7 @@ public class ActivityEat extends AppCompatActivity {
         ArrayList<String> arr = new ArrayList<>(), arrayList = new ArrayList<>();
         ArrayList<Eat> listEat = new ArrayList<>();
         ListOfEatAdapter listOfEatAdapter;
-        Activity activity;
         RecyclerView recyclerView;
-        LinearLayoutManager linearLayoutManager;
-
-        // khởi tạo class truyền vào 2 đối số là activity và recyclerview
-        public LoadInfo(Activity act) {
-            activity = act;
-            recyclerView = findViewById(R.id.RecyclerView_DanhSachAnUong);
-            recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
-
-            linearLayoutManager = new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false);
-            recyclerView.setLayoutManager(linearLayoutManager);
-        }
 
         @Override
         protected ArrayList<Eat> doInBackground(String... strings) {
@@ -117,6 +99,12 @@ public class ActivityEat extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+
+            recyclerView = findViewById(R.id.RecyclerView_DanhSachAnUong);
+            recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
+
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ActivityEat.this, LinearLayoutManager.VERTICAL, false);
+            recyclerView.setLayoutManager(linearLayoutManager);
 
             ArrayList<Eat> list = new ArrayList<>();
 

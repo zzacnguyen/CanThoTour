@@ -1,6 +1,5 @@
 package com.doan3.canthotour.View.Main;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -68,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
 
+        // region click button
         btnDiaDanh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -95,15 +95,9 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, ActivityEntertainment.class));
             }
         });
+        // endregion
 
-        initView_Place();
-        initView_Eat();
-        initView_Hotel();
-        initView_Entertainment();
-
-        display_doanhnghiep();
-
-        menuBotNavBar();
+        new Load().execute();
 
     }
 
@@ -123,40 +117,6 @@ public class MainActivity extends AppCompatActivity {
     }
     // endregion
 
-    //region Init View
-    //Get view place
-    private void initView_Place() {
-        RecyclerView recyclerView = findViewById(R.id.RecyclerView_DiaDanh);
-
-        LoadPlace threadLoadPlace = new LoadPlace(this, recyclerView);
-        threadLoadPlace.execute(Config.URL_HOST + Config.URL_GET_ALL_PLACES);
-    }
-
-    //Get view eat
-    private void initView_Eat() {
-        RecyclerView recyclerView = findViewById(R.id.RecyclerView_AnUong);
-        LoadEat threadLoadEat = new LoadEat(this, recyclerView);
-        threadLoadEat.execute(Config.URL_HOST + Config.URL_GET_ALL_EATS);
-    }
-
-    //Get view hotel
-    private void initView_Hotel() {
-        RecyclerView recyclerView = findViewById(R.id.RecyclerView_KhachSan);
-
-        LoadHotel threadLoadHotel = new LoadHotel(this, recyclerView);
-        threadLoadHotel.execute(Config.URL_HOST + Config.URL_GET_ALL_HOTELS);
-    }
-
-    //Get view entertainment
-    private void initView_Entertainment() {
-        RecyclerView recyclerView = findViewById(R.id.RecyclerView_VuiChoi);
-
-        LoadEntertainment threadLoadEntertainment = new LoadEntertainment(this, recyclerView);
-        threadLoadEntertainment.execute(Config.URL_HOST + Config.URL_GET_ALL_ENTERTAINMENTS);
-    }
-
-    //endregion
-
     void fabOnClick() { //Floating bar
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -166,8 +126,8 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    void display_doanhnghiep(){
-        if(doanhnghiep == false){
+    void display_doanhnghiep() {
+        if (doanhnghiep == false) {
             fabOnClick();
         }
     }
@@ -204,17 +164,14 @@ public class MainActivity extends AppCompatActivity {
 
     //Custom view place
     private class LoadPlace extends AsyncTask<String, ArrayList<Place>, Void> {
-        Activity activity;
         RecyclerView recyclerView;
-        LinearLayoutManager linearLayoutManager;
 
-        // khởi tạo class truyền vào 2 đối số là activity và recyclerview
-        public LoadPlace(Activity act, RecyclerView rv) {
-            activity = act;
-            recyclerView = rv;
+        private LoadPlace() {
+            recyclerView = findViewById(R.id.RecyclerView_DiaDanh);
             recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
 
-            linearLayoutManager = new LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false);
+            LinearLayoutManager linearLayoutManager =
+                    new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false);
             recyclerView.setLayoutManager(linearLayoutManager);
         }
 
@@ -246,21 +203,19 @@ public class MainActivity extends AppCompatActivity {
             super.onProgressUpdate(values);
             PlaceAdapter placeAdapter = new PlaceAdapter(values[0], getApplicationContext());
             recyclerView.setAdapter(placeAdapter);
+            placeAdapter.notifyDataSetChanged();
         }
     }
 
     private class LoadEat extends AsyncTask<String, ArrayList<Eat>, Void> {
-        Activity activity;
         RecyclerView recyclerView;
-        LinearLayoutManager linearLayoutManager;
 
-        // khởi tạo class truyền vào 2 đối số là activity và recyclerview
-        public LoadEat(Activity act, RecyclerView rv) {
-            activity = act;
-            recyclerView = rv;
+        private LoadEat() {
+            recyclerView = findViewById(R.id.RecyclerView_AnUong);
             recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
 
-            linearLayoutManager = new LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false);
+            LinearLayoutManager linearLayoutManager =
+                    new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false);
             recyclerView.setLayoutManager(linearLayoutManager);
         }
 
@@ -291,21 +246,19 @@ public class MainActivity extends AppCompatActivity {
             super.onProgressUpdate(values);
             EatAdapter eatAdapter = new EatAdapter(values[0], getApplicationContext());
             recyclerView.setAdapter(eatAdapter);
+            eatAdapter.notifyDataSetChanged();
         }
     }
 
     private class LoadHotel extends AsyncTask<String, ArrayList<Hotel>, Void> {
-        Activity activity;
         RecyclerView recyclerView;
-        LinearLayoutManager linearLayoutManager;
 
-        // khởi tạo class truyền vào 2 đối số là activity và recyclerview
-        public LoadHotel(Activity act, RecyclerView rv) {
-            activity = act;
-            recyclerView = rv;
+        private LoadHotel() {
+            recyclerView = findViewById(R.id.RecyclerView_KhachSan);
             recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
 
-            linearLayoutManager = new LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false);
+            LinearLayoutManager linearLayoutManager =
+                    new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false);
             recyclerView.setLayoutManager(linearLayoutManager);
         }
 
@@ -337,21 +290,19 @@ public class MainActivity extends AppCompatActivity {
             super.onProgressUpdate(values);
             HotelAdapter hotelAdapter = new HotelAdapter(values[0], getApplicationContext());
             recyclerView.setAdapter(hotelAdapter);
+            hotelAdapter.notifyDataSetChanged();
         }
     }
 
     private class LoadEntertainment extends AsyncTask<String, ArrayList<Entertainment>, Void> {
-        Activity activity;
         RecyclerView recyclerView;
-        LinearLayoutManager linearLayoutManager;
 
-        // khởi tạo class truyền vào 2 đối số là activity và recyclerview
-        public LoadEntertainment(Activity act, RecyclerView rv) {
-            activity = act;
-            recyclerView = rv;
+        private LoadEntertainment() {
+            recyclerView = findViewById(R.id.RecyclerView_VuiChoi);
             recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
 
-            linearLayoutManager = new LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false);
+            LinearLayoutManager linearLayoutManager =
+                    new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false);
             recyclerView.setLayoutManager(linearLayoutManager);
         }
 
@@ -383,6 +334,20 @@ public class MainActivity extends AppCompatActivity {
             super.onProgressUpdate(values);
             EntertainmentAdapter entertainmentAdapter = new EntertainmentAdapter(values[0], getApplicationContext());
             recyclerView.setAdapter(entertainmentAdapter);
+            entertainmentAdapter.notifyDataSetChanged();
+        }
+    }
+
+    private class Load extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... voids) {
+            new LoadPlace().execute(Config.URL_HOST + Config.URL_GET_ALL_PLACES);
+            new LoadEat().execute(Config.URL_HOST + Config.URL_GET_ALL_EATS);
+            new LoadHotel().execute(Config.URL_HOST + Config.URL_GET_ALL_HOTELS);
+            new LoadEntertainment().execute(Config.URL_HOST + Config.URL_GET_ALL_ENTERTAINMENTS);
+            display_doanhnghiep();
+            menuBotNavBar();
+            return null;
         }
     }
 }

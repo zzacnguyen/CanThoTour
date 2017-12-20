@@ -1,6 +1,5 @@
 package com.doan3.canthotour.View.Main.Content;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -41,17 +40,12 @@ public class ActivityPlace extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_diadanh);
 
-        initView_Place();
+        new LoadPlace().execute(Config.URL_HOST + Config.URL_GET_ALL_PLACES);
 
         menuBotNavBar();
     }
 
-    private void initView_Place() {
-        LoadPlace loadPlace = new LoadPlace(this);
-        loadPlace.execute(Config.URL_HOST + Config.URL_GET_ALL_PLACES);
-    }
-
-    private void menuBotNavBar() {
+    public void menuBotNavBar() {
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavView_Bar);
         BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
 
@@ -85,19 +79,7 @@ public class ActivityPlace extends AppCompatActivity {
         ArrayList<String> arr = new ArrayList<>(), arrayList = new ArrayList<>();
         ArrayList<Place> listPlace = new ArrayList<>();
         ListOfPlaceAdapter listOfPlaceAdapter;
-        Activity activity;
         RecyclerView recyclerView;
-        LinearLayoutManager linearLayoutManager;
-
-        // khởi tạo class truyền vào 2 đối số là activity và recyclerview
-        public LoadPlace(Activity act) {
-            activity = act;
-            recyclerView = findViewById(R.id.RecyclerView_DanhSachDiaDanh);
-            recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
-
-            linearLayoutManager = new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false);
-            recyclerView.setLayoutManager(linearLayoutManager);
-        }
 
         @Override
         protected ArrayList<Place> doInBackground(String... strings) {
@@ -109,6 +91,13 @@ public class ActivityPlace extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+
+            recyclerView = findViewById(R.id.RecyclerView_DanhSachDiaDanh);
+            recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
+
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ActivityPlace.this, LinearLayoutManager.VERTICAL, false);
+            recyclerView.setLayoutManager(linearLayoutManager);
+
             ArrayList<Place> list = new ArrayList<>();
 
             // lấy tên địa điểm vào list và cập nhật lên giao diện

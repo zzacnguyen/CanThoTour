@@ -1,6 +1,5 @@
 package com.doan3.canthotour.View.Main.Content;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -41,17 +40,12 @@ public class ActivityEntertainment extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_vuichoi);
 
-        initView_Entertain();
+        new LoadInfo().execute(Config.URL_HOST + Config.URL_GET_ALL_ENTERTAINMENTS);
 
         menuBotNavBar();
     }
 
-    private void initView_Entertain() {
-        LoadInfo loadInfo = new LoadInfo(this);
-        loadInfo.execute(Config.URL_HOST + Config.URL_GET_ALL_ENTERTAINMENTS);
-    }
-
-    private void menuBotNavBar() {
+    public void menuBotNavBar() {
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavView_Bar);
         BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
 
@@ -85,30 +79,23 @@ public class ActivityEntertainment extends AppCompatActivity {
         ArrayList<String> arr = new ArrayList<>(), arrayList = new ArrayList<>();
         ArrayList<Entertainment> listEntertainment = new ArrayList<>();
         ListOfEntertainmentAdapter listOfEntertainmentAdapter;
-        Activity activity;
         RecyclerView recyclerView;
-        LinearLayoutManager linearLayoutManager;
-
-        // khởi tạo class truyền vào 2 đối số là activity và recyclerview
-        public LoadInfo(Activity act) {
-            activity = act;
-            recyclerView = findViewById(R.id.RecyclerView_DanhSachVuiChoi);
-            recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
-
-            linearLayoutManager = new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false);
-            recyclerView.setLayoutManager(linearLayoutManager);
-        }
 
         @Override
         protected ArrayList<Entertainment> doInBackground(String... strings) {
             // parse json vừa get về ra arraylist
-
             try {
                 arr = JsonHelper.parseJsonNoId(new JSONObject(HttpRequestAdapter.httpGet(strings[0])), Config.JSON_LOAD);
                 arrayList = JsonHelper.parseJsonNoId(new JSONArray(arr.get(0)), Config.JSON_ENTERTAINMENT);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+
+            recyclerView = findViewById(R.id.RecyclerView_DanhSachVuiChoi);
+            recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
+
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ActivityEntertainment.this, LinearLayoutManager.VERTICAL, false);
+            recyclerView.setLayoutManager(linearLayoutManager);
 
             ArrayList<Entertainment> list = new ArrayList<>();
 
