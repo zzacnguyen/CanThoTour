@@ -19,7 +19,7 @@ import com.doan3.canthotour.Config;
 import com.doan3.canthotour.Helper.BottomNavigationViewHelper;
 import com.doan3.canthotour.Helper.JsonHelper;
 import com.doan3.canthotour.Interface.OnLoadMoreListener;
-import com.doan3.canthotour.Model.ObjectClass.Entertainment;
+import com.doan3.canthotour.Model.ObjectClass.Service;
 import com.doan3.canthotour.R;
 import com.doan3.canthotour.View.Favorite.ActivityFavorite;
 import com.doan3.canthotour.View.Main.MainActivity;
@@ -75,14 +75,14 @@ public class ActivityEntertainment extends AppCompatActivity {
         });
     }
 
-    private class LoadInfo extends AsyncTask<String, Void, ArrayList<Entertainment>> {
+    private class LoadInfo extends AsyncTask<String, Void, ArrayList<Service>> {
         ArrayList<String> arr = new ArrayList<>(), arrayList = new ArrayList<>();
-        ArrayList<Entertainment> listEntertainment = new ArrayList<>();
+        ArrayList<Service> listEntertainment = new ArrayList<>();
         ListOfEntertainmentAdapter listOfEntertainmentAdapter;
         RecyclerView recyclerView;
 
         @Override
-        protected ArrayList<Entertainment> doInBackground(String... strings) {
+        protected ArrayList<Service> doInBackground(String... strings) {
             // parse json vừa get về ra arraylist
             try {
                 arr = JsonHelper.parseJsonNoId(new JSONObject(HttpRequestAdapter.httpGet(strings[0])), Config.JSON_LOAD);
@@ -91,17 +91,17 @@ public class ActivityEntertainment extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            ArrayList<Entertainment> list = new ArrayList<>();
+            ArrayList<Service> list = new ArrayList<>();
 
             for (int i = 0; i < arrayList.size(); i += 4) {
                 list.add(
-                        new Entertainment(Integer.parseInt(arrayList.get(i)), R.drawable.benninhkieu1, arrayList.get(i + 1)));
+                        new Service(Integer.parseInt(arrayList.get(i)), R.drawable.benninhkieu1, arrayList.get(i + 1)));
             }
             return list;
         }
 
         @Override
-        protected void onPostExecute(ArrayList<Entertainment> entertainments) {
+        protected void onPostExecute(ArrayList<Service> entertainments) {
             super.onPostExecute(entertainments);
 
             recyclerView = findViewById(R.id.RecyclerView_DanhSachVuiChoi);
@@ -148,7 +148,7 @@ public class ActivityEntertainment extends AppCompatActivity {
                                 }
 
                                 for (int i = 0; i < arrayList.size(); i += 4) {
-                                    listEntertainment.add(new Entertainment(Integer.parseInt(arrayList.get(i)),
+                                    listEntertainment.add(new Service(Integer.parseInt(arrayList.get(i)),
                                             R.drawable.benninhkieu1, arrayList.get(i + 1)));
                                 }
                                 listOfEntertainmentAdapter.notifyDataSetChanged();

@@ -1,7 +1,6 @@
 package com.doan3.canthotour.View.Main;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -18,16 +17,13 @@ import android.widget.Button;
 import com.doan3.canthotour.Adapter.EatAdapter;
 import com.doan3.canthotour.Adapter.EntertainmentAdapter;
 import com.doan3.canthotour.Adapter.HotelAdapter;
-import com.doan3.canthotour.Adapter.HttpRequestAdapter;
 import com.doan3.canthotour.Adapter.PlaceAdapter;
 import com.doan3.canthotour.Config;
 import com.doan3.canthotour.Helper.BottomNavigationViewHelper;
-import com.doan3.canthotour.Helper.JsonHelper;
-import com.doan3.canthotour.Model.ObjectClass.Eat;
-import com.doan3.canthotour.Model.ObjectClass.Entertainment;
-import com.doan3.canthotour.Model.ObjectClass.Hotel;
 import com.doan3.canthotour.Model.ModelPlace;
+import com.doan3.canthotour.Model.ModelService;
 import com.doan3.canthotour.Model.ObjectClass.Place;
+import com.doan3.canthotour.Model.ObjectClass.Service;
 import com.doan3.canthotour.R;
 import com.doan3.canthotour.View.Favorite.ActivityFavorite;
 import com.doan3.canthotour.View.Main.Content.ActivityEat;
@@ -38,10 +34,6 @@ import com.doan3.canthotour.View.Notify.ActivityNotify;
 import com.doan3.canthotour.View.Personal.ActivityAddPlace;
 import com.doan3.canthotour.View.Personal.ActivityPersonal;
 import com.doan3.canthotour.View.Search.ActivitySearch;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -102,13 +94,16 @@ public class MainActivity extends AppCompatActivity {
         loadPlace();
 
         // load eat
-        new LoadEat().execute(Config.URL_HOST + Config.URL_GET_ALL_EATS);
+        RecyclerView recyclerViewAU = findViewById(R.id.RecyclerView_AnUong);
+        loadService(recyclerViewAU, Config.URL_HOST + Config.URL_GET_ALL_EATS, Config.JSON_EAT);
 
         // load entertainment
-        new LoadEntertainment().execute(Config.URL_HOST + Config.URL_GET_ALL_ENTERTAINMENTS);
+        RecyclerView recyclerViewVC = findViewById(R.id.RecyclerView_VuiChoi);
+        loadService(recyclerViewVC, Config.URL_HOST + Config.URL_GET_ALL_ENTERTAINMENTS, Config.JSON_ENTERTAINMENT);
 
         // load hotel
-        new LoadHotel().execute(Config.URL_HOST + Config.URL_GET_ALL_HOTELS);
+        RecyclerView recyclerViewKS = findViewById(R.id.RecyclerView_KhachSan);
+        loadService(recyclerViewKS, Config.URL_HOST + Config.URL_GET_ALL_HOTELS, Config.JSON_HOTEL);
 
         display_doanhnghiep();
 
@@ -194,137 +189,30 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //Custom view eat
-    private class LoadEat extends AsyncTask<String, Void, ArrayList<Eat>> {
-        RecyclerView recyclerView;
+    private void loadService(RecyclerView recyclerView, String url, ArrayList<String> formatJson) {
+        recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
 
-        private LoadEat() {
-            recyclerView = findViewById(R.id.RecyclerView_AnUong);
-            recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
+        LinearLayoutManager linearLayoutManager =
+                new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false);
+        recyclerView.setLayoutManager(linearLayoutManager);
 
-            LinearLayoutManager linearLayoutManager =
-                    new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false);
-            recyclerView.setLayoutManager(linearLayoutManager);
-        }
+        ArrayList<Service> services = new ModelService().getServiceList(url, formatJson);
 
-        @Override
-        protected ArrayList<Eat> doInBackground(String... strings) {
-
-            // parse json vừa get về ra arraylist
-            ArrayList<String> arr, arrayList = new ArrayList<>();
-            try {
-                arr = JsonHelper.parseJsonNoId(new JSONObject(HttpRequestAdapter.httpGet(strings[0])), Config.JSON_LOAD);
-                arrayList = JsonHelper.parseJson(new JSONArray(arr.get(0)), Config.JSON_EAT);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-            ArrayList<Eat> list = new ArrayList<>();
-
-            int size = (arrayList.size() > 20) ? 20 : arrayList.size();
-            // lấy tên địa điểm vào list và cập nhật lên giao diện
-            for (int i = 0; i < size; i += 4) {
-                list.add(new Eat(Integer.parseInt(arrayList.get(i)), R.drawable.benninhkieu1, arrayList.get(i + 1)));
-            }
-            return list;
-        }
-
-        @Override
-        protected void onPostExecute(ArrayList<Eat> items) {
-            super.onPostExecute(items);
-            EatAdapter eatAdapter =
-                    new EatAdapter(items, getApplicationContext());
+        if (formatJson.equals(Config.JSON_EAT)) {
+            EatAdapter eatAdapter = new EatAdapter(services, getApplicationContext());
             recyclerView.setAdapter(eatAdapter);
             eatAdapter.notifyDataSetChanged();
-        }
-    }
-
-    //Custom view entertainment
-    private class LoadEntertainment extends AsyncTask<String, Void, ArrayList<Entertainment>> {
-        RecyclerView recyclerView;
-
-        private LoadEntertainment() {
-            recyclerView = findViewById(R.id.RecyclerView_VuiChoi);
-            recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
-
-            LinearLayoutManager linearLayoutManager =
-                    new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false);
-            recyclerView.setLayoutManager(linearLayoutManager);
-        }
-
-        @Override
-        protected ArrayList<Entertainment> doInBackground(String... strings) {
-
-            // parse json vừa get về ra arraylist
-            ArrayList<String> arr, arrayList = new ArrayList<>();
-            try {
-                arr = JsonHelper.parseJsonNoId(new JSONObject(HttpRequestAdapter.httpGet(strings[0])), Config.JSON_LOAD);
-                arrayList = JsonHelper.parseJson(new JSONArray(arr.get(0)), Config.JSON_ENTERTAINMENT);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-            ArrayList<Entertainment> list = new ArrayList<>();
-
-            int size = (arrayList.size() > 20) ? 20 : arrayList.size();
-            // lấy tên địa điểm vào list và cập nhật lên giao diện
-            for (int i = 0; i < size; i += 4) {
-                list.add(new Entertainment(Integer.parseInt(arrayList.get(i)), R.drawable.benninhkieu1, arrayList.get(i + 1)));
-            }
-            return list;
-        }
-
-        @Override
-        protected void onPostExecute(ArrayList<Entertainment> items) {
-            super.onPostExecute(items);
+        } else if (formatJson.equals(Config.JSON_ENTERTAINMENT)) {
             EntertainmentAdapter entertainmentAdapter =
-                    new EntertainmentAdapter(items, getApplicationContext());
+                    new EntertainmentAdapter(services, getApplicationContext());
             recyclerView.setAdapter(entertainmentAdapter);
             entertainmentAdapter.notifyDataSetChanged();
-        }
-    }
-
-    //Custom view hotel
-    private class LoadHotel extends AsyncTask<String, Void, ArrayList<Hotel>> {
-        RecyclerView recyclerView;
-
-        private LoadHotel() {
-            recyclerView = findViewById(R.id.RecyclerView_KhachSan);
-            recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
-
-            LinearLayoutManager linearLayoutManager =
-                    new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false);
-            recyclerView.setLayoutManager(linearLayoutManager);
-        }
-
-        @Override
-        protected ArrayList<Hotel> doInBackground(String... strings) {
-
-            // parse json vừa get về ra arraylist
-            ArrayList<String> arr, arrayList = new ArrayList<>();
-            try {
-                arr = JsonHelper.parseJsonNoId(new JSONObject(HttpRequestAdapter.httpGet(strings[0])), Config.JSON_LOAD);
-                arrayList = JsonHelper.parseJson(new JSONArray(arr.get(0)), Config.JSON_HOTEL);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-            ArrayList<Hotel> list = new ArrayList<>();
-
-            int size = (arrayList.size() > 25) ? 25 : arrayList.size();
-            // lấy tên địa điểm vào list và cập nhật lên giao diện
-            for (int i = 0; i < size; i += 5) {
-                list.add(new Hotel(Integer.parseInt(arrayList.get(i)), R.drawable.benninhkieu1, arrayList.get(i + 1)));
-            }
-            return list;
-        }
-
-        @Override
-        protected void onPostExecute(ArrayList<Hotel> items) {
-            super.onPostExecute(items);
+        } else if (formatJson.equals(Config.JSON_HOTEL)) {
             HotelAdapter hotelAdapter =
-                    new HotelAdapter(items, getApplicationContext());
+                    new HotelAdapter(services, getApplicationContext());
             recyclerView.setAdapter(hotelAdapter);
             hotelAdapter.notifyDataSetChanged();
         }
     }
 }
+

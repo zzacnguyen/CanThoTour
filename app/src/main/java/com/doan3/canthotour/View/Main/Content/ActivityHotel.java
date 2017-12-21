@@ -19,7 +19,7 @@ import com.doan3.canthotour.Config;
 import com.doan3.canthotour.Helper.BottomNavigationViewHelper;
 import com.doan3.canthotour.Helper.JsonHelper;
 import com.doan3.canthotour.Interface.OnLoadMoreListener;
-import com.doan3.canthotour.Model.ObjectClass.Hotel;
+import com.doan3.canthotour.Model.ObjectClass.Service;
 import com.doan3.canthotour.R;
 import com.doan3.canthotour.View.Favorite.ActivityFavorite;
 import com.doan3.canthotour.View.Main.MainActivity;
@@ -75,14 +75,14 @@ public class ActivityHotel extends AppCompatActivity {
         });
     }
 
-    private class LoadInfo extends AsyncTask<String, Void, ArrayList<Hotel>> {
+    private class LoadInfo extends AsyncTask<String, Void, ArrayList<Service>> {
         ArrayList<String> arr = new ArrayList<>(), arrayList = new ArrayList<>();
-        ArrayList<Hotel> listHotel = new ArrayList<>();
+        ArrayList<Service> listHotel = new ArrayList<>();
         ListOfHotelAdapter listOfHotelAdapter;
         RecyclerView recyclerView;
 
         @Override
-        protected ArrayList<Hotel> doInBackground(String... strings) {
+        protected ArrayList<Service> doInBackground(String... strings) {
             // parse json vừa get về ra arraylist
 
             try {
@@ -92,16 +92,16 @@ public class ActivityHotel extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            ArrayList<Hotel> list = new ArrayList<>();
+            ArrayList<Service> list = new ArrayList<>();
 
             for (int i = 0; i < arrayList.size(); i += 5) {
-                list.add(new Hotel(Integer.parseInt(arrayList.get(i)), R.drawable.benninhkieu1, arrayList.get(i + 1)));
+                list.add(new Service(Integer.parseInt(arrayList.get(i)), R.drawable.benninhkieu1, arrayList.get(i + 1)));
             }
             return list;
         }
 
         @Override
-        protected void onPostExecute(ArrayList<Hotel> hotels) {
+        protected void onPostExecute(ArrayList<Service> hotels) {
             super.onPostExecute(hotels);
 
             recyclerView = findViewById(R.id.RecyclerView_DanhSachKhachSan);
@@ -146,7 +146,7 @@ public class ActivityHotel extends AppCompatActivity {
                                 }
 
                                 for (int i = 0; i < arrayList.size(); i += 5) {
-                                    listHotel.add(new Hotel(Integer.parseInt
+                                    listHotel.add(new Service(Integer.parseInt
                                             (arrayList.get(i)), R.drawable.benninhkieu1, arrayList.get(i + 1)));
                                 }
                                 listOfHotelAdapter.notifyDataSetChanged();

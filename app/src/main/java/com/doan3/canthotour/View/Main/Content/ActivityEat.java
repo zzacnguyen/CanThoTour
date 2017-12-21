@@ -19,7 +19,7 @@ import com.doan3.canthotour.Config;
 import com.doan3.canthotour.Helper.BottomNavigationViewHelper;
 import com.doan3.canthotour.Helper.JsonHelper;
 import com.doan3.canthotour.Interface.OnLoadMoreListener;
-import com.doan3.canthotour.Model.ObjectClass.Eat;
+import com.doan3.canthotour.Model.ObjectClass.Service;
 import com.doan3.canthotour.R;
 import com.doan3.canthotour.View.Favorite.ActivityFavorite;
 import com.doan3.canthotour.View.Main.MainActivity;
@@ -83,14 +83,14 @@ public class ActivityEat extends AppCompatActivity {
         }
     }
 
-    private class LoadInfo extends AsyncTask<String, Void, ArrayList<Eat>> {
+    private class LoadInfo extends AsyncTask<String, Void, ArrayList<Service>> {
         ArrayList<String> arr = new ArrayList<>(), arrayList = new ArrayList<>();
-        ArrayList<Eat> listEat = new ArrayList<>();
+        ArrayList<Service> listService = new ArrayList<>();
         ListOfEatAdapter listOfEatAdapter;
         RecyclerView recyclerView;
 
         @Override
-        protected ArrayList<Eat> doInBackground(String... strings) {
+        protected ArrayList<Service> doInBackground(String... strings) {
             // parse json vừa get về ra arraylist
 
             try {
@@ -100,17 +100,17 @@ public class ActivityEat extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            ArrayList<Eat> list = new ArrayList<>();
+            ArrayList<Service> list = new ArrayList<>();
 
             for (int i = 0; i < arrayList.size(); i += 4) {
-                list.add(new Eat(Integer.parseInt(arrayList.get(i)), R.drawable.benninhkieu1, arrayList.get(i + 1)));
+                list.add(new Service(Integer.parseInt(arrayList.get(i)), R.drawable.benninhkieu1, arrayList.get(i + 1)));
             }
             return list;
         }
 
         @Override
-        protected void onPostExecute(ArrayList<Eat> eats) {
-            super.onPostExecute(eats);
+        protected void onPostExecute(ArrayList<Service> services) {
+            super.onPostExecute(services);
 
             recyclerView = findViewById(R.id.RecyclerView_DanhSachAnUong);
             recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
@@ -118,28 +118,28 @@ public class ActivityEat extends AppCompatActivity {
             LinearLayoutManager linearLayoutManager =
                     new LinearLayoutManager(ActivityEat.this, LinearLayoutManager.VERTICAL, false);
             recyclerView.setLayoutManager(linearLayoutManager);
-            listOfEatAdapter = new ListOfEatAdapter(recyclerView, eats, getApplicationContext());
+            listOfEatAdapter = new ListOfEatAdapter(recyclerView, services, getApplicationContext());
             recyclerView.setAdapter(listOfEatAdapter);
             listOfEatAdapter.notifyDataSetChanged();
 
-            listEat = eats;
+            listService = services;
             //set load more listener for the RecyclerView adapter
             listOfEatAdapter.setOnLoadMoreListener(new OnLoadMoreListener() {
 
                 @Override
                 public void onLoadMore() {
-                    if (listEat.size() < Integer.parseInt(arr.get(2))) {
-                        listEat.add(null);
+                    if (listService.size() < Integer.parseInt(arr.get(2))) {
+                        listService.add(null);
                         recyclerView.post(new Runnable() {
                             public void run() {
-                                listOfEatAdapter.notifyItemInserted(listEat.size() - 1);
+                                listOfEatAdapter.notifyItemInserted(listService.size() - 1);
                             }
                         });
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                listEat.remove(listEat.size() - 1);
-                                listOfEatAdapter.notifyItemRemoved(listEat.size());
+                                listService.remove(listService.size() - 1);
+                                listOfEatAdapter.notifyItemRemoved(listService.size());
                                 String string = "";
                                 try {
                                     string = new NextPage().execute(arr.get(1)).get();
@@ -155,7 +155,7 @@ public class ActivityEat extends AppCompatActivity {
                                 }
 
                                 for (int i = 0; i < arrayList.size(); i += 4) {
-                                    listEat.add(new Eat(
+                                    listService.add(new Service(
                                             Integer.parseInt(arrayList.get(i)), R.drawable.benninhkieu1, arrayList.get(i + 1)));
                                 }
                                 listOfEatAdapter.notifyDataSetChanged();
