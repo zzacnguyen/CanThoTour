@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@null"
-    android:id="@+id/cardViewDiaDiem">
+    android:id="@+id/cardViewDanhSach">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,28 +14,20 @@
         android:padding="10dp">
 
         <ImageView
-            android:id="@+id/imgHinhDiaDiem"
+            android:id="@+id/imgHinh"
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:src="@drawable/ben_ninh_kieu"
             android:scaleType="centerCrop"/>
 
         <TextView
-            android:id="@+id/txtTenDiaDiem"
+            android:id="@+id/txtTen"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Tên địa điểm"
             android:textSize="14sp"
             android:textColor="#000"
             android:textStyle="bold"/>
-
-        <TextView
-            android:id="@+id/txtDiaChiDD"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Địa chỉ"
-            android:textSize="14sp"
-            android:textColor="#000"/>
 
     </LinearLayout>
 
