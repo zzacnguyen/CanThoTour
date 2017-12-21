@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import com.doan3.canthotour.Adapter.HttpRequestAdapter;
 import com.doan3.canthotour.Config;
 import com.doan3.canthotour.Helper.JsonHelper;
+import com.doan3.canthotour.Model.ObjectClass.ServiceInfo;
 
 import org.json.JSONArray;
 import org.json.JSONException;

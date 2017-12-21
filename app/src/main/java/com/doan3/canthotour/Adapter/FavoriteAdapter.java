@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.doan3.canthotour.Model.Favorite;
+import com.doan3.canthotour.Model.ObjectClass.Favorite;
 import com.doan3.canthotour.R;
 import com.doan3.canthotour.View.Favorite.ActivityFavoriteInfo;
 

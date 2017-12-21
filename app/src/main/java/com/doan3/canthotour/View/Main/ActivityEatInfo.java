@@ -15,7 +15,7 @@ import android.widget.TextView;
 import com.doan3.canthotour.Config;
 import com.doan3.canthotour.Helper.BottomNavigationViewHelper;
 import com.doan3.canthotour.Model.ModelService;
-import com.doan3.canthotour.Model.ServiceInfo;
+import com.doan3.canthotour.Model.ObjectClass.ServiceInfo;
 import com.doan3.canthotour.R;
 import com.doan3.canthotour.View.Favorite.ActivityFavorite;
 import com.doan3.canthotour.View.Notify.ActivityNotify;

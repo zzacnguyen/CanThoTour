@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.doan3.canthotour.Model.Eat;
+import com.doan3.canthotour.Model.ObjectClass.Eat;
 import com.doan3.canthotour.R;
 import com.doan3.canthotour.View.Main.ActivityEatInfo;
 

@@ -10,13 +10,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.doan3.canthotour.Config;
-import com.doan3.canthotour.Model.Hotel;
+import com.doan3.canthotour.Model.ObjectClass.Hotel;
 import com.doan3.canthotour.R;
 import com.doan3.canthotour.View.Main.ActivityHotelInfo;
 
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
 
 /**
  * Created by zzacn on 11/21/2017.

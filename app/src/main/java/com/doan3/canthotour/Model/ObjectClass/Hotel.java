@@ -1,4 +1,4 @@
-package com.doan3.canthotour.Model;
+package com.doan3.canthotour.Model.ObjectClass;
 
 /**
  * Created by zzacn on 11/21/2017.

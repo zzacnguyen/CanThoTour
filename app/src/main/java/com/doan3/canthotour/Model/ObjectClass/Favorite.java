@@ -1,4 +1,4 @@
-package com.doan3.canthotour.Model;
+package com.doan3.canthotour.Model.ObjectClass;
 
 
 public class Favorite {

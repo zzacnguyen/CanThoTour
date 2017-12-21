@@ -19,7 +19,7 @@ import com.doan3.canthotour.Adapter.HttpRequestAdapter;
 import com.doan3.canthotour.Config;
 import com.doan3.canthotour.Helper.BottomNavigationViewHelper;
 import com.doan3.canthotour.Helper.JsonHelper;
-import com.doan3.canthotour.Model.Favorite;
+import com.doan3.canthotour.Model.ObjectClass.Favorite;
 import com.doan3.canthotour.R;
 import com.doan3.canthotour.View.Main.MainActivity;
 import com.doan3.canthotour.View.Notify.ActivityNotify;

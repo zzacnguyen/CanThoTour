@@ -13,7 +13,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.doan3.canthotour.Interface.OnLoadMoreListener;
-import com.doan3.canthotour.Model.Eat;
+import com.doan3.canthotour.Model.ObjectClass.Eat;
 import com.doan3.canthotour.R;
 import com.doan3.canthotour.View.Main.ActivityEatInfo;
 

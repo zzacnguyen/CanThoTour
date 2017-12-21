@@ -2,7 +2,6 @@ package com.doan3.canthotour.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,16 +12,10 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.doan3.canthotour.Config;
-import com.doan3.canthotour.Helper.JsonHelper;
 import com.doan3.canthotour.Interface.OnLoadMoreListener;
-import com.doan3.canthotour.Model.Event;
+import com.doan3.canthotour.Model.ObjectClass.Event;
 import com.doan3.canthotour.R;
 import com.doan3.canthotour.View.Main.ActivityPlaceInfo;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 
