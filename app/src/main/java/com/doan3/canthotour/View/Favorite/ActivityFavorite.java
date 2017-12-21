@@ -36,6 +36,7 @@ public class ActivityFavorite extends AppCompatActivity {
 
     TextView txtTenDD;
     ImageView imgHinhDD;
+    RecyclerView recyclerView;
     private ArrayList<String> id = new ArrayList<>();
 
     @Override
@@ -52,14 +53,25 @@ public class ActivityFavorite extends AppCompatActivity {
         File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
         File file = new File(path, "/dsyeuthich.json");
 
-        if (file.exists()) {
-            load(file);
-            new PostJson(file).execute(Config.URL_HOST + Config.URL_GET_ALL_FAVORITE);
-        } else {
-            load();
-        }
+        recyclerView = findViewById(R.id.RecyclerView_DanhSachYeuThich);
+        recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
+
+        LinearLayoutManager linearLayoutManager =
+                new LinearLayoutManager(ActivityFavorite.this, LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        load(file);
 
         menuBotNavBar();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
+        File file = new File(path, "/dsyeuthich.json");
+        if (file.exists()) {
+            new PostJson(file).execute(Config.URL_HOST + Config.URL_GET_ALL_FAVORITE);
+        }
     }
 
     private void menuBotNavBar() {
@@ -94,29 +106,9 @@ public class ActivityFavorite extends AppCompatActivity {
 
     private void load(File file) {
         ArrayList<Place> places = new ModelPlace().getFavoriteList(file);
-        RecyclerView recyclerView = findViewById(R.id.RecyclerView_DanhSachYeuThich);
-        recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
-
-        LinearLayoutManager linearLayoutManager =
-                new LinearLayoutManager(ActivityFavorite.this, LinearLayoutManager.VERTICAL, false);
-        recyclerView.setLayoutManager(linearLayoutManager);
 
         FavoriteAdapter favoriteAdapter = new FavoriteAdapter(places, getApplicationContext());
         recyclerView.setAdapter(favoriteAdapter);
-    }
-
-    private void load() {
-        ArrayList<Place> places = new ModelPlace().getFavoriteList();
-        RecyclerView recyclerView = findViewById(R.id.RecyclerView_DanhSachYeuThich);
-        recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
-
-        LinearLayoutManager linearLayoutManager =
-                new LinearLayoutManager(ActivityFavorite.this, LinearLayoutManager.VERTICAL, false);
-        recyclerView.setLayoutManager(linearLayoutManager);
-
-        FavoriteAdapter favoriteAdapter = new FavoriteAdapter(places, getApplicationContext());
-        recyclerView.setAdapter(favoriteAdapter);
-        favoriteAdapter.notifyDataSetChanged();
     }
 
     private class PostJson extends AsyncTask<String, Void, Void> {

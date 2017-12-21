@@ -35,9 +35,9 @@ import java.io.File;
 
 public class ActivityPlaceInfo extends AppCompatActivity {
 
-    public static JSONObject object;
     public static String kinhDo;
     public static String viDo;
+    JSONObject object;
     Button btnLuuDiaDiem, btnLanCan, btnChiaSe;
     int ma;
 
@@ -142,8 +142,9 @@ public class ActivityPlaceInfo extends AppCompatActivity {
 
         PlaceInfo placeInfo = new ModelPlace().getPlaceInfo(ma);
         try {
-            object = new JSONObject("{\"dd_iddiadiem\":\"" + placeInfo.getId() +
-                    "\",\"nd_idnguoidung\":\"" + placeInfo.getIdND() + "\"}");
+            object = new JSONObject("{\"dd_iddiadiem\":\"" + placeInfo.getId() + "\"" +
+                    ",\"nd_idnguoidung\":\"" + placeInfo.getIdND() + "\"" +
+                    ",\"dd_tendiadiem\":\"" + placeInfo.getTen() + "\"}");
         } catch (JSONException e) {
             e.printStackTrace();
         }

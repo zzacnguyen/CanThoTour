@@ -74,35 +74,6 @@ public class ModelPlace {
         return places;
     }
 
-    public ArrayList<Place> getFavoriteList() {
-
-        ArrayList<Place> favorites = new ArrayList<>();
-
-        try {
-            String result = new Load().execute(Config.URL_HOST + Config.URL_GET_ALL_FAVORITE).get();
-            JSONArray jsonArray = new JSONArray(result);
-
-            for (int i = 0; i < jsonArray.length(); i++) {
-
-                Place place = new Place();
-                JSONObject jsonObject = jsonArray.getJSONObject(i);
-                ArrayList<String> arrayList = JsonHelper.parseJsonNoId(jsonObject, Config.JSON_FAVORITE);
-                place.setMaDD(Integer.parseInt(arrayList.get(0)));
-
-                String rs = new Load().execute(Config.URL_HOST + Config.URL_GET_ALL_PLACES + "/" + place.getMaDD()).get();
-                JSONArray json = new JSONArray(rs);
-                ArrayList<String> arr = JsonHelper.parseJsonNoId(json.getJSONObject(0), Config.JSON_PLACE);
-                place.setTenDD(arr.get(0));
-                place.setHinhDD(R.drawable.benninhkieu1);
-
-                favorites.add(place);
-            }
-        } catch (JSONException | InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
-        return favorites;
-    }
-
     public ArrayList<Place> getFavoriteList(File file) {
 
         ArrayList<Place> places = new ArrayList<>();
@@ -114,24 +85,23 @@ public class ModelPlace {
                 // parse json vừa get về bỏ id để đồng bộ với file json trong máy
                 ArrayList<String> arrJsonGet =
                         JsonHelper.parseJsonNoId(new JSONArray(result), Config.JSON_FAVORITE);
-                for (int i = 0; i < arrJsonGet.size(); i += 2) {
-                    jsonGet.put(new JSONObject("{\"dd_iddiadiem\":\""
-                            + arrJsonGet.get(i) + "\",\"nd_idnguoidung\":\"" + arrJsonGet.get(i + 1) + "\"}"));
+                for (int i = 0; i < arrJsonGet.size(); i += 3) {
+                    jsonGet.put(new JSONObject("{\"dd_iddiadiem\":\"" + arrJsonGet.get(i) + "\"" +
+                            ",\"nd_idnguoidung\":\"" + arrJsonGet.get(i + 1) + "\"" +
+                            ",\"dd_tendiadiem\":\"" + arrJsonGet.get(i + 2) + "\"}"));
                 }
                 // merge 2 json
                 jsonArray = JsonHelper.mergeJson(jsonGet, new JSONArray(JsonHelper.readJson(file)));
+            } else {
+                jsonArray = new JSONArray(result);
             }
-            for (int i = 0; i < jsonArray.length(); i++) {
 
+            for (int i = 0; i < jsonArray.length(); i++) {
                 Place place = new Place();
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 ArrayList<String> arrayList = JsonHelper.parseJsonNoId(jsonObject, Config.JSON_FAVORITE);
                 place.setMaDD(Integer.parseInt(arrayList.get(0)));
-
-                String rs = new Load().execute(Config.URL_HOST + Config.URL_GET_ALL_PLACES + "/" + place.getMaDD()).get();
-                JSONArray json = new JSONArray(rs);
-                ArrayList<String> arr = JsonHelper.parseJsonNoId(json.getJSONObject(0), Config.JSON_PLACE);
-                place.setTenDD(arr.get(0));
+                place.setTenDD(arrayList.get(2));
                 place.setHinhDD(R.drawable.benninhkieu1);
 
                 places.add(place);
