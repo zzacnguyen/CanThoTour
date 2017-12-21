@@ -5,14 +5,24 @@ package com.doan3.canthotour.Model;
  */
 
 public class NearLocation {
+    private int maDiaDiemLC;
     private String tenDiaDiemLC;
     private String khoangCachLC;
     private int hinhDiaDiemLC;
 
-    public NearLocation(String tenDiaDiemLC, String khoangCachLC, int hinhDiaDiemLC) {
+    public NearLocation(int maDiaDiemLC, String tenDiaDiemLC, String khoangCachLC, int hinhDiaDiemLC) {
+        this.maDiaDiemLC = maDiaDiemLC;
         this.tenDiaDiemLC = tenDiaDiemLC;
         this.khoangCachLC = khoangCachLC;
         this.hinhDiaDiemLC = hinhDiaDiemLC;
+    }
+
+    public int getMaDiaDiemLC() {
+        return maDiaDiemLC;
+    }
+
+    public void setMaDiaDiemLC(int maDiaDiemLC) {
+        this.maDiaDiemLC = maDiaDiemLC;
     }
 
     public String getTenDiaDiemLC() {

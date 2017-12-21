@@ -5,19 +5,22 @@ package com.doan3.canthotour.Model;
  */
 
 public class Hotel {
+    private int maKS;
     private int hinhKS;
     private String tenKS;
-    private String diaChiKS;
 
-    public Hotel(int hinhKS, String tenKS) {
+    public Hotel(int maKS, int hinhKS, String tenKS) {
+        this.maKS = maKS;
         this.hinhKS = hinhKS;
         this.tenKS = tenKS;
     }
 
-    public Hotel(int hinhKS, String tenKS, String diaChiKS) {
-        this.hinhKS = hinhKS;
-        this.tenKS = tenKS;
-        this.diaChiKS = diaChiKS;
+    public int getMaKS() {
+        return maKS;
+    }
+
+    public void setMaKS(int maKS) {
+        this.maKS = maKS;
     }
 
     public int getHinhKS() {
@@ -34,13 +37,5 @@ public class Hotel {
 
     public void setTenKS(String tenKS) {
         this.tenKS = tenKS;
-    }
-
-    public String getDiaChiKS() {
-        return diaChiKS;
-    }
-
-    public void setDiaChiKS(String diaChiKS) {
-        this.diaChiKS = diaChiKS;
     }
 }

@@ -5,19 +5,26 @@ package com.doan3.canthotour.Model;
  */
 
 public class Place {
+    private int maDD;
     private int hinhDD;
     private String tenDD;
-    private String diaChiDD;
 
-    public Place(int hinhDD, String tenDD) {
+    public Place() {
+
+    }
+
+    public Place(int maDD, int hinhDD, String tenDD) {
+        this.maDD = maDD;
         this.hinhDD = hinhDD;
         this.tenDD = tenDD;
     }
 
-    public Place(int hinhDD, String tenDD, String diaChiDD) {
-        this.hinhDD = hinhDD;
-        this.tenDD = tenDD;
-        this.diaChiDD = diaChiDD;
+    public int getMaDD() {
+        return maDD;
+    }
+
+    public void setMaDD(int maDD) {
+        this.maDD = maDD;
     }
 
     public int getHinhDD() {
@@ -35,8 +42,4 @@ public class Place {
     public void setTenDD(String tenDD) {
         this.tenDD = tenDD;
     }
-
-    public String getDiaChiDD() { return diaChiDD; }
-
-    public void setMoTaDD(String moTaDD) { this.diaChiDD = diaChiDD; }
 }

@@ -5,14 +5,24 @@ package com.doan3.canthotour.Model;
  */
 
 public class Event {
+    private int maSk;
     private String tenSk;
     private String ngaySk;
     private int hinhSk;
 
-    public Event(String tenSk, String ngaySk, int hinhSk) {
+    public Event(int maSk, String tenSk, String ngaySk, int hinhSk) {
+        this.maSk = maSk;
         this.tenSk = tenSk;
         this.ngaySk = ngaySk;
         this.hinhSk = hinhSk;
+    }
+
+    public int getMaSk() {
+        return maSk;
+    }
+
+    public void setMaSk(int maSk) {
+        this.maSk = maSk;
     }
 
     public String getTenSk() {

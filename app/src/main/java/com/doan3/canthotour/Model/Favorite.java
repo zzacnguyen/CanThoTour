@@ -2,12 +2,22 @@ package com.doan3.canthotour.Model;
 
 
 public class Favorite {
+    private int maYT;
     private int hinhYT;
     private String tenYT;
 
-    public Favorite(int hinhYT, String tenYT) {
+    public Favorite(int maYT, int hinhYT, String tenYT) {
+        this.maYT = maYT;
         this.hinhYT = hinhYT;
         this.tenYT = tenYT;
+    }
+
+    public int getMaYT() {
+        return maYT;
+    }
+
+    public void setMaYT(int maYT) {
+        this.maYT = maYT;
     }
 
     public int getHinhYT() {
