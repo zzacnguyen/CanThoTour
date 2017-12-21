@@ -28,6 +28,19 @@ public class JsonHelper {
         return stringJson;
     }
 
+    public static ArrayList<String> parseJson(JSONObject json, ArrayList<String> arr) {
+        ArrayList<String> stringJson = new ArrayList<>();
+        try {
+            stringJson.add(json.getInt("id") + "");
+            for (int j = 0; j < arr.size(); j++) {
+                stringJson.add(json.getString(arr.get(j)));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return stringJson;
+    }
+
     public static ArrayList<String> parseJsonNoId(JSONArray json, ArrayList<String> arr) {
         ArrayList<String> stringJson = new ArrayList<>();
         try {
