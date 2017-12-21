@@ -1,9 +1,7 @@
 package com.doan3.canthotour.Adapter;
 
 import android.os.Environment;
-
 import org.json.JSONObject;
-
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -16,10 +14,6 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-
-/**
- * Created by zzacn on 11/14/2017.
- */
 
 public class HttpRequestAdapter {
     private static HttpURLConnection urlConnection;

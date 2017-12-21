@@ -10,22 +10,20 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.doan3.canthotour.Config;
 import com.doan3.canthotour.Model.Entertainment;
 import com.doan3.canthotour.R;
 import com.doan3.canthotour.View.Main.ActivityEntertainmentInfo;
 
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
 
 
 public class EntertainmentAdapter extends RecyclerView.Adapter<EntertainmentAdapter.ViewHolder> {
-    ArrayList<Entertainment> entertain;
+    ArrayList<Entertainment> entertainments;
     Context context;
     ArrayList<String> arr = new ArrayList<>();
 
     public EntertainmentAdapter(ArrayList<Entertainment> entertain, Context context) {
-        this.entertain = entertain;
+        this.entertainments = entertain;
         this.context = context;
     }
 
@@ -37,21 +35,17 @@ public class EntertainmentAdapter extends RecyclerView.Adapter<EntertainmentAdap
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, final int position) { //Mỗi 1 lần chạy hàm này tương ứng với load 1 item trong recycler view
-        holder.txtTenDD.setText(entertain.get(position).getTenVC());
-        holder.imgHinhDD.setImageResource(entertain.get(position).getHinhVC());
-
-        try {
-            arr = new EatAdapter.GetId().execute(Config.URL_HOST + Config.URL_GET_ALL_ID_ENTERTAINMENT).get();
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
+    public void onBindViewHolder(ViewHolder holder, int position) { //Mỗi 1 lần chạy hàm này tương ứng với load 1 item trong recycler view
+        Entertainment entertainment = entertainments.get(position);
+        holder.txtTen.setText(entertainment.getTenVC());
+        holder.imgHinh.setImageResource(entertainment.getHinhVC());
+        holder.cardView.setTag(entertainment.getMaVC());
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {  //Bắt sự kiện click vào 1 item cardview
             @Override
             public void onClick(View view) {
                 Intent iEntertainmentInfo = new Intent(context, ActivityEntertainmentInfo.class);
-                iEntertainmentInfo.putExtra("masp", arr.get(position));
+                iEntertainmentInfo.putExtra("masp", (int) view.getTag());
                 iEntertainmentInfo.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(iEntertainmentInfo);
             }
@@ -60,19 +54,19 @@ public class EntertainmentAdapter extends RecyclerView.Adapter<EntertainmentAdap
 
     @Override
     public int getItemCount() {
-        return entertain.size();
+        return entertainments.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder { //ViewHolder chạy thứ 2, phần này giúp cho recycler view ko bị load lại dữ liệu khi thực hiện thao tác vuốt màn hình
-        TextView txtTenDD;
-        ImageView imgHinhDD;
+        TextView txtTen;
+        ImageView imgHinh;
         CardView cardView;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
-            txtTenDD = itemView.findViewById(R.id.txtTenDD);
-            imgHinhDD = itemView.findViewById(R.id.imgHinhDD);
+            txtTen = itemView.findViewById(R.id.txtTen);
+            imgHinh = itemView.findViewById(R.id.imgHinh);
             cardView = itemView.findViewById(R.id.cardView);
         }
     }

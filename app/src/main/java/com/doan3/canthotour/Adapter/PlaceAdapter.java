@@ -10,22 +10,20 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.doan3.canthotour.Config;
 import com.doan3.canthotour.Model.Place;
 import com.doan3.canthotour.R;
 import com.doan3.canthotour.View.Main.ActivityPlaceInfo;
 
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
 
 
 public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> {
-    ArrayList<Place> place;
+    ArrayList<Place> places;
     Context context;
     ArrayList<String> arr = new ArrayList<>();
 
     public PlaceAdapter(ArrayList<Place> place, Context context) {
-        this.place = place;
+        this.places = place;
         this.context = context;
     }
 
@@ -37,21 +35,17 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> 
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, final int position) { //Mỗi 1 lần chạy hàm này tương ứng với load 1 item trong recycler view
-        holder.txtTenDD.setText(place.get(position).getTenDD());
-        holder.imgHinhDD.setImageResource(place.get(position).getHinhDD());
-
-        try {
-            arr = new EatAdapter.GetId().execute(Config.URL_HOST + Config.URL_GET_ALL_ID_PLACE).get();
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
+    public void onBindViewHolder(ViewHolder holder, int position) { //Mỗi 1 lần chạy hàm này tương ứng với load 1 item trong recycler view
+        Place place = places.get(position);
+        holder.txtTen.setText(place.getTenDD());
+        holder.imgHinh.setImageResource(place.getHinhDD());
+        holder.cardView.setTag(place.getMaDD());
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {  //Bắt sự kiện click vào 1 item cardview
             @Override
             public void onClick(View view) {
                 Intent iPlaceInfo = new Intent(context, ActivityPlaceInfo.class);
-                iPlaceInfo.putExtra("masp", arr.get(position));
+                iPlaceInfo.putExtra("masp", (int) view.getTag());
                 iPlaceInfo.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(iPlaceInfo);
             }
@@ -60,19 +54,19 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> 
 
     @Override
     public int getItemCount() {
-        return place == null ? 0 : place.size();
+        return places.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder { //ViewHolder chạy thứ 2, phần này giúp cho recycler view ko bị load lại dữ liệu khi thực hiện thao tác vuốt màn hình
-        TextView txtTenDD;
-        ImageView imgHinhDD;
+        TextView txtTen;
+        ImageView imgHinh;
         CardView cardView;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
-            txtTenDD = itemView.findViewById(R.id.txtTenDD);
-            imgHinhDD = itemView.findViewById(R.id.imgHinhDD);
+            txtTen = itemView.findViewById(R.id.txtTen);
+            imgHinh = itemView.findViewById(R.id.imgHinh);
             cardView = itemView.findViewById(R.id.cardView);
         }
     }

@@ -12,30 +12,28 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.doan3.canthotour.Config;
 import com.doan3.canthotour.Interface.OnLoadMoreListener;
 import com.doan3.canthotour.Model.Hotel;
 import com.doan3.canthotour.R;
 import com.doan3.canthotour.View.Main.ActivityHotelInfo;
 
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
 
 
 public class ListOfHotelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final int VIEW_TYPE_ITEM = 0;
     private final int VIEW_TYPE_LOADING = 1;
+    ArrayList<String> arr = new ArrayList<>();
     private OnLoadMoreListener onLoadMoreListener;
     private boolean isLoading;
     private Context context;
-    private ArrayList<Hotel> hotel;
+    private ArrayList<Hotel> hotels;
     private int visibleThreshold = 5;
     private int lastVisibleItem, totalItemCount;
-    ArrayList<String> arr = new ArrayList<>();
 
     public ListOfHotelAdapter(RecyclerView recyclerView, ArrayList<Hotel> hotel, Context context) {
         this.context = context;
-        this.hotel = hotel;
+        this.hotels = hotel;
 
         final LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -59,7 +57,7 @@ public class ListOfHotelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public int getItemViewType(int position) {
-        return hotel.get(position) == null ? VIEW_TYPE_LOADING : VIEW_TYPE_ITEM;
+        return hotels.get(position) == null ? VIEW_TYPE_LOADING : VIEW_TYPE_ITEM;
     }
 
     @Override
@@ -75,25 +73,19 @@ public class ListOfHotelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof ViewHolder) {
-            Hotel hotels = hotel.get(position);
+            Hotel hotel = hotels.get(position);
             ViewHolder viewHolder = (ViewHolder) holder;
-            viewHolder.txtTenDD.setText(hotels.getTenKS());
-            viewHolder.txtDiaChiDD.setText(hotels.getDiaChiKS());
-            viewHolder.imgHinhDD.setImageResource(hotels.getHinhKS());
-
-            try {
-                arr = new EatAdapter.GetId().execute(Config.URL_HOST + Config.URL_GET_ALL_ID_HOTEL).get();
-            } catch (InterruptedException | ExecutionException e) {
-                e.printStackTrace();
-            }
+            viewHolder.txtTen.setText(hotel.getTenKS());
+            viewHolder.imgHinh.setImageResource(hotel.getHinhKS());
+            viewHolder.cardView.setTag(hotel.getMaKS());
 
             viewHolder.cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent iHotelInfo = new Intent(context, ActivityHotelInfo.class);
-                    iHotelInfo.putExtra("masp", arr.get(position));
+                    iHotelInfo.putExtra("masp", (int) view.getTag());
                     iHotelInfo.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(iHotelInfo);
                 }
@@ -106,7 +98,7 @@ public class ListOfHotelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public int getItemCount() {
-        return hotel.size();
+        return hotels.size();
     }
 
     public void setLoaded() {
@@ -119,23 +111,22 @@ public class ListOfHotelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         public LoadingViewHolder(View view) {
             super(view);
-            progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
+            progressBar = view.findViewById(R.id.progressBar);
         }
     }
 
     //"Normal item" Viewholder
     private class ViewHolder extends RecyclerView.ViewHolder { //ViewHolder chạy thứ 2, phần này giúp cho recycler view ko bị load lại dữ liệu khi thực hiện thao tác vuốt màn hình
-        TextView txtTenDD, txtDiaChiDD;
-        ImageView imgHinhDD;
+        TextView txtTen;
+        ImageView imgHinh;
         CardView cardView;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
-            txtTenDD = itemView.findViewById(R.id.txtTenDiaDiem);
-            imgHinhDD = itemView.findViewById(R.id.imgHinhDiaDiem);
-            txtDiaChiDD = itemView.findViewById(R.id.txtDiaChiDD);
-            cardView = (CardView) itemView.findViewById(R.id.cardViewDiaDiem);
+            txtTen = itemView.findViewById(R.id.txtTen);
+            imgHinh = itemView.findViewById(R.id.imgHinh);
+            cardView = itemView.findViewById(R.id.cardViewDanhSach);
 
         }
     }

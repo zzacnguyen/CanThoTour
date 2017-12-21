@@ -23,12 +23,12 @@ import java.util.concurrent.ExecutionException;
  */
 
 public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.ViewHolder> {
-    ArrayList<Hotel> hotel;
+    ArrayList<Hotel> hotels;
     Context context;
     ArrayList<String> arr = new ArrayList<>();
 
     public HotelAdapter(ArrayList<Hotel> hotel, Context context) {
-        this.hotel = hotel;
+        this.hotels = hotel;
         this.context = context;
     }
 
@@ -40,21 +40,17 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.ViewHolder> 
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, final int position) { //Mỗi 1 lần chạy hàm này tương ứng với load 1 item trong recycler view
-        holder.txtTenDD.setText(hotel.get(position).getTenKS());
-        holder.imgHinhDD.setImageResource(hotel.get(position).getHinhKS());
-
-        try {
-            arr = new EatAdapter.GetId().execute(Config.URL_HOST + Config.URL_GET_ALL_ID_HOTEL).get();
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
+    public void onBindViewHolder(ViewHolder holder, int position) { //Mỗi 1 lần chạy hàm này tương ứng với load 1 item trong recycler view
+        Hotel hotel = hotels.get(position);
+        holder.txtTen.setText(hotel.getTenKS());
+        holder.imgHinh.setImageResource(hotel.getHinhKS());
+        holder.cardView.setTag(hotel.getMaKS());
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {  //Bắt sự kiện click vào 1 item cardview
             @Override
             public void onClick(View view) {
                 Intent iHotelInfo = new Intent(context, ActivityHotelInfo.class);
-                iHotelInfo.putExtra("masp", arr.get(position));
+                iHotelInfo.putExtra("masp", (int) view.getTag());
                 iHotelInfo.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(iHotelInfo);
             }
@@ -63,19 +59,19 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.ViewHolder> 
 
     @Override
     public int getItemCount() {
-        return hotel.size();
+        return hotels.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder { //ViewHolder chạy thứ 2, phần này giúp cho recycler view ko bị load lại dữ liệu khi thực hiện thao tác vuốt màn hình
-        TextView txtTenDD;
-        ImageView imgHinhDD;
+        TextView txtTen;
+        ImageView imgHinh;
         CardView cardView;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
-            txtTenDD = itemView.findViewById(R.id.txtTenDD);
-            imgHinhDD = itemView.findViewById(R.id.imgHinhDD);
+            txtTen = itemView.findViewById(R.id.txtTen);
+            imgHinh = itemView.findViewById(R.id.imgHinh);
             cardView = itemView.findViewById(R.id.cardView);
         }
     }

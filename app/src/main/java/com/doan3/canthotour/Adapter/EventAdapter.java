@@ -25,7 +25,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
 
 
 public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -81,25 +80,20 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof ViewHolder) {
             Event event = events.get(position);
             ViewHolder viewHolder = (ViewHolder) holder;
             viewHolder.txtTenSk.setText(event.getTenSk());
             viewHolder.txtNgaySk.setText(event.getNgaySk());
             viewHolder.imgHinhSk.setImageResource(event.getHinhSk());
-
-            try {
-                arr = new GetId().execute(Config.URL_HOST + Config.URL_GET_ALL_EVENTS).get();
-            } catch (InterruptedException | ExecutionException e) {
-                e.printStackTrace();
-            }
+            viewHolder.cardView.setTag(event.getMaSk());
 
             viewHolder.cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent iEventInfo = new Intent(context, ActivityPlaceInfo.class);
-                    iEventInfo.putExtra("masp", arr.get(position));
+                    iEventInfo.putExtra("masp", (int) view.getTag());
                     iEventInfo.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(iEventInfo);
                 }
@@ -143,23 +137,6 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             imgHinhSk = itemView.findViewById(R.id.imageViewSuKien);
             txtNgaySk = itemView.findViewById(R.id.textViewNgaySk);
             cardView = itemView.findViewById(R.id.cardViewSuKien);
-        }
-    }
-
-    private class GetId extends AsyncTask<String, Void, ArrayList<String>> {
-        @Override
-        protected ArrayList<String> doInBackground(String... strings) {
-            ArrayList<String> arr, array = new ArrayList<>(), arrayList = new ArrayList<>();
-            try {
-                arr = JsonHelper.parseJsonNoId(new JSONObject(HttpRequestAdapter.httpGet(strings[0])), Config.JSON_LOAD);
-                array = JsonHelper.parseJson(new JSONArray(arr.get(0)), Config.JSON_EVENT);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            for (int i = 4; i < array.size(); i += 6) {
-                arrayList.add(array.get(i));
-            }
-            return arrayList;
         }
     }
 }

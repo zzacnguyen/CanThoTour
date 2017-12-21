@@ -12,30 +12,28 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.doan3.canthotour.Config;
 import com.doan3.canthotour.Interface.OnLoadMoreListener;
 import com.doan3.canthotour.Model.Eat;
 import com.doan3.canthotour.R;
 import com.doan3.canthotour.View.Main.ActivityEatInfo;
 
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
 
 
 public class ListOfEatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final int VIEW_TYPE_ITEM = 0;
     private final int VIEW_TYPE_LOADING = 1;
+    ArrayList<String> arr = new ArrayList<>();
     private OnLoadMoreListener onLoadMoreListener;
     private boolean isLoading;
     private Context context;
-    private ArrayList<Eat> eat;
+    private ArrayList<Eat> eats;
     private int visibleThreshold = 5;
     private int lastVisibleItem, totalItemCount;
-    ArrayList<String> arr = new ArrayList<>();
 
     public ListOfEatAdapter(RecyclerView recyclerView, ArrayList<Eat> eat, Context context) {
         this.context = context;
-        this.eat = eat;
+        this.eats = eat;
 
         final LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -59,7 +57,7 @@ public class ListOfEatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     @Override
     public int getItemViewType(int position) {
-        return eat.get(position) == null ? VIEW_TYPE_LOADING : VIEW_TYPE_ITEM;
+        return eats.get(position) == null ? VIEW_TYPE_LOADING : VIEW_TYPE_ITEM;
     }
 
     @Override
@@ -75,25 +73,19 @@ public class ListOfEatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof ViewHolder) {
-            Eat eats = eat.get(position);
+            Eat eat = eats.get(position);
             ViewHolder viewHolder = (ViewHolder) holder;
-            viewHolder.txtTenDD.setText(eats.getTenAU());
-            viewHolder.txtDiaChiDD.setText(eats.getDiaChiAU());
-            viewHolder.imgHinhDD.setImageResource(eats.getHinhAU());
-
-            try {
-                arr = new EatAdapter.GetId().execute(Config.URL_HOST + Config.URL_GET_ALL_ID_EAT).get();
-            } catch (InterruptedException | ExecutionException e) {
-                e.printStackTrace();
-            }
+            viewHolder.txtTen.setText(eat.getTenAU());
+            viewHolder.imgHinh.setImageResource(eat.getHinhAU());
+            viewHolder.cardView.setTag(eat.getMaAU());
 
             viewHolder.cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent iEatInfo = new Intent(context, ActivityEatInfo.class);
-                    iEatInfo.putExtra("masp", arr.get(position));
+                    iEatInfo.putExtra("masp", (int) view.getTag());
                     iEatInfo.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(iEatInfo);
                 }
@@ -106,7 +98,7 @@ public class ListOfEatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     @Override
     public int getItemCount() {
-        return eat.size();
+        return eats.size();
     }
 
     public void setLoaded() {
@@ -119,23 +111,22 @@ public class ListOfEatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
         public LoadingViewHolder(View view) {
             super(view);
-            progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
+            progressBar = view.findViewById(R.id.progressBar);
         }
     }
 
     //"Normal item" Viewholder
     private class ViewHolder extends RecyclerView.ViewHolder { //ViewHolder chạy thứ 2, phần này giúp cho recycler view ko bị load lại dữ liệu khi thực hiện thao tác vuốt màn hình
-        TextView txtTenDD, txtDiaChiDD;
-        ImageView imgHinhDD;
+        TextView txtTen;
+        ImageView imgHinh;
         CardView cardView;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
-            txtTenDD = itemView.findViewById(R.id.txtTenDiaDiem);
-            imgHinhDD = itemView.findViewById(R.id.imgHinhDiaDiem);
-            txtDiaChiDD = itemView.findViewById(R.id.txtDiaChiDD);
-            cardView = (CardView) itemView.findViewById(R.id.cardViewDiaDiem);
+            txtTen = itemView.findViewById(R.id.txtTen);
+            imgHinh = itemView.findViewById(R.id.imgHinh);
+            cardView = itemView.findViewById(R.id.cardViewDanhSach);
 
         }
     }

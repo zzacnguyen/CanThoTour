@@ -12,30 +12,28 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.doan3.canthotour.Config;
 import com.doan3.canthotour.Interface.OnLoadMoreListener;
 import com.doan3.canthotour.Model.Place;
 import com.doan3.canthotour.R;
 import com.doan3.canthotour.View.Main.ActivityPlaceInfo;
 
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
 
 
 public class ListOfPlaceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final int VIEW_TYPE_ITEM = 0;
     private final int VIEW_TYPE_LOADING = 1;
+    ArrayList<String> arr = new ArrayList<>();
     private OnLoadMoreListener onLoadMoreListener;
     private boolean isLoading;
     private Context context;
-    private ArrayList<Place> place;
+    private ArrayList<Place> places;
     private int visibleThreshold = 5;
     private int lastVisibleItem, totalItemCount;
-    ArrayList<String> arr = new ArrayList<>();
 
     public ListOfPlaceAdapter(RecyclerView recyclerView, ArrayList<Place> place, Context context) {
         this.context = context;
-        this.place = place;
+        this.places = place;
 
         final LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -59,7 +57,7 @@ public class ListOfPlaceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public int getItemViewType(int position) {
-        return place.get(position) == null ? VIEW_TYPE_LOADING : VIEW_TYPE_ITEM;
+        return places.get(position) == null ? VIEW_TYPE_LOADING : VIEW_TYPE_ITEM;
     }
 
     @Override
@@ -75,25 +73,19 @@ public class ListOfPlaceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof ViewHolder) {
-            Place places = place.get(position);
+            Place place = places.get(position);
             ViewHolder viewHolder = (ViewHolder) holder;
-            viewHolder.txtTenDD.setText(places.getTenDD());
-            viewHolder.txtDiaChiDD.setText(places.getDiaChiDD());
-            viewHolder.imgHinhDD.setImageResource(places.getHinhDD());
-
-            try {
-                arr = new EatAdapter.GetId().execute(Config.URL_HOST + Config.URL_GET_ALL_ID_PLACE).get();
-            } catch (InterruptedException | ExecutionException e) {
-                e.printStackTrace();
-            }
+            viewHolder.txtTen.setText(place.getTenDD());
+            viewHolder.imgHinh.setImageResource(place.getHinhDD());
+            viewHolder.cardView.setTag(place.getMaDD());
 
             viewHolder.cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent iPlaceInfo = new Intent(context, ActivityPlaceInfo.class);
-                    iPlaceInfo.putExtra("masp", arr.get(position));
+                    iPlaceInfo.putExtra("masp", (int) view.getTag());
                     iPlaceInfo.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(iPlaceInfo);
                 }
@@ -106,7 +98,7 @@ public class ListOfPlaceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public int getItemCount() {
-        return place.size();
+        return places.size();
     }
 
     public void setLoaded() {
@@ -119,23 +111,22 @@ public class ListOfPlaceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         public LoadingViewHolder(View view) {
             super(view);
-            progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
+            progressBar = view.findViewById(R.id.progressBar);
         }
     }
 
     //"Normal item" Viewholder
     private class ViewHolder extends RecyclerView.ViewHolder { //ViewHolder chạy thứ 2, phần này giúp cho recycler view ko bị load lại dữ liệu khi thực hiện thao tác vuốt màn hình
-        TextView txtTenDD, txtDiaChiDD;
-        ImageView imgHinhDD;
+        TextView txtTen;
+        ImageView imgHinh;
         CardView cardView;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
-            txtTenDD = itemView.findViewById(R.id.txtTenDiaDiem);
-            imgHinhDD = itemView.findViewById(R.id.imgHinhDiaDiem);
-            txtDiaChiDD = itemView.findViewById(R.id.txtDiaChiDD);
-            cardView = (CardView) itemView.findViewById(R.id.cardViewDiaDiem);
+            txtTen = itemView.findViewById(R.id.txtTen);
+            imgHinh = itemView.findViewById(R.id.imgHinh);
+            cardView = itemView.findViewById(R.id.cardViewDanhSach);
 
         }
     }
