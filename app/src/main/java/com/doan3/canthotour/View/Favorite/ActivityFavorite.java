@@ -19,7 +19,8 @@ import com.doan3.canthotour.Adapter.HttpRequestAdapter;
 import com.doan3.canthotour.Config;
 import com.doan3.canthotour.Helper.BottomNavigationViewHelper;
 import com.doan3.canthotour.Helper.JsonHelper;
-import com.doan3.canthotour.Model.ObjectClass.Favorite;
+import com.doan3.canthotour.Model.ModelPlace;
+import com.doan3.canthotour.Model.ObjectClass.Place;
 import com.doan3.canthotour.R;
 import com.doan3.canthotour.View.Main.MainActivity;
 import com.doan3.canthotour.View.Notify.ActivityNotify;
@@ -27,7 +28,6 @@ import com.doan3.canthotour.View.Personal.ActivityPersonal;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -51,14 +51,13 @@ public class ActivityFavorite extends AppCompatActivity {
 
         File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
         File file = new File(path, "/dsyeuthich.json");
+
         if (file.exists()) {
-            new MergeJsonAndGetId(file).execute(Config.URL_HOST + Config.URL_GET_ALL_FAVORITE);
+            load(file);
             new PostJson(file).execute(Config.URL_HOST + Config.URL_GET_ALL_FAVORITE);
         } else {
-            new GetId().execute(Config.URL_HOST + Config.URL_GET_ALL_FAVORITE);
+            load();
         }
-
-        new Load().execute();
 
         menuBotNavBar();
     }
@@ -93,93 +92,31 @@ public class ActivityFavorite extends AppCompatActivity {
         });
     }
 
-    private class MergeJsonAndGetId extends AsyncTask<String, Void, Void> {
-        File file;
+    private void load(File file) {
+        ArrayList<Place> places = new ModelPlace().getFavoriteList(file);
+        RecyclerView recyclerView = findViewById(R.id.RecyclerView_DanhSachYeuThich);
+        recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
 
-        private MergeJsonAndGetId(File file) {
-            this.file = file;
-        }
+        LinearLayoutManager linearLayoutManager =
+                new LinearLayoutManager(ActivityFavorite.this, LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(linearLayoutManager);
 
-        @Override
-        protected Void doInBackground(String... strings) {
-            try {
-                JSONArray jsonArray, jsonGet = new JSONArray();
-                // parse json vừa get về bỏ id để đồng bộ với file json trong máy
-                ArrayList<String> arrJsonGet =
-                        JsonHelper.parseJsonNoId(new JSONArray(HttpRequestAdapter.httpGet(strings[0])), Config.JSON_FAVORITE);
-                for (int i = 0; i < arrJsonGet.size(); i += 2) {
-                    jsonGet.put(new JSONObject("{\"dd_iddiadiem\":\""
-                            + arrJsonGet.get(i) + "\",\"nd_idnguoidung\":\"" + arrJsonGet.get(i + 1) + "\"}"));
-                }
-
-                // merge 2 json
-                jsonArray = JsonHelper.mergeJson(jsonGet, new JSONArray(JsonHelper.readJson(file)));
-                // parse json ra arraylist
-                ArrayList<String> arrayList = JsonHelper.parseJsonNoId(jsonArray, Config.JSON_FAVORITE);
-
-                // thêm id địa danh vào biến id
-                for (int i = 0; i < arrayList.size(); i += 2) {
-                    id.add(arrayList.get(i));
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
+        FavoriteAdapter favoriteAdapter = new FavoriteAdapter(places, getApplicationContext());
+        recyclerView.setAdapter(favoriteAdapter);
     }
 
-    private class GetId extends AsyncTask<String, Void, Void> {
+    private void load() {
+        ArrayList<Place> places = new ModelPlace().getFavoriteList();
+        RecyclerView recyclerView = findViewById(R.id.RecyclerView_DanhSachYeuThich);
+        recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
 
-        @Override
-        protected Void doInBackground(String... strings) {
-            try {
-                // parse json ra arraylist
-                ArrayList<String> arrayList = JsonHelper.parseJsonNoId(
-                        new JSONArray(HttpRequestAdapter.httpGet(strings[0])), Config.JSON_FAVORITE);
+        LinearLayoutManager linearLayoutManager =
+                new LinearLayoutManager(ActivityFavorite.this, LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(linearLayoutManager);
 
-                // thêm id địa danh vào biến id
-                for (int i = 0; i < arrayList.size(); i += 2) {
-                    id.add(arrayList.get(i));
-                }
-            } catch (JSONException ex) {
-                ex.printStackTrace();
-            }
-            return null;
-        }
-    }
-
-    private class Load extends AsyncTask<Void, Void, ArrayList<Favorite>> {
-        @Override
-        protected ArrayList<Favorite> doInBackground(Void... voids) {
-            ArrayList<Favorite> arrIdPlace = new ArrayList<>();
-            for (int i = 0; i < id.size(); i++) {
-                try {
-                    String get = HttpRequestAdapter.httpGet(Config.URL_HOST + Config.URL_GET_ALL_PLACES + "/" + id.get(i));
-                    ArrayList<String> arrayList = JsonHelper.parseJson(new JSONArray(get), Config.JSON_PLACE);
-                    for (int j = 0; j < arrayList.size(); j += 8) {
-                        arrIdPlace.add(new Favorite(
-                                Integer.parseInt(arrayList.get(j)),R.drawable.benninhkieu1, arrayList.get(j+1)));
-                    }
-                } catch (JSONException ex) {
-                    ex.printStackTrace();
-                }
-            }
-            return arrIdPlace;
-        }
-
-        @Override
-        protected void onPostExecute(ArrayList<Favorite> favorites) {
-            super.onPostExecute(favorites);
-            RecyclerView recyclerView = findViewById(R.id.RecyclerView_DanhSachYeuThich);
-            recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
-
-            LinearLayoutManager linearLayoutManager =
-                    new LinearLayoutManager(ActivityFavorite.this, LinearLayoutManager.VERTICAL, false);
-            recyclerView.setLayoutManager(linearLayoutManager);
-
-            FavoriteAdapter favoriteAdapter = new FavoriteAdapter(favorites, getApplicationContext());
-            recyclerView.setAdapter(favoriteAdapter);
-        }
+        FavoriteAdapter favoriteAdapter = new FavoriteAdapter(places, getApplicationContext());
+        recyclerView.setAdapter(favoriteAdapter);
+        favoriteAdapter.notifyDataSetChanged();
     }
 
     private class PostJson extends AsyncTask<String, Void, Void> {

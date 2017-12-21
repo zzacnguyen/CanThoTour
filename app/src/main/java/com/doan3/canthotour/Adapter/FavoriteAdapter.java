@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.doan3.canthotour.Model.ObjectClass.Favorite;
+import com.doan3.canthotour.Model.ObjectClass.Place;
 import com.doan3.canthotour.R;
 import com.doan3.canthotour.View.Favorite.ActivityFavoriteInfo;
 
@@ -18,11 +18,11 @@ import java.util.ArrayList;
 
 
 public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHolder> {
-    ArrayList<Favorite> favorites;
+    ArrayList<Place> favorites;
     Context context;
     ArrayList<String> arr = new ArrayList<>();
 
-    public FavoriteAdapter(ArrayList<Favorite> favorite, Context context) {
+    public FavoriteAdapter(ArrayList<Place> favorite, Context context) {
         this.favorites = favorite;
         this.context = context;
     }
@@ -36,10 +36,10 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) { //Mỗi 1 lần chạy hàm này tương ứng với load 1 item trong recycler view
-        Favorite favorite = favorites.get(position);
-        holder.txtTen.setText(favorite.getTenYT());
-        holder.imgHinh.setImageResource(favorite.getHinhYT());
-        holder.cardView.setTag(favorite.getMaYT());
+        Place favorite = favorites.get(position);
+        holder.txtTen.setText(favorite.getTenDD());
+        holder.imgHinh.setImageResource(favorite.getHinhDD());
+        holder.cardView.setTag(favorite.getMaDD());
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {  //Bắt sự kiện click vào 1 item cardview
             @Override
