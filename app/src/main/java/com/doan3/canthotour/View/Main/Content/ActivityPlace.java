@@ -75,7 +75,7 @@ public class ActivityPlace extends AppCompatActivity {
         });
     }
 
-    private class LoadPlace extends AsyncTask<String, ArrayList<Place>, ArrayList<Place>> {
+    private class LoadPlace extends AsyncTask<String, Void, ArrayList<Place>> {
         ArrayList<String> arr = new ArrayList<>(), arrayList = new ArrayList<>();
         ArrayList<Place> listPlace = new ArrayList<>();
         ListOfPlaceAdapter listOfPlaceAdapter;
@@ -87,37 +87,33 @@ public class ActivityPlace extends AppCompatActivity {
             // parse json vừa get về ra arraylist
             try {
                 arr = JsonHelper.parseJsonNoId(new JSONObject(HttpRequestAdapter.httpGet(strings[0])), Config.JSON_LOAD);
-                arrayList = JsonHelper.parseJsonNoId(new JSONArray(arr.get(0)), Config.JSON_PLACE);
+                arrayList = JsonHelper.parseJson(new JSONArray(arr.get(0)), Config.JSON_PLACE);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
 
-            recyclerView = findViewById(R.id.RecyclerView_DanhSachDiaDanh);
-            recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
-
-            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ActivityPlace.this, LinearLayoutManager.VERTICAL, false);
-            recyclerView.setLayoutManager(linearLayoutManager);
-
             ArrayList<Place> list = new ArrayList<>();
 
             // lấy tên địa điểm vào list và cập nhật lên giao diện
-            for (int i = 0; i < arrayList.size(); i += 7) {
-                list.add(new Place(R.drawable.benninhkieu1, arrayList.get(i)));
-                publishProgress(list);
+            for (int i = 0; i < arrayList.size(); i += 8) {
+                list.add(new Place(Integer.parseInt(arrayList.get(i)),R.drawable.benninhkieu1, arrayList.get(i+1)));
             }
             return list;
         }
 
         @Override
-        protected void onProgressUpdate(final ArrayList<Place>[] values) {
-            super.onProgressUpdate(values);
-            listOfPlaceAdapter = new ListOfPlaceAdapter(recyclerView, values[0], getApplicationContext());
-            recyclerView.setAdapter(listOfPlaceAdapter);
-        }
-
-        @Override
         protected void onPostExecute(ArrayList<Place> places) {
             super.onPostExecute(places);
+
+
+            recyclerView = findViewById(R.id.RecyclerView_DanhSachDiaDanh);
+            recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ActivityPlace.this,
+                    LinearLayoutManager.VERTICAL, false);
+            recyclerView.setLayoutManager(linearLayoutManager);
+            listOfPlaceAdapter = new ListOfPlaceAdapter(recyclerView, places, getApplicationContext());
+            recyclerView.setAdapter(listOfPlaceAdapter);
+
             listPlace = places;
             //set load more listener for the RecyclerView adapter
             listOfPlaceAdapter.setOnLoadMoreListener(new OnLoadMoreListener() {
@@ -145,13 +141,14 @@ public class ActivityPlace extends AppCompatActivity {
 
                                 try {
                                     arr = JsonHelper.parseJsonNoId(new JSONObject(string), Config.JSON_LOAD);
-                                    arrayList = JsonHelper.parseJsonNoId(new JSONArray(arr.get(0)), Config.JSON_PLACE);
+                                    arrayList = JsonHelper.parseJson(new JSONArray(arr.get(0)), Config.JSON_PLACE);
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
 
-                                for (int i = 0; i < arrayList.size(); i += 7) {
-                                    listPlace.add(new Place(R.drawable.benninhkieu1, arrayList.get(i), arrayList.get(i + 2)));
+                                for (int i = 0; i < arrayList.size(); i += 8) {
+                                    listPlace.add(new Place(Integer.parseInt(arrayList.get(i)),
+                                            R.drawable.benninhkieu1, arrayList.get(i+1)));
                                 }
                                 listOfPlaceAdapter.notifyDataSetChanged();
                                 listOfPlaceAdapter.setLoaded();

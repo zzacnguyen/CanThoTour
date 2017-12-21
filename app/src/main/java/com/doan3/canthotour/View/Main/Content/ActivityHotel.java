@@ -75,7 +75,7 @@ public class ActivityHotel extends AppCompatActivity {
         });
     }
 
-    private class LoadInfo extends AsyncTask<String, ArrayList<Hotel>, ArrayList<Hotel>> {
+    private class LoadInfo extends AsyncTask<String, Void, ArrayList<Hotel>> {
         ArrayList<String> arr = new ArrayList<>(), arrayList = new ArrayList<>();
         ArrayList<Hotel> listHotel = new ArrayList<>();
         ListOfHotelAdapter listOfHotelAdapter;
@@ -87,36 +87,32 @@ public class ActivityHotel extends AppCompatActivity {
 
             try {
                 arr = JsonHelper.parseJsonNoId(new JSONObject(HttpRequestAdapter.httpGet(strings[0])), Config.JSON_LOAD);
-                arrayList = JsonHelper.parseJsonNoId(new JSONArray(arr.get(0)), Config.JSON_HOTEL);
+                arrayList = JsonHelper.parseJson(new JSONArray(arr.get(0)), Config.JSON_HOTEL);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
 
-            recyclerView = findViewById(R.id.RecyclerView_DanhSachKhachSan);
-            recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
-
-            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ActivityHotel.this, LinearLayoutManager.VERTICAL, false);
-            recyclerView.setLayoutManager(linearLayoutManager);
-
             ArrayList<Hotel> list = new ArrayList<>();
 
-            for (int i = 0; i < arrayList.size(); i += 4) {
-                list.add(new Hotel(R.drawable.benninhkieu1, arrayList.get(i)));
-                publishProgress(list);
+            for (int i = 0; i < arrayList.size(); i += 5) {
+                list.add(new Hotel(Integer.parseInt(arrayList.get(i)), R.drawable.benninhkieu1, arrayList.get(i + 1)));
             }
             return list;
         }
 
         @Override
-        protected void onProgressUpdate(ArrayList<Hotel>[] values) {
-            super.onProgressUpdate(values);
-            listOfHotelAdapter = new ListOfHotelAdapter(recyclerView, values[0], getApplicationContext());
-            recyclerView.setAdapter(listOfHotelAdapter);
-        }
-
-        @Override
         protected void onPostExecute(ArrayList<Hotel> hotels) {
             super.onPostExecute(hotels);
+
+            recyclerView = findViewById(R.id.RecyclerView_DanhSachKhachSan);
+            recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager
+                    (ActivityHotel.this, LinearLayoutManager.VERTICAL, false);
+            recyclerView.setLayoutManager(linearLayoutManager);
+            listOfHotelAdapter = new ListOfHotelAdapter(recyclerView, hotels, getApplicationContext());
+            recyclerView.setAdapter(listOfHotelAdapter);
+            listOfHotelAdapter.notifyDataSetChanged();
+
             listHotel = hotels;
             //set load more listener for the RecyclerView adapter
             listOfHotelAdapter.setOnLoadMoreListener(new OnLoadMoreListener() {
@@ -144,13 +140,14 @@ public class ActivityHotel extends AppCompatActivity {
 
                                 try {
                                     arr = JsonHelper.parseJsonNoId(new JSONObject(string), Config.JSON_LOAD);
-                                    arrayList = JsonHelper.parseJsonNoId(new JSONArray(arr.get(0)), Config.JSON_HOTEL);
+                                    arrayList = JsonHelper.parseJson(new JSONArray(arr.get(0)), Config.JSON_HOTEL);
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
 
-                                for (int i = 0; i < arrayList.size(); i += 4) {
-                                    listHotel.add(new Hotel(R.drawable.benninhkieu1, arrayList.get(i)));
+                                for (int i = 0; i < arrayList.size(); i += 5) {
+                                    listHotel.add(new Hotel(Integer.parseInt
+                                            (arrayList.get(i)), R.drawable.benninhkieu1, arrayList.get(i + 1)));
                                 }
                                 listOfHotelAdapter.notifyDataSetChanged();
                                 listOfHotelAdapter.setLoaded();

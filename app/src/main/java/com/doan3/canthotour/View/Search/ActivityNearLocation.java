@@ -83,39 +83,35 @@ public class ActivityNearLocation extends AppCompatActivity {
         });
     }
 
-    private class Load extends AsyncTask<String, ArrayList<NearLocation>, Void> {
-        RecyclerView recyclerView;
-
-        private Load() {
-            recyclerView = findViewById(R.id.RecyclerView_DiaDiemLanCan);
-            recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
-
-            LinearLayoutManager linearLayoutManager =
-                    new LinearLayoutManager(ActivityNearLocation.this, LinearLayoutManager.VERTICAL, false);
-            recyclerView.setLayoutManager(linearLayoutManager);
-        }
+    private class Load extends AsyncTask<String, Void, ArrayList<NearLocation>> {
 
         @Override
-        protected Void doInBackground(String... strings) {
+        protected ArrayList<NearLocation> doInBackground(String... strings) {
             ArrayList<NearLocation> nearLocations = new ArrayList<>();
             try {
                 String get = HttpRequestAdapter.httpGet(strings[0]);
-                ArrayList<String> arrayList = JsonHelper.parseJsonNoId(new JSONArray(get), Config.JSON_NEAR_LOCATION);
-                for (int i = 0; i < arrayList.size(); i += 4) {
-                    nearLocations.add(new NearLocation(arrayList.get(i), arrayList.get(i + 1), R.drawable.benninhkieu1));
-                    publishProgress(nearLocations);
+                ArrayList<String> arrayList = JsonHelper.parseJson(new JSONArray(get), Config.JSON_NEAR_LOCATION);
+                for (int i = 0; i < arrayList.size(); i += 5) {
+                    nearLocations.add(new NearLocation(Integer.parseInt(arrayList.get(i)), arrayList.get(i + 1),
+                            arrayList.get(i + 2), R.drawable.benninhkieu1));
                 }
             } catch (JSONException ex) {
                 ex.printStackTrace();
             }
-            return null;
+            return nearLocations;
         }
 
         @Override
-        protected void onProgressUpdate(ArrayList<NearLocation>[] values) {
-            super.onProgressUpdate(values);
-            NearLocationAdapter nearLocationAdapter = new NearLocationAdapter(values[0], getApplicationContext());
+        protected void onPostExecute(ArrayList<NearLocation> nearLocations) {
+            super.onPostExecute(nearLocations);
+            RecyclerView recyclerView = findViewById(R.id.RecyclerView_DiaDiemLanCan);
+            recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
+            LinearLayoutManager linearLayoutManager =
+                    new LinearLayoutManager(ActivityNearLocation.this, LinearLayoutManager.VERTICAL, false);
+            recyclerView.setLayoutManager(linearLayoutManager);
+            NearLocationAdapter nearLocationAdapter = new NearLocationAdapter(nearLocations, getApplicationContext());
             recyclerView.setAdapter(nearLocationAdapter);
+            nearLocationAdapter.notifyDataSetChanged();
         }
     }
 }

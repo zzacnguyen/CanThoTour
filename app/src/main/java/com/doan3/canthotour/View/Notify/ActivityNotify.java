@@ -1,6 +1,5 @@
 package com.doan3.canthotour.View.Notify;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -49,7 +48,7 @@ public class ActivityNotify extends AppCompatActivity {
         txtNgaySk = findViewById(R.id.textViewNgaySk);
         imgHinhSk = findViewById(R.id.imageViewSuKien);
 
-        new Load(this).execute(Config.URL_HOST + Config.URL_GET_ALL_EVENTS);
+        new Load().execute(Config.URL_HOST + Config.URL_GET_ALL_EVENTS);
         menuBotNavBar();
     }
 
@@ -87,19 +86,7 @@ public class ActivityNotify extends AppCompatActivity {
         ArrayList<String> arr = new ArrayList<>(), arrayList = new ArrayList<>();
         ArrayList<Event> listEvent = new ArrayList<>();
         EventAdapter eventAdapter;
-        Activity activity;
         RecyclerView recyclerView;
-        LinearLayoutManager linearLayoutManager;
-
-        // khởi tạo class truyền vào 2 đối số là activity và recyclerview
-        public Load(Activity act) {
-            activity = act;
-            recyclerView = findViewById(R.id.RecyclerView_DanhSachSuKien);
-            recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
-
-            linearLayoutManager = new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false);
-            recyclerView.setLayoutManager(linearLayoutManager);
-        }
 
         @Override
         protected ArrayList<Event> doInBackground(String... strings) {
@@ -115,23 +102,26 @@ public class ActivityNotify extends AppCompatActivity {
             ArrayList<Event> list = new ArrayList<>();
 
             for (int i = 0; i < arrayList.size(); i += 5) {
-                list.add(new Event(arrayList.get(i),
+                list.add(new Event(Integer.parseInt(arrayList.get(i + 3)), arrayList.get(i),
                         arrayList.get(i + 1) + " -> " + arrayList.get(i + 2), R.drawable.benninhkieu1));
-                publishProgress(list);
             }
             return list;
         }
 
         @Override
-        protected void onProgressUpdate(ArrayList<Event>[] values) {
-            super.onProgressUpdate(values);
-            eventAdapter = new EventAdapter(recyclerView, values[0], getApplicationContext());
-            recyclerView.setAdapter(eventAdapter);
-        }
-
-        @Override
         protected void onPostExecute(final ArrayList<Event> events) {
             super.onPostExecute(events);
+
+            recyclerView = findViewById(R.id.RecyclerView_DanhSachSuKien);
+            recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager
+                    (ActivityNotify.this, LinearLayoutManager.VERTICAL, false);
+            recyclerView.setLayoutManager(linearLayoutManager);
+            eventAdapter = new EventAdapter(recyclerView, events, getApplicationContext());
+            recyclerView.setAdapter(eventAdapter);
+            eventAdapter.notifyDataSetChanged();
+
+
             listEvent = events;
             //set load more listener for the RecyclerView adapter
             eventAdapter.setOnLoadMoreListener(new OnLoadMoreListener() {
@@ -159,14 +149,15 @@ public class ActivityNotify extends AppCompatActivity {
 
                                 try {
                                     arr = JsonHelper.parseJsonNoId(new JSONObject(string), Config.JSON_LOAD);
-                                    arrayList = JsonHelper.parseJsonNoId(new JSONArray(arr.get(0)), Config.JSON_EAT);
+                                    arrayList = JsonHelper.parseJsonNoId(new JSONArray(arr.get(0)), Config.JSON_EVENT);
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
 
                                 for (int i = 0; i < arrayList.size(); i += 5) {
-                                    listEvent.add(new Event(arrayList.get(i), arrayList.get(i + 1)
-                                            + " -> " + arrayList.get(i + 2), R.drawable.benninhkieu1));
+                                    listEvent.add(new Event(Integer.parseInt(arrayList.get(i + 3)), arrayList.get(i),
+                                            arrayList.get(i + 1) + " -> " + arrayList.get(i + 2),
+                                            R.drawable.benninhkieu1));
                                 }
                                 eventAdapter.notifyDataSetChanged();
                                 eventAdapter.setLoaded();

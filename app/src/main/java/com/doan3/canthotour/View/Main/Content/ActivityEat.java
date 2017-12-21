@@ -83,7 +83,7 @@ public class ActivityEat extends AppCompatActivity {
         }
     }
 
-    private class LoadInfo extends AsyncTask<String, ArrayList<Eat>, ArrayList<Eat>> {
+    private class LoadInfo extends AsyncTask<String, Void, ArrayList<Eat>> {
         ArrayList<String> arr = new ArrayList<>(), arrayList = new ArrayList<>();
         ArrayList<Eat> listEat = new ArrayList<>();
         ListOfEatAdapter listOfEatAdapter;
@@ -95,36 +95,33 @@ public class ActivityEat extends AppCompatActivity {
 
             try {
                 arr = JsonHelper.parseJsonNoId(new JSONObject(HttpRequestAdapter.httpGet(strings[0])), Config.JSON_LOAD);
-                arrayList = JsonHelper.parseJsonNoId(new JSONArray(arr.get(0)), Config.JSON_EAT);
+                arrayList = JsonHelper.parseJson(new JSONArray(arr.get(0)), Config.JSON_EAT);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
 
-            recyclerView = findViewById(R.id.RecyclerView_DanhSachAnUong);
-            recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
-
-            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ActivityEat.this, LinearLayoutManager.VERTICAL, false);
-            recyclerView.setLayoutManager(linearLayoutManager);
-
             ArrayList<Eat> list = new ArrayList<>();
 
-            for (int i = 0; i < arrayList.size(); i += 3) {
-                list.add(new Eat(R.drawable.benninhkieu1, arrayList.get(i)));
-                publishProgress(list);
+            for (int i = 0; i < arrayList.size(); i += 4) {
+                list.add(new Eat(Integer.parseInt(arrayList.get(i)), R.drawable.benninhkieu1, arrayList.get(i + 1)));
             }
             return list;
         }
 
         @Override
-        protected void onProgressUpdate(ArrayList<Eat>[] values) {
-            super.onProgressUpdate(values);
-            listOfEatAdapter = new ListOfEatAdapter(recyclerView, values[0], getApplicationContext());
-            recyclerView.setAdapter(listOfEatAdapter);
-        }
-
-        @Override
         protected void onPostExecute(ArrayList<Eat> eats) {
             super.onPostExecute(eats);
+
+            recyclerView = findViewById(R.id.RecyclerView_DanhSachAnUong);
+            recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
+
+            LinearLayoutManager linearLayoutManager =
+                    new LinearLayoutManager(ActivityEat.this, LinearLayoutManager.VERTICAL, false);
+            recyclerView.setLayoutManager(linearLayoutManager);
+            listOfEatAdapter = new ListOfEatAdapter(recyclerView, eats, getApplicationContext());
+            recyclerView.setAdapter(listOfEatAdapter);
+            listOfEatAdapter.notifyDataSetChanged();
+
             listEat = eats;
             //set load more listener for the RecyclerView adapter
             listOfEatAdapter.setOnLoadMoreListener(new OnLoadMoreListener() {
@@ -152,13 +149,14 @@ public class ActivityEat extends AppCompatActivity {
 
                                 try {
                                     arr = JsonHelper.parseJsonNoId(new JSONObject(string), Config.JSON_LOAD);
-                                    arrayList = JsonHelper.parseJsonNoId(new JSONArray(arr.get(0)), Config.JSON_EAT);
+                                    arrayList = JsonHelper.parseJson(new JSONArray(arr.get(0)), Config.JSON_EAT);
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
 
-                                for (int i = 0; i < arrayList.size(); i += 3) {
-                                    listEat.add(new Eat(R.drawable.benninhkieu1, arrayList.get(i)));
+                                for (int i = 0; i < arrayList.size(); i += 4) {
+                                    listEat.add(new Eat(
+                                            Integer.parseInt(arrayList.get(i)), R.drawable.benninhkieu1, arrayList.get(i + 1)));
                                 }
                                 listOfEatAdapter.notifyDataSetChanged();
                                 listOfEatAdapter.setLoaded();

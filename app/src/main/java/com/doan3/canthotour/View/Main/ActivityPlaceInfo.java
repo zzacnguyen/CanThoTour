@@ -3,7 +3,6 @@ package com.doan3.canthotour.View.Main;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.NonNull;
@@ -17,10 +16,11 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.doan3.canthotour.Adapter.HttpRequestAdapter;
 import com.doan3.canthotour.Config;
 import com.doan3.canthotour.Helper.BottomNavigationViewHelper;
 import com.doan3.canthotour.Helper.JsonHelper;
+import com.doan3.canthotour.Model.ModelPlace;
+import com.doan3.canthotour.Model.PlaceInfo;
 import com.doan3.canthotour.R;
 import com.doan3.canthotour.View.Favorite.ActivityFavorite;
 import com.doan3.canthotour.View.Notify.ActivityNotify;
@@ -32,7 +32,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.util.ArrayList;
 
 public class ActivityPlaceInfo extends AppCompatActivity {
 
@@ -40,7 +39,7 @@ public class ActivityPlaceInfo extends AppCompatActivity {
     public static String kinhDo;
     public static String viDo;
     Button btnLuuDiaDiem, btnLanCan, btnChiaSe;
-    String masp;
+    int ma;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -58,9 +57,9 @@ public class ActivityPlaceInfo extends AppCompatActivity {
             }
         });
 
-        masp = getIntent().getStringExtra("masp");
+        ma = getIntent().getIntExtra("masp", 1);
 
-        new LoadPlace(this).execute(Config.URL_HOST + Config.URL_GET_ALL_PLACES + "/" + masp);
+        load(this, ma);
         btnLuuDiaDiem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -134,46 +133,25 @@ public class ActivityPlaceInfo extends AppCompatActivity {
         });
     }
 
-    public static class LoadPlace extends AsyncTask<String, ArrayList<String>, Void> {
-        TextView txtTenDD, txtDiaChi, txtSDT, txtGioiThieu;
-        Activity activity;
+    public void load(Activity activity, int ma) {
 
-        public LoadPlace(Activity activityt) {
-            this.activity = activityt;
-            txtTenDD = activity.findViewById(R.id.textViewTenDD);
-            txtDiaChi = activity.findViewById(R.id.textViewDiaChi);
-            txtSDT = activity.findViewById(R.id.textViewSDT);
-            txtGioiThieu = activity.findViewById(R.id.textViewGioiThieu);
-        }
+        TextView txtTenDD = activity.findViewById(R.id.textViewTenDD);
+        TextView txtDiaChi = activity.findViewById(R.id.textViewDiaChi);
+        TextView txtSDT = activity.findViewById(R.id.textViewSDT);
+        TextView txtGioiThieu = activity.findViewById(R.id.textViewGioiThieu);
 
-        @Override
-        protected Void doInBackground(String... strings) {
-            JSONArray jsonArray;
-            try {
-                jsonArray = new JSONArray(HttpRequestAdapter.httpGet(strings[0]));
-                ArrayList<String> arrayList = JsonHelper.parseJson(jsonArray, Config.JSON_PLACE);
-                publishProgress(arrayList);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            return null;
+        PlaceInfo placeInfo = new ModelPlace().getPlaceInfo(ma);
+        try {
+            object = new JSONObject("{\"dd_iddiadiem\":\"" + placeInfo.getId() +
+                    "\",\"nd_idnguoidung\":\"" + placeInfo.getIdND() + "\"}");
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
-
-        @Override
-        protected void onProgressUpdate(ArrayList<String>[] arrayList) {
-            super.onProgressUpdate(arrayList);
-            try {
-                object = new JSONObject("{\"dd_iddiadiem\":\"" + arrayList[0].get(0) + "\",\"nd_idnguoidung\":\"" + arrayList[0].get(0) + "\"}");
-                kinhDo = arrayList[0].get(5);
-                viDo = arrayList[0].get(6);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            txtTenDD.setText(arrayList[0].get(1));
-            txtDiaChi.setText(arrayList[0].get(3));
-            txtSDT.setText(arrayList[0].get(4));
-            txtGioiThieu.setText(arrayList[0].get(2));
-        }
+        kinhDo = placeInfo.getKinhDo();
+        viDo = placeInfo.getViDo();
+        txtTenDD.setText(placeInfo.getTen());
+        txtDiaChi.setText(placeInfo.getDiaChi());
+        txtSDT.setText(placeInfo.getSdt());
+        txtGioiThieu.setText(placeInfo.getGioiThieu());
     }
-
 }

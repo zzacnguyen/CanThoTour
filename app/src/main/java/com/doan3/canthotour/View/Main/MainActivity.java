@@ -26,6 +26,7 @@ import com.doan3.canthotour.Helper.JsonHelper;
 import com.doan3.canthotour.Model.Eat;
 import com.doan3.canthotour.Model.Entertainment;
 import com.doan3.canthotour.Model.Hotel;
+import com.doan3.canthotour.Model.ModelPlace;
 import com.doan3.canthotour.Model.Place;
 import com.doan3.canthotour.R;
 import com.doan3.canthotour.View.Favorite.ActivityFavorite;
@@ -97,7 +98,21 @@ public class MainActivity extends AppCompatActivity {
         });
         // endregion
 
-        new Load().execute();
+        // load place
+        loadPlace();
+
+        // load eat
+        new LoadEat().execute(Config.URL_HOST + Config.URL_GET_ALL_EATS);
+
+        // load entertainment
+        new LoadEntertainment().execute(Config.URL_HOST + Config.URL_GET_ALL_ENTERTAINMENTS);
+
+        // load hotel
+        new LoadHotel().execute(Config.URL_HOST + Config.URL_GET_ALL_HOTELS);
+
+        display_doanhnghiep();
+
+        menuBotNavBar();
 
     }
 
@@ -163,51 +178,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //Custom view place
-    private class LoadPlace extends AsyncTask<String, ArrayList<Place>, Void> {
-        RecyclerView recyclerView;
+    private void loadPlace() {
+        RecyclerView recyclerView = findViewById(R.id.RecyclerView_DiaDanh);
+        recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
 
-        private LoadPlace() {
-            recyclerView = findViewById(R.id.RecyclerView_DiaDanh);
-            recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
+        LinearLayoutManager linearLayoutManager =
+                new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false);
+        recyclerView.setLayoutManager(linearLayoutManager);
 
-            LinearLayoutManager linearLayoutManager =
-                    new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false);
-            recyclerView.setLayoutManager(linearLayoutManager);
-        }
+        ArrayList<Place> places = new ModelPlace().getPlaceList();
 
-        @Override
-        protected Void doInBackground(String... strings) {
-
-            // parse json vừa get về ra arraylist
-            ArrayList<String> arr, arrayList = new ArrayList<>();
-            try {
-                arr = JsonHelper.parseJsonNoId(new JSONObject(HttpRequestAdapter.httpGet(strings[0])), Config.JSON_LOAD);
-                arrayList = JsonHelper.parseJsonNoId(new JSONArray(arr.get(0)), Config.JSON_PLACE);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-            ArrayList<Place> list = new ArrayList<>();
-
-            int size = (arrayList.size() > 35) ? 35 : arrayList.size();
-            // lấy tên địa điểm vào list và cập nhật lên giao diện
-            for (int i = 0; i < size; i += 7) {
-                list.add(new Place(R.drawable.benninhkieu1, arrayList.get(i)));
-                publishProgress(list);
-            }
-            return null;
-        }
-
-        @Override
-        protected void onProgressUpdate(ArrayList<Place>[] values) {
-            super.onProgressUpdate(values);
-            PlaceAdapter placeAdapter = new PlaceAdapter(values[0], getApplicationContext());
-            recyclerView.setAdapter(placeAdapter);
-            placeAdapter.notifyDataSetChanged();
-        }
+        PlaceAdapter placeAdapter = new PlaceAdapter(places, getApplicationContext());
+        recyclerView.setAdapter(placeAdapter);
+        placeAdapter.notifyDataSetChanged();
     }
 
-    private class LoadEat extends AsyncTask<String, ArrayList<Eat>, Void> {
+    //Custom view eat
+    private class LoadEat extends AsyncTask<String, Void, ArrayList<Eat>> {
         RecyclerView recyclerView;
 
         private LoadEat() {
@@ -220,81 +207,39 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @Override
-        protected Void doInBackground(String... strings) {
+        protected ArrayList<Eat> doInBackground(String... strings) {
+
             // parse json vừa get về ra arraylist
             ArrayList<String> arr, arrayList = new ArrayList<>();
             try {
                 arr = JsonHelper.parseJsonNoId(new JSONObject(HttpRequestAdapter.httpGet(strings[0])), Config.JSON_LOAD);
-                arrayList = JsonHelper.parseJsonNoId(new JSONArray(arr.get(0)), Config.JSON_EAT);
+                arrayList = JsonHelper.parseJson(new JSONArray(arr.get(0)), Config.JSON_EAT);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
 
             ArrayList<Eat> list = new ArrayList<>();
 
-            int size = (arrayList.size() > 15) ? 15 : arrayList.size();
+            int size = (arrayList.size() > 20) ? 20 : arrayList.size();
             // lấy tên địa điểm vào list và cập nhật lên giao diện
-            for (int i = 0; i < size; i += 3) {
-                list.add(new Eat(R.drawable.benninhkieu1, arrayList.get(i)));
-                publishProgress(list);
+            for (int i = 0; i < size; i += 4) {
+                list.add(new Eat(Integer.parseInt(arrayList.get(i)), R.drawable.benninhkieu1, arrayList.get(i + 1)));
             }
-            return null;
+            return list;
         }
 
         @Override
-        protected void onProgressUpdate(ArrayList<Eat>[] values) {
-            super.onProgressUpdate(values);
-            EatAdapter eatAdapter = new EatAdapter(values[0], getApplicationContext());
+        protected void onPostExecute(ArrayList<Eat> items) {
+            super.onPostExecute(items);
+            EatAdapter eatAdapter =
+                    new EatAdapter(items, getApplicationContext());
             recyclerView.setAdapter(eatAdapter);
             eatAdapter.notifyDataSetChanged();
         }
     }
 
-    private class LoadHotel extends AsyncTask<String, ArrayList<Hotel>, Void> {
-        RecyclerView recyclerView;
-
-        private LoadHotel() {
-            recyclerView = findViewById(R.id.RecyclerView_KhachSan);
-            recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
-
-            LinearLayoutManager linearLayoutManager =
-                    new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false);
-            recyclerView.setLayoutManager(linearLayoutManager);
-        }
-
-        @Override
-        protected Void doInBackground(String... strings) {
-
-            // parse json vừa get về ra arraylist
-            ArrayList<String> arr, arrayList = new ArrayList<>();
-            try {
-                arr = JsonHelper.parseJsonNoId(new JSONObject(HttpRequestAdapter.httpGet(strings[0])), Config.JSON_LOAD);
-                arrayList = JsonHelper.parseJsonNoId(new JSONArray(arr.get(0)), Config.JSON_HOTEL);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-            ArrayList<Hotel> list = new ArrayList<>();
-
-            int size = (arrayList.size() > 20) ? 20 : arrayList.size();
-            // lấy tên địa điểm vào list và cập nhật lên giao diện
-            for (int i = 0; i < size; i += 4) {
-                list.add(new Hotel(R.drawable.benninhkieu1, arrayList.get(i)));
-                publishProgress(list);
-            }
-            return null;
-        }
-
-        @Override
-        protected void onProgressUpdate(ArrayList<Hotel>[] values) {
-            super.onProgressUpdate(values);
-            HotelAdapter hotelAdapter = new HotelAdapter(values[0], getApplicationContext());
-            recyclerView.setAdapter(hotelAdapter);
-            hotelAdapter.notifyDataSetChanged();
-        }
-    }
-
-    private class LoadEntertainment extends AsyncTask<String, ArrayList<Entertainment>, Void> {
+    //Custom view entertainment
+    private class LoadEntertainment extends AsyncTask<String, Void, ArrayList<Entertainment>> {
         RecyclerView recyclerView;
 
         private LoadEntertainment() {
@@ -307,47 +252,79 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @Override
-        protected Void doInBackground(String... strings) {
+        protected ArrayList<Entertainment> doInBackground(String... strings) {
 
             // parse json vừa get về ra arraylist
             ArrayList<String> arr, arrayList = new ArrayList<>();
             try {
                 arr = JsonHelper.parseJsonNoId(new JSONObject(HttpRequestAdapter.httpGet(strings[0])), Config.JSON_LOAD);
-                arrayList = JsonHelper.parseJsonNoId(new JSONArray(arr.get(0)), Config.JSON_ENTERTAINMENT);
+                arrayList = JsonHelper.parseJson(new JSONArray(arr.get(0)), Config.JSON_ENTERTAINMENT);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
 
             ArrayList<Entertainment> list = new ArrayList<>();
 
-            int size = (arrayList.size() > 15) ? 15 : arrayList.size();
+            int size = (arrayList.size() > 20) ? 20 : arrayList.size();
             // lấy tên địa điểm vào list và cập nhật lên giao diện
-            for (int i = 0; i < size; i += 3) {
-                list.add(new Entertainment(R.drawable.benninhkieu1, arrayList.get(i)));
-                publishProgress(list);
+            for (int i = 0; i < size; i += 4) {
+                list.add(new Entertainment(Integer.parseInt(arrayList.get(i)), R.drawable.benninhkieu1, arrayList.get(i + 1)));
             }
-            return null;
+            return list;
         }
 
         @Override
-        protected void onProgressUpdate(ArrayList<Entertainment>[] values) {
-            super.onProgressUpdate(values);
-            EntertainmentAdapter entertainmentAdapter = new EntertainmentAdapter(values[0], getApplicationContext());
+        protected void onPostExecute(ArrayList<Entertainment> items) {
+            super.onPostExecute(items);
+            EntertainmentAdapter entertainmentAdapter =
+                    new EntertainmentAdapter(items, getApplicationContext());
             recyclerView.setAdapter(entertainmentAdapter);
             entertainmentAdapter.notifyDataSetChanged();
         }
     }
 
-    private class Load extends AsyncTask<Void, Void, Void> {
+    //Custom view hotel
+    private class LoadHotel extends AsyncTask<String, Void, ArrayList<Hotel>> {
+        RecyclerView recyclerView;
+
+        private LoadHotel() {
+            recyclerView = findViewById(R.id.RecyclerView_KhachSan);
+            recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
+
+            LinearLayoutManager linearLayoutManager =
+                    new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false);
+            recyclerView.setLayoutManager(linearLayoutManager);
+        }
+
         @Override
-        protected Void doInBackground(Void... voids) {
-            new LoadPlace().execute(Config.URL_HOST + Config.URL_GET_ALL_PLACES);
-            new LoadEat().execute(Config.URL_HOST + Config.URL_GET_ALL_EATS);
-            new LoadHotel().execute(Config.URL_HOST + Config.URL_GET_ALL_HOTELS);
-            new LoadEntertainment().execute(Config.URL_HOST + Config.URL_GET_ALL_ENTERTAINMENTS);
-            display_doanhnghiep();
-            menuBotNavBar();
-            return null;
+        protected ArrayList<Hotel> doInBackground(String... strings) {
+
+            // parse json vừa get về ra arraylist
+            ArrayList<String> arr, arrayList = new ArrayList<>();
+            try {
+                arr = JsonHelper.parseJsonNoId(new JSONObject(HttpRequestAdapter.httpGet(strings[0])), Config.JSON_LOAD);
+                arrayList = JsonHelper.parseJson(new JSONArray(arr.get(0)), Config.JSON_HOTEL);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            ArrayList<Hotel> list = new ArrayList<>();
+
+            int size = (arrayList.size() > 25) ? 25 : arrayList.size();
+            // lấy tên địa điểm vào list và cập nhật lên giao diện
+            for (int i = 0; i < size; i += 5) {
+                list.add(new Hotel(Integer.parseInt(arrayList.get(i)), R.drawable.benninhkieu1, arrayList.get(i + 1)));
+            }
+            return list;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<Hotel> items) {
+            super.onPostExecute(items);
+            HotelAdapter hotelAdapter =
+                    new HotelAdapter(items, getApplicationContext());
+            recyclerView.setAdapter(hotelAdapter);
+            hotelAdapter.notifyDataSetChanged();
         }
     }
 }

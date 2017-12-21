@@ -2,9 +2,7 @@ package com.doan3.canthotour.View.Favorite;
 
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
@@ -13,12 +11,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
-import com.doan3.canthotour.Adapter.HttpRequestAdapter;
 import com.doan3.canthotour.Config;
 import com.doan3.canthotour.Helper.BottomNavigationViewHelper;
-import com.doan3.canthotour.Helper.JsonHelper;
 import com.doan3.canthotour.R;
 import com.doan3.canthotour.View.Main.ActivityPlaceInfo;
 import com.doan3.canthotour.View.Main.MainActivity;
@@ -26,21 +21,13 @@ import com.doan3.canthotour.View.Notify.ActivityNotify;
 import com.doan3.canthotour.View.Personal.ActivityPersonal;
 import com.doan3.canthotour.View.Search.ActivityNearLocation;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
-
 import static com.doan3.canthotour.View.Main.ActivityPlaceInfo.kinhDo;
-import static com.doan3.canthotour.View.Main.ActivityPlaceInfo.object;
 import static com.doan3.canthotour.View.Main.ActivityPlaceInfo.viDo;
 
 public class ActivityFavoriteInfo extends AppCompatActivity {
 
     Button btnLuuDiaDiem, btnLanCan, btnChiaSe;
-    String masp;
+    int ma;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,15 +38,9 @@ public class ActivityFavoriteInfo extends AppCompatActivity {
         btnLanCan = findViewById(R.id.btnDiaDiemLanCan);
         btnChiaSe = findViewById(R.id.btnChiaSe);
 
-        masp = getIntent().getStringExtra("masp");
-        String id = null;
-        try {
-            id = new GetIdPlace().execute(Config.URL_HOST + Config.URL_GET_ALL_FAVORITE + "/" + masp).get();
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
+        ma = getIntent().getIntExtra("masp", 1);
 
-        new ActivityPlaceInfo.LoadPlace(this).execute(Config.URL_HOST + Config.URL_GET_ALL_PLACES + "/" + id);
+        new ActivityPlaceInfo().load(this, ma);
 
         btnLuuDiaDiem.setClickable(false);
 
@@ -103,20 +84,6 @@ public class ActivityFavoriteInfo extends AppCompatActivity {
                 return false;
             }
         });
-    }
-
-    private class GetIdPlace extends AsyncTask<String, Void, String> {
-
-        @Override
-        protected String doInBackground(String... strings) {
-            ArrayList<String> arr = new ArrayList<>();
-            try {
-                arr = JsonHelper.parseJsonNoId(new JSONArray(HttpRequestAdapter.httpGet(strings[0])), Config.JSON_FAVORITE);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            return arr.get(0);
-        }
     }
 
 }

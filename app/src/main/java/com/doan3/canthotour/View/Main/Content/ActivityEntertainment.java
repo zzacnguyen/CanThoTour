@@ -75,7 +75,7 @@ public class ActivityEntertainment extends AppCompatActivity {
         });
     }
 
-    private class LoadInfo extends AsyncTask<String, ArrayList<Entertainment>, ArrayList<Entertainment>> {
+    private class LoadInfo extends AsyncTask<String, Void, ArrayList<Entertainment>> {
         ArrayList<String> arr = new ArrayList<>(), arrayList = new ArrayList<>();
         ArrayList<Entertainment> listEntertainment = new ArrayList<>();
         ListOfEntertainmentAdapter listOfEntertainmentAdapter;
@@ -86,36 +86,34 @@ public class ActivityEntertainment extends AppCompatActivity {
             // parse json vừa get về ra arraylist
             try {
                 arr = JsonHelper.parseJsonNoId(new JSONObject(HttpRequestAdapter.httpGet(strings[0])), Config.JSON_LOAD);
-                arrayList = JsonHelper.parseJsonNoId(new JSONArray(arr.get(0)), Config.JSON_ENTERTAINMENT);
+                arrayList = JsonHelper.parseJson(new JSONArray(arr.get(0)), Config.JSON_ENTERTAINMENT);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
 
-            recyclerView = findViewById(R.id.RecyclerView_DanhSachVuiChoi);
-            recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
-
-            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ActivityEntertainment.this, LinearLayoutManager.VERTICAL, false);
-            recyclerView.setLayoutManager(linearLayoutManager);
-
             ArrayList<Entertainment> list = new ArrayList<>();
 
-            for (int i = 0; i < arrayList.size(); i += 3) {
-                list.add(new Entertainment(R.drawable.benninhkieu1, arrayList.get(i)));
-                publishProgress(list);
+            for (int i = 0; i < arrayList.size(); i += 4) {
+                list.add(
+                        new Entertainment(Integer.parseInt(arrayList.get(i)), R.drawable.benninhkieu1, arrayList.get(i + 1)));
             }
             return list;
         }
 
         @Override
-        protected void onProgressUpdate(ArrayList<Entertainment>[] values) {
-            super.onProgressUpdate(values);
-            listOfEntertainmentAdapter = new ListOfEntertainmentAdapter(recyclerView, values[0], getApplicationContext());
-            recyclerView.setAdapter(listOfEntertainmentAdapter);
-        }
-
-        @Override
         protected void onPostExecute(ArrayList<Entertainment> entertainments) {
             super.onPostExecute(entertainments);
+
+            recyclerView = findViewById(R.id.RecyclerView_DanhSachVuiChoi);
+            recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager
+                    (ActivityEntertainment.this, LinearLayoutManager.VERTICAL, false);
+            recyclerView.setLayoutManager(linearLayoutManager);
+            listOfEntertainmentAdapter = new ListOfEntertainmentAdapter
+                    (recyclerView, entertainments, getApplicationContext());
+            recyclerView.setAdapter(listOfEntertainmentAdapter);
+            listOfEntertainmentAdapter.notifyDataSetChanged();
+
             listEntertainment = entertainments;
             //set load more listener for the RecyclerView adapter
             listOfEntertainmentAdapter.setOnLoadMoreListener(new OnLoadMoreListener() {
@@ -143,13 +141,15 @@ public class ActivityEntertainment extends AppCompatActivity {
 
                                 try {
                                     arr = JsonHelper.parseJsonNoId(new JSONObject(string), Config.JSON_LOAD);
-                                    arrayList = JsonHelper.parseJsonNoId(new JSONArray(arr.get(0)), Config.JSON_ENTERTAINMENT);
+                                    arrayList = JsonHelper.parseJson(new JSONArray(arr.get(0)),
+                                            Config.JSON_ENTERTAINMENT);
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
 
-                                for (int i = 0; i < arrayList.size(); i += 3) {
-                                    listEntertainment.add(new Entertainment(R.drawable.benninhkieu1, arrayList.get(i)));
+                                for (int i = 0; i < arrayList.size(); i += 4) {
+                                    listEntertainment.add(new Entertainment(Integer.parseInt(arrayList.get(i)),
+                                            R.drawable.benninhkieu1, arrayList.get(i + 1)));
                                 }
                                 listOfEntertainmentAdapter.notifyDataSetChanged();
                                 listOfEntertainmentAdapter.setLoaded();

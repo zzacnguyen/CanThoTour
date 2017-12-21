@@ -2,7 +2,6 @@ package com.doan3.canthotour.View.Main;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,20 +12,16 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.doan3.canthotour.Adapter.HttpRequestAdapter;
 import com.doan3.canthotour.Config;
 import com.doan3.canthotour.Helper.BottomNavigationViewHelper;
-import com.doan3.canthotour.Helper.JsonHelper;
+import com.doan3.canthotour.Model.ModelService;
+import com.doan3.canthotour.Model.ServiceInfo;
 import com.doan3.canthotour.R;
 import com.doan3.canthotour.View.Favorite.ActivityFavorite;
 import com.doan3.canthotour.View.Notify.ActivityNotify;
 import com.doan3.canthotour.View.Personal.ActivityPersonal;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
 
 /**
  * Created by sieut on 12/6/2017.
@@ -34,7 +29,7 @@ import java.util.concurrent.ExecutionException;
 
 public class ActivityEatInfo extends AppCompatActivity {
     Button btnLuuDiaDiem, btnLanCan, btnChiaSe;
-    String masp;
+    int ma;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,31 +40,9 @@ public class ActivityEatInfo extends AppCompatActivity {
         btnLanCan = findViewById(R.id.btnDiaDiemLanCanDv);
         btnChiaSe = findViewById(R.id.btnChiaSeDv);
 
-        masp = getIntent().getStringExtra("masp");
+        ma = getIntent().getIntExtra("masp", 1);
 
-        String idService, idPlace;
-        String urlService = null, urlPlace = null;
-        ArrayList<String> urlEat = new ArrayList<>();
-        // lấy id dịch vụ trong ăn uống, lấy id địa điểm trong dịch vụ
-        try {
-            urlEat.add(Config.URL_HOST + Config.URL_GET_ALL_EATS + "/" + masp);
-
-            // gọi class GetIdService để lấy id dịch vụ
-            idService = new GetIdService().execute(urlEat, Config.JSON_EAT).get();
-            // gọi class GetIdPlace để lấy id dịch vụ
-            idPlace = new GetIdPlace().execute(Config.URL_HOST + Config.URL_GET_ALL_SERVICES + "/" + idService).get();
-
-            urlService = Config.URL_HOST + Config.URL_GET_ALL_SERVICES + "/" + idService;
-            urlPlace = Config.URL_HOST + Config.URL_GET_ALL_PLACES + "/" + idPlace;
-
-            new GetIdService().execute(urlEat, Config.JSON_EAT);
-
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
-        new LoadPlace(this).execute(urlEat, Config.JSON_EAT);
-        new LoadServiceInfo(this).execute(urlService);
-        new LoadPlaceInfo(this).execute(urlPlace);
+        load(this, Config.URL_HOST + Config.URL_GET_ALL_EATS + "/" + ma, Config.JSON_EAT);
 
         menuBotNavBar();
     }
@@ -104,129 +77,24 @@ public class ActivityEatInfo extends AppCompatActivity {
         });
     }
 
-    public static class GetIdService extends AsyncTask<ArrayList<String>, Void, String> {
-        //Lấy id của dv_iddichvu trong eat, hotel, entertainment
-        @Override
-        // ArrayList<String> ... strings truyền vào 1 mảng các ArrayList<String>
-        protected String doInBackground(ArrayList<String>... strings) {
-            ArrayList<String> arrJsonGet = new ArrayList<>();
-            try {
-                JSONArray json = new JSONArray(HttpRequestAdapter.httpGet(strings[0].get(0)));
-                arrJsonGet = JsonHelper.parseJsonNoId(json, strings[1]);
-            } catch (JSONException ex) {
-                ex.printStackTrace();
-            }
-            return arrJsonGet.get(2);
-        }
+    public void load(Activity activity, String url, ArrayList<String> formatJson) {
+        TextView txtTenDv = activity.findViewById(R.id.textViewTenDv);
+        TextView txtGioiThieu = activity.findViewById(R.id.textViewGioiThieuDv);
+        TextView txtGia = activity.findViewById(R.id.textViewGiaDv);
+        TextView txtGio = activity.findViewById(R.id.textViewGioDv);
+        TextView txtLoaiHinh = activity.findViewById(R.id.textViewLoaiHinhDv);
+        TextView txtDiaChi = activity.findViewById(R.id.textViewDiaChiDv);
+        TextView txtSDT = activity.findViewById(R.id.textViewSdtDv);
+        TextView txtWebsite = activity.findViewById(R.id.textViewWebsite);
+
+        ServiceInfo serviceInfo = new ModelService().getEatInfo(url, formatJson);
+        txtTenDv.setText(serviceInfo.getTen());
+        txtGioiThieu.setText(serviceInfo.getGioiThieuDV());
+        txtGia.setText(serviceInfo.getGiaThapNhat() + " -> " + serviceInfo.getGiaCaoNhat());
+        txtGio.setText(serviceInfo.getGioMoCua() + " -> " + serviceInfo.getGioDongCua());
+        txtLoaiHinh.setText(serviceInfo.getGioiThieuDV());
+        txtDiaChi.setText(serviceInfo.getDiaChi());
+        txtSDT.setText(serviceInfo.getSdt());
+        txtWebsite.setText(serviceInfo.getWebsite());
     }
-
-    public static class GetIdPlace extends AsyncTask<String, Void, String> {
-        //Lấy id của dd_iddiadiem trong bảng dịch vụ
-        @Override
-        protected String doInBackground(String... strings) {
-            ArrayList<String> arrJsonGet = new ArrayList<>();
-            try {
-                JSONArray json = new JSONArray(HttpRequestAdapter.httpGet(strings[0]));
-                arrJsonGet = JsonHelper.parseJsonNoId(json, Config.JSON_SERVICE);
-            } catch (JSONException ex) {
-                ex.printStackTrace();
-            }
-            return arrJsonGet.get(6);
-        }
-    }
-
-    public static class LoadPlace extends AsyncTask<ArrayList<String>, ArrayList<String>, Void> {
-        //Load tên địa điểm và giới thiệu
-        Activity activity;
-        TextView txtTenDD, txtGioiThieu;
-
-        public LoadPlace(Activity atc) {
-            activity = atc;
-            txtTenDD = activity.findViewById(R.id.textViewTenDv);
-            txtGioiThieu = activity.findViewById(R.id.textViewGioiThieuDv);
-        }
-
-        @Override
-        protected Void doInBackground(ArrayList<String>... strings) {
-            try {
-                JSONArray jsonArray = new JSONArray(HttpRequestAdapter.httpGet(strings[0].get(0)));
-                ArrayList<String> arrayList = JsonHelper.parseJsonNoId(jsonArray, strings[1]);
-                publishProgress(arrayList);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onProgressUpdate(ArrayList<String>... values) {
-            //Đưa dữ liệu ra màn hình
-            super.onProgressUpdate(values);
-            txtTenDD.setText(values[0].get(0));
-            txtGioiThieu.setText(values[0].get(1));
-        }
-    }
-
-    public static class LoadServiceInfo extends AsyncTask<String, ArrayList<String>, Void> {
-        Activity activity;
-        TextView txtGia, txtGio, txtLoaiHinh;
-
-        public LoadServiceInfo(Activity atc) {
-            activity = atc;
-            txtGia = activity.findViewById(R.id.textViewGiaDv);
-            txtGio = activity.findViewById(R.id.textViewGioDv);
-            txtLoaiHinh = activity.findViewById(R.id.textViewLoaiHinhDv);
-        }
-
-        @Override
-        protected Void doInBackground(String... strings) {
-            try {
-                JSONArray jsonArray = new JSONArray(HttpRequestAdapter.httpGet(strings[0]));
-                ArrayList<String> arrayList = JsonHelper.parseJsonNoId(jsonArray, Config.JSON_SERVICE);
-                publishProgress(arrayList);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onProgressUpdate(ArrayList<String>[] values) {
-            super.onProgressUpdate(values);
-            txtGia.setText(values[0].get(4) + " - " + values[0].get(3));
-            txtGio.setText(values[0].get(1) + " - " + values[0].get(2));
-            txtLoaiHinh.setText(values[0].get(0));
-        }
-    }
-
-    public static class LoadPlaceInfo extends AsyncTask<String, ArrayList<String>, Void> {
-        Activity activity;
-        TextView txtDiaChi, txtSDT;
-
-        public LoadPlaceInfo(Activity atc) {
-            activity = atc;
-            txtDiaChi = activity.findViewById(R.id.textViewDiaChiDv);
-            txtSDT = activity.findViewById(R.id.textViewSdtDv);
-        }
-
-        @Override
-        protected Void doInBackground(String... strings) {
-            try {
-                JSONArray jsonArray = new JSONArray(HttpRequestAdapter.httpGet(strings[0]));
-                ArrayList<String> arrayList = JsonHelper.parseJsonNoId(jsonArray, Config.JSON_PLACE);
-                publishProgress(arrayList);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onProgressUpdate(ArrayList<String>[] values) {
-            super.onProgressUpdate(values);
-            txtDiaChi.setText(values[0].get(2));
-            txtSDT.setText(values[0].get(3));
-        }
-    }
-
 }

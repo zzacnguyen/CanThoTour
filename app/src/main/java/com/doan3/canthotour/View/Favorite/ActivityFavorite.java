@@ -148,28 +148,28 @@ public class ActivityFavorite extends AppCompatActivity {
         }
     }
 
-    private class Load extends AsyncTask<Void, ArrayList<Favorite>, Void> {
+    private class Load extends AsyncTask<Void, Void, ArrayList<Favorite>> {
         @Override
-        protected Void doInBackground(Void... voids) {
+        protected ArrayList<Favorite> doInBackground(Void... voids) {
             ArrayList<Favorite> arrIdPlace = new ArrayList<>();
             for (int i = 0; i < id.size(); i++) {
                 try {
                     String get = HttpRequestAdapter.httpGet(Config.URL_HOST + Config.URL_GET_ALL_PLACES + "/" + id.get(i));
-                    ArrayList<String> arrayList = JsonHelper.parseJsonNoId(new JSONArray(get), Config.JSON_PLACE);
-                    for (int j = 0; j < arrayList.size(); j += 7) {
-                        arrIdPlace.add(new Favorite(R.drawable.benninhkieu1, arrayList.get(j)));
-                        publishProgress(arrIdPlace);
+                    ArrayList<String> arrayList = JsonHelper.parseJson(new JSONArray(get), Config.JSON_PLACE);
+                    for (int j = 0; j < arrayList.size(); j += 8) {
+                        arrIdPlace.add(new Favorite(
+                                Integer.parseInt(arrayList.get(j)),R.drawable.benninhkieu1, arrayList.get(j+1)));
                     }
                 } catch (JSONException ex) {
                     ex.printStackTrace();
                 }
             }
-            return null;
+            return arrIdPlace;
         }
 
         @Override
-        protected void onProgressUpdate(ArrayList<Favorite>[] values) {
-            super.onProgressUpdate(values);
+        protected void onPostExecute(ArrayList<Favorite> favorites) {
+            super.onPostExecute(favorites);
             RecyclerView recyclerView = findViewById(R.id.RecyclerView_DanhSachYeuThich);
             recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
 
@@ -177,7 +177,7 @@ public class ActivityFavorite extends AppCompatActivity {
                     new LinearLayoutManager(ActivityFavorite.this, LinearLayoutManager.VERTICAL, false);
             recyclerView.setLayoutManager(linearLayoutManager);
 
-            FavoriteAdapter favoriteAdapter = new FavoriteAdapter(values[0], getApplicationContext());
+            FavoriteAdapter favoriteAdapter = new FavoriteAdapter(favorites, getApplicationContext());
             recyclerView.setAdapter(favoriteAdapter);
         }
     }
