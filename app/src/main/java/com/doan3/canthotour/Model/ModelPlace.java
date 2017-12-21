@@ -49,7 +49,6 @@ public class ModelPlace {
 
         ArrayList<String> arr, arrayList;
         ArrayList<Place> places = new ArrayList<>();
-        Place place = new Place();
 
         try {
             String rs = new Load().execute(Config.URL_HOST + Config.URL_GET_ALL_PLACES).get();
@@ -59,6 +58,8 @@ public class ModelPlace {
             int limit = jsonArray.length() > 5 ? 5 : jsonArray.length();
 
             for (int i = 0; i < limit; i++) {
+
+                Place place = new Place();
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 arrayList = JsonHelper.parseJson(jsonObject, Config.JSON_PLACE);
                 place.setHinhDD(R.drawable.benninhkieu1);
@@ -76,13 +77,14 @@ public class ModelPlace {
     public ArrayList<Place> getFavoriteList() {
 
         ArrayList<Place> favorites = new ArrayList<>();
-        Place place = new Place();
 
         try {
             String result = new Load().execute(Config.URL_HOST + Config.URL_GET_ALL_FAVORITE).get();
             JSONArray jsonArray = new JSONArray(result);
 
             for (int i = 0; i < jsonArray.length(); i++) {
+
+                Place place = new Place();
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 ArrayList<String> arrayList = JsonHelper.parseJsonNoId(jsonObject, Config.JSON_FAVORITE);
                 place.setMaDD(Integer.parseInt(arrayList.get(0)));
@@ -94,12 +96,6 @@ public class ModelPlace {
                 place.setHinhDD(R.drawable.benninhkieu1);
 
                 favorites.add(place);
-                Place place1 = favorites.get(i);
-                System.out.println("trong for " + place1.getTenDD());
-            }
-            for (int i = 0; i < favorites.size(); i++) {
-                Place place1 = favorites.get(i);
-                System.out.println("ngoài for " + place1.getTenDD());
             }
         } catch (JSONException | InterruptedException | ExecutionException e) {
             e.printStackTrace();
@@ -110,7 +106,6 @@ public class ModelPlace {
     public ArrayList<Place> getFavoriteList(File file) {
 
         ArrayList<Place> places = new ArrayList<>();
-        Place place = new Place();
 
         try {
             String result = new Load().execute(Config.URL_HOST + Config.URL_GET_ALL_FAVORITE).get();
@@ -127,6 +122,8 @@ public class ModelPlace {
                 jsonArray = JsonHelper.mergeJson(jsonGet, new JSONArray(JsonHelper.readJson(file)));
             }
             for (int i = 0; i < jsonArray.length(); i++) {
+
+                Place place = new Place();
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 ArrayList<String> arrayList = JsonHelper.parseJsonNoId(jsonObject, Config.JSON_FAVORITE);
                 place.setMaDD(Integer.parseInt(arrayList.get(0)));

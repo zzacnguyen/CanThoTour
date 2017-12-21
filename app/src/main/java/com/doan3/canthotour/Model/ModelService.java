@@ -73,7 +73,6 @@ public class ModelService {
 
         ArrayList<String> arr, arrayList;
         ArrayList<Service> services = new ArrayList<>();
-        Service service = new Service();
 
         try {
             String rs = new Load().execute(url).get();
@@ -83,6 +82,8 @@ public class ModelService {
             int limit = jsonArray.length() > 5 ? 5 : jsonArray.length();
 
             for (int i = 0; i < limit; i++) {
+
+                Service service = new Service();
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 arrayList = JsonHelper.parseJson(jsonObject, formatJson);
                 service.setHinh(R.drawable.benninhkieu1);
