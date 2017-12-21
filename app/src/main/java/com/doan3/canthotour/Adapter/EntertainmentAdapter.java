@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.doan3.canthotour.Model.ObjectClass.Entertainment;
+import com.doan3.canthotour.Model.ObjectClass.Service;
 import com.doan3.canthotour.R;
 import com.doan3.canthotour.View.Main.ActivityEntertainmentInfo;
 
@@ -18,12 +18,12 @@ import java.util.ArrayList;
 
 
 public class EntertainmentAdapter extends RecyclerView.Adapter<EntertainmentAdapter.ViewHolder> {
-    ArrayList<Entertainment> entertainments;
+    ArrayList<Service> entertainments;
     Context context;
     ArrayList<String> arr = new ArrayList<>();
 
-    public EntertainmentAdapter(ArrayList<Entertainment> entertain, Context context) {
-        this.entertainments = entertain;
+    public EntertainmentAdapter(ArrayList<Service> entertainments, Context context) {
+        this.entertainments = entertainments;
         this.context = context;
     }
 
@@ -36,18 +36,18 @@ public class EntertainmentAdapter extends RecyclerView.Adapter<EntertainmentAdap
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) { //Mỗi 1 lần chạy hàm này tương ứng với load 1 item trong recycler view
-        Entertainment entertainment = entertainments.get(position);
-        holder.txtTen.setText(entertainment.getTenVC());
-        holder.imgHinh.setImageResource(entertainment.getHinhVC());
-        holder.cardView.setTag(entertainment.getMaVC());
+        Service entertainment = entertainments.get(position);
+        holder.txtTen.setText(entertainment.getTen());
+        holder.imgHinh.setImageResource(entertainment.getHinh());
+        holder.cardView.setTag(entertainment.getId());
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {  //Bắt sự kiện click vào 1 item cardview
             @Override
             public void onClick(View view) {
-                Intent iEntertainmentInfo = new Intent(context, ActivityEntertainmentInfo.class);
-                iEntertainmentInfo.putExtra("masp", (int) view.getTag());
-                iEntertainmentInfo.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(iEntertainmentInfo);
+                Intent iServiceInfo = new Intent(context, ActivityEntertainmentInfo.class);
+                iServiceInfo.putExtra("masp", (int) view.getTag());
+                iServiceInfo.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(iServiceInfo);
             }
         });
     }

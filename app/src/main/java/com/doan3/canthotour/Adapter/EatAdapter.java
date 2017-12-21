@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.doan3.canthotour.Model.ObjectClass.Eat;
+import com.doan3.canthotour.Model.ObjectClass.Service;
 import com.doan3.canthotour.R;
 import com.doan3.canthotour.View.Main.ActivityEatInfo;
 
@@ -18,12 +18,12 @@ import java.util.ArrayList;
 
 
 public class EatAdapter extends RecyclerView.Adapter<EatAdapter.ViewHolder> {
-    ArrayList<Eat> eats;
+    ArrayList<Service> services;
     Context context;
     ArrayList<String> arr = new ArrayList<>();
 
-    public EatAdapter(ArrayList<Eat> eat, Context context) {
-        this.eats = eat;
+    public EatAdapter(ArrayList<Service> service, Context context) {
+        this.services = service;
         this.context = context;
     }
 
@@ -36,10 +36,10 @@ public class EatAdapter extends RecyclerView.Adapter<EatAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) { //Mỗi 1 lần chạy hàm này tương ứng với load 1 item trong recycler view
-        Eat eat = eats.get(position);
-        holder.txtTenDD.setText(eat.getTenAU());
-        holder.imgHinhDD.setImageResource(eat.getHinhAU());
-        holder.cardView.setTag(eat.getMaAU());
+        Service service = services.get(position);
+        holder.txtTenDD.setText(service.getTen());
+        holder.imgHinhDD.setImageResource(service.getHinh());
+        holder.cardView.setTag(service.getId());
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {  //Bắt sự kiện click vào 1 item cardview
             @Override
@@ -54,7 +54,7 @@ public class EatAdapter extends RecyclerView.Adapter<EatAdapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return eats.size();
+        return services.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder { //ViewHolder chạy thứ 2, phần này giúp cho recycler view ko bị load lại dữ liệu khi thực hiện thao tác vuốt màn hình

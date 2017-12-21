@@ -13,7 +13,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.doan3.canthotour.Interface.OnLoadMoreListener;
-import com.doan3.canthotour.Model.ObjectClass.Entertainment;
+import com.doan3.canthotour.Model.ObjectClass.Service;
 import com.doan3.canthotour.R;
 import com.doan3.canthotour.View.Main.ActivityEntertainmentInfo;
 
@@ -27,11 +27,11 @@ public class ListOfEntertainmentAdapter extends RecyclerView.Adapter<RecyclerVie
     private OnLoadMoreListener onLoadMoreListener;
     private boolean isLoading;
     private Context context;
-    private ArrayList<Entertainment> entertainments;
+    private ArrayList<Service> entertainments;
     private int visibleThreshold = 5;
     private int lastVisibleItem, totalItemCount;
 
-    public ListOfEntertainmentAdapter(RecyclerView recyclerView, ArrayList<Entertainment> entertainment, Context context) {
+    public ListOfEntertainmentAdapter(RecyclerView recyclerView, ArrayList<Service> entertainment, Context context) {
         this.context = context;
         this.entertainments = entertainment;
 
@@ -75,11 +75,11 @@ public class ListOfEntertainmentAdapter extends RecyclerView.Adapter<RecyclerVie
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof ViewHolder) {
-            Entertainment entertainment = entertainments.get(position);
+            Service entertainment = entertainments.get(position);
             ViewHolder viewHolder = (ViewHolder) holder;
-            viewHolder.txtTen.setText(entertainment.getTenVC());
-            viewHolder.imgHinh.setImageResource(entertainment.getHinhVC());
-            viewHolder.cardView.setTag(entertainment.getMaVC());
+            viewHolder.txtTen.setText(entertainment.getTen());
+            viewHolder.imgHinh.setImageResource(entertainment.getHinh());
+            viewHolder.cardView.setTag(entertainment.getId());
 
             viewHolder.cardView.setOnClickListener(new View.OnClickListener() {
                 @Override

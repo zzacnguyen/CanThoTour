@@ -13,7 +13,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.doan3.canthotour.Interface.OnLoadMoreListener;
-import com.doan3.canthotour.Model.ObjectClass.Eat;
+import com.doan3.canthotour.Model.ObjectClass.Service;
 import com.doan3.canthotour.R;
 import com.doan3.canthotour.View.Main.ActivityEatInfo;
 
@@ -27,13 +27,13 @@ public class ListOfEatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     private OnLoadMoreListener onLoadMoreListener;
     private boolean isLoading;
     private Context context;
-    private ArrayList<Eat> eats;
+    private ArrayList<Service> services;
     private int visibleThreshold = 5;
     private int lastVisibleItem, totalItemCount;
 
-    public ListOfEatAdapter(RecyclerView recyclerView, ArrayList<Eat> eat, Context context) {
+    public ListOfEatAdapter(RecyclerView recyclerView, ArrayList<Service> service, Context context) {
         this.context = context;
-        this.eats = eat;
+        this.services = service;
 
         final LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -57,7 +57,7 @@ public class ListOfEatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     @Override
     public int getItemViewType(int position) {
-        return eats.get(position) == null ? VIEW_TYPE_LOADING : VIEW_TYPE_ITEM;
+        return services.get(position) == null ? VIEW_TYPE_LOADING : VIEW_TYPE_ITEM;
     }
 
     @Override
@@ -75,11 +75,11 @@ public class ListOfEatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof ViewHolder) {
-            Eat eat = eats.get(position);
+            Service service = services.get(position);
             ViewHolder viewHolder = (ViewHolder) holder;
-            viewHolder.txtTen.setText(eat.getTenAU());
-            viewHolder.imgHinh.setImageResource(eat.getHinhAU());
-            viewHolder.cardView.setTag(eat.getMaAU());
+            viewHolder.txtTen.setText(service.getTen());
+            viewHolder.imgHinh.setImageResource(service.getHinh());
+            viewHolder.cardView.setTag(service.getId());
 
             viewHolder.cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -98,7 +98,7 @@ public class ListOfEatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     @Override
     public int getItemCount() {
-        return eats.size();
+        return services.size();
     }
 
     public void setLoaded() {

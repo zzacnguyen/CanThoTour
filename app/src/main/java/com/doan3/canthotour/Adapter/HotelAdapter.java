@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.doan3.canthotour.Model.ObjectClass.Hotel;
+import com.doan3.canthotour.Model.ObjectClass.Service;
 import com.doan3.canthotour.R;
 import com.doan3.canthotour.View.Main.ActivityHotelInfo;
 
@@ -21,11 +21,11 @@ import java.util.ArrayList;
  */
 
 public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.ViewHolder> {
-    ArrayList<Hotel> hotels;
+    ArrayList<Service> hotels;
     Context context;
     ArrayList<String> arr = new ArrayList<>();
 
-    public HotelAdapter(ArrayList<Hotel> hotel, Context context) {
+    public HotelAdapter(ArrayList<Service> hotel, Context context) {
         this.hotels = hotel;
         this.context = context;
     }
@@ -39,10 +39,10 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) { //Mỗi 1 lần chạy hàm này tương ứng với load 1 item trong recycler view
-        Hotel hotel = hotels.get(position);
-        holder.txtTen.setText(hotel.getTenKS());
-        holder.imgHinh.setImageResource(hotel.getHinhKS());
-        holder.cardView.setTag(hotel.getMaKS());
+        Service hotel = hotels.get(position);
+        holder.txtTen.setText(hotel.getTen());
+        holder.imgHinh.setImageResource(hotel.getHinh());
+        holder.cardView.setTag(hotel.getId());
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {  //Bắt sự kiện click vào 1 item cardview
             @Override

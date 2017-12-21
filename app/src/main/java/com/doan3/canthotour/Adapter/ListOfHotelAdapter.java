@@ -13,7 +13,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.doan3.canthotour.Interface.OnLoadMoreListener;
-import com.doan3.canthotour.Model.ObjectClass.Hotel;
+import com.doan3.canthotour.Model.ObjectClass.Service;
 import com.doan3.canthotour.R;
 import com.doan3.canthotour.View.Main.ActivityHotelInfo;
 
@@ -27,11 +27,11 @@ public class ListOfHotelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private OnLoadMoreListener onLoadMoreListener;
     private boolean isLoading;
     private Context context;
-    private ArrayList<Hotel> hotels;
+    private ArrayList<Service> hotels;
     private int visibleThreshold = 5;
     private int lastVisibleItem, totalItemCount;
 
-    public ListOfHotelAdapter(RecyclerView recyclerView, ArrayList<Hotel> hotel, Context context) {
+    public ListOfHotelAdapter(RecyclerView recyclerView, ArrayList<Service> hotel, Context context) {
         this.context = context;
         this.hotels = hotel;
 
@@ -75,11 +75,11 @@ public class ListOfHotelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof ViewHolder) {
-            Hotel hotel = hotels.get(position);
+            Service hotel = hotels.get(position);
             ViewHolder viewHolder = (ViewHolder) holder;
-            viewHolder.txtTen.setText(hotel.getTenKS());
-            viewHolder.imgHinh.setImageResource(hotel.getHinhKS());
-            viewHolder.cardView.setTag(hotel.getMaKS());
+            viewHolder.txtTen.setText(hotel.getTen());
+            viewHolder.imgHinh.setImageResource(hotel.getHinh());
+            viewHolder.cardView.setTag(hotel.getId());
 
             viewHolder.cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
