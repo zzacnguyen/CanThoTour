@@ -39,6 +39,8 @@ public class ActivityPlaceInfo extends AppCompatActivity {
     public static String viDo;
     JSONObject object;
     Button btnLuuDiaDiem, btnLanCan, btnChiaSe;
+    TextView fbSuKien;
+    boolean sukien = true;
     int ma;
 
     @Override
@@ -49,6 +51,9 @@ public class ActivityPlaceInfo extends AppCompatActivity {
         btnLuuDiaDiem = findViewById(R.id.btnLuuDiaDiem);
         btnLanCan = findViewById(R.id.btnDiaDiemLanCan);
         btnChiaSe = findViewById(R.id.btnChiaSe);
+        fbSuKien = findViewById(R.id.fb_sukien);
+
+        displayEvent();
 
         btnLanCan.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,6 +108,12 @@ public class ActivityPlaceInfo extends AppCompatActivity {
         menuBotNavBar();
     }
 
+    void displayEvent(){
+        if (sukien == true){
+            fbSuKien.setText("Sự kiện");
+            fbSuKien.setVisibility(TextView.VISIBLE); //Ẩn thì thay VISIBLE bằng INVISIBLE
+        }
+    }
     private void menuBotNavBar() {
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavView_Bar);
         BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
