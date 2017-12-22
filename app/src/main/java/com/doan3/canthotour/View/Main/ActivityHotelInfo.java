@@ -31,16 +31,14 @@ import java.util.ArrayList;
  */
 
 public class ActivityHotelInfo extends AppCompatActivity {
-    Button btnLuuDiaDiem, btnLanCan, btnChiaSe;
+    Button btnChiaSe;
     int ma;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chitietkhachsan);
+        setContentView(R.layout.activity_chitietdichvu);
 
-        btnLuuDiaDiem = findViewById(R.id.btnLuuKS);
-        btnLanCan = findViewById(R.id.btnDiaDiemLanCanKS);
         btnChiaSe = findViewById(R.id.btnChiaSeKS);
 
         ma = getIntent().getIntExtra("masp", 1);
