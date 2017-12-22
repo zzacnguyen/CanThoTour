@@ -30,8 +30,7 @@ public class ActivityEntertainmentInfo extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chitietdichvu);
 
-        btnLuuDiaDiem = findViewById(R.id.btnLuuDiaDiemDv);
-        btnLanCan = findViewById(R.id.btnDiaDiemLanCanDv);
+
         btnChiaSe = findViewById(R.id.btnChiaSeDv);
 
         ma = getIntent().getIntExtra("masp", 1);
