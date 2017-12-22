@@ -119,30 +119,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:padding="10dp"
+                android:padding="5dp"
                 android:background="@drawable/white_grey_border_bottom">
-
-                <Button
-                    android:id="@+id/btnLuuDiaDiemDv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textSize="14sp"
-                    android:text="LƯU"
-                    android:textColor="@color/bgToolbar"
-                    android:drawableTop="@drawable/ic_favorite_36dp"
-                    android:background="@color/colorWhite"/>
-
-                <Button
-                    android:id="@+id/btnDiaDiemLanCanDv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textSize="14sp"
-                    android:text="LÂN CẬN"
-                    android:textColor="@color/bgToolbar"
-                    android:drawableTop="@drawable/ic_place_blue_36dp"
-                    android:background="@color/colorWhite"/>
 
                 <Button
                     android:id="@+id/btnChiaSeDv"
@@ -152,7 +130,7 @@
                     android:textSize="14sp"
                     android:text="CHIA SẺ"
                     android:textColor="@color/bgToolbar"
-                    android:drawableTop="@drawable/ic_share_blue_36dp"
+                    android:drawableTop="@drawable/ic_share_24dp"
                     android:background="@color/colorWhite"/>
 
             </LinearLayout>
