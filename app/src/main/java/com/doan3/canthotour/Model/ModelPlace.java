@@ -29,7 +29,7 @@ public class ModelPlace {
         try {
             String data = new Load().execute(Config.URL_HOST + Config.URL_GET_ALL_PLACES + "/" + masp).get();
             JSONArray jsonArray = new JSONArray(data);
-            arrayList = JsonHelper.parseJson(jsonArray.getJSONObject(0), Config.JSON_PLACE);
+            arrayList = JsonHelper.parseJson(jsonArray.getJSONObject(0), Config.JSON_PLACE_INFO);
 
             placeInfo.setId(Integer.parseInt(arrayList.get(0)));
             placeInfo.setTen(arrayList.get(1));
@@ -39,6 +39,7 @@ public class ModelPlace {
             placeInfo.setKinhDo(arrayList.get(5));
             placeInfo.setViDo(arrayList.get(6));
             placeInfo.setIdND(Integer.parseInt(arrayList.get(7)));
+            placeInfo.setTenSK(arrayList.get(8));
         } catch (InterruptedException | ExecutionException | JSONException e) {
             e.printStackTrace();
         }

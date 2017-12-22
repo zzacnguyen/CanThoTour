@@ -95,8 +95,8 @@ public class ActivityPlace extends AppCompatActivity {
             ArrayList<Place> list = new ArrayList<>();
 
             // lấy tên địa điểm vào list và cập nhật lên giao diện
-            for (int i = 0; i < arrayList.size(); i += 8) {
-                list.add(new Place(Integer.parseInt(arrayList.get(i)),R.drawable.benninhkieu1, arrayList.get(i+1)));
+            for (int i = 0; i < arrayList.size(); i += 2) {
+                list.add(new Place(Integer.parseInt(arrayList.get(i)), R.drawable.benninhkieu1, arrayList.get(i + 1)));
             }
             return list;
         }
@@ -146,9 +146,9 @@ public class ActivityPlace extends AppCompatActivity {
                                     e.printStackTrace();
                                 }
 
-                                for (int i = 0; i < arrayList.size(); i += 8) {
+                                for (int i = 0; i < arrayList.size(); i += 2) {
                                     listPlace.add(new Place(Integer.parseInt(arrayList.get(i)),
-                                            R.drawable.benninhkieu1, arrayList.get(i+1)));
+                                            R.drawable.benninhkieu1, arrayList.get(i + 1)));
                                 }
                                 listOfPlaceAdapter.notifyDataSetChanged();
                                 listOfPlaceAdapter.setLoaded();

@@ -6,7 +6,15 @@ package com.doan3.canthotour.Model.ObjectClass;
 
 public class PlaceInfo {
     private int id, idND;
-    private String ten, gioiThieu, diaChi, sdt, kinhDo, viDo;
+    private String ten, gioiThieu, diaChi, sdt, kinhDo, viDo, tenSK;
+
+    public String getTenSK() {
+        return tenSK;
+    }
+
+    public void setTenSK(String tenSK) {
+        this.tenSK = tenSK;
+    }
 
     public int getId() {
         return id;

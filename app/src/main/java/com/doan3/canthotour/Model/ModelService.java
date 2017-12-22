@@ -58,7 +58,7 @@ public class ModelService {
             data = new Load().execute(Config.URL_HOST + Config.URL_GET_ALL_PLACES + "/" + serviceInfo.getIdDD()).get();
             jsonArray = new JSONArray(data);
             arrayList.clear();
-            arrayList = JsonHelper.parseJsonNoId(jsonArray.getJSONObject(0), Config.JSON_PLACE);
+            arrayList = JsonHelper.parseJsonNoId(jsonArray.getJSONObject(0), Config.JSON_PLACE_INFO);
 
             serviceInfo.setDiaChi(arrayList.get(2));
             serviceInfo.setSdt(arrayList.get(3));

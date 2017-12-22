@@ -40,7 +40,6 @@ public class ActivityPlaceInfo extends AppCompatActivity {
     JSONObject object;
     Button btnLuuDiaDiem, btnLanCan, btnChiaSe;
     TextView fbSuKien;
-    boolean sukien = true;
     int ma;
 
     @Override
@@ -52,8 +51,6 @@ public class ActivityPlaceInfo extends AppCompatActivity {
         btnLanCan = findViewById(R.id.btnDiaDiemLanCan);
         btnChiaSe = findViewById(R.id.btnChiaSe);
         fbSuKien = findViewById(R.id.fb_sukien);
-
-        displayEvent();
 
         btnLanCan.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,12 +105,6 @@ public class ActivityPlaceInfo extends AppCompatActivity {
         menuBotNavBar();
     }
 
-    void displayEvent(){
-        if (sukien == true){
-            fbSuKien.setText("Sự kiện");
-            fbSuKien.setVisibility(TextView.VISIBLE); //Ẩn thì thay VISIBLE bằng INVISIBLE
-        }
-    }
     private void menuBotNavBar() {
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavView_Bar);
         BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
@@ -165,5 +156,11 @@ public class ActivityPlaceInfo extends AppCompatActivity {
         txtDiaChi.setText(placeInfo.getDiaChi());
         txtSDT.setText(placeInfo.getSdt());
         txtGioiThieu.setText(placeInfo.getGioiThieu());
+        if (placeInfo.getTenSK().equals("null")) {
+            fbSuKien.setVisibility(TextView.INVISIBLE);
+        } else {
+            fbSuKien.setText(placeInfo.getTenSK());
+            fbSuKien.setVisibility(TextView.VISIBLE);
+        }
     }
 }
