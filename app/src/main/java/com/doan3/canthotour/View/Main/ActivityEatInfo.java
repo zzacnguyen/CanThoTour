@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.doan3.canthotour.Config;
@@ -28,14 +29,13 @@ import java.util.ArrayList;
  */
 
 public class ActivityEatInfo extends AppCompatActivity {
-    Button btnLuuDiaDiem, btnLanCan, btnChiaSe;
+    Button btnChiaSe;
     int ma;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chitietdichvu);
-
 
         btnChiaSe = findViewById(R.id.btnChiaSeDv);
 
@@ -85,8 +85,9 @@ public class ActivityEatInfo extends AppCompatActivity {
         TextView txtDiaChi = activity.findViewById(R.id.textViewDiaChiDv);
         TextView txtSDT = activity.findViewById(R.id.textViewSdtDv);
         TextView txtWebsite = activity.findViewById(R.id.textViewWebsite);
+        ImageView imgChiTiet1 = activity.findViewById(R.id.imgChiTiet1);
 
-        ServiceInfo serviceInfo = new ModelService().getEatInfo(url, formatJson);
+        ServiceInfo serviceInfo = new ModelService().getServiceInfo(url, formatJson);
         txtTenDv.setText(serviceInfo.getTen());
         txtGioiThieu.setText(serviceInfo.getGioiThieuDV());
         txtGia.setText(serviceInfo.getGiaThapNhat() + " -> " + serviceInfo.getGiaCaoNhat());
@@ -95,5 +96,6 @@ public class ActivityEatInfo extends AppCompatActivity {
         txtDiaChi.setText(serviceInfo.getDiaChi());
         txtSDT.setText(serviceInfo.getSdt());
         txtWebsite.setText(serviceInfo.getWebsite());
+        imgChiTiet1.setImageBitmap(serviceInfo.getChiTiet1Thumb());
     }
 }

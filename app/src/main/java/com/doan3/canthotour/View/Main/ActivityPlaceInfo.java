@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -141,6 +142,7 @@ public class ActivityPlaceInfo extends AppCompatActivity {
         TextView txtDiaChi = activity.findViewById(R.id.textViewDiaChi);
         TextView txtSDT = activity.findViewById(R.id.textViewSDT);
         TextView txtGioiThieu = activity.findViewById(R.id.textViewGioiThieu);
+        ImageView imgChiTiet1Thumb = activity.findViewById(R.id.imgChiTiet1);
 
         PlaceInfo placeInfo = new ModelPlace().getPlaceInfo(ma);
         try {
@@ -152,6 +154,7 @@ public class ActivityPlaceInfo extends AppCompatActivity {
         }
         kinhDo = placeInfo.getKinhDo();
         viDo = placeInfo.getViDo();
+        imgChiTiet1Thumb.setImageBitmap(placeInfo.getChiTiet1Thumb());
         txtTenDD.setText(placeInfo.getTen());
         txtDiaChi.setText(placeInfo.getDiaChi());
         txtSDT.setText(placeInfo.getSdt());

@@ -1,12 +1,71 @@
 package com.doan3.canthotour.Model.ObjectClass;
 
+import android.graphics.Bitmap;
+
 /**
  * Created by zzacn on 11/17/2017.
  */
 
 public class ServiceInfo {
     private int id, idDV, idDD;
-    private String ten, gioiThieuAU, gioiThieuDV, gioDongCua, gioMoCua, giaCaoNhat, giaThapNhat, trangThai, diaChi, sdt, website;
+    private String ten, gioiThieu, gioiThieuDV, gioDongCua, gioMoCua, giaCaoNhat, giaThapNhat, trangThai, diaChi, sdt, website;
+    private Bitmap banner, chiTiet1, chiTiet1Thumb, chiTiet2, chiTiet2Thumb;
+
+    public Bitmap getChiTiet1() {
+        return chiTiet1;
+    }
+
+    public void setChiTiet1(Bitmap chiTiet1) {
+        this.chiTiet1 = chiTiet1;
+    }
+
+    public Bitmap getChiTiet1Thumb() {
+        return chiTiet1Thumb;
+    }
+
+    public void setChiTiet1Thumb(Bitmap chiTiet1Thumb) {
+        this.chiTiet1Thumb = chiTiet1Thumb;
+    }
+
+    public Bitmap getChiTiet2() {
+        return chiTiet2;
+    }
+
+    public void setChiTiet2(Bitmap chiTiet2) {
+        this.chiTiet2 = chiTiet2;
+    }
+
+    public Bitmap getChiTiet2Thumb() {
+        return chiTiet2Thumb;
+    }
+
+    public void setChiTiet2Thumb(Bitmap chiTiet2Thumb) {
+        this.chiTiet2Thumb = chiTiet2Thumb;
+    }
+
+    public Bitmap getBanner() {
+        return banner;
+    }
+
+    public void setBanner(Bitmap banner) {
+        this.banner = banner;
+    }
+
+    public Bitmap getchiTiet1() {
+        return chiTiet1;
+    }
+
+    public void setchiTiet1(Bitmap chiTiet1) {
+        this.chiTiet1 = chiTiet1;
+    }
+
+    public Bitmap getchiTiet2() {
+        return chiTiet2;
+    }
+
+    public void setchiTiet2(Bitmap chiTiet2) {
+        this.chiTiet2 = chiTiet2;
+    }
 
     public int getId() {
         return id;
@@ -56,12 +115,12 @@ public class ServiceInfo {
         this.idDD = idDD;
     }
 
-    public String getGioiThieuAU() {
-        return gioiThieuAU;
+    public String getGioiThieu() {
+        return gioiThieu;
     }
 
-    public void setGioiThieuAU(String gioiThieuAU) {
-        this.gioiThieuAU = gioiThieuAU;
+    public void setGioiThieu(String gioiThieu) {
+        this.gioiThieu = gioiThieu;
     }
 
     public String getGioiThieuDV() {

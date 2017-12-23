@@ -39,7 +39,7 @@ public class ActivityHotelInfo extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chitietdichvu);
 
-        btnChiaSe = findViewById(R.id.btnChiaSeKS);
+        btnChiaSe = findViewById(R.id.btnChiaSeDv);
 
         ma = getIntent().getIntExtra("masp", 1);
 

@@ -1,5 +1,7 @@
 package com.doan3.canthotour.Model;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 
 import com.doan3.canthotour.Adapter.HttpRequestAdapter;
@@ -13,6 +15,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
@@ -21,27 +24,30 @@ import java.util.concurrent.ExecutionException;
  */
 
 public class ModelService {
-    public ServiceInfo getEatInfo(String url, ArrayList<String> formatJson) {
+    public ServiceInfo getServiceInfo(String url, ArrayList<String> formatJson) {
         ArrayList<String> arrayList;
         ServiceInfo serviceInfo = new ServiceInfo();
         try {
             // lấy thông tin ăn uống
-            String data = new Load().execute(url).get();
+            Bitmap banner, chiTiet1, chiTiet1Thumb, chiTiet2, chiTiet2Thumb;
+            String data = new ModelPlace.Load().execute(url).get();
             JSONArray jsonArray = new JSONArray(data);
+            chiTiet1Thumb = new GetImage().execute().get();
+            serviceInfo.setChiTiet1Thumb(chiTiet1Thumb);
             arrayList = JsonHelper.parseJsonNoId(jsonArray.getJSONObject(0), formatJson);
             if (formatJson.equals(Config.JSON_HOTEL)) {
                 serviceInfo.setTen(arrayList.get(0));
-                serviceInfo.setGioiThieuAU(arrayList.get(1));
+                serviceInfo.setGioiThieu(arrayList.get(1));
                 serviceInfo.setIdDV(Integer.parseInt(arrayList.get(2)));
                 serviceInfo.setWebsite(arrayList.get(3));
             } else {
                 serviceInfo.setTen(arrayList.get(0));
-                serviceInfo.setGioiThieuAU(arrayList.get(1));
+                serviceInfo.setGioiThieu(arrayList.get(1));
                 serviceInfo.setIdDV(Integer.parseInt(arrayList.get(2)));
             }
 
             // lấy thông tin dịch vụ
-            data = new Load().execute(Config.URL_HOST + Config.URL_GET_ALL_SERVICES + "/" + serviceInfo.getIdDV()).get();
+            data = new ModelPlace.Load().execute(Config.URL_HOST + Config.URL_GET_ALL_SERVICES + "/" + serviceInfo.getIdDV()).get();
             jsonArray = new JSONArray(data);
             arrayList.clear();
             arrayList = JsonHelper.parseJsonNoId(jsonArray.getJSONObject(0), Config.JSON_SERVICE);
@@ -55,7 +61,7 @@ public class ModelService {
             serviceInfo.setIdDD(Integer.parseInt(arrayList.get(6)));
 
             // lấy thông tin địa điểm
-            data = new Load().execute(Config.URL_HOST + Config.URL_GET_ALL_PLACES + "/" + serviceInfo.getIdDD()).get();
+            data = new ModelPlace.Load().execute(Config.URL_HOST + Config.URL_GET_ALL_PLACES + "/" + serviceInfo.getIdDD()).get();
             jsonArray = new JSONArray(data);
             arrayList.clear();
             arrayList = JsonHelper.parseJsonNoId(jsonArray.getJSONObject(0), Config.JSON_PLACE_INFO);
@@ -75,7 +81,7 @@ public class ModelService {
         ArrayList<Service> services = new ArrayList<>();
 
         try {
-            String rs = new Load().execute(url).get();
+            String rs = new ModelPlace.Load().execute(url).get();
             arr = JsonHelper.parseJsonNoId(new JSONObject(rs), Config.JSON_LOAD);
             JSONArray jsonArray = new JSONArray(arr.get(0));
 
@@ -98,11 +104,28 @@ public class ModelService {
         return services;
     }
 
-    private class Load extends AsyncTask<String, Void, String> {
+    private class GetImage extends AsyncTask<String, Void, Bitmap> {
         @Override
-        protected String doInBackground(String... strings) {
-            return HttpRequestAdapter.httpGet(strings[0]);
+        protected Bitmap doInBackground(String... strings) {
+//            String image = null;
+//            try {
+//                image = new ModelPlace.Load().execute(strings[0]).get();
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            } catch (ExecutionException e) {
+//                e.printStackTrace();
+//            }
+//            String[] str = image.split("\\+");
+//            String url = str[0], folderName = str[1], fileName = str[2];
+            String url = "https://2.bp.blogspot.com/-dyjXzBrtLG8/WhrTd0W-k9I/AAAAAAAACi8/YzLNj5kTtaEAZ43npwmRFNum7bxvJrqdQCK4BGAYYCw/s1600/naruto_uchiha_itachi_mangekyou_sharingan_112353_3840x2160.jpg";
+            String folderName = "1", fileName = "2";
+            String filePath = HttpRequestAdapter.httpGetImage(url, folderName, fileName);
+            File imgFile = new File(filePath);
+            Bitmap myBitmap = null;
+            if (imgFile.exists()) {
+                myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+            }
+            return myBitmap;
         }
     }
-
 }

@@ -1,5 +1,7 @@
 package com.doan3.canthotour.Model;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 
 import com.doan3.canthotour.Adapter.HttpRequestAdapter;
@@ -30,7 +32,8 @@ public class ModelPlace {
             String data = new Load().execute(Config.URL_HOST + Config.URL_GET_ALL_PLACES + "/" + masp).get();
             JSONArray jsonArray = new JSONArray(data);
             arrayList = JsonHelper.parseJson(jsonArray.getJSONObject(0), Config.JSON_PLACE_INFO);
-
+            Bitmap chiTiet1Thumb = new GetImage().execute().get();
+            placeInfo.setChiTiet1Thumb(chiTiet1Thumb);
             placeInfo.setId(Integer.parseInt(arrayList.get(0)));
             placeInfo.setTen(arrayList.get(1));
             placeInfo.setGioiThieu(arrayList.get(2));
@@ -117,6 +120,32 @@ public class ModelPlace {
         @Override
         protected String doInBackground(String... strings) {
             return HttpRequestAdapter.httpGet(strings[0]);
+        }
+    }
+
+    private class GetImage extends AsyncTask<String, Void, Bitmap> {
+        @Override
+        protected Bitmap doInBackground(String... strings) {
+//            String image = null;
+//            try {
+//                image = new ModelPlace.Load().execute(strings[0]).get();
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            } catch (ExecutionException e) {
+//                e.printStackTrace();
+//            }
+//            String[] str = image.split("\\+");
+//            String url = str[0], folderName = str[1], fileName = str[2];
+            String url = "https://2.bp.blogspot.com/-dyjXzBrtLG8/WhrTd0W-k9I/AAAAAAAACi8/YzLNj5kTtaEAZ43npwmRFNum7bxvJrqdQCK4BGAYYCw/s1600/naruto_uchiha_itachi_mangekyou_sharingan_112353_3840x2160.jpg";
+            String folderName = "1", fileName = "2.jpg";
+            String filePath = HttpRequestAdapter.httpGetImage(url, folderName, fileName);
+            System.out.println(fileName);
+            File imgFile = new File(filePath);
+            Bitmap myBitmap = null;
+            if (imgFile.exists()) {
+                myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+            }
+            return myBitmap;
         }
     }
 }

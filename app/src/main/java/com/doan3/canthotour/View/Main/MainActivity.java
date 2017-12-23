@@ -188,7 +188,7 @@ public class MainActivity extends AppCompatActivity {
         placeAdapter.notifyDataSetChanged();
     }
 
-    //Custom view eat
+    //Custom view service
     private void loadService(RecyclerView recyclerView, String url, ArrayList<String> formatJson) {
         recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
 

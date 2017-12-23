@@ -49,7 +49,7 @@ public class HttpRequestAdapter {
             urlConnection.connect();
             File SDCardRoot = new File(Environment.getExternalStorageDirectory()
                     + "/" + folderName);
-            if (SDCardRoot.exists()) {
+            if (!SDCardRoot.exists()) {
                 SDCardRoot.mkdirs();
             }
             File file = new File(SDCardRoot, fileName);
@@ -59,14 +59,14 @@ public class HttpRequestAdapter {
             int totalSize = urlConnection.getContentLength();
             int downloadedSize = 0;
             byte[] buffer = new byte[inputStream.available()];
-            int bufferLength = 0;
+            int bufferLength;
             while ((bufferLength = inputStream.read(buffer)) > 0) {
                 fileOutput.write(buffer, 0, bufferLength);
                 downloadedSize += bufferLength;
             }
             fileOutput.close();
             if (downloadedSize == totalSize)
-                filePath = file.getPath();
+                filePath = file.getAbsolutePath();
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
