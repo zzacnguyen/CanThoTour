@@ -27,6 +27,7 @@ import com.doan3.canthotour.View.Favorite.ActivityFavorite;
 import com.doan3.canthotour.View.Notify.ActivityNotify;
 import com.doan3.canthotour.View.Personal.ActivityPersonal;
 import com.doan3.canthotour.View.Search.ActivityNearLocation;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -143,6 +144,7 @@ public class ActivityPlaceInfo extends AppCompatActivity {
         TextView txtSDT = activity.findViewById(R.id.textViewSDT);
         TextView txtGioiThieu = activity.findViewById(R.id.textViewGioiThieu);
         ImageView imgChiTiet1Thumb = activity.findViewById(R.id.imgChiTiet1);
+        ImageView imgChiTiet2Thumb = activity.findViewById(R.id.imgChiTiet2);
 
         PlaceInfo placeInfo = new ModelPlace().getPlaceInfo(ma);
         try {
@@ -154,7 +156,8 @@ public class ActivityPlaceInfo extends AppCompatActivity {
         }
         kinhDo = placeInfo.getKinhDo();
         viDo = placeInfo.getViDo();
-        imgChiTiet1Thumb.setImageBitmap(placeInfo.getChiTiet1Thumb());
+        Picasso.with(this).load("https://pm1.narvii.com/6056/c78d9bcce1791f98ee2402faa1074b9dc5188815_hq.jpg").into(imgChiTiet1Thumb);
+        Picasso.with(this).load("https://data.whicdn.com/images/70247110/original.jpg").into(imgChiTiet2Thumb);
         txtTenDD.setText(placeInfo.getTen());
         txtDiaChi.setText(placeInfo.getDiaChi());
         txtSDT.setText(placeInfo.getSdt());
