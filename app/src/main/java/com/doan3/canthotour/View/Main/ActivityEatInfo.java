@@ -21,6 +21,7 @@ import com.doan3.canthotour.R;
 import com.doan3.canthotour.View.Favorite.ActivityFavorite;
 import com.doan3.canthotour.View.Notify.ActivityNotify;
 import com.doan3.canthotour.View.Personal.ActivityPersonal;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -84,7 +85,9 @@ public class ActivityEatInfo extends AppCompatActivity {
         TextView txtDiaChi = activity.findViewById(R.id.textViewDiaChiDv);
         TextView txtSDT = activity.findViewById(R.id.textViewSdtDv);
         TextView txtWebsite = activity.findViewById(R.id.textViewWebsite);
-        ImageView imgChiTiet1 = activity.findViewById(R.id.imgChiTiet1);
+        ImageView imgChiTiet1Thumb = activity.findViewById(R.id.imgChiTiet1);
+        ImageView imgChiTiet2Thumb = activity.findViewById(R.id.imgChiTiet2);
+        ImageView imgBanner = activity.findViewById(R.id.imgBanner);
 
         ServiceInfo serviceInfo = new ModelService().getServiceInfo(url, formatJson);
         txtTenDv.setText(serviceInfo.getTen());
@@ -94,6 +97,9 @@ public class ActivityEatInfo extends AppCompatActivity {
         txtDiaChi.setText(serviceInfo.getDiaChi());
         txtSDT.setText(serviceInfo.getSdt());
         txtWebsite.setText(serviceInfo.getWebsite());
-//        imgChiTiet1.setImageBitmap(serviceInfo.getChiTiet1Thumb());
+        Picasso.with(this).load("https://pm1.narvii.com/6056/c78d9bcce1791f98ee2402faa1074b9dc5188815_hq.jpg").into(imgChiTiet1Thumb);
+        Picasso.with(this).load("https://data.whicdn.com/images/70247110/original.jpg").into(imgChiTiet2Thumb);
+        Picasso.with(this).load("https://orig00.deviantart.net/2171/f/2014/337/c/9/hidden_leaf_village__landscape__13_by_iennidesign-d88l3ym.jpg").into(imgBanner);
+
     }
 }
