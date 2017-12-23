@@ -16,4 +16,9 @@
         <item name="colorControlNormal">@color/colorPrimary</item>
         <item name="colorControlActivated">@color/colorWhite</item>
     </style>
+    <color name="tbThamQuan">#168DDB</color>
+    <color name="tbAnUong">#B33030</color>
+    <color name="tbKhachSan">#FE6500</color>
+    <color name="tbVuiChoi">#56BBEF</color>
+    <color name="tbPhuongTien">#19AC5B</color>
 </resources>

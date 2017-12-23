@@ -9,32 +9,31 @@
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fitsSystemWindows="true"
-        android:background="@color/colorWhite">
+        android:background="@color/colorWhite"
+        android:fitsSystemWindows="true">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:layout_collapseMode="pin"
             android:layout_gravity="center"
-            android:background="@color/bgToolbar">
+            android:background="@color/bgToolbar"
+            app:layout_collapseMode="pin">
 
             <ImageView
                 android:layout_width="46dp"
                 android:layout_height="match_parent"
-                android:background="@null"/>
+                android:background="@null" />
 
             <TextView
                 android:id="@+id/toolbarTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Trang chủ"
                 android:gravity="center"
+                android:text="Trang chủ"
                 android:textAlignment="center"
                 android:textColor="@color/colorWhite"
-                android:textSize="18sp"
-                />
+                android:textSize="18sp" />
 
         </android.support.v7.widget.Toolbar>
 
@@ -44,25 +43,25 @@
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="?attr/actionBarSize"
+        android:layout_marginRight="5dp"
         android:src="@drawable/ic_add_36dp"
         android:tint="#fff"
-        android:layout_gravity="bottom|end"
-        android:layout_marginRight="5dp"
-        android:layout_marginBottom="?attr/actionBarSize"
-        app:backgroundTint="@color/bgToolbar"/>
+        app:backgroundTint="@color/bgToolbar" />
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layout_marginBottom="50dp"
         android:background="@color/colorWhite"
-        android:layout_marginBottom="50dp">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:background="@color/colorWhite">
+            android:background="@color/colorWhite"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -76,12 +75,12 @@
                     android:background="@color/colorWhite">
 
                     <TextView
-                        android:layout_weight="1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Các địa danh ở Cần Thơ"
+                        android:layout_weight="1"
+                        android:text="Địa điểm tham quan ở Cần Thơ"
                         android:textColor="@color/colorBlack"
-                        android:textSize="16sp"/>
+                        android:textSize="16sp" />
 
                     <Button
                         android:id="@+id/btnTatCaDiaDanh"
@@ -91,20 +90,28 @@
                         android:background="@null"
                         android:drawableRight="@drawable/ic_arrow"
                         android:text="Tất cả"
-                        android:textColor="@color/colorGray"
                         android:textAllCaps="false"
-                        android:textSize="12sp"/>
+                        android:textColor="@color/colorGray"
+                        android:textSize="12sp" />
 
                 </LinearLayout>
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/RecyclerView_DiaDanh"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                </android.support.v7.widget.RecyclerView>
+                    android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
 
             </LinearLayout>
-<!--Ăn uống-->
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:background="@color/tbThamQuan"
+                />
+            <!--Ăn uống-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -144,6 +151,13 @@
 
             </LinearLayout>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:background="@color/tbAnUong" />
             <!--Khách sạn-->
             <LinearLayout
                 android:layout_width="match_parent"
@@ -156,12 +170,12 @@
                     android:layout_height="wrap_content">
 
                     <TextView
-                        android:layout_weight="1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/colorBlack"
+                        android:layout_weight="1"
                         android:text="Khách sạn ở Cần Thơ"
-                        android:textSize="16sp"/>
+                        android:textColor="@color/colorBlack"
+                        android:textSize="16sp" />
 
                     <Button
                         android:id="@+id/btnTatCaKhachSan"
@@ -171,19 +185,26 @@
                         android:background="@null"
                         android:drawableRight="@drawable/ic_arrow"
                         android:text="Tất cả"
-                        android:textColor="@color/colorGray"
                         android:textAllCaps="false"
-                        android:textSize="12sp"/>
+                        android:textColor="@color/colorGray"
+                        android:textSize="12sp" />
 
                 </LinearLayout>
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/RecyclerView_KhachSan"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-                </android.support.v7.widget.RecyclerView>
+                    android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
 
             </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:background="@color/tbKhachSan" />
 
             <!--Địa điểm vui chơi giải trí-->
             <LinearLayout
@@ -197,12 +218,12 @@
                     android:layout_height="wrap_content">
 
                     <TextView
-                        android:layout_weight="1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/colorBlack"
+                        android:layout_weight="1"
                         android:text="Vui chơi tại Cần Thơ"
-                        android:textSize="16sp"/>
+                        android:textColor="@color/colorBlack"
+                        android:textSize="16sp" />
 
                     <Button
                         android:id="@+id/btnTatCaVuiChoi"
@@ -212,19 +233,74 @@
                         android:background="@null"
                         android:drawableRight="@drawable/ic_arrow"
                         android:text="Tất cả"
-                        android:textColor="@color/colorGray"
                         android:textAllCaps="false"
-                        android:textSize="12sp"/>
+                        android:textColor="@color/colorGray"
+                        android:textSize="12sp" />
 
                 </LinearLayout>
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/RecyclerView_VuiChoi"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-                </android.support.v7.widget.RecyclerView>
+                    android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
 
             </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:background="@color/tbVuiChoi" />
+
+            <!--Phương tiện-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Phương tiện tại Cần Thơ"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="16sp" />
+
+                    <Button
+                        android:id="@+id/btnTatCaPhuongTien"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0"
+                        android:background="@null"
+                        android:drawableRight="@drawable/ic_arrow"
+                        android:text="Tất cả"
+                        android:textAllCaps="false"
+                        android:textColor="@color/colorGray"
+                        android:textSize="12sp" />
+
+                </LinearLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/RecyclerView_PhuongTien"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:background="@color/tbPhuongTien" />
 
         </LinearLayout>
 
@@ -242,15 +318,14 @@
             android:layout_width="match_parent"
             android:layout_height="4dp"
             android:layout_gravity="top"
-            android:background="@drawable/shadow"
-            />
+            android:background="@drawable/shadow" />
 
         <android.support.design.widget.BottomNavigationView
             android:id="@+id/bottomNavView_Bar"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            app:menu="@menu/bottom_navigation_menu"
-            android:background="@color/colorWhite">
+            android:background="@color/colorWhite"
+            app:menu="@menu/bottom_navigation_menu">
 
         </android.support.design.widget.BottomNavigationView>
 

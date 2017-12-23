@@ -32,7 +32,20 @@
 
             </LinearLayout>
 
-            <include layout="@layout/fab_event"/>
+            <TextView
+                android:id="@+id/fb_sukien"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:padding="5dp"
+                android:layout_gravity="top|end"
+                android:layout_marginTop="58dp"
+                android:textColor="@color/colorWhite"
+                android:background="#f90000"
+                android:visibility="invisible"
+                />
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
