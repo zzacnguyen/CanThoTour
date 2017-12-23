@@ -35,6 +35,10 @@ public class Config {
     public static final ArrayList<String> JSON_EAT =
             new ArrayList<String>(Arrays.asList("au_ten", "id_hinhanh", "chitiet1"));
 
+    public static final ArrayList<String> JSON_EAT_INFO =
+            new ArrayList<String>(Arrays.asList("au_ten", "dd_diachi", "dd_sodienthoai", "dv_giathapnhat",
+                    "dv_giacaonhat", "dv_giomocua", "dv_giodongcua", "dv_gioithieu"));
+
     public static final ArrayList<String> JSON_COMMENT =
             new ArrayList<String>(Arrays.asList("bl_binhluan", "bl_trangthai", "dv_iddichvu", "nd_idnguoidung"));
 
@@ -61,6 +65,10 @@ public class Config {
     public static final ArrayList<String> JSON_HOTEL =
             new ArrayList<String>(Arrays.asList("ks_tenkhachsan", "id_hinhanh", "chitiet1"));
 
+    public static final ArrayList<String> JSON_HOTEL_INFO =
+            new ArrayList<String>(Arrays.asList("ks_tenkhachsan", "dd_diachi", "dd_sodienthoai", "dv_giathapnhat",
+                    "dv_giacaonhat", "dv_giomocua", "dv_giodongcua", "dv_gioithieu", "ks_website"));
+
     public static final ArrayList<String> JSON_SHEDULE =
             new ArrayList<String>(Arrays.asList("lt_ngaylichtrinh", "lt_tenlichtrinh", "lt_gioithieu"));
 
@@ -80,6 +88,10 @@ public class Config {
     public static final ArrayList<String> JSON_ENTERTAINMENT =
             new ArrayList<String>(Arrays.asList("vc_tendiemvuichoi", "id_hinhanh", "chitiet1"));
 
+    public static final ArrayList<String> JSON_ENTERTAINMENT_INFO =
+            new ArrayList<String>(Arrays.asList("vc_tendiemvuichoi", "dd_diachi", "dd_sodienthoai", "dv_giathapnhat",
+                    "dv_giacaonhat", "dv_giomocua", "dv_giodongcua", "dv_gioithieu"));
+
     public static final ArrayList<String> JSON_FAVORITE =
             new ArrayList<String>(Arrays.asList("dd_iddiadiem", "nd_idnguoidung", "dd_tendiadiem"));
 
@@ -87,5 +99,5 @@ public class Config {
             new ArrayList<String>(Arrays.asList("data", "next_page_url", "total"));
 
     public static final ArrayList<String> JSON_NEAR_LOCATION =
-            new ArrayList<String>(Arrays.asList("dd_tendiadiem","khoangcach", "vido", "kinhdo"));
+            new ArrayList<String>(Arrays.asList("dd_tendiadiem", "khoangcach", "vido", "kinhdo"));
 }

@@ -32,42 +32,24 @@ public class ModelService {
             Bitmap banner, chiTiet1, chiTiet1Thumb, chiTiet2, chiTiet2Thumb;
             String data = new ModelPlace.Load().execute(url).get();
             JSONArray jsonArray = new JSONArray(data);
-            chiTiet1Thumb = new GetImage().execute().get();
-            serviceInfo.setChiTiet1Thumb(chiTiet1Thumb);
+//            chiTiet1Thumb = new GetImage().execute().get();
+//            serviceInfo.setChiTiet1Thumb(chiTiet1Thumb);
             arrayList = JsonHelper.parseJsonNoId(jsonArray.getJSONObject(0), formatJson);
-            if (formatJson.equals(Config.JSON_HOTEL)) {
+            if (formatJson.equals(Config.JSON_HOTEL_INFO)) {
                 serviceInfo.setTen(arrayList.get(0));
-                serviceInfo.setGioiThieu(arrayList.get(1));
-                serviceInfo.setIdDV(Integer.parseInt(arrayList.get(2)));
-                serviceInfo.setWebsite(arrayList.get(3));
+                serviceInfo.setWebsite(arrayList.get(8));
             } else {
                 serviceInfo.setTen(arrayList.get(0));
-                serviceInfo.setGioiThieu(arrayList.get(1));
-                serviceInfo.setIdDV(Integer.parseInt(arrayList.get(2)));
             }
 
-            // lấy thông tin dịch vụ
-            data = new ModelPlace.Load().execute(Config.URL_HOST + Config.URL_GET_ALL_SERVICES + "/" + serviceInfo.getIdDV()).get();
-            jsonArray = new JSONArray(data);
-            arrayList.clear();
-            arrayList = JsonHelper.parseJsonNoId(jsonArray.getJSONObject(0), Config.JSON_SERVICE);
+            serviceInfo.setGioiThieuDV(arrayList.get(7));
+            serviceInfo.setGioDongCua(arrayList.get(6));
+            serviceInfo.setGioMoCua(arrayList.get(5));
+            serviceInfo.setGiaCaoNhat(arrayList.get(4));
+            serviceInfo.setGiaThapNhat(arrayList.get(3));
 
-            serviceInfo.setGioiThieuDV(arrayList.get(0));
-            serviceInfo.setGioDongCua(arrayList.get(1));
-            serviceInfo.setGioMoCua(arrayList.get(2));
-            serviceInfo.setGiaCaoNhat(arrayList.get(3));
-            serviceInfo.setGiaThapNhat(arrayList.get(4));
-            serviceInfo.setTrangThai(arrayList.get(5));
-            serviceInfo.setIdDD(Integer.parseInt(arrayList.get(6)));
-
-            // lấy thông tin địa điểm
-            data = new ModelPlace.Load().execute(Config.URL_HOST + Config.URL_GET_ALL_PLACES + "/" + serviceInfo.getIdDD()).get();
-            jsonArray = new JSONArray(data);
-            arrayList.clear();
-            arrayList = JsonHelper.parseJsonNoId(jsonArray.getJSONObject(0), Config.JSON_PLACE_INFO);
-
-            serviceInfo.setDiaChi(arrayList.get(2));
-            serviceInfo.setSdt(arrayList.get(3));
+            serviceInfo.setDiaChi(arrayList.get(1));
+            serviceInfo.setSdt(arrayList.get(2));
 
         } catch (InterruptedException | ExecutionException | JSONException e) {
             e.printStackTrace();

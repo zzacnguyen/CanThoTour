@@ -7,8 +7,8 @@ import android.graphics.Bitmap;
  */
 
 public class ServiceInfo {
-    private int id, idDV, idDD;
-    private String ten, gioiThieu, gioiThieuDV, gioDongCua, gioMoCua, giaCaoNhat, giaThapNhat, trangThai, diaChi, sdt, website;
+    private int id;
+    private String ten, gioiThieuDV, gioDongCua, gioMoCua, giaCaoNhat, giaThapNhat, diaChi, sdt, website;
     private Bitmap banner, chiTiet1, chiTiet1Thumb, chiTiet2, chiTiet2Thumb;
 
     public Bitmap getChiTiet1() {
@@ -99,30 +99,6 @@ public class ServiceInfo {
         this.sdt = sdt;
     }
 
-    public int getIdDV() {
-        return idDV;
-    }
-
-    public void setIdDV(int idDV) {
-        this.idDV = idDV;
-    }
-
-    public int getIdDD() {
-        return idDD;
-    }
-
-    public void setIdDD(int idDD) {
-        this.idDD = idDD;
-    }
-
-    public String getGioiThieu() {
-        return gioiThieu;
-    }
-
-    public void setGioiThieu(String gioiThieu) {
-        this.gioiThieu = gioiThieu;
-    }
-
     public String getGioiThieuDV() {
         return gioiThieuDV;
     }
@@ -161,14 +137,6 @@ public class ServiceInfo {
 
     public void setGiaThapNhat(String giaThapNhat) {
         this.giaThapNhat = giaThapNhat;
-    }
-
-    public String getTrangThai() {
-        return trangThai;
-    }
-
-    public void setTrangThai(String trangThai) {
-        this.trangThai = trangThai;
     }
 
     public String getWebsite() {

@@ -36,7 +36,7 @@ public class ActivityEntertainmentInfo extends AppCompatActivity {
         ma = getIntent().getIntExtra("masp", 1);
 
         new ActivityEatInfo().load(this,
-                Config.URL_HOST + Config.URL_GET_ALL_ENTERTAINMENTS + "/" + ma, Config.JSON_ENTERTAINMENT);
+                Config.URL_HOST + Config.URL_GET_ALL_ENTERTAINMENTS + "/" + ma, Config.JSON_ENTERTAINMENT_INFO);
 
         menuBotNavBar();
     }

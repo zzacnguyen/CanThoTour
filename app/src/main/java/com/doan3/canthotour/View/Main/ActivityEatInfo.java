@@ -41,7 +41,7 @@ public class ActivityEatInfo extends AppCompatActivity {
 
         ma = getIntent().getIntExtra("masp", 1);
 
-        load(this, Config.URL_HOST + Config.URL_GET_ALL_EATS + "/" + ma, Config.JSON_EAT);
+        load(this, Config.URL_HOST + Config.URL_GET_ALL_EATS + "/" + ma, Config.JSON_EAT_INFO);
 
         menuBotNavBar();
     }
@@ -81,7 +81,6 @@ public class ActivityEatInfo extends AppCompatActivity {
         TextView txtGioiThieu = activity.findViewById(R.id.textViewGioiThieuDv);
         TextView txtGia = activity.findViewById(R.id.textViewGiaDv);
         TextView txtGio = activity.findViewById(R.id.textViewGioDv);
-        TextView txtLoaiHinh = activity.findViewById(R.id.textViewLoaiHinhDv);
         TextView txtDiaChi = activity.findViewById(R.id.textViewDiaChiDv);
         TextView txtSDT = activity.findViewById(R.id.textViewSdtDv);
         TextView txtWebsite = activity.findViewById(R.id.textViewWebsite);
@@ -92,10 +91,9 @@ public class ActivityEatInfo extends AppCompatActivity {
         txtGioiThieu.setText(serviceInfo.getGioiThieuDV());
         txtGia.setText(serviceInfo.getGiaThapNhat() + " -> " + serviceInfo.getGiaCaoNhat());
         txtGio.setText(serviceInfo.getGioMoCua() + " -> " + serviceInfo.getGioDongCua());
-        txtLoaiHinh.setText(serviceInfo.getGioiThieuDV());
         txtDiaChi.setText(serviceInfo.getDiaChi());
         txtSDT.setText(serviceInfo.getSdt());
         txtWebsite.setText(serviceInfo.getWebsite());
-        imgChiTiet1.setImageBitmap(serviceInfo.getChiTiet1Thumb());
+//        imgChiTiet1.setImageBitmap(serviceInfo.getChiTiet1Thumb());
     }
 }

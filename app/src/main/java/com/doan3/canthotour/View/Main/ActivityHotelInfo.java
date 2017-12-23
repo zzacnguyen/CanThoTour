@@ -43,7 +43,7 @@ public class ActivityHotelInfo extends AppCompatActivity {
 
         ma = getIntent().getIntExtra("masp", 1);
 
-        new ActivityEatInfo().load(this, Config.URL_HOST + Config.URL_GET_ALL_HOTELS + "/" + ma, Config.JSON_HOTEL);
+        new ActivityEatInfo().load(this, Config.URL_HOST + Config.URL_GET_ALL_HOTELS + "/" + ma, Config.JSON_HOTEL_INFO);
 
         menuBotNavBar();
     }
