@@ -38,9 +38,9 @@
                 android:id="@+id/textViewNgaySk"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="13sp"
+                android:textSize="12sp"
                 android:text="Ngày tổ chức"
-                android:textColor="#ff0516"
+                android:textColor="@color/colorBlack"
                 android:paddingLeft="5dp"
                 android:layout_gravity="center"/>
 

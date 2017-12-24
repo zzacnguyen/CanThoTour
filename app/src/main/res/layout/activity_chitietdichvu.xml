@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -28,7 +27,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="180dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/banhxeo7toi"/>
+                    android:src="@drawable/banhxeo7toi" />
 
             </LinearLayout>
 
@@ -36,33 +35,31 @@
                 android:id="@+id/fb_sukien"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=""
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:padding="5dp"
                 android:layout_gravity="top|end"
                 android:layout_marginTop="58dp"
-                android:textColor="@color/colorWhite"
                 android:background="#f90000"
-                android:visibility="invisible"
-                />
+                android:padding="5dp"
+                android:text=""
+                android:textColor="@color/colorWhite"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:visibility="invisible" />
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:layout_collapseMode="pin"
-                android:background="@color/bgToolbar">
+                android:background="@color/bgToolbar"
+                app:layout_collapseMode="pin">
 
                 <TextView
                     android:id="@+id/toolbarTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Chi tiết dịch vụ"
                     android:gravity="center"
+                    android:text="Chi tiết dịch vụ"
                     android:textColor="@color/colorWhite"
-                    android:textSize="18sp"
-                    />
+                    android:textSize="18sp" />
 
             </android.support.v7.widget.Toolbar>
 
@@ -79,16 +76,16 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
+            android:layout_marginBottom="100dp"
             android:background="@color/colorWhite"
-            android:layout_marginBottom="100dp">
+            android:orientation="vertical">
 
             <!--Thông tin địa điểm-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:background="@color/bgToolbar"
+                android:orientation="vertical"
                 android:padding="10dp">
 
                 <TextView
@@ -96,9 +93,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text=""
-                    android:textStyle="bold"
+                    android:textColor="@color/colorWhite"
                     android:textSize="16sp"
-                    android:textColor="@color/colorWhite"/>
+                    android:textStyle="bold" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -113,16 +110,15 @@
                         android:textSize="14sp" />
 
                     <RatingBar
+                        style="?attr/ratingBarStyleSmall"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:isIndicator="true"
-                        style="?attr/ratingBarStyleSmall"
-                        android:numStars = "5"
-                        android:rating   = "4.5"
                         android:layout_gravity="center"
+                        android:isIndicator="true"
+                        android:numStars="5"
                         android:paddingLeft="3dp"
-                        android:theme="@style/RatingBar"
-                        />
+                        android:rating="4.5"
+                        android:theme="@style/RatingBar" />
 
                 </LinearLayout>
 
@@ -132,42 +128,42 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/white_grey_border_bottom"
                 android:orientation="horizontal"
-                android:padding="5dp"
-                android:background="@drawable/white_grey_border_bottom">
+                android:padding="5dp">
 
                 <Button
                     android:id="@+id/btnLuuDiaDiem"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textSize="14sp"
+                    android:background="@color/colorWhite"
+                    android:drawableTop="@drawable/ic_favorite_36dp"
                     android:text="LƯU"
                     android:textColor="@color/bgToolbar"
-                    android:drawableTop="@drawable/ic_favorite_36dp"
-                    android:background="@color/colorWhite"/>
+                    android:textSize="14sp" />
 
                 <Button
                     android:id="@+id/btnDiaDiemLanCan"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textSize="14sp"
+                    android:background="@color/colorWhite"
+                    android:drawableTop="@drawable/ic_place_blue_36dp"
                     android:text="LÂN CẬN"
                     android:textColor="@color/bgToolbar"
-                    android:drawableTop="@drawable/ic_place_blue_36dp"
-                    android:background="@color/colorWhite"/>
+                    android:textSize="14sp" />
 
                 <Button
                     android:id="@+id/btnChiaSeDv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textSize="14sp"
+                    android:background="@color/colorWhite"
+                    android:drawableTop="@drawable/ic_share_blue_36dp"
                     android:text="CHIA SẺ"
                     android:textColor="@color/bgToolbar"
-                    android:drawableTop="@drawable/ic_share_blue_36dp"
-                    android:background="@color/colorWhite"/>
+                    android:textSize="14sp" />
 
             </LinearLayout>
 
@@ -176,10 +172,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="10dp"
                 android:background="@drawable/white_grey_border_bottom"
-                >
+                android:orientation="vertical"
+                android:padding="10dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -190,16 +185,15 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/ic_place_24dp"
-                        android:tint="@color/bgToolbar"
-                        />
+                        android:tint="@color/bgToolbar" />
 
                     <TextView
                         android:id="@+id/textViewDiaChiDv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
                         android:layout_marginLeft="5dp"
                         android:text=""
-                        android:layout_gravity="center"
                         android:textColor="#000"
                         android:textSize="14sp" />
 
@@ -214,15 +208,15 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/ic_phone_24dp"
-                        android:tint="@color/bgToolbar"/>
+                        android:tint="@color/bgToolbar" />
 
                     <TextView
                         android:id="@+id/textViewSdtDv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
                         android:layout_marginLeft="5dp"
                         android:text=""
-                        android:layout_gravity="center"
                         android:textColor="#000"
                         android:textSize="14sp" />
 
@@ -237,7 +231,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/ic_web_24dp"
-                        android:tint="@color/bgToolbar"/>
+                        android:tint="@color/bgToolbar" />
 
                     <TextView
                         android:id="@+id/textViewWebsite"
@@ -260,7 +254,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/ic_gia_24dp"
-                        android:tint="@color/bgToolbar"/>
+                        android:tint="@color/bgToolbar" />
 
                     <TextView
                         android:id="@+id/textViewGiaDv"
@@ -283,15 +277,34 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/ic_thoigian_24dp"
-                        android:tint="@color/bgToolbar"/>
+                        android:tint="@color/bgToolbar" />
 
                     <TextView
-                        android:id="@+id/textViewGioDv"
+                        android:id="@+id/textViewGioMc"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginLeft="5dp"
-                        android:text=""
+                        android:text="8:00 AM"
+                        android:textColor="#000"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="5dp"
+                        android:text="đến"
+                        android:textColor="#000"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/textViewGioDc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="5dp"
+                        android:text="11:00 PM"
                         android:textColor="#000"
                         android:textSize="14sp" />
 
@@ -304,16 +317,16 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
+                android:background="@drawable/white_grey_border_bottom"
                 android:orientation="vertical"
-                android:background="@drawable/white_grey_border_bottom">
+                android:padding="10dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=""
                     android:textSize="16sp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -325,21 +338,21 @@
                         android:id="@+id/imgChiTiet1"
                         android:layout_width="match_parent"
                         android:layout_height="150dp"
-                        android:scaleType="centerCrop"
                         android:layout_weight="1"
-                        android:src="@drawable/benninhkieu1"/>
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/benninhkieu1" />
 
                     <View
                         android:layout_width="5dp"
-                        android:layout_height="match_parent"/>
+                        android:layout_height="match_parent" />
 
                     <ImageView
                         android:id="@+id/imgChiTiet2"
                         android:layout_width="match_parent"
                         android:layout_height="150dp"
-                        android:scaleType="centerCrop"
                         android:layout_weight="1"
-                        android:src="@drawable/benninhkieu2"/>
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/benninhkieu2" />
 
                 </LinearLayout>
 
@@ -350,9 +363,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="@drawable/white_grey_border_bottom"
                 android:layout_marginTop="10dp"
+                android:background="@drawable/white_grey_border_bottom"
+                android:orientation="vertical"
                 android:padding="10dp">
 
                 <TextView
@@ -360,15 +373,15 @@
                     android:layout_height="wrap_content"
                     android:text="Đánh giá"
                     android:textSize="16sp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Viết bài đánh giá cho dịch vụ này"
-                    android:textSize="14sp"
-                    android:textColor="@color/bgToolbar" />
+                    android:textColor="@color/bgToolbar"
+                    android:textSize="14sp" />
 
             </LinearLayout>
 
@@ -376,15 +389,15 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="10dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Giới thiệu"
                     android:textSize="16sp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/textViewGioiThieuDv"
@@ -392,7 +405,7 @@
                     android:layout_height="wrap_content"
                     android:text=""
                     android:textSize="14sp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
             </LinearLayout>
         </LinearLayout>
@@ -411,8 +424,8 @@
             android:id="@+id/bottomNavView_Bar"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            app:menu="@menu/bottom_navigation_menu"
-            app:itemBackground="@color/colorWhite">
+            app:itemBackground="@color/colorWhite"
+            app:menu="@menu/bottom_navigation_menu">
 
         </android.support.design.widget.BottomNavigationView>
 
