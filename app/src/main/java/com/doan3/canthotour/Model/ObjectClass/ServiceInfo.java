@@ -8,64 +8,8 @@ import android.graphics.Bitmap;
 
 public class ServiceInfo {
     private int id;
-    private String ten, gioiThieuDV, gioDongCua, gioMoCua, giaCaoNhat, giaThapNhat, diaChi, sdt, website;
-    private Bitmap banner, chiTiet1, chiTiet1Thumb, chiTiet2, chiTiet2Thumb;
-
-    public Bitmap getChiTiet1() {
-        return chiTiet1;
-    }
-
-    public void setChiTiet1(Bitmap chiTiet1) {
-        this.chiTiet1 = chiTiet1;
-    }
-
-    public Bitmap getChiTiet1Thumb() {
-        return chiTiet1Thumb;
-    }
-
-    public void setChiTiet1Thumb(Bitmap chiTiet1Thumb) {
-        this.chiTiet1Thumb = chiTiet1Thumb;
-    }
-
-    public Bitmap getChiTiet2() {
-        return chiTiet2;
-    }
-
-    public void setChiTiet2(Bitmap chiTiet2) {
-        this.chiTiet2 = chiTiet2;
-    }
-
-    public Bitmap getChiTiet2Thumb() {
-        return chiTiet2Thumb;
-    }
-
-    public void setChiTiet2Thumb(Bitmap chiTiet2Thumb) {
-        this.chiTiet2Thumb = chiTiet2Thumb;
-    }
-
-    public Bitmap getBanner() {
-        return banner;
-    }
-
-    public void setBanner(Bitmap banner) {
-        this.banner = banner;
-    }
-
-    public Bitmap getchiTiet1() {
-        return chiTiet1;
-    }
-
-    public void setchiTiet1(Bitmap chiTiet1) {
-        this.chiTiet1 = chiTiet1;
-    }
-
-    public Bitmap getchiTiet2() {
-        return chiTiet2;
-    }
-
-    public void setchiTiet2(Bitmap chiTiet2) {
-        this.chiTiet2 = chiTiet2;
-    }
+    private String tenAU, tenKS, tenTQ, tenPT, tenVC, gioiThieuDV,
+            gioDongCua, gioMoCua, giaCaoNhat, giaThapNhat, diaChi, sdt, website, lhsk;
 
     public int getId() {
         return id;
@@ -75,12 +19,44 @@ public class ServiceInfo {
         this.id = id;
     }
 
-    public String getTen() {
-        return ten;
+    public String getTenAU() {
+        return tenAU;
     }
 
-    public void setTen(String ten) {
-        this.ten = ten;
+    public void setTenAU(String tenAU) {
+        this.tenAU = tenAU;
+    }
+
+    public String getTenKS() {
+        return tenKS;
+    }
+
+    public void setTenKS(String tenKS) {
+        this.tenKS = tenKS;
+    }
+
+    public String getTenTQ() {
+        return tenTQ;
+    }
+
+    public void setTenTQ(String tenTQ) {
+        this.tenTQ = tenTQ;
+    }
+
+    public String getTenPT() {
+        return tenPT;
+    }
+
+    public void setTenPT(String tenPT) {
+        this.tenPT = tenPT;
+    }
+
+    public String getTenVC() {
+        return tenVC;
+    }
+
+    public void setTenVC(String tenVC) {
+        this.tenVC = tenVC;
     }
 
     public String getDiaChi() {
@@ -145,5 +121,13 @@ public class ServiceInfo {
 
     public void setWebsite(String website) {
         this.website = website;
+    }
+
+    public String getLhsk() {
+        return lhsk;
+    }
+
+    public void setLhsk(String lhsk) {
+        this.lhsk = lhsk;
     }
 }

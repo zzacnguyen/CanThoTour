@@ -1,5 +1,7 @@
 package com.doan3.canthotour.Adapter;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Environment;
 import org.json.JSONObject;
 import java.io.BufferedInputStream;
@@ -74,6 +76,21 @@ public class HttpRequestAdapter {
             e.printStackTrace();
         }
         return filePath;
+    }
+
+    public static Bitmap getBitmapFromURL(String src) {
+        try {
+            URL url = new URL(src);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setDoInput(true);
+            connection.connect();
+            InputStream input = connection.getInputStream();
+            Bitmap myBitmap = BitmapFactory.decodeStream(input);
+            return myBitmap;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public static String httpPost(String url, JSONObject json) {

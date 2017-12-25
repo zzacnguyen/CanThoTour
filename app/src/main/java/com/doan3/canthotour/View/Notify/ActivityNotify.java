@@ -20,10 +20,10 @@ import com.doan3.canthotour.Config;
 import com.doan3.canthotour.Helper.BottomNavigationViewHelper;
 import com.doan3.canthotour.Helper.JsonHelper;
 import com.doan3.canthotour.Interface.OnLoadMoreListener;
+import com.doan3.canthotour.Model.ModelService;
 import com.doan3.canthotour.Model.ObjectClass.Event;
 import com.doan3.canthotour.R;
 import com.doan3.canthotour.View.Favorite.ActivityFavorite;
-import com.doan3.canthotour.View.Main.Content.ActivityEat;
 import com.doan3.canthotour.View.Main.MainActivity;
 import com.doan3.canthotour.View.Personal.ActivityPersonal;
 
@@ -103,7 +103,7 @@ public class ActivityNotify extends AppCompatActivity {
 
             for (int i = 0; i < arrayList.size(); i += 5) {
                 list.add(new Event(Integer.parseInt(arrayList.get(i + 3)), arrayList.get(i),
-                        arrayList.get(i + 1) + " -> " + arrayList.get(i + 2), R.drawable.benninhkieu1));
+                        "Từ " + arrayList.get(i + 1) + " đến " + arrayList.get(i + 2), R.drawable.benninhkieu1));
             }
             return list;
         }
@@ -142,7 +142,7 @@ public class ActivityNotify extends AppCompatActivity {
                                 eventAdapter.notifyItemRemoved(listEvent.size());
                                 String string = "";
                                 try {
-                                    string = new ActivityEat.NextPage().execute(arr.get(1)).get();
+                                    string = new ModelService.Load().execute(arr.get(1)).get();
                                 } catch (InterruptedException | ExecutionException e) {
                                     e.printStackTrace();
                                 }

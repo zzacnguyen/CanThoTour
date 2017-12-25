@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorWhite"
     tools:context="com.doan3.canthotour.View.Main.MainActivity">
 
     <android.support.design.widget.AppBarLayout
@@ -17,13 +18,13 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:layout_collapseMode="pin"
-            android:background="@color/bgGreen">
+            android:background="@color/bgRed">
 
             <TextView
                 android:id="@+id/toolbarTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Khách sạn ở Cần Thơ"
+                android:text=""
                 android:gravity="center"
                 android:textColor="@color/colorWhite"
                 android:textSize="18sp"
@@ -42,7 +43,7 @@
         android:padding="10dp">
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/RecyclerView_DanhSachKhachSan"
+            android:id="@+id/RecyclerView_DanhSachDichVu"
             android:background="@color/colorWhite"
             android:layout_width="match_parent"
             android:layout_height="match_parent">

@@ -10,51 +10,51 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.doan3.canthotour.Model.ObjectClass.Place;
+import com.doan3.canthotour.Model.ObjectClass.Service;
 import com.doan3.canthotour.R;
-import com.doan3.canthotour.View.Favorite.ActivityFavoriteInfo;
+import com.doan3.canthotour.View.Main.ActivityServiceInfo;
 
 import java.util.ArrayList;
 
 
-public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHolder> {
-    ArrayList<Place> favorites;
+public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ViewHolder> {
+    ArrayList<Service> services;
     Context context;
     ArrayList<String> arr = new ArrayList<>();
 
-    public FavoriteAdapter(ArrayList<Place> favorite, Context context) {
-        this.favorites = favorite;
+    public ServiceAdapter(ArrayList<Service> service, Context context) {
+        this.services = service;
         this.context = context;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) { //Khi gọi DiaDanhAdapter thì hàm này chạy đầu tiên
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View itemView = layoutInflater.inflate(R.layout.custom_yeuthich, parent, false);
+        View itemView = layoutInflater.inflate(R.layout.custom_trangchu_list_item, parent, false);
         return new ViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) { //Mỗi 1 lần chạy hàm này tương ứng với load 1 item trong recycler view
-        Place favorite = favorites.get(position);
-        holder.txtTen.setText(favorite.getTenDD());
-        holder.imgHinh.setImageResource(favorite.getHinhDD());
-        holder.cardView.setTag(favorite.getMaDD());
+        Service service = services.get(position);
+        holder.txtTen.setText(service.getTen());
+        holder.imgHinh.setImageBitmap(service.getHinh());
+        holder.cardView.setTag(service.getMa());
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {  //Bắt sự kiện click vào 1 item cardview
             @Override
             public void onClick(View view) {
-                Intent iFavoriteInfo = new Intent(context, ActivityFavoriteInfo.class);
-                iFavoriteInfo.putExtra("masp", (int) view.getTag());
-                iFavoriteInfo.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(iFavoriteInfo);
+                Intent iPlaceInfo = new Intent(context, ActivityServiceInfo.class);
+                iPlaceInfo.putExtra("masp", (int) view.getTag());
+                iPlaceInfo.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(iPlaceInfo);
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return favorites.size();
+        return services.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder { //ViewHolder chạy thứ 2, phần này giúp cho recycler view ko bị load lại dữ liệu khi thực hiện thao tác vuốt màn hình
@@ -65,9 +65,9 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
         public ViewHolder(View itemView) {
             super(itemView);
 
-            txtTen = itemView.findViewById(R.id.textViewYeuThich);
-            imgHinh = itemView.findViewById(R.id.imageViewYeuThich);
-            cardView = itemView.findViewById(R.id.cardViewYeuThich);
+            txtTen = itemView.findViewById(R.id.txtTen);
+            imgHinh = itemView.findViewById(R.id.imgHinh);
+            cardView = itemView.findViewById(R.id.cardView);
         }
     }
 }

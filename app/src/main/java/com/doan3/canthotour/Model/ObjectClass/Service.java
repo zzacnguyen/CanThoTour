@@ -1,37 +1,39 @@
 package com.doan3.canthotour.Model.ObjectClass;
 
+import android.graphics.Bitmap;
+
 /**
  * Created by zzacn on 11/21/2017.
  */
 
 public class Service {
-    private int id;
-    private int hinh;
+    private int ma;
+    private Bitmap hinh;
     private String ten;
 
     public Service() {
 
     }
 
-    public Service(int ma, int hinh, String ten) {
-        this.id = ma;
+    public Service(int ma, Bitmap hinh, String ten) {
+        this.ma = ma;
         this.hinh = hinh;
         this.ten = ten;
     }
 
-    public int getId() {
-        return id;
+    public int getMa() {
+        return ma;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setMa(int ma) {
+        this.ma = ma;
     }
 
-    public int getHinh() {
+    public Bitmap getHinh() {
         return hinh;
     }
 
-    public void setHinh(int hinh) {
+    public void setHinh(Bitmap hinh) {
         this.hinh = hinh;
     }
 

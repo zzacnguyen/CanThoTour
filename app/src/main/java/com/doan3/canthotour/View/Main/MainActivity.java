@@ -14,22 +14,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
-import com.doan3.canthotour.Adapter.EatAdapter;
-import com.doan3.canthotour.Adapter.EntertainmentAdapter;
-import com.doan3.canthotour.Adapter.HotelAdapter;
-import com.doan3.canthotour.Adapter.PlaceAdapter;
+import com.doan3.canthotour.Adapter.ServiceAdapter;
 import com.doan3.canthotour.Config;
 import com.doan3.canthotour.Helper.BottomNavigationViewHelper;
-import com.doan3.canthotour.Model.ModelPlace;
 import com.doan3.canthotour.Model.ModelService;
-import com.doan3.canthotour.Model.ObjectClass.Place;
 import com.doan3.canthotour.Model.ObjectClass.Service;
 import com.doan3.canthotour.R;
 import com.doan3.canthotour.View.Favorite.ActivityFavorite;
-import com.doan3.canthotour.View.Main.Content.ActivityEat;
-import com.doan3.canthotour.View.Main.Content.ActivityEntertainment;
-import com.doan3.canthotour.View.Main.Content.ActivityHotel;
-import com.doan3.canthotour.View.Main.Content.ActivityPlace;
+import com.doan3.canthotour.View.Main.Content.ActivityService;
 import com.doan3.canthotour.View.Notify.ActivityNotify;
 import com.doan3.canthotour.View.Personal.ActivityAddPlace;
 import com.doan3.canthotour.View.Personal.ActivityPersonal;
@@ -40,7 +32,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     Toolbar toolbar;
-    Button btnDiaDanh, btnAnUong, btnKhachSan, btnVuiChoi;
+    Button btnDiaDanh, btnAnUong, btnKhachSan, btnVuiChoi, btnPhuongTien;
     FloatingActionButton fab, fabThemDiaDiem;
     boolean doanhnghiep = false;
 
@@ -56,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         btnAnUong = findViewById(R.id.btnTatCaQuanAn);
         btnKhachSan = findViewById(R.id.btnTatCaKhachSan);
         btnVuiChoi = findViewById(R.id.btnTatCaVuiChoi);
-
+        btnPhuongTien = findViewById(R.id.btnTatCaPhuongTien);
 
         setSupportActionBar(toolbar);
 
@@ -64,34 +56,53 @@ public class MainActivity extends AppCompatActivity {
         btnDiaDanh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, ActivityPlace.class));
+                Intent iEventInfo = new Intent(MainActivity.this, ActivityService.class);
+                iEventInfo.putExtra("url", Config.URL_HOST + Config.URL_GET_ALL_PLACES);
+                startActivity(iEventInfo);
             }
         });
 
         btnAnUong.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, ActivityEat.class));
+                Intent iEventInfo = new Intent(MainActivity.this, ActivityService.class);
+                iEventInfo.putExtra("url", Config.URL_HOST + Config.URL_GET_ALL_EATS);
+                startActivity(iEventInfo);
             }
         });
 
         btnKhachSan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, ActivityHotel.class));
+                Intent iEventInfo = new Intent(MainActivity.this, ActivityService.class);
+                iEventInfo.putExtra("url", Config.URL_HOST + Config.URL_GET_ALL_HOTELS);
+                startActivity(iEventInfo);
             }
         });
 
         btnVuiChoi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, ActivityEntertainment.class));
+                Intent iEventInfo = new Intent(MainActivity.this, ActivityService.class);
+                iEventInfo.putExtra("url", Config.URL_HOST + Config.URL_GET_ALL_ENTERTAINMENTS);
+                startActivity(iEventInfo);
+            }
+        });
+
+        btnPhuongTien.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent iEventInfo = new Intent(MainActivity.this, ActivityService.class);
+                iEventInfo.putExtra("url", Config.URL_HOST + Config.URL_GET_ALL_VEHICLES);
+                startActivity(iEventInfo);
             }
         });
         // endregion
 
+        // region load service
         // load place
-        loadPlace();
+        RecyclerView recyclerViewDD = findViewById(R.id.RecyclerView_DiaDanh);
+        loadService(recyclerViewDD, Config.URL_HOST + Config.URL_GET_ALL_PLACES, Config.JSON_PLACE);
 
         // load eat
         RecyclerView recyclerViewAU = findViewById(R.id.RecyclerView_AnUong);
@@ -104,6 +115,11 @@ public class MainActivity extends AppCompatActivity {
         // load hotel
         RecyclerView recyclerViewKS = findViewById(R.id.RecyclerView_KhachSan);
         loadService(recyclerViewKS, Config.URL_HOST + Config.URL_GET_ALL_HOTELS, Config.JSON_HOTEL);
+
+        // load vehicle
+        RecyclerView recyclerViewPT = findViewById(R.id.RecyclerView_PhuongTien);
+        loadService(recyclerViewPT, Config.URL_HOST + Config.URL_GET_ALL_VEHICLES, Config.JSON_VEHICLE);
+        // endregion
 
         display_doanhnghiep();
 
@@ -172,22 +188,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    //Custom view place
-    private void loadPlace() {
-        RecyclerView recyclerView = findViewById(R.id.RecyclerView_DiaDanh);
-        recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
-
-        LinearLayoutManager linearLayoutManager =
-                new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false);
-        recyclerView.setLayoutManager(linearLayoutManager);
-
-        ArrayList<Place> places = new ModelPlace().getPlaceList();
-
-        PlaceAdapter placeAdapter = new PlaceAdapter(places, getApplicationContext());
-        recyclerView.setAdapter(placeAdapter);
-        placeAdapter.notifyDataSetChanged();
-    }
-
     //Custom view service
     private void loadService(RecyclerView recyclerView, String url, ArrayList<String> formatJson) {
         recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
@@ -198,21 +198,10 @@ public class MainActivity extends AppCompatActivity {
 
         ArrayList<Service> services = new ModelService().getServiceList(url, formatJson);
 
-        if (formatJson.equals(Config.JSON_EAT)) {
-            EatAdapter eatAdapter = new EatAdapter(services, getApplicationContext());
-            recyclerView.setAdapter(eatAdapter);
-            eatAdapter.notifyDataSetChanged();
-        } else if (formatJson.equals(Config.JSON_ENTERTAINMENT)) {
-            EntertainmentAdapter entertainmentAdapter =
-                    new EntertainmentAdapter(services, getApplicationContext());
-            recyclerView.setAdapter(entertainmentAdapter);
-            entertainmentAdapter.notifyDataSetChanged();
-        } else if (formatJson.equals(Config.JSON_HOTEL)) {
-            HotelAdapter hotelAdapter =
-                    new HotelAdapter(services, getApplicationContext());
-            recyclerView.setAdapter(hotelAdapter);
-            hotelAdapter.notifyDataSetChanged();
-        }
+        ServiceAdapter serviceAdapter =
+                new ServiceAdapter(services, getApplicationContext());
+        recyclerView.setAdapter(serviceAdapter);
+        serviceAdapter.notifyDataSetChanged();
     }
 }
 

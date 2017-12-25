@@ -20,17 +20,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".View.Favorite.ActivityFavorite"></activity>
-        <activity android:name=".View.Favorite.ActivityFavoriteInfo"></activity>
         <activity android:name=".View.Notify.ActivityNotify"></activity>
         <activity android:name=".View.Personal.ActivityPersonal"></activity>
-        <activity android:name=".View.Main.ActivityPlaceInfo"></activity>
-        <activity android:name=".View.Main.ActivityEatInfo"></activity>
-        <activity android:name=".View.Main.ActivityHotelInfo"></activity>
-        <activity android:name=".View.Main.ActivityEntertainmentInfo"></activity>
-        <activity android:name=".View.Main.Content.ActivityPlace"></activity>
-        <activity android:name=".View.Main.Content.ActivityEat"></activity>
-        <activity android:name=".View.Main.Content.ActivityHotel"></activity>
-        <activity android:name=".View.Main.Content.ActivityEntertainment"></activity>
+        <activity android:name=".View.Main.ActivityServiceInfo"></activity>
+        <activity android:name=".View.Main.Content.ActivityService"></activity>
         <activity android:name=".View.Personal.ActivityAddPlace"></activity>
         <activity android:name=".View.Search.ActivitySearch"></activity>
         <activity android:name=".View.Personal.ActivityRegCoop"></activity>

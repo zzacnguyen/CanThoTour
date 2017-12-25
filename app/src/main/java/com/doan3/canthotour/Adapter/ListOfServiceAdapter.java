@@ -15,12 +15,12 @@ import android.widget.TextView;
 import com.doan3.canthotour.Interface.OnLoadMoreListener;
 import com.doan3.canthotour.Model.ObjectClass.Service;
 import com.doan3.canthotour.R;
-import com.doan3.canthotour.View.Main.ActivityEatInfo;
+import com.doan3.canthotour.View.Main.ActivityServiceInfo;
 
 import java.util.ArrayList;
 
 
-public class ListOfEatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class ListOfServiceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final int VIEW_TYPE_ITEM = 0;
     private final int VIEW_TYPE_LOADING = 1;
     ArrayList<String> arr = new ArrayList<>();
@@ -31,7 +31,7 @@ public class ListOfEatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     private int visibleThreshold = 5;
     private int lastVisibleItem, totalItemCount;
 
-    public ListOfEatAdapter(RecyclerView recyclerView, ArrayList<Service> service, Context context) {
+    public ListOfServiceAdapter(RecyclerView recyclerView, ArrayList<Service> service, Context context) {
         this.context = context;
         this.services = service;
 
@@ -78,13 +78,13 @@ public class ListOfEatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             Service service = services.get(position);
             ViewHolder viewHolder = (ViewHolder) holder;
             viewHolder.txtTen.setText(service.getTen());
-            viewHolder.imgHinh.setImageResource(service.getHinh());
-            viewHolder.cardView.setTag(service.getId());
+            viewHolder.imgHinh.setImageBitmap(service.getHinh());
+            viewHolder.cardView.setTag(service.getMa());
 
             viewHolder.cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent iEatInfo = new Intent(context, ActivityEatInfo.class);
+                    Intent iEatInfo = new Intent(context, ActivityServiceInfo.class);
                     iEatInfo.putExtra("masp", (int) view.getTag());
                     iEatInfo.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(iEatInfo);

@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.doan3.canthotour.Model.ObjectClass.NearLocation;
 import com.doan3.canthotour.R;
-import com.doan3.canthotour.View.Main.ActivityPlaceInfo;
+import com.doan3.canthotour.View.Main.ActivityServiceInfo;
 
 import java.util.ArrayList;
 
@@ -45,7 +45,7 @@ public class NearLocationAdapter extends RecyclerView.Adapter<NearLocationAdapte
         holder.cardView.setOnClickListener(new View.OnClickListener() {  //Bắt sự kiện click vào 1 item cardview
             @Override
             public void onClick(View view) {
-                Intent iLocationInfo = new Intent(context, ActivityPlaceInfo.class);
+                Intent iLocationInfo = new Intent(context, ActivityServiceInfo.class);
                 iLocationInfo.putExtra("masp", (int) view.getTag());
                 iLocationInfo.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(iLocationInfo);

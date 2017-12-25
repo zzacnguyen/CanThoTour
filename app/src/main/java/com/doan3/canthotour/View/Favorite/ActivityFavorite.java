@@ -14,13 +14,13 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.doan3.canthotour.Adapter.FavoriteAdapter;
 import com.doan3.canthotour.Adapter.HttpRequestAdapter;
+import com.doan3.canthotour.Adapter.ServiceAdapter;
 import com.doan3.canthotour.Config;
 import com.doan3.canthotour.Helper.BottomNavigationViewHelper;
 import com.doan3.canthotour.Helper.JsonHelper;
-import com.doan3.canthotour.Model.ModelPlace;
-import com.doan3.canthotour.Model.ObjectClass.Place;
+import com.doan3.canthotour.Model.ModelService;
+import com.doan3.canthotour.Model.ObjectClass.Service;
 import com.doan3.canthotour.R;
 import com.doan3.canthotour.View.Main.MainActivity;
 import com.doan3.canthotour.View.Notify.ActivityNotify;
@@ -28,6 +28,7 @@ import com.doan3.canthotour.View.Personal.ActivityPersonal;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -59,7 +60,7 @@ public class ActivityFavorite extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager =
                 new LinearLayoutManager(ActivityFavorite.this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
-        load(file);
+        load(file, 2);
 
         menuBotNavBar();
     }
@@ -70,7 +71,7 @@ public class ActivityFavorite extends AppCompatActivity {
         File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
         File file = new File(path, "/dsyeuthich.json");
         if (file.exists()) {
-            new PostJson(file).execute(Config.URL_HOST + Config.URL_GET_ALL_FAVORITE);
+            new PostJson(file).execute(Config.URL_HOST + Config.URL_GET_ALL_FAVORITE + "/" + 2);
         }
     }
 
@@ -104,10 +105,10 @@ public class ActivityFavorite extends AppCompatActivity {
         });
     }
 
-    private void load(File file) {
-        ArrayList<Place> places = new ModelPlace().getFavoriteList(file);
+    private void load(File file, int id) {
+        ArrayList<Service> favoriteList = new ModelService().getFavoriteList(file, id);
 
-        FavoriteAdapter favoriteAdapter = new FavoriteAdapter(places, getApplicationContext());
+        ServiceAdapter favoriteAdapter = new ServiceAdapter(favoriteList, getApplicationContext());
         recyclerView.setAdapter(favoriteAdapter);
     }
 
@@ -124,7 +125,10 @@ public class ActivityFavorite extends AppCompatActivity {
             try {
                 jsonFile = new JSONArray(JsonHelper.readJson(file));
                 for (int i = 0; i < jsonFile.length(); i++) {
-                    HttpRequestAdapter.httpPost(strings[0], jsonFile.getJSONObject(i));
+                    ArrayList<String> arr = JsonHelper.parseJsonNoId(jsonFile.getJSONObject(i), Config.JSON_FAVORITE);
+                    JSONObject jsonObject = new JSONObject("{\"dd_iddiadiem\":\"" + arr.get(0) + "\"" +
+                            ",\"nd_idnguoidung\":\"" + arr.get(1) + "\"}");
+                    HttpRequestAdapter.httpPost(strings[0], jsonObject);
                 }
                 file.delete();
             } catch (JSONException e) {

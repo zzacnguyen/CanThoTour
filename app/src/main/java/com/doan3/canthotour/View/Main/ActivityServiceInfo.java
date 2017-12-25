@@ -23,13 +23,13 @@ import com.doan3.canthotour.View.Notify.ActivityNotify;
 import com.doan3.canthotour.View.Personal.ActivityPersonal;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by sieut on 12/6/2017.
  */
 
-public class ActivityEatInfo extends AppCompatActivity {
+public class ActivityServiceInfo extends AppCompatActivity {
     Button btnChiaSe;
     int ma;
 
@@ -42,7 +42,7 @@ public class ActivityEatInfo extends AppCompatActivity {
 
         ma = getIntent().getIntExtra("masp", 1);
 
-        load(this, Config.URL_HOST + Config.URL_GET_ALL_EATS + "/" + ma, Config.JSON_EAT_INFO);
+        load(this, Config.URL_HOST + Config.URL_GET_ALL_SERVICES + "/" + ma);
 
         menuBotNavBar();
     }
@@ -60,16 +60,16 @@ public class ActivityEatInfo extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.ic_trangchu:
-                        startActivity(new Intent(ActivityEatInfo.this, MainActivity.class));
+                        startActivity(new Intent(ActivityServiceInfo.this, MainActivity.class));
                         break;
                     case R.id.ic_yeuthich:
-                        startActivity(new Intent(ActivityEatInfo.this, ActivityFavorite.class));
+                        startActivity(new Intent(ActivityServiceInfo.this, ActivityFavorite.class));
                         break;
                     case R.id.ic_thongbao:
-                        startActivity(new Intent(ActivityEatInfo.this, ActivityNotify.class));
+                        startActivity(new Intent(ActivityServiceInfo.this, ActivityNotify.class));
                         break;
                     case R.id.ic_canhan:
-                        startActivity(new Intent(ActivityEatInfo.this, ActivityPersonal.class));
+                        startActivity(new Intent(ActivityServiceInfo.this, ActivityPersonal.class));
                         break;
                 }
                 return false;
@@ -77,11 +77,13 @@ public class ActivityEatInfo extends AppCompatActivity {
         });
     }
 
-    public void load(Activity activity, String url, ArrayList<String> formatJson) {
+    public void load(Activity activity, String url) {
         TextView txtTenDv = activity.findViewById(R.id.textViewTenDv);
         TextView txtGioiThieu = activity.findViewById(R.id.textViewGioiThieuDv);
-        TextView txtGia = activity.findViewById(R.id.textViewGiaDv);
-        TextView txtGio = activity.findViewById(R.id.textViewGioDv);
+        TextView txtGiaThap = activity.findViewById(R.id.textViewGiaThap);
+        TextView txtGiaCao = activity.findViewById(R.id.textViewGiaCao);
+        TextView txtGioMo = activity.findViewById(R.id.textViewGioMc);
+        TextView txtGioDong = activity.findViewById(R.id.textViewGioDong);
         TextView txtDiaChi = activity.findViewById(R.id.textViewDiaChiDv);
         TextView txtSDT = activity.findViewById(R.id.textViewSdtDv);
         TextView txtWebsite = activity.findViewById(R.id.textViewWebsite);
@@ -89,17 +91,43 @@ public class ActivityEatInfo extends AppCompatActivity {
         ImageView imgChiTiet2Thumb = activity.findViewById(R.id.imgChiTiet2);
         ImageView imgBanner = activity.findViewById(R.id.imgBanner);
 
-        ServiceInfo serviceInfo = new ModelService().getServiceInfo(url, formatJson);
-        txtTenDv.setText(serviceInfo.getTen());
+        ServiceInfo serviceInfo = new ModelService().getServiceInfo(url);
+
+        if (serviceInfo.getTenAU() != null) {
+            txtTenDv.setText(serviceInfo.getTenAU());
+        } else if (serviceInfo.getTenKS() != null) {
+            txtTenDv.setText(serviceInfo.getTenKS());
+        } else if (serviceInfo.getTenTQ() != null) {
+            txtTenDv.setText(serviceInfo.getTenTQ());
+        } else if (serviceInfo.getTenPT() != null) {
+            txtTenDv.setText(serviceInfo.getTenPT());
+        } else if (serviceInfo.getTenVC() != null) {
+            txtTenDv.setText(serviceInfo.getTenVC());
+        }
         txtGioiThieu.setText(serviceInfo.getGioiThieuDV());
-        txtGia.setText(serviceInfo.getGiaThapNhat() + " -> " + serviceInfo.getGiaCaoNhat());
-        txtGio.setText(serviceInfo.getGioMoCua() + " -> " + serviceInfo.getGioDongCua());
+        txtGiaThap.setText(serviceInfo.getGiaThapNhat());
+        txtGiaCao.setText(serviceInfo.getGiaCaoNhat());
+        txtGioMo.setText(serviceInfo.getGioMoCua());
+        txtGioDong.setText(serviceInfo.getGioDongCua());
         txtDiaChi.setText(serviceInfo.getDiaChi());
         txtSDT.setText(serviceInfo.getSdt());
         txtWebsite.setText(serviceInfo.getWebsite());
-        Picasso.with(this).load("https://pm1.narvii.com/6056/c78d9bcce1791f98ee2402faa1074b9dc5188815_hq.jpg").into(imgChiTiet1Thumb);
-        Picasso.with(this).load("https://data.whicdn.com/images/70247110/original.jpg").into(imgChiTiet2Thumb);
-        Picasso.with(this).load("https://orig00.deviantart.net/2171/f/2014/337/c/9/hidden_leaf_village__landscape__13_by_iennidesign-d88l3ym.jpg").into(imgBanner);
+
+        String urlChiTiet1 = null, urlChiTiet2 = null, urlBanner = null;
+        try {
+            urlChiTiet1 = new ModelService.Load().execute(Config.URL_HOST + "lay-mot-hinh-thumb-1/" + serviceInfo.getId())
+                    .get().split("\\+")[0].substring(1);
+            urlChiTiet2 = new ModelService.Load().execute(Config.URL_HOST + "lay-mot-hinh-thumb-2/" + serviceInfo.getId())
+                    .get().split("\\+")[0].substring(1);
+            urlBanner = new ModelService.Load().execute(Config.URL_HOST + "lay-mot-hinh-banner/" + serviceInfo.getId())
+                    .get().split("\\+")[0].substring(1);
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        Picasso.with(this).load(Config.URL_HOST + urlChiTiet1).into(imgChiTiet1Thumb);
+        Picasso.with(this).load(Config.URL_HOST + urlChiTiet2).into(imgChiTiet2Thumb);
+        Picasso.with(this).load(Config.URL_HOST + urlBanner).into(imgBanner);
 
     }
 }

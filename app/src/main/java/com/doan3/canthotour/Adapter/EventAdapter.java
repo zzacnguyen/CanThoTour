@@ -15,7 +15,7 @@ import android.widget.TextView;
 import com.doan3.canthotour.Interface.OnLoadMoreListener;
 import com.doan3.canthotour.Model.ObjectClass.Event;
 import com.doan3.canthotour.R;
-import com.doan3.canthotour.View.Main.ActivityPlaceInfo;
+import com.doan3.canthotour.View.Main.ActivityServiceInfo;
 
 import java.util.ArrayList;
 
@@ -85,7 +85,7 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             viewHolder.cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent iEventInfo = new Intent(context, ActivityPlaceInfo.class);
+                    Intent iEventInfo = new Intent(context, ActivityServiceInfo.class);
                     iEventInfo.putExtra("masp", (int) view.getTag());
                     iEventInfo.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(iEventInfo);
