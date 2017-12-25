@@ -257,7 +257,35 @@
                         android:tint="@color/bgToolbar" />
 
                     <TextView
-                        android:id="@+id/textViewGiaDv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="5dp"
+                        android:text="Từ"
+                        android:textColor="#000"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/textViewGiaThap"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="5dp"
+                        android:text=""
+                        android:textColor="#000"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="5dp"
+                        android:text="đến"
+                        android:textColor="#000"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/textViewGiaCao"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -280,12 +308,21 @@
                         android:tint="@color/bgToolbar" />
 
                     <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="5dp"
+                        android:text="Từ"
+                        android:textColor="#000"
+                        android:textSize="14sp" />
+
+                    <TextView
                         android:id="@+id/textViewGioMc"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginLeft="5dp"
-                        android:text="8:00 AM"
+                        android:text=""
                         android:textColor="#000"
                         android:textSize="14sp" />
 
@@ -299,12 +336,12 @@
                         android:textSize="14sp" />
 
                     <TextView
-                        android:id="@+id/textViewGioDc"
+                        android:id="@+id/textViewGioDong"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginLeft="5dp"
-                        android:text="11:00 PM"
+                        android:text=""
                         android:textColor="#000"
                         android:textSize="14sp" />
 
