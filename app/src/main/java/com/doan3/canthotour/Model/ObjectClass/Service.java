@@ -15,12 +15,6 @@ public class Service {
 
     }
 
-    public Service(int ma, Bitmap hinh, String ten) {
-        this.ma = ma;
-        this.hinh = hinh;
-        this.ten = ten;
-    }
-
     public int getMa() {
         return ma;
     }

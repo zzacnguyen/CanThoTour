@@ -16,13 +16,6 @@ public class Event {
 
     }
 
-    public Event(int maSk, String tenSk, String ngaySk, Bitmap hinhSk) {
-        this.maSk = maSk;
-        this.tenSk = tenSk;
-        this.ngaySk = ngaySk;
-        this.hinhSk = hinhSk;
-    }
-
     public int getMaSk() {
         return maSk;
     }

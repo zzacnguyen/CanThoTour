@@ -171,8 +171,8 @@ public class ModelService {
                 event.setMaSk(Integer.parseInt(arrayList.get(0)));
                 event.setTenSk(arrayList.get(1));
                 event.setNgaySk("Từ " + arrayList.get(2) + " đến " + arrayList.get(3));
-                if (!arrayList.get(3).equals("null")) {
-                    event.setHinhSk(new GetImage().execute(Config.URL_HOST + "thumbnails/" + arrayList.get(4)).get());
+                if (!arrayList.get(5).equals("null")) {
+                    event.setHinhSk(new GetImage().execute(Config.URL_HOST + "thumbnails/" + arrayList.get(5)).get());
                 }
                 events.add(event);
             }
