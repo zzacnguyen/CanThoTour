@@ -24,7 +24,7 @@ import java.util.concurrent.ExecutionException;
  */
 
 public class ModelService {
-
+    //Ở phần này nhiều chỗ t chưa hiểu, thứ 6 t hỏi lại
     public ServiceInfo getServiceInfo(String url) {
         ArrayList<String> arrayList;
         ServiceInfo serviceInfo = new ServiceInfo();
@@ -140,12 +140,12 @@ public class ModelService {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 arrayList = JsonHelper.parseJson(jsonObject, Config.JSON_FAVORITE);
 
-                service.setHinh(new GetImage().execute(Config.URL_HOST + "thumbnails/" + arrayList.get(7)).get());
-                service.setMa(Integer.parseInt(arrayList.get(0)));
+                service.setHinh(new GetImage().execute(Config.URL_HOST + "thumbnails/" + arrayList.get(7)).get()); //Set hình ảnh
+                service.setMa(Integer.parseInt(arrayList.get(0))); //Set mã dịch vụ
                 service.setTen(!arrayList.get(1).equals("null") ? arrayList.get(1) :
                         !arrayList.get(2).equals("null") ? arrayList.get(2) :
                                 !arrayList.get(3).equals("null") ? arrayList.get(3) :
-                                        !arrayList.get(4).equals("null") ? arrayList.get(4) : arrayList.get(5));
+                                        !arrayList.get(4).equals("null") ? arrayList.get(4) : arrayList.get(5)); //Set tên dịch vụ yêu thích
 
                 services.add(service);
             }
@@ -155,24 +155,24 @@ public class ModelService {
         return services;
     }
 
-    public ArrayList<Event> getEventList(String url) {
+    public ArrayList<Event> getEventList(String url) { //Get danh sách thông báo sự kiện
 
         ArrayList<String> arr, arrayList;
         ArrayList<Event> events = new ArrayList<>();
 
         try {
-            arr = JsonHelper.parseJsonNoId(new JSONObject(new Load().execute(url).get()), Config.JSON_LOAD);
+            arr = JsonHelper.parseJsonNoId(new JSONObject(new Load().execute(url).get()), Config.JSON_LOAD); //Sử dụng parseJsonNoId vì JSON_LOAD ko có id
             JSONArray jsonArray = new JSONArray(arr.get(0));
 
             for (int i = 0; i < jsonArray.length(); i++) {
 
                 Event event = new Event();
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-                arrayList = JsonHelper.parseJson(jsonObject, Config.JSON_EVENT);
-                event.setMaSk(Integer.parseInt(arrayList.get(0)));
-                event.setTenSk(arrayList.get(1));
-                event.setNgaySk("Từ " + arrayList.get(2) + " đến " + arrayList.get(3));
-                if (!arrayList.get(5).equals("null")) {
+                arrayList = JsonHelper.parseJson(jsonObject, Config.JSON_EVENT); //Parse json event
+                event.setMaSk(Integer.parseInt(arrayList.get(0))); //Set mã sự kiện
+                event.setTenSk(arrayList.get(1)); //Set tên
+                event.setNgaySk("Từ " + arrayList.get(2) + " đến " + arrayList.get(3)); //Set ngày bắt đầu và ngày kết thúc sự kiện
+                if (!arrayList.get(5).equals("null")) { //Set hình ảnh
                     event.setHinhSk(new GetImage().execute(Config.URL_HOST + "thumbnails/" + arrayList.get(5)).get());
                 }
                 events.add(event);
@@ -183,13 +183,14 @@ public class ModelService {
         return events;
     }
 
+    //Get dữ liệu
     public static class Load extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... strings) {
             return HttpRequestAdapter.httpGet(strings[0]);
         }
     }
-
+    //Get dữ liệu hình ảnh. Dữ liệu trả ra là Bitmap, biến truyền vào là có kiểu String
     public static class GetImage extends AsyncTask<String, Void, Bitmap> {
         @Override
         protected Bitmap doInBackground(String... strings) {

@@ -48,7 +48,7 @@ public class ActivityService extends AppCompatActivity {
         toolbarTitle = findViewById(R.id.toolbarTitle);
 
         String url = getIntent().getStringExtra("url");
-        if (url.equals(Config.URL_HOST + Config.URL_GET_ALL_EATS)) {
+        if (url.equals(Config.URL_HOST + Config.URL_GET_ALL_EATS)) { //Kiểm tra từng đường dẫn url
             formatJson = Config.JSON_EAT;
             toolbar.setBackgroundColor(getResources().getColor(R.color.tbAnUong));
             toolbarTitle.setText("Danh sách quán ăn");
