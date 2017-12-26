@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
@@ -90,19 +91,38 @@ public class ActivityServiceInfo extends AppCompatActivity {
         ImageView imgChiTiet1Thumb = activity.findViewById(R.id.imgChiTiet1);
         ImageView imgChiTiet2Thumb = activity.findViewById(R.id.imgChiTiet2);
         ImageView imgBanner = activity.findViewById(R.id.imgBanner);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        TextView toolbarTitle = findViewById(R.id.toolbarTitle);
+        TextView fbEvent = findViewById(R.id.fb_sukien);
 
         ServiceInfo serviceInfo = new ModelService().getServiceInfo(url);
 
         if (serviceInfo.getTenAU() != null) {
             txtTenDv.setText(serviceInfo.getTenAU());
+            toolbar.setBackgroundColor(getResources().getColor(R.color.tbAnUong));
+            toolbarTitle.setText("Chi tiết quán ăn");
         } else if (serviceInfo.getTenKS() != null) {
             txtTenDv.setText(serviceInfo.getTenKS());
+            toolbar.setBackgroundColor(getResources().getColor(R.color.tbKhachSan));
+            toolbarTitle.setText("Chi tiết khách sạn");
         } else if (serviceInfo.getTenTQ() != null) {
             txtTenDv.setText(serviceInfo.getTenTQ());
+            toolbar.setBackgroundColor(getResources().getColor(R.color.tbThamQuan));
+            toolbarTitle.setText("Danh sách điểm tham quan");
         } else if (serviceInfo.getTenPT() != null) {
             txtTenDv.setText(serviceInfo.getTenPT());
-        } else if (serviceInfo.getTenVC() != null) {
+            toolbar.setBackgroundColor(getResources().getColor(R.color.tbPhuongTien));
+            toolbarTitle.setText("Chi tiết phương tiện");
+        } else {
             txtTenDv.setText(serviceInfo.getTenVC());
+            toolbar.setBackgroundColor(getResources().getColor(R.color.tbVuiChoi));
+            toolbarTitle.setText("Chi tiết điểm vui chơi");
+        }
+        if (serviceInfo.getLhsk().equals("null")) {
+            fbEvent.setVisibility(TextView.INVISIBLE);
+        } else {
+            fbEvent.setText(serviceInfo.getLhsk());
+            fbEvent.setVisibility(TextView.VISIBLE);
         }
         txtGioiThieu.setText(serviceInfo.getGioiThieuDV());
         txtGiaThap.setText(serviceInfo.getGiaThapNhat());

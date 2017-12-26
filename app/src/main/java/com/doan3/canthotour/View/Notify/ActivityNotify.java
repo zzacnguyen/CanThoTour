@@ -1,7 +1,6 @@
 package com.doan3.canthotour.View.Notify;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -11,11 +10,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.doan3.canthotour.Adapter.EventAdapter;
-import com.doan3.canthotour.Adapter.HttpRequestAdapter;
+import com.doan3.canthotour.Adapter.ListOfServiceAdapter;
 import com.doan3.canthotour.Config;
 import com.doan3.canthotour.Helper.BottomNavigationViewHelper;
 import com.doan3.canthotour.Helper.JsonHelper;
@@ -27,7 +24,6 @@ import com.doan3.canthotour.View.Favorite.ActivityFavorite;
 import com.doan3.canthotour.View.Main.MainActivity;
 import com.doan3.canthotour.View.Personal.ActivityPersonal;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -36,18 +32,14 @@ import java.util.concurrent.ExecutionException;
 
 public class ActivityNotify extends AppCompatActivity {
 
-    TextView txtTenSk, txtNgaySk;
-    ImageView imgHinhSk;
+    ArrayList<String> finalArr = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_thongbao);
 
-        txtTenSk = findViewById(R.id.textViewTenSk);
-        txtNgaySk = findViewById(R.id.textViewNgaySk);
-        imgHinhSk = findViewById(R.id.imageViewSuKien);
-
+        loadInfo(Config.URL_HOST + Config.URL_GET_ALL_EVENTS);
 
         menuBotNavBar();
     }
@@ -82,5 +74,67 @@ public class ActivityNotify extends AppCompatActivity {
         });
     }
 
+    private void loadInfo(String url) {
 
+        final ListOfServiceAdapter listOfServiceAdapter;
+        final RecyclerView recyclerView;
+        recyclerView = findViewById(R.id.RecyclerView_DanhSachSuKien);
+        recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
+
+        LinearLayoutManager linearLayoutManager =
+                new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(linearLayoutManager);
+
+        ArrayList<Event> services = new ModelService().getEventList(url);
+
+        final EventAdapter eventAdapter = new EventAdapter(recyclerView, services, getApplicationContext());
+        recyclerView.setAdapter(eventAdapter);
+        eventAdapter.notifyDataSetChanged();
+
+        //set load more listener for the RecyclerView adapter
+        final ArrayList<Event> finalListService = services;
+        try {
+            finalArr = JsonHelper.parseJsonNoId(new JSONObject
+                    (new ModelService.Load().execute(url).get()), Config.JSON_LOAD);
+        } catch (JSONException | InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        eventAdapter.setOnLoadMoreListener(new OnLoadMoreListener() {
+
+            @Override
+            public void onLoadMore() {
+                if (finalListService.size() < Integer.parseInt(finalArr.get(2))) {
+                    finalListService.add(null);
+                    recyclerView.post(new Runnable() {
+                        public void run() {
+                            eventAdapter.notifyItemInserted(finalListService.size() - 1);
+                        }
+                    });
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            finalListService.remove(finalListService.size() - 1);
+                            eventAdapter.notifyItemRemoved(finalListService.size());
+
+                            ArrayList<Event> serviceArrayList = new ModelService().
+                                    getEventList(finalArr.get(1));
+                            for (int i = 0; i < serviceArrayList.size(); i++) {
+                                finalListService.add(serviceArrayList.get(i));
+                            }
+                            try {
+                                finalArr = JsonHelper.parseJsonNoId(new JSONObject
+                                        (new ModelService.Load().execute(finalArr.get(1)).get()), Config.JSON_LOAD);
+                            } catch (JSONException | InterruptedException | ExecutionException e) {
+                                e.printStackTrace();
+                            }
+
+                            eventAdapter.notifyDataSetChanged();
+                            eventAdapter.setLoaded();
+                        }
+                    }, 1000);
+                }
+            }
+        });
+    }
 }

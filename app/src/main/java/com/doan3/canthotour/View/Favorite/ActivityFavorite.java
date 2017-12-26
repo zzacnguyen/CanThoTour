@@ -15,7 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.doan3.canthotour.Adapter.HttpRequestAdapter;
-import com.doan3.canthotour.Adapter.ServiceAdapter;
+import com.doan3.canthotour.Adapter.ListOfServiceAdapter;
 import com.doan3.canthotour.Config;
 import com.doan3.canthotour.Helper.BottomNavigationViewHelper;
 import com.doan3.canthotour.Helper.JsonHelper;
@@ -108,7 +108,7 @@ public class ActivityFavorite extends AppCompatActivity {
     private void load(File file, int id) {
         ArrayList<Service> favoriteList = new ModelService().getFavoriteList(file, id);
 
-        ServiceAdapter favoriteAdapter = new ServiceAdapter(favoriteList, getApplicationContext());
+        ListOfServiceAdapter favoriteAdapter = new ListOfServiceAdapter(recyclerView, favoriteList, getApplicationContext());
         recyclerView.setAdapter(favoriteAdapter);
     }
 

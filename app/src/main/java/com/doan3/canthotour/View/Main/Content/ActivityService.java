@@ -9,8 +9,10 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.doan3.canthotour.Adapter.ListOfServiceAdapter;
 import com.doan3.canthotour.Config;
@@ -34,14 +36,41 @@ import java.util.concurrent.ExecutionException;
 
 public class ActivityService extends AppCompatActivity {
     ArrayList<String> finalArr = new ArrayList<>();
+    ArrayList<String> formatJson = new ArrayList<>();
+    Toolbar toolbar;
+    TextView toolbarTitle;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_dichvu);
+        toolbar = findViewById(R.id.toolbar);
+        toolbarTitle = findViewById(R.id.toolbarTitle);
 
         String url = getIntent().getStringExtra("url");
-        loadInfo(url);
+        if (url.equals(Config.URL_HOST + Config.URL_GET_ALL_EATS)) {
+            formatJson = Config.JSON_EAT;
+            toolbar.setBackgroundColor(getResources().getColor(R.color.tbAnUong));
+            toolbarTitle.setText("Danh sách quán ăn");
+        } else if (url.equals(Config.URL_HOST + Config.URL_GET_ALL_PLACES)) {
+            formatJson = Config.JSON_PLACE;
+            toolbar.setBackgroundColor(getResources().getColor(R.color.tbThamQuan));
+            toolbarTitle.setText("Danh sách điểm tham quan");
+        } else if (url.equals(Config.URL_HOST + Config.URL_GET_ALL_HOTELS)) {
+            formatJson = Config.JSON_HOTEL;
+            toolbar.setBackgroundColor(getResources().getColor(R.color.tbKhachSan));
+            toolbarTitle.setText("Danh sách khách sạn");
+        } else if (url.equals(Config.URL_HOST + Config.URL_GET_ALL_VEHICLES)) {
+            formatJson = Config.JSON_VEHICLE;
+            toolbar.setBackgroundColor(getResources().getColor(R.color.tbPhuongTien));
+            toolbarTitle.setText("Danh sách phương tiện");
+        } else {
+            formatJson = Config.JSON_ENTERTAINMENT;
+            toolbar.setBackgroundColor(getResources().getColor(R.color.tbVuiChoi));
+            toolbarTitle.setText("Danh sách điểm vui chơi");
+        }
+
+        loadInfo(url, formatJson);
 
         menuBotNavBar();
     }
@@ -76,11 +105,8 @@ public class ActivityService extends AppCompatActivity {
         });
     }
 
-    private void loadInfo(String url) {
-        final ArrayList<String> formatJson = url.equals(Config.URL_HOST + Config.URL_GET_ALL_EATS) ? Config.JSON_EAT :
-                url.equals(Config.URL_HOST + Config.URL_GET_ALL_PLACES) ? Config.JSON_PLACE :
-                        url.equals(Config.URL_HOST + Config.URL_GET_ALL_HOTELS) ? Config.JSON_HOTEL :
-                                url.equals(Config.URL_HOST + Config.URL_GET_ALL_VEHICLES) ? Config.JSON_VEHICLE : Config.JSON_ENTERTAINMENT;
+    private void loadInfo(String url, final ArrayList<String> formatJson) {
+
         final ListOfServiceAdapter listOfServiceAdapter;
         final RecyclerView recyclerView;
         recyclerView = findViewById(R.id.RecyclerView_DanhSachDichVu);
