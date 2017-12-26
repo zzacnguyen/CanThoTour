@@ -1,5 +1,7 @@
 package com.doan3.canthotour.Model.ObjectClass;
 
+import android.graphics.Bitmap;
+
 /**
  * Created by zzacn on 12/14/2017.
  */
@@ -8,9 +10,13 @@ public class Event {
     private int maSk;
     private String tenSk;
     private String ngaySk;
-    private int hinhSk;
+    private Bitmap hinhSk;
 
-    public Event(int maSk, String tenSk, String ngaySk, int hinhSk) {
+    public Event(){
+
+    }
+
+    public Event(int maSk, String tenSk, String ngaySk, Bitmap hinhSk) {
         this.maSk = maSk;
         this.tenSk = tenSk;
         this.ngaySk = ngaySk;
@@ -41,11 +47,11 @@ public class Event {
         this.ngaySk = ngaySk;
     }
 
-    public int getHinhSk() {
+    public Bitmap getHinhSk() {
         return hinhSk;
     }
 
-    public void setHinhSk(int hinhSk) {
+    public void setHinhSk(Bitmap hinhSk) {
         this.hinhSk = hinhSk;
     }
 }

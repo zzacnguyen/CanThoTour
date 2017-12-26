@@ -6,8 +6,10 @@ import android.os.AsyncTask;
 import com.doan3.canthotour.Adapter.HttpRequestAdapter;
 import com.doan3.canthotour.Config;
 import com.doan3.canthotour.Helper.JsonHelper;
+import com.doan3.canthotour.Model.ObjectClass.Event;
 import com.doan3.canthotour.Model.ObjectClass.Service;
 import com.doan3.canthotour.Model.ObjectClass.ServiceInfo;
+import com.doan3.canthotour.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -150,6 +152,34 @@ public class ModelService {
             e.printStackTrace();
         }
         return services;
+    }
+
+    public ArrayList<Event> getEventList(String url) {
+
+        ArrayList<String> arr, arrayList;
+        ArrayList<Event> events = new ArrayList<>();
+
+        try {
+            arr = JsonHelper.parseJsonNoId(new JSONObject(new Load().execute(url).get()), Config.JSON_LOAD);
+            JSONArray jsonArray = new JSONArray(arr.get(0));
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+
+                Event event = new Event();
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                arrayList = JsonHelper.parseJson(jsonObject, Config.JSON_EVENT);
+                event.setMaSk(Integer.parseInt(arrayList.get(0)));
+                event.setTenSk(arrayList.get(1));
+                event.setNgaySk("Từ " + arrayList.get(2) + " đến " + arrayList.get(3));
+                if (!arrayList.get(3).equals("null")) {
+                    event.setHinhSk(new GetImage().execute(Config.URL_HOST + "thumbnails/" + arrayList.get(4)).get());
+                }
+                events.add(event);
+            }
+        } catch (JSONException | InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+        return events;
     }
 
     public static class Load extends AsyncTask<String, Void, String> {

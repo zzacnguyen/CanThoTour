@@ -48,7 +48,7 @@ public class ActivityNotify extends AppCompatActivity {
         txtNgaySk = findViewById(R.id.textViewNgaySk);
         imgHinhSk = findViewById(R.id.imageViewSuKien);
 
-        new Load().execute(Config.URL_HOST + Config.URL_GET_ALL_EVENTS);
+
         menuBotNavBar();
     }
 
@@ -82,90 +82,5 @@ public class ActivityNotify extends AppCompatActivity {
         });
     }
 
-    private class Load extends AsyncTask<String, ArrayList<Event>, ArrayList<Event>> {
-        ArrayList<String> arr = new ArrayList<>(), arrayList = new ArrayList<>();
-        ArrayList<Event> listEvent = new ArrayList<>();
-        EventAdapter eventAdapter;
-        RecyclerView recyclerView;
 
-        @Override
-        protected ArrayList<Event> doInBackground(String... strings) {
-
-            // parse json vừa get về ra arraylist
-            try {
-                arr = JsonHelper.parseJsonNoId(new JSONObject(HttpRequestAdapter.httpGet(strings[0])), Config.JSON_LOAD);
-                arrayList = JsonHelper.parseJsonNoId(new JSONArray(arr.get(0)), Config.JSON_EVENT);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-            ArrayList<Event> list = new ArrayList<>();
-
-            for (int i = 0; i < arrayList.size(); i += 5) {
-                list.add(new Event(Integer.parseInt(arrayList.get(i + 3)), arrayList.get(i),
-                        "Từ " + arrayList.get(i + 1) + " đến " + arrayList.get(i + 2), R.drawable.benninhkieu1));
-            }
-            return list;
-        }
-
-        @Override
-        protected void onPostExecute(final ArrayList<Event> events) {
-            super.onPostExecute(events);
-
-            recyclerView = findViewById(R.id.RecyclerView_DanhSachSuKien);
-            recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
-            LinearLayoutManager linearLayoutManager = new LinearLayoutManager
-                    (ActivityNotify.this, LinearLayoutManager.VERTICAL, false);
-            recyclerView.setLayoutManager(linearLayoutManager);
-            eventAdapter = new EventAdapter(recyclerView, events, getApplicationContext());
-            recyclerView.setAdapter(eventAdapter);
-            eventAdapter.notifyDataSetChanged();
-
-
-            listEvent = events;
-            //set load more listener for the RecyclerView adapter
-            eventAdapter.setOnLoadMoreListener(new OnLoadMoreListener() {
-
-                @Override
-                public void onLoadMore() {
-                    if (listEvent.size() < Integer.parseInt(arr.get(2))) {
-                        listEvent.add(null);
-                        recyclerView.post(new Runnable() {
-                            public void run() {
-                                eventAdapter.notifyItemInserted(listEvent.size() - 1);
-                            }
-                        });
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                listEvent.remove(listEvent.size() - 1);
-                                eventAdapter.notifyItemRemoved(listEvent.size());
-                                String string = "";
-                                try {
-                                    string = new ModelService.Load().execute(arr.get(1)).get();
-                                } catch (InterruptedException | ExecutionException e) {
-                                    e.printStackTrace();
-                                }
-
-                                try {
-                                    arr = JsonHelper.parseJsonNoId(new JSONObject(string), Config.JSON_LOAD);
-                                    arrayList = JsonHelper.parseJsonNoId(new JSONArray(arr.get(0)), Config.JSON_EVENT);
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-
-                                for (int i = 0; i < arrayList.size(); i += 5) {
-                                    listEvent.add(new Event(Integer.parseInt(arrayList.get(i + 3)), arrayList.get(i),
-                                            arrayList.get(i + 1) + " -> " + arrayList.get(i + 2),
-                                            R.drawable.benninhkieu1));
-                                }
-                                eventAdapter.notifyDataSetChanged();
-                                eventAdapter.setLoaded();
-                            }
-                        }, 1000);
-                    }
-                }
-            });
-        }
-    }
 }
