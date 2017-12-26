@@ -31,19 +31,26 @@
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/fb_sukien"
+            <FrameLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="top|end"
-                android:layout_marginTop="58dp"
-                android:background="#f90000"
-                android:padding="5dp"
-                android:text=""
-                android:textColor="@color/colorWhite"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:visibility="invisible" />
+                android:layout_marginTop="58dp">
+
+                <Button
+                    android:id="@+id/fb_sukien"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:background="#dcff0404"
+                    android:maxLength="15"
+                    android:padding="5dp"
+                    android:text="Hello"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="16sp"
+                    android:visibility="invisible" />
+
+            </FrameLayout>
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -82,6 +89,7 @@
 
             <!--Thông tin địa điểm-->
             <LinearLayout
+                android:id="@+id/info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/bgToolbar"
@@ -92,15 +100,16 @@
                     android:id="@+id/textViewTenDv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:padding="2dp"
                     android:text=""
                     android:textColor="@color/colorWhite"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:textSize="18sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:padding="2dp">
 
                     <TextView
                         android:layout_width="wrap_content"

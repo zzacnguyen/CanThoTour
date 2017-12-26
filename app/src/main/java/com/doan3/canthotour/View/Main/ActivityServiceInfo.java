@@ -2,17 +2,22 @@ package com.doan3.canthotour.View.Main;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.doan3.canthotour.Config;
 import com.doan3.canthotour.Helper.BottomNavigationViewHelper;
@@ -23,6 +28,7 @@ import com.doan3.canthotour.View.Favorite.ActivityFavorite;
 import com.doan3.canthotour.View.Notify.ActivityNotify;
 import com.doan3.canthotour.View.Personal.ActivityPersonal;
 import com.squareup.picasso.Picasso;
+import com.tooltip.Tooltip;
 
 import java.util.concurrent.ExecutionException;
 
@@ -33,6 +39,8 @@ import java.util.concurrent.ExecutionException;
 public class ActivityServiceInfo extends AppCompatActivity {
     Button btnChiaSe;
     int ma;
+    boolean display = true;
+    Tooltip tooltip;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -78,7 +86,7 @@ public class ActivityServiceInfo extends AppCompatActivity {
         });
     }
 
-    public void load(Activity activity, String url) {
+    public void load(final Activity activity, String url) {
         TextView txtTenDv = activity.findViewById(R.id.textViewTenDv);
         TextView txtGioiThieu = activity.findViewById(R.id.textViewGioiThieuDv);
         TextView txtGiaThap = activity.findViewById(R.id.textViewGiaThap);
@@ -93,31 +101,38 @@ public class ActivityServiceInfo extends AppCompatActivity {
         ImageView imgBanner = activity.findViewById(R.id.imgBanner);
         Toolbar toolbar = findViewById(R.id.toolbar);
         TextView toolbarTitle = findViewById(R.id.toolbarTitle);
-        TextView fbEvent = findViewById(R.id.fb_sukien);
+        Button fbEvent = findViewById(R.id.fb_sukien);
+        LinearLayout info = findViewById(R.id.info);
 
-        ServiceInfo serviceInfo = new ModelService().getServiceInfo(url);
+        final ServiceInfo serviceInfo = new ModelService().getServiceInfo(url);
 
         if (serviceInfo.getTenAU() != null) {
             txtTenDv.setText(serviceInfo.getTenAU());
             toolbar.setBackgroundColor(getResources().getColor(R.color.tbAnUong));
+            info.setBackgroundColor(getResources().getColor(R.color.tbAnUong));
             toolbarTitle.setText("Chi tiết quán ăn");
         } else if (serviceInfo.getTenKS() != null) {
             txtTenDv.setText(serviceInfo.getTenKS());
             toolbar.setBackgroundColor(getResources().getColor(R.color.tbKhachSan));
+            info.setBackgroundColor(getResources().getColor(R.color.tbKhachSan));
             toolbarTitle.setText("Chi tiết khách sạn");
         } else if (serviceInfo.getTenTQ() != null) {
             txtTenDv.setText(serviceInfo.getTenTQ());
             toolbar.setBackgroundColor(getResources().getColor(R.color.tbThamQuan));
+            info.setBackgroundColor(getResources().getColor(R.color.tbThamQuan));
             toolbarTitle.setText("Chi tiết điểm tham quan");
         } else if (serviceInfo.getTenPT() != null) {
             txtTenDv.setText(serviceInfo.getTenPT());
             toolbar.setBackgroundColor(getResources().getColor(R.color.tbPhuongTien));
+            info.setBackgroundColor(getResources().getColor(R.color.tbPhuongTien));
             toolbarTitle.setText("Chi tiết phương tiện");
         } else {
             txtTenDv.setText(serviceInfo.getTenVC());
             toolbar.setBackgroundColor(getResources().getColor(R.color.tbVuiChoi));
+            info.setBackgroundColor(getResources().getColor(R.color.tbVuiChoi));
             toolbarTitle.setText("Chi tiết điểm vui chơi");
         }
+
         if (serviceInfo.getLhsk().equals("null")) {
             fbEvent.setVisibility(TextView.INVISIBLE);
         } else {
@@ -149,5 +164,28 @@ public class ActivityServiceInfo extends AppCompatActivity {
         Picasso.with(this).load(Config.URL_HOST + urlChiTiet2).into(imgChiTiet2Thumb);
         Picasso.with(this).load(Config.URL_HOST + urlBanner).into(imgBanner);
 
+        fbEvent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(display == true){
+                    showTooltip(view, Gravity.BOTTOM);
+                    display = false;
+                }else{
+                    tooltip.dismiss();
+                    display = true;
+                }
+            }
+
+            private void showTooltip(View view, int gravity) {
+                tooltip = new Tooltip.Builder(view, R.style.TextAppearance_AppCompat_Light_Widget_PopupMenu_Large)
+                        .setText(serviceInfo.getLhsk())
+                        .setTextColor(Color.WHITE)
+                        .setBackgroundColor(Color.RED)
+                        .setGravity(gravity)
+                        .setCornerRadius(8f)
+                        .setDismissOnClick(true)
+                        .show();
+            }
+        });
     }
 }
