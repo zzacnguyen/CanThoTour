@@ -126,12 +126,13 @@ public class ModelService {
 
     public ArrayList<Service> getFavoriteList(File file, int id) {
 
-        ArrayList<String> arrayList;
+        ArrayList<String> arr, arrayList;
         ArrayList<Service> services = new ArrayList<>();
 
         try {
-            String rs = new Load().execute(Config.URL_HOST + Config.URL_GET_ALL_FAVORITE + "/" + id).get();
-            JSONArray jsonArray = new JSONArray(rs);
+            arr = JsonHelper.parseJsonNoId(new JSONObject(new Load().
+                    execute(Config.URL_HOST + Config.URL_GET_ALL_FAVORITE + "/" + id).get()), Config.JSON_LOAD);
+            JSONArray jsonArray = new JSONArray(arr.get(0));
 
             for (int i = 0; i < jsonArray.length(); i++) {
 
@@ -141,10 +142,10 @@ public class ModelService {
 
                 service.setHinh(new GetImage().execute(Config.URL_HOST + "thumbnails/" + arrayList.get(7)).get());
                 service.setMa(Integer.parseInt(arrayList.get(0)));
-                service.setTen(!arrayList.get(2).equals("null") ? arrayList.get(2) :
-                        !arrayList.get(4).equals("null") ? arrayList.get(3) :
-                                !arrayList.get(4).equals("null") ? arrayList.get(4) :
-                                        !arrayList.get(5).equals("null") ? arrayList.get(5) : arrayList.get(1));
+                service.setTen(!arrayList.get(1).equals("null") ? arrayList.get(1) :
+                        !arrayList.get(2).equals("null") ? arrayList.get(2) :
+                                !arrayList.get(3).equals("null") ? arrayList.get(3) :
+                                        !arrayList.get(4).equals("null") ? arrayList.get(4) : arrayList.get(5));
 
                 services.add(service);
             }

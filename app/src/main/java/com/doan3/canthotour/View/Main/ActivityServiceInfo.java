@@ -108,7 +108,7 @@ public class ActivityServiceInfo extends AppCompatActivity {
         } else if (serviceInfo.getTenTQ() != null) {
             txtTenDv.setText(serviceInfo.getTenTQ());
             toolbar.setBackgroundColor(getResources().getColor(R.color.tbThamQuan));
-            toolbarTitle.setText("Danh sách điểm tham quan");
+            toolbarTitle.setText("Chi tiết điểm tham quan");
         } else if (serviceInfo.getTenPT() != null) {
             txtTenDv.setText(serviceInfo.getTenPT());
             toolbar.setBackgroundColor(getResources().getColor(R.color.tbPhuongTien));

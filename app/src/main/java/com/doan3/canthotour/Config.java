@@ -87,8 +87,8 @@ public class Config {
                     "dv_giacaonhat", "dv_giomocua", "dv_giodongcua", "dv_gioithieu", "dv_iddichvu"));
 
     public static final ArrayList<String> JSON_FAVORITE =
-            new ArrayList<String>(Arrays.asList("nd_idnguoidung", "ks_tenkhachsan", "vc_tendiemvuichoi", "pt_tenphuongtien",
-                    "tq_tendiemthamquan", "id_hinhanh", "chitiet1"));
+            new ArrayList<String>(Arrays.asList("ks_tenkhachsan", "vc_tendiemvuichoi", "pt_tenphuongtien",
+                    "tq_tendiemthamquan","au_ten", "id_hinhanh", "chitiet1"));
 
     public static final ArrayList<String> JSON_LOAD =
             new ArrayList<String>(Arrays.asList("data", "next_page_url", "total"));
