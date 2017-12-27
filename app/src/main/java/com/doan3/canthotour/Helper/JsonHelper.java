@@ -126,7 +126,7 @@ public class JsonHelper {
 
     public static void writeJson(File file, JSONArray json) {
         try {
-            JSONArray jsonFile = new JSONArray();
+            JSONArray jsonFile;
             if (file.exists()) {
                 FileInputStream fileInputStream = new FileInputStream(file);
                 byte[] buffer = new byte[fileInputStream.available()];

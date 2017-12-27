@@ -51,8 +51,11 @@ public class ActivityFavorite extends AppCompatActivity {
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavView_Bar);
         BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
 
-        File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
-        File file = new File(path, "/dsyeuthich.json");
+        File path = new File(Environment.getExternalStorageDirectory() + "/canthotour");
+        if (!path.exists()) {
+            path.mkdirs();
+        }
+        File file = new File(path, "dsyeuthich.json");
 
         recyclerView = findViewById(R.id.RecyclerView_DanhSachYeuThich);
         recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
@@ -66,12 +69,12 @@ public class ActivityFavorite extends AppCompatActivity {
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
+    protected void onResume() {
+        super.onResume();
         File path = new File(Environment.getExternalStorageDirectory() + "/canthotour");
         File file = new File(path, "dsyeuthich.json");
         if (file.exists()) {
-            new PostJson(file).execute(Config.URL_HOST + Config.URL_GET_ALL_FAVORITE + "/" + 2);
+            new PostJson(file).execute(Config.URL_HOST + Config.URL_GET_ALL_FAVORITE);
         }
     }
 

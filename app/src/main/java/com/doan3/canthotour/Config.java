@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Config {
-    public static final String URL_HOST = "http://192.168.1.3/doan3_canthotour/public/";
+    public static final String URL_HOST = "http://192.168.1.39/doan3_canthotour/public/";
     public static final String URL_GET_ALL_TYPE_OF_EVENTS = "loaihinhsukien";
     public static final String URL_GET_ALL_EATS = "anuong";
     public static final String URL_GET_ALL_COMMENTS = "binhluan";
@@ -18,7 +18,7 @@ public class Config {
     public static final String URL_GET_ALL_VEHICLES = "phuongtien";
     public static final String URL_GET_ALL_EVENTS = "sukien";
     public static final String URL_GET_ALL_ENTERTAINMENTS = "vuichoi";
-    public static final String URL_GET_ALL_FAVORITE = "yeuthich/";
+    public static final String URL_GET_ALL_FAVORITE = "yeuthich";
     public static final String URL_GET_ICON = "lay-mot-hinh-icon/";
     public static final String URL_GET_THUMB_1 = "lay-mot-hinh-thumb-1/";
     public static final String URL_GET_THUMB_2 = "lay-mot-hinh-thumb-2/";
@@ -39,8 +39,8 @@ public class Config {
 
     public static final ArrayList<String> JSON_SERVICE_INFO =
             new ArrayList<String>(Arrays.asList("ks_tenkhachsan", "ks_website", "vc_tendiemvuichoi", "pt_tenphuongtien",
-                    "tq_tendiemthamquan", "au_ten", "dv_gioithieu", "dv_giomocua", "dv_giodongcua",
-                    "dv_giathapnhat", "dv_giacaonhat", "dd_diachi", "dd_sodienthoai", "lhsk_ten"));
+                    "tq_tendiemthamquan", "au_ten", "dv_gioithieu", "dv_giomocua", "dv_giodongcua", "dv_giathapnhat",
+                    "dv_giacaonhat", "dd_diachi", "dd_sodienthoai", "lhsk_ten", "id_nd_yeuthich_dv", "id_yeuthich"));
 
     public static final ArrayList<String> JSON_HOTEL =
             new ArrayList<String>(Arrays.asList("ks_tenkhachsan", "id_hinhanh", "chitiet1"));

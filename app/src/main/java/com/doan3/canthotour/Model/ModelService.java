@@ -83,6 +83,27 @@ public class ModelService {
             serviceInfo.setDiaChi(arrayList.get(12));
             serviceInfo.setSdt(arrayList.get(13));
             serviceInfo.setLhsk(arrayList.get(14));
+            serviceInfo.setIdYeuThich(arrayList.get(16));
+
+            File path = new File(Environment.getExternalStorageDirectory() + "/canthotour");
+            if (!path.exists()) {
+                path.mkdirs();
+            }
+            File file = new File(path, "dsyeuthich.json");
+
+            boolean isLike = true;
+            if (file.exists()) {
+                JSONArray jsonFile = new JSONArray(JsonHelper.readJson(file));
+                for (int i = 0; i < jsonFile.length(); i++) {
+                    if (serviceInfo.getId() == Integer.parseInt(jsonFile.getJSONObject(i).getString("id"))) {
+                        serviceInfo.setIdNguoiDung("2");
+                        isLike = false;
+                    }
+                }
+            }
+            if (isLike) {
+                serviceInfo.setIdNguoiDung(arrayList.get(15));
+            }
 
             // lấy thông tin hình gồm : "url + id + tên hình"
             // xóa dấu " bằng replaceAll
@@ -99,6 +120,8 @@ public class ModelService {
                 e.printStackTrace();
             }
 
+            serviceInfo.setIdHinh(Integer.parseInt(urlHinhChiTiet1[1]));
+            serviceInfo.setTenHinh(urlHinhChiTiet1[2]);
             serviceInfo.setChiTiet1Thumb(setImage(Config.URL_HOST + urlHinhChiTiet1[0],
                     urlHinhChiTiet1[1], urlHinhChiTiet1[2]));
             serviceInfo.setChiTiet2Thumb(setImage(Config.URL_HOST + urlHinhChiTiet2[0],
@@ -177,7 +200,12 @@ public class ModelService {
         try {
             arr = JsonHelper.parseJsonNoId(new JSONObject(new Load().
                     execute(Config.URL_HOST + Config.URL_GET_ALL_FAVORITE + "/" + id).get()), Config.JSON_LOAD);
-            JSONArray jsonArray = new JSONArray(arr.get(0));
+            JSONArray jsonArray;
+            if (file.exists()) {
+                jsonArray = JsonHelper.mergeJson(new JSONArray(arr.get(0)), new JSONArray(JsonHelper.readJson(file)));
+            } else {
+                jsonArray = new JSONArray(arr.get(0));
+            }
 
             for (int i = 0; i < jsonArray.length(); i++) {
 
@@ -196,12 +224,12 @@ public class ModelService {
                                 !arrayList.get(3).equals("null") ? arrayList.get(3) :
                                         !arrayList.get(4).equals("null") ? arrayList.get(4) : arrayList.get(5));
 
-
                 services.add(service);
             }
         } catch (JSONException | InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
+
         return services;
     }
 

@@ -7,10 +7,42 @@ import android.graphics.Bitmap;
  */
 
 public class ServiceInfo {
-    private int id;
-    private String tenAU, tenKS, tenTQ, tenPT, tenVC, gioiThieuDV,
-            gioDongCua, gioMoCua, giaCaoNhat, giaThapNhat, diaChi, sdt, website, lhsk;
     Bitmap banner, chiTiet1Thumb, chiTiet2Thumb;
+    private int id, idHinh;
+    private String tenAU, tenKS, tenTQ, tenPT, tenVC, gioiThieuDV, tenHinh,
+            gioDongCua, gioMoCua, giaCaoNhat, giaThapNhat, diaChi, sdt, website, lhsk, idNguoiDung, idYeuThich;
+
+    public String getIdNguoiDung() {
+        return idNguoiDung;
+    }
+
+    public void setIdNguoiDung(String idNguoiDung) {
+        this.idNguoiDung = idNguoiDung;
+    }
+
+    public String getIdYeuThich() {
+        return idYeuThich;
+    }
+
+    public void setIdYeuThich(String idYeuThich) {
+        this.idYeuThich = idYeuThich;
+    }
+
+    public int getIdHinh() {
+        return idHinh;
+    }
+
+    public void setIdHinh(int idHinh) {
+        this.idHinh = idHinh;
+    }
+
+    public String getTenHinh() {
+        return tenHinh;
+    }
+
+    public void setTenHinh(String tenHinh) {
+        this.tenHinh = tenHinh;
+    }
 
     public Bitmap getBanner() {
         return banner;

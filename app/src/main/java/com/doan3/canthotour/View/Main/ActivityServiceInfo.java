@@ -3,6 +3,7 @@ package com.doan3.canthotour.View.Main;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.NonNull;
@@ -20,6 +21,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.doan3.canthotour.Adapter.HttpRequestAdapter;
 import com.doan3.canthotour.Config;
 import com.doan3.canthotour.Helper.BottomNavigationViewHelper;
 import com.doan3.canthotour.Helper.JsonHelper;
@@ -45,6 +47,7 @@ import java.io.File;
 public class ActivityServiceInfo extends AppCompatActivity {
     Button btnChiaSe, btnLuu, btnLanCan;
     int ma, id;
+    String idYeuThich;
     boolean display = true;
     Tooltip tooltip;
     JSONObject saveJson;
@@ -58,6 +61,8 @@ public class ActivityServiceInfo extends AppCompatActivity {
         btnLuu = findViewById(R.id.btnLuu);
         btnLanCan = findViewById(R.id.btnLanCan);
 
+
+        // region button luu
         btnLuu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -67,28 +72,61 @@ public class ActivityServiceInfo extends AppCompatActivity {
                 }
                 File file = new File(path, "dsyeuthich.json");
                 JSONArray getJsonInFile;
-                boolean isExists = true;
-                try {
-                    if (file.exists()) {
-                        getJsonInFile = new JSONArray(JsonHelper.readJson(file));
-                        for (int i = 0; i < getJsonInFile.length(); i++) {
-                            if (saveJson.toString().equals(getJsonInFile.getJSONObject(i).toString())) {
-                                isExists = false;
+
+                if (btnLuu.getText().equals("THÍCH")) {
+                    try {
+                        boolean isExists = true;
+                        if (file.exists()) {
+                            getJsonInFile = new JSONArray(JsonHelper.readJson(file));
+                            for (int i = 0; i < getJsonInFile.length(); i++) {
+                                if (saveJson.toString().equals(getJsonInFile.getJSONObject(i).toString())) {
+                                    isExists = false;
+                                }
                             }
                         }
+                        if (isExists) {
+                            JsonHelper.writeJson(file, saveJson);
+                            Toast.makeText(ActivityServiceInfo.this, "Đã thích",
+                                    Toast.LENGTH_SHORT).show();
+                            btnLuu.setText("BỎ THÍCH");
+                        }
+                    } catch (JSONException ex) {
+                        ex.printStackTrace();
                     }
-                    if (isExists) {
-                        JsonHelper.writeJson(file, saveJson);
-                        Toast.makeText(ActivityServiceInfo.this, "Lưu thành công",
-                                Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(ActivityServiceInfo.this, "Đã lưu trước đó", Toast.LENGTH_SHORT).show();
+                } else {
+                    try {
+                        boolean isExists = true;
+                        if (file.exists()) {
+                            JSONArray jsonArray = new JSONArray();
+                            getJsonInFile = new JSONArray(JsonHelper.readJson(file));
+                            for (int i = 0; i < getJsonInFile.length(); i++) {
+                                if (Integer.parseInt(getJsonInFile.getJSONObject(i).getString("id")) != (id)) {
+                                    jsonArray.put(getJsonInFile.getJSONObject(i));
+
+                                    System.out.println(id + ":" + getJsonInFile.getJSONObject(i).getString("id"));
+                                }
+                            }
+                            if (jsonArray.length() != getJsonInFile.length()) {
+                                file.delete();
+                                if (jsonArray.length() > 0) {
+                                    JsonHelper.writeJson(file, jsonArray);
+                                }
+                                isExists = false;
+                                Toast.makeText(ActivityServiceInfo.this, "Đã bỏ thích", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                        if (isExists) {
+                            new DeleteFavorite().execute(Config.URL_HOST + Config.URL_GET_ALL_FAVORITE + "/" + idYeuThich);
+                        }
+                    } catch (JSONException ex) {
+                        ex.printStackTrace();
                     }
-                } catch (JSONException ex) {
-                    ex.printStackTrace();
+                    btnLuu.setText("THÍCH");
                 }
             }
         });
+        // endregion
+
         btnLanCan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -156,6 +194,8 @@ public class ActivityServiceInfo extends AppCompatActivity {
         final ServiceInfo serviceInfo = new ModelService().getServiceInfo(url);
 
         id = serviceInfo.getId();
+        idYeuThich = serviceInfo.getIdYeuThich();
+
         if (serviceInfo.getTenAU() != null) {
             txtTenDv.setText(serviceInfo.getTenAU());
             toolbar.setBackgroundColor(getResources().getColor(R.color.tbAnUong));
@@ -209,7 +249,11 @@ public class ActivityServiceInfo extends AppCompatActivity {
             fbEvent.setText(serviceInfo.getLhsk());
             fbEvent.setVisibility(TextView.VISIBLE);
         }
-
+        if (serviceInfo.getIdNguoiDung().equals("2")) {
+            btnLuu.setText("BỎ THÍCH");
+        } else {
+            btnLuu.setText("THÍCH");
+        }
         txtGioiThieu.setText(serviceInfo.getGioiThieuDV());
         txtGiaThap.setText(serviceInfo.getGiaThapNhat());
         txtGiaCao.setText(serviceInfo.getGiaCaoNhat());
@@ -228,9 +272,10 @@ public class ActivityServiceInfo extends AppCompatActivity {
                     "\",\"vc_tendiemvuichoi\":\"" + serviceInfo.getTenVC() +
                     "\",\"pt_tenphuongtien\":\"" + serviceInfo.getTenPT() +
                     "\",\"tq_tendiemthamquan\":\"" + serviceInfo.getTenTQ() +
-                    "\",\"an_ten\":\"" + serviceInfo.getTenAU() +
-                    "\",\"nd_idnguoidung\":\"1\"" +
-                    "}");
+                    "\",\"au_ten\":\"" + serviceInfo.getTenAU() +
+                    "\",\"id_hinhanh\":\"" + serviceInfo.getIdHinh() +
+                    "\",\"chitiet1\":\"" + serviceInfo.getTenHinh() +
+                    "\"}");
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -258,5 +303,22 @@ public class ActivityServiceInfo extends AppCompatActivity {
                         .show();
             }
         });
+    }
+
+    private class DeleteFavorite extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... strings) {
+            return HttpRequestAdapter.httpDelete(strings[0]);
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            if (s.equals("success")) {
+                Toast.makeText(ActivityServiceInfo.this, "Đã bỏ thích", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(ActivityServiceInfo.this, "Không thể bỏ", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }
