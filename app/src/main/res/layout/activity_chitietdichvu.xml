@@ -26,8 +26,7 @@
                     android:id="@+id/imgBanner"
                     android:layout_width="match_parent"
                     android:layout_height="180dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/banhxeo7toi" />
+                    android:scaleType="centerCrop" />
 
             </LinearLayout>
 
@@ -142,18 +141,18 @@
                 android:padding="5dp">
 
                 <Button
-                    android:id="@+id/btnLuuDiaDiem"
+                    android:id="@+id/btnLuu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@color/colorWhite"
                     android:drawableTop="@drawable/ic_favorite_36dp"
-                    android:text="LƯU"
+                    android:text="THÍCH"
                     android:textColor="@color/bgToolbar"
                     android:textSize="14sp" />
 
                 <Button
-                    android:id="@+id/btnDiaDiemLanCan"
+                    android:id="@+id/btnLanCan"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -248,7 +247,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginLeft="5dp"
-                        android:text="Service Page"
+                        android:text="Website"
                         android:textColor="#000"
                         android:textSize="14sp" />
 
@@ -385,8 +384,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="150dp"
                         android:layout_weight="1"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/benninhkieu1" />
+                        android:scaleType="centerCrop" />
 
                     <View
                         android:layout_width="5dp"
@@ -397,8 +395,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="150dp"
                         android:layout_weight="1"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/benninhkieu2" />
+                        android:scaleType="centerCrop" />
 
                 </LinearLayout>
 
