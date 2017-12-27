@@ -16,9 +16,19 @@
         <item name="colorControlNormal">@color/colorPrimary</item>
         <item name="colorControlActivated">@color/colorWhite</item>
     </style>
+    <!--Toolbar color-->
     <color name="tbThamQuan">#168DDB</color>
     <color name="tbAnUong">#B33030</color>
     <color name="tbKhachSan">#FE6500</color>
     <color name="tbVuiChoi">#56BBEF</color>
     <color name="tbPhuongTien">#19AC5B</color>
+
+    <!--Layout đăng nhập-->
+    <color name="colorbtnDangnhap2">#00eeff</color>
+    <color name="colorbtnDangnhap2_2">#219fed</color>
+    <color name="colorKieuchutrang">#ffffff</color>
+    <color name="colorDen1">#383641</color>
+    <color name="colorformDangnhap">#ffffff</color>
+    <color name="colorQuenmatkhau">#665554</color>
+    <color name="editTextbackgroundcolor">#b9eccd</color>
 </resources>

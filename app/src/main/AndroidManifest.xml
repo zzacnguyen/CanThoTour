@@ -30,6 +30,7 @@
         <activity android:name=".View.Personal.ActivityOption"></activity>
         <activity android:name=".View.Search.ActivityNearLocation"></activity>
         <activity android:name=".View.Personal.ActivityAddService"></activity>
+        <activity android:name=".View.Personal.ActivityLogin"></activity>
     </application>
 
 </manifest>

@@ -19,7 +19,7 @@ import com.doan3.canthotour.View.Search.ActivitySearch;
 
 public class ActivityPersonal extends AppCompatActivity {
 
-    Button btnThemDiaDiem, btnTimThemDichVu, btnDangKyDoanhNghiep, btnCaiDat;
+    Button btnThemDiaDiem, btnTimThemDichVu, btnDangKyDoanhNghiep, btnCaiDat, btnDangNhap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +30,15 @@ public class ActivityPersonal extends AppCompatActivity {
         btnTimThemDichVu = findViewById(R.id.buttonThemDichVu);
         btnDangKyDoanhNghiep = findViewById(R.id.buttonDangKyDoanhNghiep);
         btnCaiDat = findViewById(R.id.buttonCaiDat);
+        btnDangNhap = findViewById(R.id.buttonDangNhap);
 
+        btnDangNhap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent iDangNhap = new Intent(ActivityPersonal.this, ActivityLogin.class);
+                startActivity(iDangNhap);
+            }
+        });
         btnThemDiaDiem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -93,6 +93,32 @@
                 android:padding="5dp">
 
                 <Button
+                    android:id="@+id/buttonDangNhap"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_dangnhap_24dp"
+                    android:textAlignment="textStart"
+                    android:textAllCaps="false"
+                    android:background="@null"
+                    android:text="Đăng nhập tài khoản"
+                    android:layout_weight="1"/>
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_arrow"
+                    android:layout_gravity="center" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@drawable/white_grey_border_bottom"
+                android:padding="5dp">
+
+                <Button
                     android:id="@+id/buttonThemDiaDiem"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
