@@ -124,7 +124,7 @@
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@null"
+                    android:background="@drawable/white_grey_border_bottom"
                     android:hint="Tên địa điểm"
                     android:padding="5dp"
                     android:textSize="16sp" />
