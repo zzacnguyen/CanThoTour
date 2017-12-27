@@ -41,43 +41,6 @@ public class HttpRequestAdapter {
         return result.toString();
     }
 
-    public static String httpGetImage(String url, String folderName, String fileName) {
-        String filePath = null;
-        try {
-            URL con = new URL(url);
-            HttpURLConnection urlConnection = (HttpURLConnection) con.openConnection();
-            urlConnection.setRequestMethod("GET");
-            urlConnection.setDoOutput(true);
-            urlConnection.connect();
-            File SDCardRoot = new File(Environment.getExternalStorageDirectory()
-                    + "/" + folderName);
-            if (!SDCardRoot.exists()) {
-                SDCardRoot.mkdirs();
-            }
-            File file = new File(SDCardRoot, fileName);
-
-            FileOutputStream fileOutput = new FileOutputStream(file);
-            InputStream inputStream = urlConnection.getInputStream();
-            int totalSize = urlConnection.getContentLength();
-            int downloadedSize = 0;
-            byte[] buffer = new byte[inputStream.available()];
-            int bufferLength;
-            while ((bufferLength = inputStream.read(buffer)) > 0) {
-                fileOutput.write(buffer, 0, bufferLength);
-                downloadedSize += bufferLength;
-            }
-            fileOutput.close();
-            if (downloadedSize == totalSize)
-                filePath = file.getAbsolutePath();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            filePath = null;
-            e.printStackTrace();
-        }
-        return filePath;
-    }
-
     public static Bitmap getBitmapFromURL(String src) {
         try {
             URL url = new URL(src);

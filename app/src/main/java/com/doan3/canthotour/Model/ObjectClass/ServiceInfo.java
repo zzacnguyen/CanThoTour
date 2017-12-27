@@ -10,6 +10,31 @@ public class ServiceInfo {
     private int id;
     private String tenAU, tenKS, tenTQ, tenPT, tenVC, gioiThieuDV,
             gioDongCua, gioMoCua, giaCaoNhat, giaThapNhat, diaChi, sdt, website, lhsk;
+    Bitmap banner, chiTiet1Thumb, chiTiet2Thumb;
+
+    public Bitmap getBanner() {
+        return banner;
+    }
+
+    public void setBanner(Bitmap banner) {
+        this.banner = banner;
+    }
+
+    public Bitmap getChiTiet1Thumb() {
+        return chiTiet1Thumb;
+    }
+
+    public void setChiTiet1Thumb(Bitmap chiTiet1Thumb) {
+        this.chiTiet1Thumb = chiTiet1Thumb;
+    }
+
+    public Bitmap getChiTiet2Thumb() {
+        return chiTiet2Thumb;
+    }
+
+    public void setChiTiet2Thumb(Bitmap chiTiet2Thumb) {
+        this.chiTiet2Thumb = chiTiet2Thumb;
+    }
 
     public int getId() {
         return id;

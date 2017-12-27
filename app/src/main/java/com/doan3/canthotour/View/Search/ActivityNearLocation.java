@@ -34,7 +34,7 @@ import java.util.ArrayList;
 
 public class ActivityNearLocation extends AppCompatActivity {
 
-    public static String urlNearLocation;
+    int id;
     TextView txtTenDd, txtKhoangCach;
     ImageView imgHinhDd;
 
@@ -46,8 +46,8 @@ public class ActivityNearLocation extends AppCompatActivity {
         txtKhoangCach = findViewById(R.id.textViewKhoangCach);
         imgHinhDd = findViewById(R.id.imageViewLanCan);
 
-        urlNearLocation = getIntent().getStringExtra("url");
-        new Load().execute(urlNearLocation);
+        id = getIntent().getIntExtra("url", 0);
+        new Load().execute(Config.URL_HOST + "timkiem/dichvulancan/" + id);
 
         menuBotNavBar();
     }

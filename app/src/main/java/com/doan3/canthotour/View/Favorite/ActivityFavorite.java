@@ -68,8 +68,8 @@ public class ActivityFavorite extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
-        File file = new File(path, "/dsyeuthich.json");
+        File path = new File(Environment.getExternalStorageDirectory() + "/canthotour");
+        File file = new File(path, "dsyeuthich.json");
         if (file.exists()) {
             new PostJson(file).execute(Config.URL_HOST + Config.URL_GET_ALL_FAVORITE + "/" + 2);
         }
@@ -121,13 +121,12 @@ public class ActivityFavorite extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(String... strings) {
-            JSONArray jsonFile;
             try {
-                jsonFile = new JSONArray(JsonHelper.readJson(file));
+                JSONArray jsonFile = new JSONArray(JsonHelper.readJson(file));
                 for (int i = 0; i < jsonFile.length(); i++) {
-                    ArrayList<String> arr = JsonHelper.parseJsonNoId(jsonFile.getJSONObject(i), Config.JSON_FAVORITE);
-                    JSONObject jsonObject = new JSONObject("{\"dd_iddiadiem\":\"" + arr.get(0) + "\"" +
-                            ",\"nd_idnguoidung\":\"" + arr.get(1) + "\"}");
+                    JSONObject jsonObject = new JSONObject("{\"dv_iddichvu\":\"" +
+                            jsonFile.getJSONObject(i).getString("id") + "\"" +
+                            ",\"nd_idnguoidung\":\"" + 1 + "\"}");
                     HttpRequestAdapter.httpPost(strings[0], jsonObject);
                 }
                 file.delete();

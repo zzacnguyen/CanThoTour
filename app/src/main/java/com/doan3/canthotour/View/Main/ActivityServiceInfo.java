@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
@@ -21,33 +22,81 @@ import android.widget.Toast;
 
 import com.doan3.canthotour.Config;
 import com.doan3.canthotour.Helper.BottomNavigationViewHelper;
+import com.doan3.canthotour.Helper.JsonHelper;
 import com.doan3.canthotour.Model.ModelService;
 import com.doan3.canthotour.Model.ObjectClass.ServiceInfo;
 import com.doan3.canthotour.R;
 import com.doan3.canthotour.View.Favorite.ActivityFavorite;
 import com.doan3.canthotour.View.Notify.ActivityNotify;
 import com.doan3.canthotour.View.Personal.ActivityPersonal;
-import com.squareup.picasso.Picasso;
+import com.doan3.canthotour.View.Search.ActivityNearLocation;
 import com.tooltip.Tooltip;
 
-import java.util.concurrent.ExecutionException;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.File;
 
 /**
  * Created by sieut on 12/6/2017.
  */
 
 public class ActivityServiceInfo extends AppCompatActivity {
-    Button btnChiaSe;
-    int ma;
+    Button btnChiaSe, btnLuu, btnLanCan;
+    int ma, id;
     boolean display = true;
     Tooltip tooltip;
+    JSONObject saveJson;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(@Nullable final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chitietdichvu);
 
         btnChiaSe = findViewById(R.id.btnChiaSeDv);
+        btnLuu = findViewById(R.id.btnLuu);
+        btnLanCan = findViewById(R.id.btnLanCan);
+
+        btnLuu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                File path = new File(Environment.getExternalStorageDirectory() + "/canthotour");
+                if (!path.exists()) {
+                    path.mkdirs();
+                }
+                File file = new File(path, "dsyeuthich.json");
+                JSONArray getJsonInFile;
+                boolean isExists = true;
+                try {
+                    if (file.exists()) {
+                        getJsonInFile = new JSONArray(JsonHelper.readJson(file));
+                        for (int i = 0; i < getJsonInFile.length(); i++) {
+                            if (saveJson.toString().equals(getJsonInFile.getJSONObject(i).toString())) {
+                                isExists = false;
+                            }
+                        }
+                    }
+                    if (isExists) {
+                        JsonHelper.writeJson(file, saveJson);
+                        Toast.makeText(ActivityServiceInfo.this, "Lưu thành công",
+                                Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(ActivityServiceInfo.this, "Đã lưu trước đó", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+        btnLanCan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ActivityServiceInfo.this, ActivityNearLocation.class);
+                intent.putExtra("id", id);
+                startActivity(intent);
+            }
+        });
 
         ma = getIntent().getIntExtra("masp", 1);
 
@@ -106,31 +155,52 @@ public class ActivityServiceInfo extends AppCompatActivity {
 
         final ServiceInfo serviceInfo = new ModelService().getServiceInfo(url);
 
+        id = serviceInfo.getId();
         if (serviceInfo.getTenAU() != null) {
             txtTenDv.setText(serviceInfo.getTenAU());
             toolbar.setBackgroundColor(getResources().getColor(R.color.tbAnUong));
             info.setBackgroundColor(getResources().getColor(R.color.tbAnUong));
             toolbarTitle.setText("Chi tiết quán ăn");
+            serviceInfo.setTenPT("null");
+            serviceInfo.setTenTQ("null");
+            serviceInfo.setTenKS("null");
+            serviceInfo.setTenVC("null");
         } else if (serviceInfo.getTenKS() != null) {
             txtTenDv.setText(serviceInfo.getTenKS());
             toolbar.setBackgroundColor(getResources().getColor(R.color.tbKhachSan));
             info.setBackgroundColor(getResources().getColor(R.color.tbKhachSan));
             toolbarTitle.setText("Chi tiết khách sạn");
+            serviceInfo.setTenPT("null");
+            serviceInfo.setTenTQ("null");
+            serviceInfo.setTenAU("null");
+            serviceInfo.setTenVC("null");
         } else if (serviceInfo.getTenTQ() != null) {
             txtTenDv.setText(serviceInfo.getTenTQ());
             toolbar.setBackgroundColor(getResources().getColor(R.color.tbThamQuan));
             info.setBackgroundColor(getResources().getColor(R.color.tbThamQuan));
             toolbarTitle.setText("Chi tiết điểm tham quan");
+            serviceInfo.setTenPT("null");
+            serviceInfo.setTenAU("null");
+            serviceInfo.setTenKS("null");
+            serviceInfo.setTenVC("null");
         } else if (serviceInfo.getTenPT() != null) {
             txtTenDv.setText(serviceInfo.getTenPT());
             toolbar.setBackgroundColor(getResources().getColor(R.color.tbPhuongTien));
             info.setBackgroundColor(getResources().getColor(R.color.tbPhuongTien));
             toolbarTitle.setText("Chi tiết phương tiện");
+            serviceInfo.setTenAU("null");
+            serviceInfo.setTenTQ("null");
+            serviceInfo.setTenKS("null");
+            serviceInfo.setTenVC("null");
         } else {
             txtTenDv.setText(serviceInfo.getTenVC());
             toolbar.setBackgroundColor(getResources().getColor(R.color.tbVuiChoi));
             info.setBackgroundColor(getResources().getColor(R.color.tbVuiChoi));
             toolbarTitle.setText("Chi tiết điểm vui chơi");
+            serviceInfo.setTenPT("null");
+            serviceInfo.setTenTQ("null");
+            serviceInfo.setTenKS("null");
+            serviceInfo.setTenAU("null");
         }
 
         if (serviceInfo.getLhsk().equals("null")) {
@@ -139,6 +209,7 @@ public class ActivityServiceInfo extends AppCompatActivity {
             fbEvent.setText(serviceInfo.getLhsk());
             fbEvent.setVisibility(TextView.VISIBLE);
         }
+
         txtGioiThieu.setText(serviceInfo.getGioiThieuDV());
         txtGiaThap.setText(serviceInfo.getGiaThapNhat());
         txtGiaCao.setText(serviceInfo.getGiaCaoNhat());
@@ -147,30 +218,30 @@ public class ActivityServiceInfo extends AppCompatActivity {
         txtDiaChi.setText(serviceInfo.getDiaChi());
         txtSDT.setText(serviceInfo.getSdt());
         txtWebsite.setText(serviceInfo.getWebsite());
+        imgBanner.setImageBitmap(serviceInfo.getBanner());
+        imgChiTiet1Thumb.setImageBitmap(serviceInfo.getChiTiet1Thumb());
+        imgChiTiet2Thumb.setImageBitmap(serviceInfo.getChiTiet2Thumb());
 
-        String urlChiTiet1 = null, urlChiTiet2 = null, urlBanner = null;
         try {
-            urlChiTiet1 = new ModelService.Load().execute(Config.URL_HOST + "lay-mot-hinh-thumb-1/" + serviceInfo.getId())
-                    .get().split("\\+")[0].substring(1);
-            urlChiTiet2 = new ModelService.Load().execute(Config.URL_HOST + "lay-mot-hinh-thumb-2/" + serviceInfo.getId())
-                    .get().split("\\+")[0].substring(1);
-            urlBanner = new ModelService.Load().execute(Config.URL_HOST + "lay-mot-hinh-banner/" + serviceInfo.getId())
-                    .get().split("\\+")[0].substring(1);
-        } catch (InterruptedException | ExecutionException e) {
+            saveJson = new JSONObject("{\"id\":\"" + serviceInfo.getId() +
+                    "\",\"ks_tenkhachsan\":\"" + serviceInfo.getTenKS() +
+                    "\",\"vc_tendiemvuichoi\":\"" + serviceInfo.getTenVC() +
+                    "\",\"pt_tenphuongtien\":\"" + serviceInfo.getTenPT() +
+                    "\",\"tq_tendiemthamquan\":\"" + serviceInfo.getTenTQ() +
+                    "\",\"an_ten\":\"" + serviceInfo.getTenAU() +
+                    "\",\"nd_idnguoidung\":\"1\"" +
+                    "}");
+        } catch (JSONException e) {
             e.printStackTrace();
         }
-
-        Picasso.with(this).load(Config.URL_HOST + urlChiTiet1).into(imgChiTiet1Thumb);
-        Picasso.with(this).load(Config.URL_HOST + urlChiTiet2).into(imgChiTiet2Thumb);
-        Picasso.with(this).load(Config.URL_HOST + urlBanner).into(imgBanner);
 
         fbEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(display == true){
+                if (display == true) {
                     showTooltip(view, Gravity.BOTTOM);
                     display = false;
-                }else{
+                } else {
                     tooltip.dismiss();
                     display = true;
                 }
