@@ -147,7 +147,7 @@
                     android:layout_weight="1"
                     android:background="@color/colorWhite"
                     android:drawableTop="@drawable/ic_favorite_36dp"
-                    android:text="THÍCH"
+                    android:text=""
                     android:textColor="@color/bgToolbar"
                     android:textSize="14sp" />
 
