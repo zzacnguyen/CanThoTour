@@ -71,12 +71,12 @@ public class ActivityService extends AppCompatActivity {
             toolbarTitle.setText("Danh sách điểm vui chơi");
         }
 
-        loadInfo(url, formatJson);
+        load(url, formatJson);
 
         ActivityServiceInfo.menuBotNavBar(this);
     }
 
-    private void loadInfo(String url, final ArrayList<String> formatJson) {
+    private void load(String url, final ArrayList<String> formatJson) {
 
         final ListOfServiceAdapter listOfServiceAdapter;
         final RecyclerView recyclerView;
