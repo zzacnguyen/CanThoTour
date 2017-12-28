@@ -26,6 +26,7 @@
                 android:weightSum="5">
 
                 <TextView
+                    android:id="@+id/btnHuy"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -44,6 +45,7 @@
                     android:textSize="18sp" />
 
                 <TextView
+                    android:id="@+id/btnGui"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -81,6 +83,7 @@
                 android:textSize="20sp" />
 
             <RatingBar
+                android:id="@+id/rbDanhGia"
                 android:theme="@style/setRatingBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -99,6 +102,7 @@
             android:orientation="vertical">
 
             <EditText
+                android:id="@+id/txtTieuDe"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/white_grey_border_bottom"
@@ -107,6 +111,7 @@
                 android:textSize="16sp" />
 
             <EditText
+                android:id="@+id/txtNhanXet"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:background="@null"
