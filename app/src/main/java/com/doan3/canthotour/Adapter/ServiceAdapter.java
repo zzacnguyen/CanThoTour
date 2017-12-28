@@ -20,7 +20,6 @@ import java.util.ArrayList;
 public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ViewHolder> {
     ArrayList<Service> services;
     Context context;
-    ArrayList<String> arr = new ArrayList<>();
 
     public ServiceAdapter(ArrayList<Service> service, Context context) {
         this.services = service;

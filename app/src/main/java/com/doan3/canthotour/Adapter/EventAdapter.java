@@ -23,7 +23,6 @@ import java.util.ArrayList;
 public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final int VIEW_TYPE_ITEM = 0;
     private final int VIEW_TYPE_LOADING = 1;
-    ArrayList<String> arr = new ArrayList<>();
     private OnLoadMoreListener onLoadMoreListener;
     private boolean isLoading;
     private Context context;
