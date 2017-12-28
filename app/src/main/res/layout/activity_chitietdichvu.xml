@@ -126,7 +126,7 @@
                         android:numStars="5"
                         android:paddingLeft="3dp"
                         android:rating="4.5"
-                        android:theme="@style/RatingBar" />
+                        android:theme="@style/getRatingBar" />
 
                 </LinearLayout>
 
@@ -418,13 +418,37 @@
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
-
-                <TextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Viết bài đánh giá cho dịch vụ này"
-                    android:textColor="@color/bgToolbar"
-                    android:textSize="14sp" />
+                    android:background="@drawable/white_grey_border_bottom"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
+
+                    <Button
+                        android:id="@+id/btnDanhGia"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/colorWhite"
+                        android:drawableTop="@drawable/ic_comment_24dp"
+                        android:text="ĐÁNH GIÁ"
+                        android:textColor="@color/bgToolbar"
+                        android:textSize="12sp" />
+
+                    <Button
+                        android:id="@+id/btnXemDanhGia"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/colorWhite"
+                        android:drawableTop="@drawable/ic_load_comment_24dp"
+                        android:text="XEM CÁC BÀI ĐÁNH GIÁ"
+                        android:textColor="@color/bgToolbar"
+                        android:textSize="12sp" />
+
+                </LinearLayout>
+
 
             </LinearLayout>
 

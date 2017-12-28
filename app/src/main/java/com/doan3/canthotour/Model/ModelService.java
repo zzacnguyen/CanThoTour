@@ -67,12 +67,16 @@ public class ModelService {
                 serviceInfo.setWebsite(arrayList.get(2));
             } else if (!arrayList.get(3).equals("null")) {
                 serviceInfo.setTenVC(arrayList.get(3));
+                serviceInfo.setWebsite("Đang cập nhật");
             } else if (!arrayList.get(4).equals("null")) {
                 serviceInfo.setTenPT(arrayList.get(4));
+                serviceInfo.setWebsite("Đang cập nhật");
             } else if (!arrayList.get(5).equals("null")) {
                 serviceInfo.setTenTQ(arrayList.get(5));
+                serviceInfo.setWebsite("Đang cập nhật");
             } else if (!arrayList.get(6).equals("null")) {
                 serviceInfo.setTenAU(arrayList.get(6));
+                serviceInfo.setWebsite("Đang cập nhật");
             }
             serviceInfo.setId(Integer.parseInt(arrayList.get(0)));
             serviceInfo.setGioiThieuDV(arrayList.get(7));
