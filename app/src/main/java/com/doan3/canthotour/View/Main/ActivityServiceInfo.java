@@ -1,8 +1,10 @@
 package com.doan3.canthotour.View.Main;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
@@ -56,6 +58,7 @@ public class ActivityServiceInfo extends AppCompatActivity {
     boolean display = true;
     Tooltip tooltip;
     JSONObject saveJson;
+    Dialog myDialog;
 
     public static void menuBotNavBar(final Activity activity) {
         BottomNavigationView bottomNavigationView = activity.findViewById(R.id.bottomNavView_Bar);
@@ -173,7 +176,9 @@ public class ActivityServiceInfo extends AppCompatActivity {
         btnDanhGia.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(ActivityServiceInfo.this, ActivityRating.class));
+                Intent intent = new Intent(ActivityServiceInfo.this, ActivityRating.class);
+                intent.putExtra("id", ma);
+                startActivity(intent);
             }
         });
 
@@ -274,8 +279,8 @@ public class ActivityServiceInfo extends AppCompatActivity {
             }
         }
         txtGioiThieu.setText(serviceInfo.getGioiThieuDV());
-        txtGiaThap.setText(serviceInfo.getGiaThapNhat());
-        txtGiaCao.setText(serviceInfo.getGiaCaoNhat());
+        txtGiaThap.setText(serviceInfo.getGiaThapNhat() + "đ");
+        txtGiaCao.setText(serviceInfo.getGiaCaoNhat() + "đ");
         txtGioMo.setText(serviceInfo.getGioMoCua());
         txtGioDong.setText(serviceInfo.getGioDongCua());
         txtDiaChi.setText(serviceInfo.getDiaChi());

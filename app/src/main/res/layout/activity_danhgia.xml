@@ -23,34 +23,36 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:weightSum="5">
+                >
 
-                <TextView
+                <Button
                     android:id="@+id/btnHuy"
-                    android:layout_width="wrap_content"
+                    android:layout_width="46dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:background="@null"
                     android:text="Hủy"
+                    android:textAllCaps="false"
                     android:textColor="@color/colorWhite"
                     android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/toolbarTitle"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
                     android:gravity="center"
                     android:text="Đánh giá"
                     android:textColor="@color/colorWhite"
-                    android:textSize="18sp" />
+                    android:textSize="20sp" />
 
-                <TextView
+                <Button
                     android:id="@+id/btnGui"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
+                    android:background="@null"
                     android:text="Gửi"
+                    android:textAllCaps="false"
                     android:textColor="@color/colorWhite"
                     android:textSize="18sp" />
 
@@ -78,19 +80,18 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:padding="10dp"
-                android:text="Thích"
+                android:text=""
                 android:textColor="@color/colorBlack"
                 android:textSize="20sp" />
 
             <RatingBar
                 android:id="@+id/rbDanhGia"
-                android:theme="@style/setRatingBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:numStars="5"
-                android:rating="4"
-                android:stepSize="1" />
+                android:stepSize="0.5"
+                android:theme="@style/setRatingBar" />
 
         </LinearLayout>
 

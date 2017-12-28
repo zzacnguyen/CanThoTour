@@ -127,7 +127,6 @@
                         android:isIndicator="true"
                         android:numStars="5"
                         android:paddingLeft="3dp"
-                        android:rating="4.5"
                         android:theme="@style/getRatingBar" />
 
                 </LinearLayout>
