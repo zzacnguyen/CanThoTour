@@ -111,13 +111,15 @@
                     android:padding="2dp">
 
                     <TextView
+                        android:id="@+id/textViewDiemDG"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="4,5"
+                        android:text=""
                         android:textColor="#fff"
                         android:textSize="14sp" />
 
                     <RatingBar
+                        android:id="@+id/ratingBarSoSao"
                         style="?attr/ratingBarStyleSmall"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
