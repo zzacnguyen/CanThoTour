@@ -33,6 +33,8 @@ import org.json.JSONObject;
 import java.io.File;
 import java.util.ArrayList;
 
+import static com.doan3.canthotour.View.Personal.ActivityLogin.idNguoiDung;
+
 public class ActivityFavorite extends AppCompatActivity {
 
     TextView txtTenDD;
@@ -129,7 +131,7 @@ public class ActivityFavorite extends AppCompatActivity {
                 for (int i = 0; i < jsonFile.length(); i++) {
                     JSONObject jsonObject = new JSONObject("{\"dv_iddichvu\":\"" +
                             jsonFile.getJSONObject(i).getString("id") + "\"" +
-                            ",\"nd_idnguoidung\":\"" + 1 + "\"}");
+                            ",\"nd_idnguoidung\":\"" + idNguoiDung + "\"}");
                     HttpRequestAdapter.httpPost(strings[0], jsonObject);
                 }
                 file.delete();

@@ -11,6 +11,7 @@ import com.doan3.canthotour.R;
  */
 
 public class ActivityLogin extends AppCompatActivity{
+    public static int idNguoiDung = 2;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

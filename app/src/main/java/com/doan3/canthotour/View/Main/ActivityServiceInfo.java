@@ -40,6 +40,8 @@ import org.json.JSONObject;
 
 import java.io.File;
 
+import static com.doan3.canthotour.View.Personal.ActivityLogin.idNguoiDung;
+
 /**
  * Created by sieut on 12/6/2017.
  */
@@ -249,10 +251,11 @@ public class ActivityServiceInfo extends AppCompatActivity {
             fbEvent.setText(serviceInfo.getLhsk());
             fbEvent.setVisibility(TextView.VISIBLE);
         }
-        if (serviceInfo.getIdNguoiDung().equals("2")) {
-            btnLuu.setText("BỎ THÍCH");
-        } else {
-            btnLuu.setText("THÍCH");
+        btnLuu.setText("THÍCH");
+        if (!serviceInfo.getIdNguoiDung().equals("null")) {
+            if (Integer.parseInt(serviceInfo.getIdNguoiDung()) == idNguoiDung) {
+                btnLuu.setText("BỎ THÍCH");
+            }
         }
         txtGioiThieu.setText(serviceInfo.getGioiThieuDV());
         txtGiaThap.setText(serviceInfo.getGiaThapNhat());
