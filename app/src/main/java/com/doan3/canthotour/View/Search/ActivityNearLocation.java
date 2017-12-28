@@ -1,39 +1,32 @@
 package com.doan3.canthotour.View.Search;
 
 
-import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
+import android.os.Handler;
 import android.support.annotation.Nullable;
-import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.doan3.canthotour.Adapter.HttpRequestAdapter;
 import com.doan3.canthotour.Adapter.NearLocationAdapter;
 import com.doan3.canthotour.Config;
-import com.doan3.canthotour.Helper.BottomNavigationViewHelper;
 import com.doan3.canthotour.Helper.JsonHelper;
+import com.doan3.canthotour.Interface.OnLoadMoreListener;
+import com.doan3.canthotour.Model.ModelService;
 import com.doan3.canthotour.Model.ObjectClass.NearLocation;
 import com.doan3.canthotour.R;
-import com.doan3.canthotour.View.Favorite.ActivityFavorite;
-import com.doan3.canthotour.View.Main.MainActivity;
-import com.doan3.canthotour.View.Notify.ActivityNotify;
-import com.doan3.canthotour.View.Personal.ActivityPersonal;
+import com.doan3.canthotour.View.Main.ActivityServiceInfo;
 
-import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 public class ActivityNearLocation extends AppCompatActivity {
-
+    ArrayList<String> finalArr = new ArrayList<>();
     int id;
     TextView txtTenDd, txtKhoangCach;
     ImageView imgHinhDd;
@@ -46,72 +39,71 @@ public class ActivityNearLocation extends AppCompatActivity {
         txtKhoangCach = findViewById(R.id.textViewKhoangCach);
         imgHinhDd = findViewById(R.id.imageViewLanCan);
 
-        id = getIntent().getIntExtra("url", 0);
-        new Load().execute(Config.URL_HOST + "timkiem/dichvulancan/" + id);
+        id = getIntent().getIntExtra("id", 0);
+        load();
 
-        menuBotNavBar();
+        ActivityServiceInfo.menuBotNavBar(this);
     }
 
-    //Bottom navigation bar
-    private void menuBotNavBar() {
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavView_Bar);
-        BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
+    private void load() {
 
-        Menu menu = bottomNavigationView.getMenu();
-        MenuItem menuItem = menu.getItem(0);
-        menuItem.setChecked(true);
+        ArrayList<NearLocation> favoriteList = new ModelService().getNearLocationList(Config.URL_HOST +
+                "timkiem/dichvulancan/id=" + id);
 
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+        final RecyclerView recyclerView = findViewById(R.id.RecyclerView_DiaDiemLanCan);
+        recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
+        LinearLayoutManager linearLayoutManager =
+                new LinearLayoutManager(ActivityNearLocation.this, LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        final NearLocationAdapter nearLocationAdapter =
+                new NearLocationAdapter(recyclerView, favoriteList, getApplicationContext());
+        recyclerView.setAdapter(nearLocationAdapter);
+        nearLocationAdapter.notifyDataSetChanged();
+
+        //set load more listener for the RecyclerView adapter
+        final ArrayList<NearLocation> finalListService = favoriteList;
+        try {
+            finalArr = JsonHelper.parseJsonNoId(new JSONObject(new ModelService.Load().execute(Config.URL_HOST +
+                    "timkiem/dichvulancan/id=" + id).get()), Config.JSON_LOAD);
+        } catch (JSONException | InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        nearLocationAdapter.setOnLoadMoreListener(new OnLoadMoreListener() {
+
             @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.ic_trangchu:
-                        startActivity(new Intent(ActivityNearLocation.this, MainActivity.class));
-                        break;
-                    case R.id.ic_yeuthich:
-                        startActivity(new Intent(ActivityNearLocation.this, ActivityFavorite.class));
-                        break;
-                    case R.id.ic_thongbao:
-                        startActivity(new Intent(ActivityNearLocation.this, ActivityNotify.class));
-                        break;
-                    case R.id.ic_canhan:
-                        startActivity(new Intent(ActivityNearLocation.this, ActivityPersonal.class));
-                        break;
+            public void onLoadMore() {
+                if (finalListService.size() < Integer.parseInt(finalArr.get(2))) {
+                    finalListService.add(null);
+                    recyclerView.post(new Runnable() {
+                        public void run() {
+                            nearLocationAdapter.notifyItemInserted(finalListService.size() - 1);
+                        }
+                    });
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            finalListService.remove(finalListService.size() - 1);
+                            nearLocationAdapter.notifyItemRemoved(finalListService.size());
+
+                            ArrayList<NearLocation> serviceArrayList = new ModelService().
+                                    getNearLocationList(finalArr.get(1));
+                            for (int i = 0; i < serviceArrayList.size(); i++) {
+                                finalListService.add(serviceArrayList.get(i));
+                            }
+                            try {
+                                finalArr = JsonHelper.parseJsonNoId(new JSONObject
+                                        (new ModelService.Load().execute(finalArr.get(1)).get()), Config.JSON_LOAD);
+                            } catch (JSONException | InterruptedException | ExecutionException e) {
+                                e.printStackTrace();
+                            }
+
+                            nearLocationAdapter.notifyDataSetChanged();
+                            nearLocationAdapter.setLoaded();
+                        }
+                    }, 1000);
                 }
-                return false;
             }
         });
-    }
-
-    private class Load extends AsyncTask<String, Void, ArrayList<NearLocation>> {
-
-        @Override
-        protected ArrayList<NearLocation> doInBackground(String... strings) {
-            ArrayList<NearLocation> nearLocations = new ArrayList<>();
-            try {
-                String get = HttpRequestAdapter.httpGet(strings[0]);
-                ArrayList<String> arrayList = JsonHelper.parseJson(new JSONArray(get), Config.JSON_NEAR_LOCATION);
-                for (int i = 0; i < arrayList.size(); i += 5) {
-                    nearLocations.add(new NearLocation(Integer.parseInt(arrayList.get(i)), arrayList.get(i + 1),
-                            arrayList.get(i + 2), R.drawable.benninhkieu1));
-                }
-            } catch (JSONException ex) {
-                ex.printStackTrace();
-            }
-            return nearLocations;
-        }
-
-        @Override
-        protected void onPostExecute(ArrayList<NearLocation> nearLocations) {
-            super.onPostExecute(nearLocations);
-            RecyclerView recyclerView = findViewById(R.id.RecyclerView_DiaDiemLanCan);
-            recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
-            LinearLayoutManager linearLayoutManager =
-                    new LinearLayoutManager(ActivityNearLocation.this, LinearLayoutManager.VERTICAL, false);
-            recyclerView.setLayoutManager(linearLayoutManager);
-            NearLocationAdapter nearLocationAdapter = new NearLocationAdapter(nearLocations, getApplicationContext());
-            recyclerView.setAdapter(nearLocationAdapter);
-            nearLocationAdapter.notifyDataSetChanged();
-        }
     }
 }

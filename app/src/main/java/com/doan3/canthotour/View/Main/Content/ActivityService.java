@@ -23,6 +23,7 @@ import com.doan3.canthotour.Model.ModelService;
 import com.doan3.canthotour.Model.ObjectClass.Service;
 import com.doan3.canthotour.R;
 import com.doan3.canthotour.View.Favorite.ActivityFavorite;
+import com.doan3.canthotour.View.Main.ActivityServiceInfo;
 import com.doan3.canthotour.View.Main.MainActivity;
 import com.doan3.canthotour.View.Notify.ActivityNotify;
 import com.doan3.canthotour.View.Personal.ActivityPersonal;
@@ -72,37 +73,7 @@ public class ActivityService extends AppCompatActivity {
 
         loadInfo(url, formatJson);
 
-        menuBotNavBar();
-    }
-
-    public void menuBotNavBar() {
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavView_Bar);
-        BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
-
-        Menu menu = bottomNavigationView.getMenu();
-        MenuItem menuItem = menu.getItem(0);
-        menuItem.setChecked(true);
-
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.ic_trangchu:
-                        startActivity(new Intent(ActivityService.this, MainActivity.class));
-                        break;
-                    case R.id.ic_yeuthich:
-                        startActivity(new Intent(ActivityService.this, ActivityFavorite.class));
-                        break;
-                    case R.id.ic_thongbao:
-                        startActivity(new Intent(ActivityService.this, ActivityNotify.class));
-                        break;
-                    case R.id.ic_canhan:
-                        startActivity(new Intent(ActivityService.this, ActivityPersonal.class));
-                        break;
-                }
-                return false;
-            }
-        });
+        ActivityServiceInfo.menuBotNavBar(this);
     }
 
     private void loadInfo(String url, final ArrayList<String> formatJson) {

@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,12 +48,42 @@ import static com.doan3.canthotour.View.Personal.ActivityLogin.idNguoiDung;
  */
 
 public class ActivityServiceInfo extends AppCompatActivity {
-    Button btnChiaSe, btnLuu, btnLanCan;
-    int ma, id;
+    Button btnChiaSe, btnLuu, btnLanCan, btnDanhGia, btnXemDanhGia;
+    int ma;
     String idYeuThich;
     boolean display = true;
     Tooltip tooltip;
     JSONObject saveJson;
+
+    public static void menuBotNavBar(final Activity activity) {
+        BottomNavigationView bottomNavigationView = activity.findViewById(R.id.bottomNavView_Bar);
+        BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
+
+        Menu menu = bottomNavigationView.getMenu();
+        MenuItem menuItem = menu.getItem(0);
+        menuItem.setChecked(true);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.ic_trangchu:
+                        activity.startActivity(new Intent(activity, MainActivity.class));
+                        break;
+                    case R.id.ic_yeuthich:
+                        activity.startActivity(new Intent(activity, ActivityFavorite.class));
+                        break;
+                    case R.id.ic_thongbao:
+                        activity.startActivity(new Intent(activity, ActivityNotify.class));
+                        break;
+                    case R.id.ic_canhan:
+                        activity.startActivity(new Intent(activity, ActivityPersonal.class));
+                        break;
+                }
+                return false;
+            }
+        });
+    }
 
     @Override
     protected void onCreate(@Nullable final Bundle savedInstanceState) {
@@ -62,7 +93,8 @@ public class ActivityServiceInfo extends AppCompatActivity {
         btnChiaSe = findViewById(R.id.btnChiaSeDv);
         btnLuu = findViewById(R.id.btnLuu);
         btnLanCan = findViewById(R.id.btnLanCan);
-
+        btnDanhGia = findViewById(R.id.btnDanhGia);
+        btnXemDanhGia = findViewById(R.id.btnXemDanhGia);
 
         // region button luu
         btnLuu.setOnClickListener(new View.OnClickListener() {
@@ -102,10 +134,8 @@ public class ActivityServiceInfo extends AppCompatActivity {
                             JSONArray jsonArray = new JSONArray();
                             getJsonInFile = new JSONArray(JsonHelper.readJson(file));
                             for (int i = 0; i < getJsonInFile.length(); i++) {
-                                if (Integer.parseInt(getJsonInFile.getJSONObject(i).getString("id")) != (id)) {
+                                if (Integer.parseInt(getJsonInFile.getJSONObject(i).getString("id")) != (ma)) {
                                     jsonArray.put(getJsonInFile.getJSONObject(i));
-
-                                    System.out.println(id + ":" + getJsonInFile.getJSONObject(i).getString("id"));
                                 }
                             }
                             if (jsonArray.length() != getJsonInFile.length()) {
@@ -133,7 +163,7 @@ public class ActivityServiceInfo extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ActivityServiceInfo.this, ActivityNearLocation.class);
-                intent.putExtra("id", id);
+                intent.putExtra("id", ma);
                 startActivity(intent);
             }
         });
@@ -142,37 +172,7 @@ public class ActivityServiceInfo extends AppCompatActivity {
 
         load(this, Config.URL_HOST + Config.URL_GET_ALL_SERVICES + "/" + ma);
 
-        menuBotNavBar();
-    }
-
-    private void menuBotNavBar() {
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavView_Bar);
-        BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
-
-        Menu menu = bottomNavigationView.getMenu();
-        MenuItem menuItem = menu.getItem(0);
-        menuItem.setChecked(true);
-
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.ic_trangchu:
-                        startActivity(new Intent(ActivityServiceInfo.this, MainActivity.class));
-                        break;
-                    case R.id.ic_yeuthich:
-                        startActivity(new Intent(ActivityServiceInfo.this, ActivityFavorite.class));
-                        break;
-                    case R.id.ic_thongbao:
-                        startActivity(new Intent(ActivityServiceInfo.this, ActivityNotify.class));
-                        break;
-                    case R.id.ic_canhan:
-                        startActivity(new Intent(ActivityServiceInfo.this, ActivityPersonal.class));
-                        break;
-                }
-                return false;
-            }
-        });
+        menuBotNavBar(this);
     }
 
     public void load(final Activity activity, String url) {
@@ -192,10 +192,11 @@ public class ActivityServiceInfo extends AppCompatActivity {
         TextView toolbarTitle = findViewById(R.id.toolbarTitle);
         Button fbEvent = findViewById(R.id.fb_sukien);
         LinearLayout info = findViewById(R.id.info);
+        TextView txtDiem = findViewById(R.id.textViewDiemDG);
+        RatingBar rbSao = findViewById(R.id.ratingBarSoSao);
 
         final ServiceInfo serviceInfo = new ModelService().getServiceInfo(url);
 
-        id = serviceInfo.getId();
         idYeuThich = serviceInfo.getIdYeuThich();
 
         if (serviceInfo.getTenAU() != null) {
@@ -268,6 +269,8 @@ public class ActivityServiceInfo extends AppCompatActivity {
         imgBanner.setImageBitmap(serviceInfo.getBanner());
         imgChiTiet1Thumb.setImageBitmap(serviceInfo.getChiTiet1Thumb());
         imgChiTiet2Thumb.setImageBitmap(serviceInfo.getChiTiet2Thumb());
+        txtDiem.setText(serviceInfo.getDiemDG());
+        rbSao.setRating(serviceInfo.getSoSao());
 
         try {
             saveJson = new JSONObject("{\"id\":\"" + serviceInfo.getId() +
