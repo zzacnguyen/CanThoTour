@@ -32,6 +32,8 @@ import com.doan3.canthotour.R;
 import com.doan3.canthotour.View.Favorite.ActivityFavorite;
 import com.doan3.canthotour.View.Notify.ActivityNotify;
 import com.doan3.canthotour.View.Personal.ActivityPersonal;
+import com.doan3.canthotour.View.Personal.ActivityRating;
+import com.doan3.canthotour.View.Personal.ActivityReviewList;
 import com.doan3.canthotour.View.Search.ActivityNearLocation;
 import com.tooltip.Tooltip;
 
@@ -168,6 +170,19 @@ public class ActivityServiceInfo extends AppCompatActivity {
             }
         });
 
+        btnDanhGia.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ActivityServiceInfo.this, ActivityRating.class));
+            }
+        });
+
+        btnXemDanhGia.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ActivityServiceInfo.this, ActivityReviewList.class));
+            }
+        });
         ma = getIntent().getIntExtra("masp", 1);
 
         load(this, Config.URL_HOST + Config.URL_GET_ALL_SERVICES + "/" + ma);
