@@ -8,9 +8,26 @@ import android.graphics.Bitmap;
 
 public class ServiceInfo {
     Bitmap banner, chiTiet1Thumb, chiTiet2Thumb;
+    private float soSao;
     private int id, idHinh;
-    private String tenAU, tenKS, tenTQ, tenPT, tenVC, gioiThieuDV, tenHinh,
-            gioDongCua, gioMoCua, giaCaoNhat, giaThapNhat, diaChi, sdt, website, lhsk, idNguoiDung, idYeuThich;
+    private String tenAU, tenKS, tenTQ, tenPT, tenVC, gioiThieuDV, tenHinh, gioDongCua, gioMoCua,
+            giaCaoNhat, giaThapNhat, diaChi, sdt, website, lhsk, idNguoiDung, idYeuThich, diemDG;
+
+    public float getSoSao() {
+        return soSao;
+    }
+
+    public void setSoSao(float soSao) {
+        this.soSao = soSao;
+    }
+
+    public String getDiemDG() {
+        return diemDG;
+    }
+
+    public void setDiemDG(String diemDG) {
+        this.diemDG = diemDG;
+    }
 
     public String getIdNguoiDung() {
         return idNguoiDung;

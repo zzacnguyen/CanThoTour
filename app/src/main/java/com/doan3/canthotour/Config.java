@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Config {
-    public static final String URL_HOST = "http://192.168.1.39/doan3_canthotour/public/";
+    public static final String URL_HOST = "http://192.168.1.15/doan3_canthotour/public/";
     public static final String URL_GET_ALL_TYPE_OF_EVENTS = "loaihinhsukien";
     public static final String URL_GET_ALL_EATS = "anuong";
     public static final String URL_GET_ALL_COMMENTS = "binhluan";
@@ -57,11 +57,12 @@ public class Config {
 
     public static final ArrayList<String> JSON_FAVORITE =
             new ArrayList<String>(Arrays.asList("ks_tenkhachsan", "vc_tendiemvuichoi", "pt_tenphuongtien",
-                    "tq_tendiemthamquan","au_ten", "id_hinhanh", "chitiet1"));
+                    "tq_tendiemthamquan", "au_ten", "id_hinhanh", "chitiet1"));
 
     public static final ArrayList<String> JSON_LOAD =
             new ArrayList<String>(Arrays.asList("data", "next_page_url", "total"));
 
     public static final ArrayList<String> JSON_NEAR_LOCATION =
-            new ArrayList<String>(Arrays.asList("dd_tendiadiem", "khoangcach", "vido", "kinhdo"));
+            new ArrayList<String>(Arrays.asList("ks_tenkhachsan", "vc_tendiemvuichoi", "pt_tenphuongtien",
+                    "au_ten", "id_hinhanh", "chitiet1"));
 }

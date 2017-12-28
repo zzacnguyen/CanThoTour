@@ -9,6 +9,7 @@ import com.doan3.canthotour.Adapter.HttpRequestAdapter;
 import com.doan3.canthotour.Config;
 import com.doan3.canthotour.Helper.JsonHelper;
 import com.doan3.canthotour.Model.ObjectClass.Event;
+import com.doan3.canthotour.Model.ObjectClass.NearLocation;
 import com.doan3.canthotour.Model.ObjectClass.Service;
 import com.doan3.canthotour.Model.ObjectClass.ServiceInfo;
 
@@ -51,7 +52,6 @@ public class ModelService {
         return bitmap;
     }
 
-    //Ở phần này nhiều chỗ t chưa hiểu, thứ 6 t hỏi lại
     public ServiceInfo getServiceInfo(String url) {
         ArrayList<String> arrayList;
         ServiceInfo serviceInfo = new ServiceInfo();
@@ -123,6 +123,23 @@ public class ModelService {
             } catch (InterruptedException | ExecutionException e) {
                 e.printStackTrace();
             }
+
+            JSONArray getRating = new JSONArray(new Load().execute(Config.URL_HOST + Config.URL_GET_ALL_RATES +
+                    "/" + serviceInfo.getId()).get());
+            if (getRating.length() == 0) {
+                serviceInfo.setDiemDG("0");
+                serviceInfo.setSoSao(0);
+            } else {
+                int total = 0;
+                float rating;
+                for (int i = 0; i < getRating.length(); i++) {
+                    total += getRating.getJSONObject(i).getInt("rating");
+                }
+                rating = total / getRating.length();
+                serviceInfo.setDiemDG(String.valueOf(rating));
+                serviceInfo.setSoSao(rating);
+            }
+
 
             serviceInfo.setIdHinh(Integer.parseInt(urlHinhChiTiet1[1]));
             serviceInfo.setTenHinh(urlHinhChiTiet1[2]);
@@ -196,14 +213,14 @@ public class ModelService {
         return services;
     }
 
-    public ArrayList<Service> getFavoriteList(File file, int id) {
+    public ArrayList<Service> getFavoriteList(File file, String url) {
 
         ArrayList<String> arr, arrayList;
         ArrayList<Service> services = new ArrayList<>();
 
         try {
             arr = JsonHelper.parseJsonNoId(new JSONObject(new Load().
-                    execute(Config.URL_HOST + Config.URL_GET_ALL_FAVORITE + "/" + id).get()), Config.JSON_LOAD);
+                    execute(url).get()), Config.JSON_LOAD);
             JSONArray jsonArray;
             if (file.exists()) {
                 jsonArray = JsonHelper.mergeJson(new JSONArray(arr.get(0)), new JSONArray(JsonHelper.readJson(file)));
@@ -227,6 +244,42 @@ public class ModelService {
                         !arrayList.get(2).equals("null") ? arrayList.get(2) :
                                 !arrayList.get(3).equals("null") ? arrayList.get(3) :
                                         !arrayList.get(4).equals("null") ? arrayList.get(4) : arrayList.get(5));
+
+                services.add(service);
+            }
+        } catch (JSONException | InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        return services;
+    }
+
+    public ArrayList<NearLocation> getNearLocationList(String url) {
+
+        ArrayList<String> arr, arrayList;
+        ArrayList<NearLocation> services = new ArrayList<>();
+
+        try {
+            arr = JsonHelper.parseJsonNoId(new JSONObject(new Load().
+                    execute(url).get()), Config.JSON_LOAD);
+            JSONArray jsonArray = new JSONArray(arr.get(0));
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+
+                NearLocation service = new NearLocation();
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                arrayList = JsonHelper.parseJson(jsonObject, Config.JSON_NEAR_LOCATION);
+                System.out.println(arrayList);
+                //Set hình ảnh
+                service.setHinhDiaDiemLC(setImage(Config.URL_HOST + "thumbnails/" + arrayList.get(6),
+                        arrayList.get(5), arrayList.get(6)));
+                //Set mã dịch vụ
+                service.setMaDiaDiemLC(Integer.parseInt(arrayList.get(0)));
+                //Set tên dịch vụ yêu thích
+                service.setTenDiaDiemLC(arrayList.get(1) != null ? arrayList.get(1) :
+                        !arrayList.get(2).equals("null") ? arrayList.get(2) :
+                                !arrayList.get(3).equals("null") ? arrayList.get(3) : arrayList.get(4));
+                service.setKhoangCachLC("3");
 
                 services.add(service);
             }

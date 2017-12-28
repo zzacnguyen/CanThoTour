@@ -1,5 +1,7 @@
 package com.doan3.canthotour.Model.ObjectClass;
 
+import android.graphics.Bitmap;
+
 /**
  * Created by zzacn on 12/14/2017.
  */
@@ -8,13 +10,9 @@ public class NearLocation {
     private int maDiaDiemLC;
     private String tenDiaDiemLC;
     private String khoangCachLC;
-    private int hinhDiaDiemLC;
+    private Bitmap hinhDiaDiemLC;
 
-    public NearLocation(int maDiaDiemLC, String tenDiaDiemLC, String khoangCachLC, int hinhDiaDiemLC) {
-        this.maDiaDiemLC = maDiaDiemLC;
-        this.tenDiaDiemLC = tenDiaDiemLC;
-        this.khoangCachLC = khoangCachLC;
-        this.hinhDiaDiemLC = hinhDiaDiemLC;
+    public NearLocation() {
     }
 
     public int getMaDiaDiemLC() {
@@ -41,11 +39,11 @@ public class NearLocation {
         this.khoangCachLC = khoangCachLC;
     }
 
-    public int getHinhDiaDiemLC() {
+    public Bitmap getHinhDiaDiemLC() {
         return hinhDiaDiemLC;
     }
 
-    public void setHinhDiaDiemLC(int hinhDiaDiemLC) {
+    public void setHinhDiaDiemLC(Bitmap hinhDiaDiemLC) {
         this.hinhDiaDiemLC = hinhDiaDiemLC;
     }
 }
