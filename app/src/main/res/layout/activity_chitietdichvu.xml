@@ -36,18 +36,24 @@
                 android:layout_gravity="top|end"
                 android:layout_marginTop="58dp">
 
-                <Button
+                <TextView
                     android:id="@+id/fb_sukien"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
+                    android:layout_width="110dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:background="#dcff0404"
+                    android:ellipsize="marquee"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:singleLine="true"
                     android:maxLength="15"
                     android:padding="5dp"
-                    android:text="Hello"
-                    android:textAllCaps="false"
+                    android:scrollHorizontally="true"
                     android:textColor="@color/colorWhite"
                     android:textSize="16sp"
-                    android:visibility="invisible" />
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:freezesText="true"
+                    android:visibility="invisible"/>
 
             </FrameLayout>
 

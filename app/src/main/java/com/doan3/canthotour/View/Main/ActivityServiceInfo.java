@@ -210,7 +210,7 @@ public class ActivityServiceInfo extends AppCompatActivity {
         ImageView imgBanner = activity.findViewById(R.id.imgBanner);
         Toolbar toolbar = findViewById(R.id.toolbar);
         TextView toolbarTitle = findViewById(R.id.toolbarTitle);
-        Button fbEvent = findViewById(R.id.fb_sukien);
+        TextView fbEvent = findViewById(R.id.fb_sukien);
         LinearLayout info = findViewById(R.id.info);
         TextView txtDiem = findViewById(R.id.textViewDiemDG);
         RatingBar rbSao = findViewById(R.id.ratingBarSoSao);
@@ -218,6 +218,8 @@ public class ActivityServiceInfo extends AppCompatActivity {
         final ServiceInfo serviceInfo = new ModelService().getServiceInfo(url);
 
         idYeuThich = serviceInfo.getIdYeuThich();
+
+        fbEvent.setSelected(true);
 
         if (serviceInfo.getTenAU() != null) {
             txtTenDv.setText(serviceInfo.getTenAU());
@@ -306,29 +308,6 @@ public class ActivityServiceInfo extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        fbEvent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (display == true) {
-                    showTooltip(view, Gravity.BOTTOM);
-                    display = false;
-                } else {
-                    tooltip.dismiss();
-                    display = true;
-                }
-            }
-
-            private void showTooltip(View view, int gravity) {
-                tooltip = new Tooltip.Builder(view, R.style.TextAppearance_AppCompat_Light_Widget_PopupMenu_Large)
-                        .setText(serviceInfo.getLhsk())
-                        .setTextColor(Color.WHITE)
-                        .setBackgroundColor(Color.RED)
-                        .setGravity(gravity)
-                        .setCornerRadius(8f)
-                        .setDismissOnClick(true)
-                        .show();
-            }
-        });
     }
 
     private class DeleteFavorite extends AsyncTask<String, Void, String> {
