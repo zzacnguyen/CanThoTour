@@ -41,7 +41,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.util.concurrent.ExecutionException;
 
 import static com.doan3.canthotour.View.Personal.ActivityLogin.idNguoiDung;
 
@@ -275,8 +274,10 @@ public class ActivityServiceInfo extends AppCompatActivity {
             fbEvent.setVisibility(TextView.VISIBLE);
         }
         btnLuu.setText("THÍCH");
-        if (Integer.parseInt(serviceInfo.getIdNguoiDung()) == idNguoiDung) {
-            btnLuu.setText("BỎ THÍCH");
+        if (!serviceInfo.getIdNguoiDung().equals("null")) {
+            if (Integer.parseInt(serviceInfo.getIdNguoiDung()) == idNguoiDung) {
+                btnLuu.setText("BỎ THÍCH");
+            }
         }
         txtGioiThieu.setText(serviceInfo.getGioiThieuDV());
         txtGiaThap.setText(serviceInfo.getGiaThapNhat() + "đ");
