@@ -14,7 +14,7 @@
     <color name="colorPurple">#A248CE</color>
     <!--Rating bar-->
     <style name="getRatingBar" parent="Theme.AppCompat">
-        <item name="colorControlNormal">@color/colorBlack</item>
+        <item name="colorControlNormal">@color/colorGrey</item>
         <item name="colorControlActivated">@color/colorWhite</item>
     </style>
 
