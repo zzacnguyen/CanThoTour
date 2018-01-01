@@ -96,15 +96,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/white_grey_border_bottom"
                     android:hint="Tên dịch vụ"
-                    android:padding="5dp"
-                    android:textSize="16sp" />
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/white_grey_border_bottom"
-                    android:hint="Địa chỉ"
+                    android:maxLength="50"
                     android:padding="5dp"
                     android:textSize="16sp" />
 
@@ -114,6 +106,7 @@
                     android:layout_marginTop="5dp"
                     android:background="@drawable/white_grey_border_bottom"
                     android:hint="Số điện thoại"
+                    android:maxLength="25"
                     android:padding="5dp"
                     android:textSize="16sp" />
 
@@ -123,17 +116,17 @@
                     android:layout_marginTop="5dp"
                     android:background="@drawable/white_grey_border_bottom"
                     android:hint="Website"
+                    android:maxLength="100"
                     android:padding="5dp"
                     android:textSize="16sp" />
-
 
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
                     android:background="@null"
                     android:hint="Nhập giới thiệu dịch vụ"
-                    android:text=""
                     android:padding="5dp"
+                    android:text=""
                     android:textSize="16sp" />
 
             </LinearLayout>
@@ -170,16 +163,17 @@
                         android:layout_weight="1"
                         android:background="@null"
                         android:hint="Giá thấp nhất"
+                        android:maxLength="11"
                         android:padding="5dp"
                         android:textSize="16sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="_"
-                        android:textSize="20sp"
+                        android:layout_gravity="top"
                         android:layout_marginRight="15dp"
-                        android:layout_gravity="top"/>
+                        android:text="_"
+                        android:textSize="20sp" />
 
                     <EditText
                         android:layout_width="match_parent"
@@ -187,6 +181,7 @@
                         android:layout_weight="1"
                         android:background="@null"
                         android:hint="Giá cao nhất"
+                        android:maxLength="11"
                         android:padding="5dp"
                         android:textSize="16sp" />
 
@@ -226,16 +221,18 @@
                         android:layout_weight="1"
                         android:background="@null"
                         android:hint="Giờ mở cửa"
+                        android:maxLength="10"
                         android:padding="5dp"
                         android:textSize="16sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="_"
-                        android:textSize="20sp"
+                        android:layout_gravity="top"
                         android:layout_marginRight="15dp"
-                        android:layout_gravity="top"/>
+                        android:maxLength="10"
+                        android:text="_"
+                        android:textSize="20sp" />
 
                     <EditText
                         android:layout_width="match_parent"
@@ -279,9 +276,9 @@
                     <ImageButton
                         android:id="@+id/btnThemHinh"
                         android:layout_width="80dp"
-                        android:tint="@color/colorGray"
                         android:layout_height="80dp"
-                        android:src="@drawable/ic_add_a_photo_black_48dp"/>
+                        android:src="@drawable/ic_add_a_photo_black_48dp"
+                        android:tint="@color/colorGray" />
 
                 </LinearLayout>
 

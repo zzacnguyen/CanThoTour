@@ -126,6 +126,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/white_grey_border_bottom"
                     android:hint="Tên địa điểm"
+                    android:maxLength="100"
                     android:padding="5dp"
                     android:textSize="16sp" />
 
@@ -135,6 +136,7 @@
                     android:layout_marginTop="5dp"
                     android:background="@drawable/white_grey_border_bottom"
                     android:hint="Địa chỉ"
+                    android:maxLength="255"
                     android:padding="5dp"
                     android:textSize="16sp" />
 
@@ -144,9 +146,9 @@
                     android:layout_marginTop="5dp"
                     android:background="@drawable/white_grey_border_bottom"
                     android:hint="Số điện thoại"
+                    android:maxLength="25"
                     android:padding="5dp"
                     android:textSize="16sp" />
-
 
                 <EditText
                     android:layout_width="match_parent"

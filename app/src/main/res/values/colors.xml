@@ -37,4 +37,7 @@
     <color name="colorformDangnhap">#ffffff</color>
     <color name="colorQuenmatkhau">#665554</color>
     <color name="editTextbackgroundcolor">#b9eccd</color>
+
+    <color name="colorFacebook">#4a6ea9</color>
+    <color name="colorGoogle">#da4835</color>
 </resources>
