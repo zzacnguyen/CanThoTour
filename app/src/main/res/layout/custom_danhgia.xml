@@ -11,13 +11,6 @@
         android:padding="10dp"
         android:background="@color/colorWhite">
 
-        <ImageView
-            android:id="@+id/imageViewSuKien"
-            android:src="@drawable/ben_ninh_kieu"
-            android:layout_width="80dp"
-            android:layout_height="60dp"
-            android:scaleType="centerCrop"/>
-
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -29,6 +22,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
                 android:text="Tên người dùng"
+                android:textStyle="bold"
                 android:textColor="#000"
                 android:padding="5dp"
                 android:layout_gravity="center_horizontal"/>
@@ -37,9 +31,20 @@
                 android:id="@+id/textViewNhanXetNd"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 android:text="Nhận xét của người dùng"
                 android:textColor="@color/colorBlack"
+                android:paddingLeft="5dp"
+                android:layout_gravity="center"/>
+
+            <TextView
+                android:id="@+id/textViewNgayNx"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:text="Ngày nhận xét"
+                android:textStyle="italic"
+                android:textColor="@color/colorGray"
                 android:paddingLeft="5dp"
                 android:layout_gravity="center"/>
 
