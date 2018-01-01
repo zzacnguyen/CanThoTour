@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.doan3.canthotour.Adapter.HttpRequestAdapter;
 import com.doan3.canthotour.Config;
@@ -42,18 +43,24 @@ public class ActivityReview extends AppCompatActivity {
         btnGui.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                try {
-                    HttpRequestAdapter.httpPost(Config.URL_HOST + Config.URL_GET_ALL_REVIEWS + id,
-                            new JSONObject("{\"dv_iddichvu\":\"" + id + "\",\"nd_idnguoidung\":\"" + idNguoiDung +
-                                    "\",\"dg_diem\":\"" + (int) rbDanhGia.getRating() +
-                                    "\",\"dg_tieude\":\"" + txtTieuDe.getText() +
-                                    "\",\"dg_noidung\":\"" + txtDanhGia.getText() +
-                                    "\"}"));
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                if (txtTieuDe.getText().toString().equals("")
+                        && txtDanhGia.getText().toString().equals("")
+                        && (int) rbDanhGia.getRating() == 0) {
+                    Toast.makeText(ActivityReview.this, "Chưa đánh giá không thể gửi", Toast.LENGTH_SHORT).show();
+                } else {
+                    try {
+                        HttpRequestAdapter.httpPost(Config.URL_HOST + Config.URL_GET_ALL_REVIEWS + id,
+                                new JSONObject("{\"dv_iddichvu\":\"" + id + "\",\"nd_idnguoidung\":\"" + idNguoiDung +
+                                        "\",\"dg_diem\":\"" + (int) rbDanhGia.getRating() +
+                                        "\",\"dg_tieude\":\"" + txtTieuDe.getText() +
+                                        "\",\"dg_noidung\":\"" + txtDanhGia.getText() +
+                                        "\"}"));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    finish();
+                    finishActivity(1);
                 }
-                finish();
-                finishActivity(1);
             }
         });
         btnHuy.setOnClickListener(new View.OnClickListener() {

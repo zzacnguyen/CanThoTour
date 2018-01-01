@@ -290,7 +290,7 @@ public class ActivityServiceInfo extends AppCompatActivity {
         imgBanner.setImageBitmap(serviceInfo.getBanner());
         imgChiTiet1Thumb.setImageBitmap(serviceInfo.getChiTiet1Thumb());
         imgChiTiet2Thumb.setImageBitmap(serviceInfo.getChiTiet2Thumb());
-        txtDiem.setText(String.format("%.02f", serviceInfo.getDiemDG()));
+        txtDiem.setText(String.format("%.1f", serviceInfo.getDiemDG()));
         rbSao.setRating(serviceInfo.getSoSao());
 
         try {
