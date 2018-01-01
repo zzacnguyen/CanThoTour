@@ -13,7 +13,7 @@
 
         <ImageView
             android:id="@+id/imageViewSuKien"
-            android:src="@drawable/ben_ninh_kieu"
+            android:src="@drawable/df_image"
             android:layout_width="80dp"
             android:layout_height="60dp"
             android:scaleType="centerCrop"/>

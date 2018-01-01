@@ -18,23 +18,13 @@
             android:layout_width="80dp"
             android:layout_height="60dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/ben_ninh_kieu" />
+            android:src="@drawable/df_image" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/textViewKhoangCach"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:padding="5dp"
-                android:text="Khoảng cách"
-                android:textColor="#000"
-                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/textViewTenLanCan"
@@ -45,6 +35,18 @@
                 android:text="Tên địa điểm"
                 android:textColor="@color/colorBlack"
                 android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/textViewKhoangCach"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="5dp"
+                android:text="Khoảng cách"
+                android:textColor="#000"
+                android:textSize="12sp" />
+
+
 
         </LinearLayout>
 

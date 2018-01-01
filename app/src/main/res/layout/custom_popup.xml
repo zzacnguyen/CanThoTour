@@ -29,7 +29,7 @@
             android:layout_height="90dp"
             android:layout_gravity="center"
             android:layout_marginTop="15dp"
-            android:src="@drawable/banhxeo7toi" />
+            android:src="@drawable/df_image" />
 
         <TextView
             android:id="@+id/textViewPUTenDV"

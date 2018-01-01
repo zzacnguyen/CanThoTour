@@ -9,25 +9,24 @@
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fitsSystemWindows="true"
-        android:background="@color/colorGrey">
+        android:background="@color/colorGrey"
+        android:fitsSystemWindows="true">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:layout_collapseMode="pin"
-            android:background="@color/bgToolbar">
+            android:background="@color/bgToolbar"
+            app:layout_collapseMode="pin">
 
             <TextView
                 android:id="@+id/toolbarTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Cá nhân"
                 android:gravity="center"
+                android:text="Cá nhân"
                 android:textColor="@color/colorWhite"
-                android:textSize="18sp"
-                />
+                android:textSize="18sp" />
 
         </android.support.v7.widget.Toolbar>
 
@@ -49,17 +48,17 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/white_grey_border_bottom"
                 android:orientation="horizontal"
-                android:padding="10dp"
-                android:background="@drawable/white_grey_border_bottom">
+                android:padding="10dp">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:src="@drawable/avatar"
+                    android:layout_gravity="center"
+                    android:src="@drawable/df_image"
                     app:civ_border_color="@android:color/white"
-                    app:civ_border_width="4dp"
-                    android:layout_gravity="center"/>
+                    app:civ_border_width="4dp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -72,8 +71,8 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:text="Username"
-                        android:textSize="16sp"
-                        android:textColor="@color/colorBlack"/>
+                        android:textColor="@color/colorBlack"
+                        android:textSize="16sp" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -88,175 +87,170 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
-                android:background="@color/colorGrey"
                 android:layout_marginTop="10dp"
-                />
+                android:background="@color/colorGrey" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:background="@drawable/white_grey_border_bottom"
+                android:orientation="horizontal"
                 android:padding="5dp">
 
                 <Button
                     android:id="@+id/buttonDangNhap"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/ic_dangnhap_24dp"
-                    android:textAlignment="textStart"
-                    android:textAllCaps="false"
+                    android:layout_weight="1"
                     android:background="@null"
+                    android:drawableLeft="@drawable/ic_dangnhap_24dp"
                     android:text="Đăng nhập tài khoản"
-                    android:layout_weight="1"/>
+                    android:textAlignment="textStart"
+                    android:textAllCaps="false" />
 
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/ic_arrow"
-                    android:layout_gravity="center" />
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_arrow" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:background="@drawable/white_grey_border_bottom"
+                android:orientation="horizontal"
                 android:padding="5dp">
 
                 <Button
                     android:id="@+id/buttonThemDiaDiem"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/ic_themdiadiem"
-                    android:textAlignment="textStart"
-                    android:textAllCaps="false"
+                    android:layout_weight="1"
                     android:background="@null"
+                    android:drawableLeft="@drawable/ic_themdiadiem"
                     android:text="Thêm địa điểm"
-                    android:layout_weight="1"/>
+                    android:textAlignment="textStart"
+                    android:textAllCaps="false" />
 
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/ic_arrow"
-                    android:layout_gravity="center" />
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_arrow" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:background="@drawable/white_grey_border_bottom"
+                android:orientation="horizontal"
                 android:padding="5dp">
 
                 <Button
                     android:id="@+id/buttonThemDichVu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/ic_service_24dp"
-                    android:textAlignment="textStart"
-                    android:drawableTint="@color/bgToolbar"
-                    android:textAllCaps="false"
+                    android:layout_weight="1"
                     android:background="@null"
+                    android:drawableLeft="@drawable/ic_service_24dp"
                     android:text="Thêm dịch vụ"
-                    android:layout_weight="1"/>
+                    android:textAlignment="textStart"
+                    android:textAllCaps="false" />
 
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/ic_arrow"
-                    android:layout_gravity="center"/>
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_arrow" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:background="@drawable/white_grey_border_bottom"
+                android:orientation="horizontal"
                 android:padding="5dp">
 
                 <Button
                     android:id="@+id/buttonDangKyDoanhNghiep"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/ic_dangkydoanhnghiep"
-                    android:textAlignment="textStart"
-                    android:textAllCaps="false"
+                    android:layout_weight="1"
                     android:background="@null"
+                    android:drawableLeft="@drawable/ic_dangkydoanhnghiep"
                     android:text="Đăng ký doanh nghiệp"
-                    android:layout_weight="1"/>
+                    android:textAlignment="textStart"
+                    android:textAllCaps="false" />
 
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/ic_arrow"
-                    android:layout_gravity="center"/>
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_arrow" />
 
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/colorGrey"
                 android:layout_marginTop="20dp"
-                />
+                android:background="@color/colorGrey" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:background="@drawable/white_grey_border_bottom"
+                android:orientation="horizontal"
                 android:padding="5dp">
 
                 <Button
                     android:id="@+id/buttonCaiDat"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/ic_caidat"
-                    android:textAlignment="textStart"
-                    android:textAllCaps="false"
+                    android:layout_weight="1"
                     android:background="@null"
+                    android:drawableLeft="@drawable/ic_caidat"
                     android:text="Cài đặt"
-                    android:layout_weight="1"/>
+                    android:textAlignment="textStart"
+                    android:textAllCaps="false" />
 
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/ic_arrow"
-                    android:layout_gravity="center"/>
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_arrow" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:background="@drawable/white_grey_border_bottom"
+                android:orientation="horizontal"
                 android:padding="5dp">
 
                 <Button
                     android:id="@+id/buttonDangXuat"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/ic_dangxuat"
-                    android:textAlignment="textStart"
-                    android:textAllCaps="false"
+                    android:layout_weight="1"
                     android:background="@null"
+                    android:drawableLeft="@drawable/ic_dangxuat"
                     android:text="Đăng xuất"
-                    android:layout_weight="1"/>
+                    android:textAlignment="textStart"
+                    android:textAllCaps="false" />
 
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/ic_arrow"
-                    android:layout_gravity="center"/>
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_arrow" />
 
             </LinearLayout>
-
-
 
 
         </LinearLayout>
@@ -274,15 +268,14 @@
             android:layout_width="match_parent"
             android:layout_height="4dp"
             android:layout_gravity="top"
-            android:background="@drawable/shadow"
-            />
+            android:background="@drawable/shadow" />
 
         <android.support.design.widget.BottomNavigationView
             android:id="@+id/bottomNavView_Bar"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            app:menu="@menu/bottom_navigation_menu"
-            android:background="@color/colorWhite">
+            android:background="@color/colorWhite"
+            app:menu="@menu/bottom_navigation_menu">
 
         </android.support.design.widget.BottomNavigationView>
 

@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/ben_ninh_kieu" />
+            android:src="@drawable/df_image" />
 
         <TextView
             android:id="@+id/txtTen"
