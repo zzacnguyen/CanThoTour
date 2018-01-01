@@ -73,8 +73,8 @@ public class ActivityFavorite extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
+    protected void onPause() {
+        super.onPause();
         File path = new File(Environment.getExternalStorageDirectory() + "/canthotour");
         File file = new File(path, "dsyeuthich.json");
         if (file.exists()) {

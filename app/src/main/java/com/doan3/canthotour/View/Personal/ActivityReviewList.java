@@ -8,14 +8,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.doan3.canthotour.Adapter.ListOfReviewAdapter;
-import com.doan3.canthotour.Adapter.ListOfServiceAdapter;
 import com.doan3.canthotour.Config;
 import com.doan3.canthotour.Helper.JsonHelper;
 import com.doan3.canthotour.Interface.OnLoadMoreListener;
 import com.doan3.canthotour.Model.ModelReview;
 import com.doan3.canthotour.Model.ModelService;
 import com.doan3.canthotour.Model.ObjectClass.Review;
-import com.doan3.canthotour.Model.ObjectClass.Service;
 import com.doan3.canthotour.R;
 import com.doan3.canthotour.View.Main.ActivityServiceInfo;
 
@@ -31,13 +29,17 @@ import java.util.concurrent.ExecutionException;
 
 public class ActivityReviewList extends AppCompatActivity {
     ArrayList<String> finalArr = new ArrayList<>();
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_danhsachdanhgia);
 
+        int ma = getIntent().getIntExtra("id", 1);
+        load(Config.URL_HOST + Config.URL_GET_ALL_REVIEWS + "/" + ma, Config.JSON_REVIEW);
         ActivityServiceInfo.menuBotNavBar(this);
     }
+
     private void load(String url, final ArrayList<String> formatJson) {
 
         final RecyclerView recyclerView = findViewById(R.id.RecyclerView_DanhSachDanhGia);

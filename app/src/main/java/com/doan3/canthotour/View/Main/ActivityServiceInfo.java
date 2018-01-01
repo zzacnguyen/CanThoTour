@@ -3,8 +3,6 @@ package com.doan3.canthotour.View.Main;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
@@ -13,7 +11,6 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -34,7 +31,7 @@ import com.doan3.canthotour.R;
 import com.doan3.canthotour.View.Favorite.ActivityFavorite;
 import com.doan3.canthotour.View.Notify.ActivityNotify;
 import com.doan3.canthotour.View.Personal.ActivityPersonal;
-import com.doan3.canthotour.View.Personal.ActivityRating;
+import com.doan3.canthotour.View.Personal.ActivityReview;
 import com.doan3.canthotour.View.Personal.ActivityReviewList;
 import com.doan3.canthotour.View.Search.ActivityNearLocation;
 import com.tooltip.Tooltip;
@@ -44,6 +41,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.util.concurrent.ExecutionException;
 
 import static com.doan3.canthotour.View.Personal.ActivityLogin.idNguoiDung;
 
@@ -176,19 +174,21 @@ public class ActivityServiceInfo extends AppCompatActivity {
         btnDanhGia.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ActivityServiceInfo.this, ActivityRating.class);
+                Intent intent = new Intent(ActivityServiceInfo.this, ActivityReview.class);
                 intent.putExtra("id", ma);
-                startActivity(intent);
+                startActivityForResult(intent, 1);
             }
         });
 
         btnXemDanhGia.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(ActivityServiceInfo.this, ActivityReviewList.class));
+                Intent intent = new Intent(ActivityServiceInfo.this, ActivityReviewList.class);
+                intent.putExtra("id", ma);
+                startActivity(intent);
             }
         });
-        ma = getIntent().getIntExtra("masp", 1);
+        ma = getIntent().getIntExtra("id", 1);
 
         load(this, Config.URL_HOST + Config.URL_GET_ALL_SERVICES + "/" + ma);
 
@@ -269,16 +269,14 @@ public class ActivityServiceInfo extends AppCompatActivity {
         }
 
         if (serviceInfo.getLhsk().equals("null")) {
-            fbEvent.setVisibility(TextView.INVISIBLE);
+            fbEvent.setVisibility(TextView.GONE);
         } else {
             fbEvent.setText(serviceInfo.getLhsk());
             fbEvent.setVisibility(TextView.VISIBLE);
         }
         btnLuu.setText("THÍCH");
-        if (!serviceInfo.getIdNguoiDung().equals("null")) {
-            if (Integer.parseInt(serviceInfo.getIdNguoiDung()) == idNguoiDung) {
-                btnLuu.setText("BỎ THÍCH");
-            }
+        if (Integer.parseInt(serviceInfo.getIdNguoiDung()) == idNguoiDung) {
+            btnLuu.setText("BỎ THÍCH");
         }
         txtGioiThieu.setText(serviceInfo.getGioiThieuDV());
         txtGiaThap.setText(serviceInfo.getGiaThapNhat() + "đ");
@@ -291,7 +289,7 @@ public class ActivityServiceInfo extends AppCompatActivity {
         imgBanner.setImageBitmap(serviceInfo.getBanner());
         imgChiTiet1Thumb.setImageBitmap(serviceInfo.getChiTiet1Thumb());
         imgChiTiet2Thumb.setImageBitmap(serviceInfo.getChiTiet2Thumb());
-        txtDiem.setText(serviceInfo.getDiemDG());
+        txtDiem.setText(String.format("%.02f", serviceInfo.getDiemDG()));
         rbSao.setRating(serviceInfo.getSoSao());
 
         try {
