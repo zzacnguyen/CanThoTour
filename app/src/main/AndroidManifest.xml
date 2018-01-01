@@ -31,7 +31,7 @@
         <activity android:name=".View.Search.ActivityNearLocation"></activity>
         <activity android:name=".View.Personal.ActivityAddService"></activity>
         <activity android:name=".View.Personal.ActivityLogin"></activity>
-        <activity android:name=".View.Personal.ActivityRating"></activity>
+        <activity android:name=".View.Personal.ActivityReview"></activity>
         <activity android:name=".View.Personal.ActivityReviewList"></activity>
     </application>
 
