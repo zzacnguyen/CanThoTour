@@ -84,7 +84,7 @@ public class ListOfServiceAdapter extends RecyclerView.Adapter<RecyclerView.View
                 @Override
                 public void onClick(View view) {
                     Intent iEatInfo = new Intent(context, ActivityServiceInfo.class);
-                    iEatInfo.putExtra("masp", (int) view.getTag());
+                    iEatInfo.putExtra("id", (int) view.getTag());
                     iEatInfo.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(iEatInfo);
                 }

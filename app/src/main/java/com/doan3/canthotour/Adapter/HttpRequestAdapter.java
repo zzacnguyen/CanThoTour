@@ -69,8 +69,17 @@ public class HttpRequestAdapter {
             dataOutputStream.writeBytes(json.toString());
             dataOutputStream.flush();
             dataOutputStream.close();
-            if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
-                return "success";
+            if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK) { //success
+                BufferedReader in = new BufferedReader(new InputStreamReader(
+                        urlConnection.getInputStream()));
+                String line;
+                StringBuilder result = new StringBuilder();
+                while ((line = in.readLine()) != null) {
+                    result.append(line);
+                }
+                in.close();
+
+                return result.toString();
             } else {
                 return "failure";
             }

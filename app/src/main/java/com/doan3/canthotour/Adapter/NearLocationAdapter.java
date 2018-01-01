@@ -85,7 +85,7 @@ public class NearLocationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 @Override
                 public void onClick(View view) {
                     Intent iLocationInfo = new Intent(context, ActivityServiceInfo.class);
-                    iLocationInfo.putExtra("masp", (int) view.getTag());
+                    iLocationInfo.putExtra("id", (int) view.getTag());
                     iLocationInfo.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(iLocationInfo);
                 }

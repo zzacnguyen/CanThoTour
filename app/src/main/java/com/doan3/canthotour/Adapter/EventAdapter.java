@@ -85,7 +85,7 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 @Override
                 public void onClick(View view) {
                     Intent iEventInfo = new Intent(context, ActivityServiceInfo.class);
-                    iEventInfo.putExtra("masp", (int) view.getTag());
+                    iEventInfo.putExtra("id", (int) view.getTag());
                     iEventInfo.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(iEventInfo);
                 }

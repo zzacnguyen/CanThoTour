@@ -44,7 +44,7 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ViewHold
             @Override
             public void onClick(View view) {
                 Intent iPlaceInfo = new Intent(context, ActivityServiceInfo.class);
-                iPlaceInfo.putExtra("masp", (int) view.getTag());
+                iPlaceInfo.putExtra("id", (int) view.getTag());
                 iPlaceInfo.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(iPlaceInfo);
             }

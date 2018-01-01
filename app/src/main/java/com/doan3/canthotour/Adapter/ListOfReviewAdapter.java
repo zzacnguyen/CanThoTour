@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.doan3.canthotour.Interface.OnLoadMoreListener;
@@ -74,7 +75,10 @@ public class ListOfReviewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             Review review = reviews.get(position);
             ViewHolder viewHolder = (ViewHolder) holder;
             viewHolder.txtTen.setText(review.getTenNguoiDung());
-            viewHolder.txtTen.setText(review.getDanhGia());
+            viewHolder.txtTieuDe.setText(review.getTieuDe());
+            viewHolder.txtNgay.setText(review.getNgayDanhGia());
+            viewHolder.rbSoSao.setRating(review.getSoSao());
+            viewHolder.txtDanhGia.setText(review.getDanhGia());
         } else if (holder instanceof LoadingViewHolder) {
             LoadingViewHolder loadingViewHolder = (LoadingViewHolder) holder;
             loadingViewHolder.progressBar.setIndeterminate(true);
@@ -102,14 +106,18 @@ public class ListOfReviewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     //"Normal item" Viewholder
     private class ViewHolder extends RecyclerView.ViewHolder { //ViewHolder chạy thứ 2, phần này giúp cho recycler view ko bị load lại dữ liệu khi thực hiện thao tác vuốt màn hình
-        TextView txtTen, txtDanhGia;
+        TextView txtTen, txtTieuDe, txtDanhGia, txtNgay;
+        RatingBar rbSoSao;
         CardView cardView;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
-            txtTen = itemView.findViewById(R.id.txtTen);
+            txtTen = itemView.findViewById(R.id.textViewTen);
+            txtTieuDe = itemView.findViewById(R.id.textViewTieuDe);
             txtDanhGia = itemView.findViewById(R.id.textViewNhanXetNd);
+            txtNgay = itemView.findViewById(R.id.textViewNgayNx);
+            rbSoSao = itemView.findViewById(R.id.ratingBarGetSoSao);
             cardView = itemView.findViewById(R.id.cardViewDanhSach);
 
         }
