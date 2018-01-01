@@ -22,6 +22,8 @@ import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
+import static com.doan3.canthotour.View.Personal.ActivityLogin.idNguoiDung;
+
 /**
  * Created by sieut on 12/20/2017.
  */
@@ -100,7 +102,7 @@ public class ModelService {
                 JSONArray jsonFile = new JSONArray(JsonHelper.readJson(file));
                 for (int i = 0; i < jsonFile.length(); i++) {
                     if (serviceInfo.getId() == Integer.parseInt(jsonFile.getJSONObject(i).getString("id"))) {
-                        serviceInfo.setIdNguoiDung("2");
+                        serviceInfo.setIdNguoiDung(String.valueOf(idNguoiDung));
                         isLike = false;
                     }
                 }
@@ -124,20 +126,12 @@ public class ModelService {
                 e.printStackTrace();
             }
 
-            JSONArray getRating = new JSONArray(new Load().execute(Config.URL_HOST + Config.URL_GET_ALL_RATES +
-                    "/" + serviceInfo.getId()).get());
-            if (getRating.length() == 0) {
-                serviceInfo.setDiemDG("0");
+            if (arrayList.get(17).equals("null")) {
+                serviceInfo.setDiemDG((float) 0);
                 serviceInfo.setSoSao(0);
             } else {
-                int total = 0;
-                float rating;
-                for (int i = 0; i < getRating.length(); i++) {
-                    total += getRating.getJSONObject(i).getInt("rating");
-                }
-                rating = total / getRating.length();
-                serviceInfo.setDiemDG(String.valueOf(rating));
-                serviceInfo.setSoSao(rating);
+                serviceInfo.setDiemDG(Float.parseFloat(arrayList.get(17)));
+                serviceInfo.setSoSao(Float.parseFloat(arrayList.get(17)));
             }
 
 

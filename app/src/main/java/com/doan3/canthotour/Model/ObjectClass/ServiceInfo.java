@@ -8,10 +8,10 @@ import android.graphics.Bitmap;
 
 public class ServiceInfo {
     Bitmap banner, chiTiet1Thumb, chiTiet2Thumb;
-    private float soSao;
+    private float soSao, diemDG;
     private int id, idHinh;
     private String tenAU, tenKS, tenTQ, tenPT, tenVC, gioiThieuDV, tenHinh, gioDongCua, gioMoCua,
-            giaCaoNhat, giaThapNhat, diaChi, sdt, website, lhsk, idNguoiDung, idYeuThich, diemDG;
+            giaCaoNhat, giaThapNhat, diaChi, sdt, website, lhsk, idNguoiDung, idYeuThich;
 
     public float getSoSao() {
         return soSao;
@@ -21,11 +21,11 @@ public class ServiceInfo {
         this.soSao = soSao;
     }
 
-    public String getDiemDG() {
+    public Float getDiemDG() {
         return diemDG;
     }
 
-    public void setDiemDG(String diemDG) {
+    public void setDiemDG(Float diemDG) {
         this.diemDG = diemDG;
     }
 

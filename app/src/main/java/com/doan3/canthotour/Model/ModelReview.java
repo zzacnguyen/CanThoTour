@@ -3,7 +3,6 @@ package com.doan3.canthotour.Model;
 import com.doan3.canthotour.Config;
 import com.doan3.canthotour.Helper.JsonHelper;
 import com.doan3.canthotour.Model.ObjectClass.Review;
-import com.doan3.canthotour.Model.ObjectClass.Service;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,7 +31,10 @@ public class ModelReview {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 arrayList = JsonHelper.parseJsonNoId(jsonObject, formatJson);
                 review.setTenNguoiDung(arrayList.get(0));
-                review.setDanhGia(arrayList.get(1));
+                review.setSoSao(Float.parseFloat(arrayList.get(1)));
+                review.setTieuDe(arrayList.get(2));
+                review.setDanhGia(arrayList.get(3));
+                review.setNgayDanhGia(arrayList.get(4));
 
                 reviews.add(review);
             }
