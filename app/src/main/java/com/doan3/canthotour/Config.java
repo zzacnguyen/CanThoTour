@@ -5,6 +5,7 @@ import java.util.Arrays;
 
 public class Config {
     public static final String URL_HOST = "http://192.168.1.6/doan3_canthotour/public/";
+    public static final String URL_LOGIN = "login";
     public static final String URL_GET_ALL_EATS = "anuong";
     public static final String URL_GET_ALL_REVIEWS = "danhgia";
     public static final String URL_GET_ALL_PLACES = "thamquan";
@@ -22,14 +23,16 @@ public class Config {
     public static final ArrayList<String> JSON_EAT =
             new ArrayList<>(Arrays.asList("au_ten", "id_hinhanh", "chitiet1"));
 
+    public static final ArrayList<String> JSON_USER =
+            new ArrayList<>(Arrays.asList("nd_tennguoidung", "nd_loainguoidung", "avatar"));
+
     public static final ArrayList<String> JSON_PLACE =
             new ArrayList<>(Arrays.asList("tq_tendiemthamquan", "id_hinhanh", "chitiet1"));
 
     public static final ArrayList<String> JSON_SERVICE_INFO =
             new ArrayList<>(Arrays.asList("ks_tenkhachsan", "ks_website", "vc_tendiemvuichoi", "pt_tenphuongtien",
                     "tq_tendiemthamquan", "au_ten", "dv_gioithieu", "dv_giomocua", "dv_giodongcua", "dv_giathapnhat",
-                    "dv_giacaonhat", "dd_diachi", "dd_sodienthoai", "lhsk_ten", "id_nd_yeuthich_dv",
-                    "id_yeuthich", "danhgia"));
+                    "dv_giacaonhat", "dd_diachi", "dd_sodienthoai", "lhsk_ten", "id_yeuthich", "danhgia"));
 
     public static final ArrayList<String> JSON_HOTEL =
             new ArrayList<>(Arrays.asList("ks_tenkhachsan", "id_hinhanh", "chitiet1"));

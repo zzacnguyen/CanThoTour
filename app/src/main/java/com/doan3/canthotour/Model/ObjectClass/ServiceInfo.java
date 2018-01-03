@@ -2,6 +2,8 @@ package com.doan3.canthotour.Model.ObjectClass;
 
 import android.graphics.Bitmap;
 
+import java.util.ArrayList;
+
 /**
  * Created by zzacn on 11/17/2017.
  */
@@ -12,6 +14,7 @@ public class ServiceInfo {
     private int id, idHinh;
     private String tenAU, tenKS, tenTQ, tenPT, tenVC, gioiThieuDV, tenHinh, gioDongCua, gioMoCua,
             giaCaoNhat, giaThapNhat, diaChi, sdt, website, lhsk, idNguoiDung, idYeuThich;
+    private ArrayList<String> idNguoiDungYT, getIdNguoiDungDG;
 
     public float getSoSao() {
         return soSao;
@@ -25,16 +28,32 @@ public class ServiceInfo {
         return diemDG;
     }
 
-    public void setDiemDG(Float diemDG) {
-        this.diemDG = diemDG;
-    }
-
     public String getIdNguoiDung() {
         return idNguoiDung;
     }
 
     public void setIdNguoiDung(String idNguoiDung) {
         this.idNguoiDung = idNguoiDung;
+    }
+
+    public void setDiemDG(float diemDG) {
+        this.diemDG = diemDG;
+    }
+
+    public ArrayList<String> getIdNguoiDungYT() {
+        return idNguoiDungYT;
+    }
+
+    public void setIdNguoiDungYT(ArrayList<String> idNguoiDungYT) {
+        this.idNguoiDungYT = idNguoiDungYT;
+    }
+
+    public ArrayList<String> getIdNguoiDungDG() {
+        return getIdNguoiDungDG;
+    }
+
+    public void setIdNguoiDungDG(ArrayList<String> getIdNguoiDungDG) {
+        this.getIdNguoiDungDG = getIdNguoiDungDG;
     }
 
     public String getIdYeuThich() {

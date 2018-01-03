@@ -64,21 +64,18 @@ public class ModelService {
 
             arrayList = JsonHelper.parseJson(jsonArray.getJSONObject(0), Config.JSON_SERVICE_INFO);
 
+            serviceInfo.setWebsite("Đang cập nhật");
             if (!arrayList.get(1).equals("null")) {
                 serviceInfo.setTenKS(arrayList.get(1));
                 serviceInfo.setWebsite(arrayList.get(2));
             } else if (!arrayList.get(3).equals("null")) {
                 serviceInfo.setTenVC(arrayList.get(3));
-                serviceInfo.setWebsite("Đang cập nhật");
             } else if (!arrayList.get(4).equals("null")) {
                 serviceInfo.setTenPT(arrayList.get(4));
-                serviceInfo.setWebsite("Đang cập nhật");
             } else if (!arrayList.get(5).equals("null")) {
                 serviceInfo.setTenTQ(arrayList.get(5));
-                serviceInfo.setWebsite("Đang cập nhật");
             } else if (!arrayList.get(6).equals("null")) {
                 serviceInfo.setTenAU(arrayList.get(6));
-                serviceInfo.setWebsite("Đang cập nhật");
             }
             serviceInfo.setId(Integer.parseInt(arrayList.get(0)));
             serviceInfo.setGioiThieuDV(arrayList.get(7));
@@ -89,7 +86,7 @@ public class ModelService {
             serviceInfo.setDiaChi(arrayList.get(12));
             serviceInfo.setSdt(arrayList.get(13));
             serviceInfo.setLhsk(arrayList.get(14));
-            serviceInfo.setIdYeuThich(arrayList.get(16));
+            serviceInfo.setIdYeuThich(arrayList.get(15));
 
             File path = new File(Environment.getExternalStorageDirectory() + "/canthotour");
             if (!path.exists()) {
@@ -102,13 +99,22 @@ public class ModelService {
                 JSONArray jsonFile = new JSONArray(JsonHelper.readJson(file));
                 for (int i = 0; i < jsonFile.length(); i++) {
                     if (serviceInfo.getId() == Integer.parseInt(jsonFile.getJSONObject(i).getString("id"))) {
-                        serviceInfo.setIdNguoiDung(String.valueOf(idNguoiDung));
+                        serviceInfo.setIdNguoiDungYT(new ArrayList<String>(idNguoiDung));
                         isLike = false;
                     }
                 }
             }
             if (isLike) {
-                serviceInfo.setIdNguoiDung(arrayList.get(15));
+//                serviceInfo.setIdNguoiDungYT("");
+            }
+//            serviceInfo.setIdNguoiDungDG();
+
+            if (arrayList.get(16).equals("null")) {
+                serviceInfo.setDiemDG((float) 0);
+                serviceInfo.setSoSao(0);
+            } else {
+                serviceInfo.setDiemDG(Float.parseFloat(arrayList.get(16)));
+                serviceInfo.setSoSao(Float.parseFloat(arrayList.get(16)));
             }
 
             // lấy thông tin hình gồm : "url + id + tên hình"
@@ -125,15 +131,6 @@ public class ModelService {
             } catch (InterruptedException | ExecutionException e) {
                 e.printStackTrace();
             }
-
-            if (arrayList.get(17).equals("null")) {
-                serviceInfo.setDiemDG((float) 0);
-                serviceInfo.setSoSao(0);
-            } else {
-                serviceInfo.setDiemDG(Float.parseFloat(arrayList.get(17)));
-                serviceInfo.setSoSao(Float.parseFloat(arrayList.get(17)));
-            }
-
 
             serviceInfo.setIdHinh(Integer.parseInt(urlHinhChiTiet1[1]));
             serviceInfo.setTenHinh(urlHinhChiTiet1[2]);
