@@ -15,23 +15,32 @@ import com.doan3.canthotour.R;
 import com.doan3.canthotour.View.Notify.ActivityNotify;
 import com.doan3.canthotour.View.Favorite.ActivityFavorite;
 import com.doan3.canthotour.View.Main.MainActivity;
+import com.doan3.canthotour.View.Search.ActivityAdvancedSearch;
 import com.doan3.canthotour.View.Search.ActivitySearch;
 
 public class ActivityPersonal extends AppCompatActivity {
 
-    Button btnThemDiaDiem, btnTimThemDichVu, btnDangKyDoanhNghiep, btnCaiDat, btnDangNhap;
+    Button btnThemDiaDiem, btnThemDichVu, btnDangKyDoanhNghiep, btnCaiDat, btnDangNhap, btnTimKiemNangCao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_canhan);
 
+        btnTimKiemNangCao = findViewById(R.id.buttonTimKiemNC);
         btnThemDiaDiem = findViewById(R.id.buttonThemDiaDiem);
-        btnTimThemDichVu = findViewById(R.id.buttonThemDichVu);
+        btnThemDichVu = findViewById(R.id.buttonThemDichVu);
         btnDangKyDoanhNghiep = findViewById(R.id.buttonDangKyDoanhNghiep);
         btnCaiDat = findViewById(R.id.buttonCaiDat);
         btnDangNhap = findViewById(R.id.buttonDangNhap);
 
+        btnTimKiemNangCao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent iTimKiemNC = new Intent(ActivityPersonal.this, ActivityAdvancedSearch.class);
+                startActivity(iTimKiemNC);
+            }
+        });
         btnDangNhap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -47,7 +56,7 @@ public class ActivityPersonal extends AppCompatActivity {
             }
         });
 
-        btnTimThemDichVu.setOnClickListener(new View.OnClickListener() {
+        btnThemDichVu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent iThemDichVu = new Intent(ActivityPersonal.this, ActivityAddService.class);
@@ -70,6 +79,7 @@ public class ActivityPersonal extends AppCompatActivity {
                 startActivity(iCaiDat);
             }
         });
+
 
         menuBotNarBar();
     }

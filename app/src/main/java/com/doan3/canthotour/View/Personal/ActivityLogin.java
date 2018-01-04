@@ -1,5 +1,6 @@
 package com.doan3.canthotour.View.Personal;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -35,6 +36,7 @@ public class ActivityLogin extends AppCompatActivity {
         etTaiKhoan = findViewById(R.id.etTaiKhoan);
         etMatKhau = findViewById(R.id.etMatKhau);
         btnDangNhap = findViewById(R.id.btnDangNhap);
+        btnDangKy = findViewById(R.id.btnDangKy);
 
         btnDangNhap.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,6 +54,14 @@ public class ActivityLogin extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+            }
+        });
+
+        btnDangKy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent iDangKy = new Intent(ActivityLogin.this, ActivityRegister.class);
+                startActivity(iDangKy);
             }
         });
 

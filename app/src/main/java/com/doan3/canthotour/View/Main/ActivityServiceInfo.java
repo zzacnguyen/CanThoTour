@@ -34,7 +34,6 @@ import com.doan3.canthotour.View.Personal.ActivityPersonal;
 import com.doan3.canthotour.View.Personal.ActivityReview;
 import com.doan3.canthotour.View.Personal.ActivityReviewList;
 import com.doan3.canthotour.View.Search.ActivityNearLocation;
-import com.tooltip.Tooltip;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -53,7 +52,6 @@ public class ActivityServiceInfo extends AppCompatActivity {
     int ma;
     String idYeuThich;
     boolean display = true;
-    Tooltip tooltip;
     JSONObject saveJson;
     Dialog myDialog;
 

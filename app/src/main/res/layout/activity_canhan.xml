@@ -121,6 +121,33 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/white_grey_border_bottom"
                 android:orientation="horizontal"
+                android:padding="5dp"
+                android:visibility="gone">
+
+                <Button
+                    android:id="@+id/buttonTimKiemNC"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:drawableLeft="@drawable/ic_timdiadiem"
+                    android:text="Tìm kiếm nâng cao"
+                    android:textAlignment="textStart"
+                    android:textAllCaps="false" />
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_arrow" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/white_grey_border_bottom"
+                android:orientation="horizontal"
                 android:padding="5dp">
 
                 <Button

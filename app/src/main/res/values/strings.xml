@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">CanThoTour</string>
+    <string-array name="radio_buttons">
+        <item>button_1</item>
+        <item>button_2</item>
+        <item>button_3</item>
+        <item>button_4</item>
+        <item>button_5</item>
+    </string-array>
 </resources>

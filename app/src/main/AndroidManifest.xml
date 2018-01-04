@@ -33,7 +33,8 @@
         <activity android:name=".View.Personal.ActivityLogin"></activity>
         <activity android:name=".View.Personal.ActivityReview"></activity>
         <activity android:name=".View.Personal.ActivityReviewList"></activity>
-        <activity android:name=".View.Personal.ActivityRangeSetting"></activity>
+        <activity android:name=".View.Personal.ActivityRegister"></activity>
+        <activity android:name=".View.Search.ActivityAdvancedSearch"></activity>
     </application>
 
 </manifest>
