@@ -102,38 +102,6 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/buttonKhoanCachLc"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textSize="14sp"
-                    android:background="@null"
-                    android:layout_marginLeft="10dp"
-                    android:text="Khoản cách lân cận"
-                    android:textAlignment="textStart"
-                    android:textAllCaps="false"
-                    android:typeface = "sans"/>
-
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ic_arrow" />
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="10dp"
-                android:background="@color/colorGrey" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/white_grey_border_bottom"
-                android:orientation="horizontal">
-
-                <Button
                     android:id="@+id/buttonDieuKhoan"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -232,6 +200,58 @@
                     android:textAlignment="textStart"
                     android:textAllCaps="false"
                     android:typeface = "sans"/>
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_arrow" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="@color/colorGrey" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:background="@drawable/white_grey_border_bottom"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/btnKhoangCachLC"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="15sp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@null"
+                        android:textColor="@color/colorBlack"
+                        android:text="Đặt khoảng cách địa điểm lân cận"
+                        android:typeface="sans"/>
+
+                    <TextView
+                        android:id="@+id/textViewKhoanCachLc"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="13sp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@null"
+                        android:text="500m"
+                        android:textColor="@color/colorBlack"
+                        android:textAllCaps="false"
+                        android:typeface = "sans"/>
+
+                </LinearLayout>
 
                 <ImageView
                     android:layout_width="24dp"
