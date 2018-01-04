@@ -120,12 +120,13 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/timKiem"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/white_grey_border_bottom"
                 android:orientation="horizontal"
                 android:padding="5dp"
-                android:visibility="gone">
+                android:visibility="visible">
 
                 <Button
                     android:id="@+id/buttonTimKiemNC"
@@ -147,6 +148,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/ThemDiaDiem"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/white_grey_border_bottom"
@@ -173,6 +175,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/ThemDichVu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/white_grey_border_bottom"
@@ -199,6 +202,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/DangKyDn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/white_grey_border_bottom"
@@ -257,6 +261,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/DangXuat"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/white_grey_border_bottom"

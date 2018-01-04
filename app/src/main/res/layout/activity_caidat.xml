@@ -66,7 +66,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/white_grey_border_bottom"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <Button
                     android:id="@+id/buttonDoiMk"
@@ -246,7 +247,7 @@
                         android:textSize="13sp"
                         android:layout_gravity="center_vertical"
                         android:background="@null"
-                        android:text="500m"
+                        android:text=""
                         android:textColor="@color/colorBlack"
                         android:textAllCaps="false"
                         android:typeface = "sans"/>
