@@ -1,7 +1,6 @@
 package com.doan3.canthotour.View.Main;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -30,6 +29,7 @@ import com.doan3.canthotour.Model.ObjectClass.ServiceInfo;
 import com.doan3.canthotour.R;
 import com.doan3.canthotour.View.Favorite.ActivityFavorite;
 import com.doan3.canthotour.View.Notify.ActivityNotify;
+import com.doan3.canthotour.View.Personal.ActivityLogin;
 import com.doan3.canthotour.View.Personal.ActivityPersonal;
 import com.doan3.canthotour.View.Personal.ActivityReview;
 import com.doan3.canthotour.View.Personal.ActivityReviewList;
@@ -49,11 +49,9 @@ import static com.doan3.canthotour.View.Personal.ActivityLogin.idNguoiDung;
 
 public class ActivityServiceInfo extends AppCompatActivity {
     Button btnChiaSe, btnLuu, btnLanCan, btnDanhGia, btnXemDanhGia;
-    int ma;
-    String idYeuThich;
-    boolean display = true;
+    int ma, loaiHinh, idDanhGia;
+    String idYeuThich, kinhDo, viDo;
     JSONObject saveJson;
-    Dialog myDialog;
 
     public static void menuBotNavBar(final Activity activity) {
         BottomNavigationView bottomNavigationView = activity.findViewById(R.id.bottomNavView_Bar);
@@ -96,64 +94,72 @@ public class ActivityServiceInfo extends AppCompatActivity {
         btnDanhGia = findViewById(R.id.btnDanhGia);
         btnXemDanhGia = findViewById(R.id.btnXemDanhGia);
 
+        ma = getIntent().getIntExtra("id", 1);
+
         // region button luu
         btnLuu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                File path = new File(Environment.getExternalStorageDirectory() + "/canthotour");
-                if (!path.exists()) {
-                    path.mkdirs();
-                }
-                File file = new File(path, "dsyeuthich.json");
-                JSONArray getJsonInFile;
-
-                if (btnLuu.getText().equals("THÍCH")) {
-                    try {
-                        boolean isExists = true;
-                        if (file.exists()) {
-                            getJsonInFile = new JSONArray(JsonHelper.readJson(file));
-                            for (int i = 0; i < getJsonInFile.length(); i++) {
-                                if (saveJson.toString().equals(getJsonInFile.getJSONObject(i).toString())) {
-                                    isExists = false;
-                                }
-                            }
-                        }
-                        if (isExists) {
-                            JsonHelper.writeJson(file, saveJson);
-                            Toast.makeText(ActivityServiceInfo.this, "Đã thích",
-                                    Toast.LENGTH_SHORT).show();
-                            btnLuu.setText("BỎ THÍCH");
-                        }
-                    } catch (JSONException ex) {
-                        ex.printStackTrace();
-                    }
+                if (idNguoiDung == 0) {
+                    Intent intent = new Intent(ActivityServiceInfo.this, ActivityLogin.class);
+                    intent.putExtra("id",ma);
+                    startActivity(intent);
                 } else {
-                    try {
-                        boolean isExists = true;
-                        if (file.exists()) {
-                            JSONArray jsonArray = new JSONArray();
-                            getJsonInFile = new JSONArray(JsonHelper.readJson(file));
-                            for (int i = 0; i < getJsonInFile.length(); i++) {
-                                if (Integer.parseInt(getJsonInFile.getJSONObject(i).getString("id")) != (ma)) {
-                                    jsonArray.put(getJsonInFile.getJSONObject(i));
-                                }
-                            }
-                            if (jsonArray.length() != getJsonInFile.length()) {
-                                file.delete();
-                                if (jsonArray.length() > 0) {
-                                    JsonHelper.writeJson(file, jsonArray);
-                                }
-                                isExists = false;
-                                Toast.makeText(ActivityServiceInfo.this, "Đã bỏ thích", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                        if (isExists) {
-                            new DeleteFavorite().execute(Config.URL_HOST + Config.URL_GET_ALL_FAVORITE + "/" + idYeuThich);
-                        }
-                    } catch (JSONException ex) {
-                        ex.printStackTrace();
+                    File path = new File(Environment.getExternalStorageDirectory() + "/canthotour");
+                    if (!path.exists()) {
+                        path.mkdirs();
                     }
-                    btnLuu.setText("THÍCH");
+                    File file = new File(path, "dsyeuthich.json");
+                    JSONArray getJsonInFile;
+
+                    if (btnLuu.getText().equals("THÍCH")) {
+                        try {
+                            boolean isExists = true;
+                            if (file.exists()) {
+                                getJsonInFile = new JSONArray(JsonHelper.readJson(file));
+                                for (int i = 0; i < getJsonInFile.length(); i++) {
+                                    if (saveJson.toString().equals(getJsonInFile.getJSONObject(i).toString())) {
+                                        isExists = false;
+                                    }
+                                }
+                            }
+                            if (isExists) {
+                                JsonHelper.writeJson(file, saveJson);
+                                Toast.makeText(ActivityServiceInfo.this, "Đã thích",
+                                        Toast.LENGTH_SHORT).show();
+                                btnLuu.setText("BỎ THÍCH");
+                            }
+                        } catch (JSONException ex) {
+                            ex.printStackTrace();
+                        }
+                    } else {
+                        try {
+                            boolean isExists = true;
+                            if (file.exists()) {
+                                JSONArray jsonArray = new JSONArray();
+                                getJsonInFile = new JSONArray(JsonHelper.readJson(file));
+                                for (int i = 0; i < getJsonInFile.length(); i++) {
+                                    if (Integer.parseInt(getJsonInFile.getJSONObject(i).getString("id")) != (ma)) {
+                                        jsonArray.put(getJsonInFile.getJSONObject(i));
+                                    }
+                                }
+                                if (jsonArray.length() != getJsonInFile.length()) {
+                                    file.delete();
+                                    if (jsonArray.length() > 0) {
+                                        JsonHelper.writeJson(file, jsonArray);
+                                    }
+                                    isExists = false;
+                                    Toast.makeText(ActivityServiceInfo.this, "Đã bỏ thích", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                            if (isExists) {
+                                new DeleteFavorite().execute(Config.URL_HOST + Config.URL_GET_ALL_FAVORITE + "/" + idYeuThich);
+                            }
+                        } catch (JSONException ex) {
+                            ex.printStackTrace();
+                        }
+                        btnLuu.setText("THÍCH");
+                    }
                 }
             }
         });
@@ -163,7 +169,9 @@ public class ActivityServiceInfo extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ActivityServiceInfo.this, ActivityNearLocation.class);
-                intent.putExtra("id", ma);
+                intent.putExtra("kinhdo", kinhDo);
+                intent.putExtra("vido", viDo);
+                intent.putExtra("loaihinh", loaiHinh);
                 startActivity(intent);
             }
         });
@@ -171,9 +179,16 @@ public class ActivityServiceInfo extends AppCompatActivity {
         btnDanhGia.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ActivityServiceInfo.this, ActivityReview.class);
-                intent.putExtra("id", ma);
-                startActivityForResult(intent, 1);
+                if (idNguoiDung == 0) {
+                    Intent intent = new Intent(ActivityServiceInfo.this, ActivityLogin.class);
+                    intent.putExtra("id",ma);
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(ActivityServiceInfo.this, ActivityReview.class);
+                    intent.putExtra("id", ma);
+                    intent.putExtra("iddanhgia", idDanhGia);
+                    startActivity(intent);
+                }
             }
         });
 
@@ -185,7 +200,6 @@ public class ActivityServiceInfo extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        ma = getIntent().getIntExtra("id", 1);
 
         load(this, Config.URL_HOST + Config.URL_GET_ALL_SERVICES + "/" + ma);
 
@@ -215,13 +229,18 @@ public class ActivityServiceInfo extends AppCompatActivity {
         final ServiceInfo serviceInfo = new ModelService().getServiceInfo(url);
 
         idYeuThich = serviceInfo.getIdYeuThich();
+        idDanhGia = Integer.parseInt(serviceInfo.getIdDanhGia());
+        kinhDo = serviceInfo.getKinhDo();
+        viDo = serviceInfo.getViDo();
 
         fbEvent.setSelected(true);
 
+        // region get tên và set màu cho từng dịch vụ
         if (serviceInfo.getTenAU() != null) {
             txtTenDv.setText(serviceInfo.getTenAU());
             toolbar.setBackgroundColor(getResources().getColor(R.color.tbAnUong));
             info.setBackgroundColor(getResources().getColor(R.color.tbAnUong));
+            loaiHinh = 1;
             toolbarTitle.setText("Chi tiết quán ăn");
             serviceInfo.setTenPT("null");
             serviceInfo.setTenTQ("null");
@@ -231,6 +250,7 @@ public class ActivityServiceInfo extends AppCompatActivity {
             txtTenDv.setText(serviceInfo.getTenKS());
             toolbar.setBackgroundColor(getResources().getColor(R.color.tbKhachSan));
             info.setBackgroundColor(getResources().getColor(R.color.tbKhachSan));
+            loaiHinh = 2;
             toolbarTitle.setText("Chi tiết khách sạn");
             serviceInfo.setTenPT("null");
             serviceInfo.setTenTQ("null");
@@ -240,6 +260,7 @@ public class ActivityServiceInfo extends AppCompatActivity {
             txtTenDv.setText(serviceInfo.getTenTQ());
             toolbar.setBackgroundColor(getResources().getColor(R.color.tbThamQuan));
             info.setBackgroundColor(getResources().getColor(R.color.tbThamQuan));
+            loaiHinh = 4;
             toolbarTitle.setText("Chi tiết điểm tham quan");
             serviceInfo.setTenPT("null");
             serviceInfo.setTenAU("null");
@@ -249,6 +270,7 @@ public class ActivityServiceInfo extends AppCompatActivity {
             txtTenDv.setText(serviceInfo.getTenPT());
             toolbar.setBackgroundColor(getResources().getColor(R.color.tbPhuongTien));
             info.setBackgroundColor(getResources().getColor(R.color.tbPhuongTien));
+            loaiHinh = 3;
             toolbarTitle.setText("Chi tiết phương tiện");
             serviceInfo.setTenAU("null");
             serviceInfo.setTenTQ("null");
@@ -258,25 +280,34 @@ public class ActivityServiceInfo extends AppCompatActivity {
             txtTenDv.setText(serviceInfo.getTenVC());
             toolbar.setBackgroundColor(getResources().getColor(R.color.tbVuiChoi));
             info.setBackgroundColor(getResources().getColor(R.color.tbVuiChoi));
+            loaiHinh = 5;
             toolbarTitle.setText("Chi tiết điểm vui chơi");
             serviceInfo.setTenPT("null");
             serviceInfo.setTenTQ("null");
             serviceInfo.setTenKS("null");
             serviceInfo.setTenAU("null");
         }
+        // endregion
 
         if (serviceInfo.getLhsk().equals("null")) {
             fbEvent.setVisibility(TextView.GONE);
         } else {
-            fbEvent.setText(serviceInfo.getLhsk());
             fbEvent.setVisibility(TextView.VISIBLE);
+            fbEvent.setText(serviceInfo.getLhsk());
         }
-        btnLuu.setText("THÍCH");
-        if (!serviceInfo.getIdNguoiDung().equals("null")) {
-            if (Integer.parseInt(serviceInfo.getIdNguoiDung()) == idNguoiDung) {
-                btnLuu.setText("BỎ THÍCH");
-            }
+
+        if (serviceInfo.getIdNguoiDungYT()) {
+            btnLuu.setText("BỎ THÍCH");
+        } else {
+            btnLuu.setText("THÍCH");
         }
+
+        if (serviceInfo.getIdNguoiDungDG()) {
+            btnDanhGia.setText("ĐÃ ĐÁNH GIÁ");
+        } else {
+            btnDanhGia.setText("ĐÁNH GIÁ");
+        }
+
         txtGioiThieu.setText(serviceInfo.getGioiThieuDV());
         txtGiaThap.setText(serviceInfo.getGiaThapNhat() + "đ");
         txtGiaCao.setText(serviceInfo.getGiaCaoNhat() + "đ");

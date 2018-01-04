@@ -9,18 +9,26 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.doan3.canthotour.Helper.BottomNavigationViewHelper;
 import com.doan3.canthotour.R;
-import com.doan3.canthotour.View.Notify.ActivityNotify;
 import com.doan3.canthotour.View.Favorite.ActivityFavorite;
 import com.doan3.canthotour.View.Main.MainActivity;
+import com.doan3.canthotour.View.Notify.ActivityNotify;
 import com.doan3.canthotour.View.Search.ActivityAdvancedSearch;
-import com.doan3.canthotour.View.Search.ActivitySearch;
+
+import de.hdodenhof.circleimageview.CircleImageView;
+
+import static com.doan3.canthotour.View.Personal.ActivityLogin.avatar;
+import static com.doan3.canthotour.View.Personal.ActivityLogin.loaiNd;
+import static com.doan3.canthotour.View.Personal.ActivityLogin.tenNd;
 
 public class ActivityPersonal extends AppCompatActivity {
 
     Button btnThemDiaDiem, btnThemDichVu, btnDangKyDoanhNghiep, btnCaiDat, btnDangNhap, btnTimKiemNangCao;
+    TextView txtTenNd, txtLoaiNd;
+    CircleImageView Cavatar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +41,13 @@ public class ActivityPersonal extends AppCompatActivity {
         btnDangKyDoanhNghiep = findViewById(R.id.buttonDangKyDoanhNghiep);
         btnCaiDat = findViewById(R.id.buttonCaiDat);
         btnDangNhap = findViewById(R.id.buttonDangNhap);
+        txtTenNd = findViewById(R.id.txtTenND);
+        txtLoaiNd = findViewById(R.id.txtLoaiND);
+        Cavatar = findViewById(R.id.avatar);
+
+        txtTenNd.setText(tenNd);
+        txtLoaiNd.setText(loaiNd);
+        Cavatar.setImageBitmap(avatar);
 
         btnTimKiemNangCao.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,8 +59,7 @@ public class ActivityPersonal extends AppCompatActivity {
         btnDangNhap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent iDangNhap = new Intent(ActivityPersonal.this, ActivityLogin.class);
-                startActivity(iDangNhap);
+                startActivityForResult(new Intent(ActivityPersonal.this, ActivityLogin.class), 1);
             }
         });
         btnThemDiaDiem.setOnClickListener(new View.OnClickListener() {
@@ -95,7 +109,7 @@ public class ActivityPersonal extends AppCompatActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()){
+                switch (item.getItemId()) {
                     case R.id.ic_trangchu:
                         startActivity(new Intent(ActivityPersonal.this, MainActivity.class));
                         break;

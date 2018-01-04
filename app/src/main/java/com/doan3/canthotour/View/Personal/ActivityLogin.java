@@ -1,6 +1,8 @@
 package com.doan3.canthotour.View.Personal;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -12,22 +14,28 @@ import android.widget.Toast;
 import com.doan3.canthotour.Adapter.HttpRequestAdapter;
 import com.doan3.canthotour.Config;
 import com.doan3.canthotour.Helper.JsonHelper;
+import com.doan3.canthotour.Model.ModelService;
 import com.doan3.canthotour.R;
 import com.doan3.canthotour.View.Main.ActivityServiceInfo;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by zzacn on 12/7/2017.
  */
 
 public class ActivityLogin extends AppCompatActivity {
-    public static int idNguoiDung = 2;
+    public static int idNguoiDung = 0;
+    public static String tenNd, loaiNd;
+    public static Bitmap avatar;
     EditText etTaiKhoan, etMatKhau;
     Button btnDangKy, btnDangNhap;
+    int ma;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,20 +46,43 @@ public class ActivityLogin extends AppCompatActivity {
         btnDangNhap = findViewById(R.id.btnDangNhap);
         btnDangKy = findViewById(R.id.btnDangKy);
 
+        ma = getIntent().getIntExtra("id", 0);
+        String mess = getIntent().getStringExtra("mess");
+        if (mess != null) {
+            Toast.makeText(this, "Đăng ký thành công", Toast.LENGTH_SHORT).show();
+        }
+
         btnDangNhap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 try {
-                    String rs = HttpRequestAdapter.httpPost(Config.URL_HOST + Config.URL_LOGIN,
-                            new JSONObject("{\"taikhoan\":\"" + etTaiKhoan.getText().toString() +
-                                    "\",\"password\":\"" + etMatKhau.getText().toString() + "\"}"));
+                    String rs = new Post().execute(Config.URL_HOST + Config.URL_LOGIN,
+                            "{\"taikhoan\":\"" + etTaiKhoan.getText().toString() +
+                                    "\",\"password\":\"" + etMatKhau.getText().toString() + "\"}").get();
                     if (rs.startsWith("\"")) {
-                        Toast.makeText(ActivityLogin.this, rs.replaceAll("\"", "").toString(),
+                        Toast.makeText(ActivityLogin.this, "tài khoản hoặc mật khẩu không đúng",
                                 Toast.LENGTH_SHORT).show();
                     } else {
-                        ArrayList<String> user = JsonHelper.parseJson(new JSONObject(rs), Config.JSON_USER);
+                        ArrayList<String> arrayUser = JsonHelper.parseJson(new JSONArray(rs), Config.JSON_USER);
+
+                        idNguoiDung = Integer.parseInt(arrayUser.get(0));
+                        tenNd = arrayUser.get(1);
+                        loaiNd = arrayUser.get(2);
+                        try {
+                            avatar = new ModelService.GetImage().execute(arrayUser.get(3)).get();
+                        } catch (InterruptedException | ExecutionException e) {
+                            e.printStackTrace();
+                        }
+                        if (ma == 0) {
+                            finish();
+                            finishActivity(1);
+                        } else {
+                            Intent intent = new Intent(ActivityLogin.this, ActivityServiceInfo.class);
+                            intent.putExtra("id", ma);
+                            startActivity(intent);
+                        }
                     }
-                } catch (JSONException e) {
+                } catch (JSONException | ExecutionException | InterruptedException e) {
                     e.printStackTrace();
                 }
             }
@@ -60,11 +91,24 @@ public class ActivityLogin extends AppCompatActivity {
         btnDangKy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent iDangKy = new Intent(ActivityLogin.this, ActivityRegister.class);
-                startActivity(iDangKy);
+                startActivity(new Intent(ActivityLogin.this, ActivityRegister.class));
             }
         });
 
         ActivityServiceInfo.menuBotNavBar(this);
+    }
+
+    public static class Post extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... strings) {
+            String rs = null;
+            try {
+                rs = HttpRequestAdapter.httpPost(strings[0],
+                        new JSONObject(strings[1]));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return rs;
+        }
     }
 }

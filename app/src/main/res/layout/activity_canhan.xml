@@ -53,6 +53,7 @@
                 android:padding="10dp">
 
                 <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/avatar"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_gravity="center"
@@ -67,18 +68,20 @@
                     android:padding="10dp">
 
                     <TextView
+                        android:id="@+id/txtTenND"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="Username"
+                        android:text=""
                         android:textColor="@color/colorBlack"
                         android:textSize="16sp" />
 
                     <TextView
+                        android:id="@+id/txtLoaiND"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="Doanh nghiệp"
+                        android:text=""
                         android:textSize="12sp" />
 
                 </LinearLayout>

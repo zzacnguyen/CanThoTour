@@ -13,8 +13,24 @@ public class ServiceInfo {
     private float soSao, diemDG;
     private int id, idHinh;
     private String tenAU, tenKS, tenTQ, tenPT, tenVC, gioiThieuDV, tenHinh, gioDongCua, gioMoCua,
-            giaCaoNhat, giaThapNhat, diaChi, sdt, website, lhsk, idNguoiDung, idYeuThich;
-    private ArrayList<String> idNguoiDungYT, getIdNguoiDungDG;
+            giaCaoNhat, giaThapNhat, diaChi, sdt, kinhDo, viDo, website, lhsk, idYeuThich, idDanhGia;
+    private boolean idNguoiDungYT, idNguoiDungDG;
+
+    public String getKinhDo() {
+        return kinhDo;
+    }
+
+    public void setKinhDo(String kinhDo) {
+        this.kinhDo = kinhDo;
+    }
+
+    public String getViDo() {
+        return viDo;
+    }
+
+    public void setViDo(String viDo) {
+        this.viDo = viDo;
+    }
 
     public float getSoSao() {
         return soSao;
@@ -28,32 +44,24 @@ public class ServiceInfo {
         return diemDG;
     }
 
-    public String getIdNguoiDung() {
-        return idNguoiDung;
-    }
-
-    public void setIdNguoiDung(String idNguoiDung) {
-        this.idNguoiDung = idNguoiDung;
-    }
-
     public void setDiemDG(float diemDG) {
         this.diemDG = diemDG;
     }
 
-    public ArrayList<String> getIdNguoiDungYT() {
+    public boolean getIdNguoiDungYT() {
         return idNguoiDungYT;
     }
 
-    public void setIdNguoiDungYT(ArrayList<String> idNguoiDungYT) {
+    public void setIdNguoiDungYT(boolean idNguoiDungYT) {
         this.idNguoiDungYT = idNguoiDungYT;
     }
 
-    public ArrayList<String> getIdNguoiDungDG() {
-        return getIdNguoiDungDG;
+    public boolean getIdNguoiDungDG() {
+        return idNguoiDungDG;
     }
 
-    public void setIdNguoiDungDG(ArrayList<String> getIdNguoiDungDG) {
-        this.getIdNguoiDungDG = getIdNguoiDungDG;
+    public void setIdNguoiDungDG(boolean idNguoiDungDG) {
+        this.idNguoiDungDG = idNguoiDungDG;
     }
 
     public String getIdYeuThich() {
@@ -62,6 +70,14 @@ public class ServiceInfo {
 
     public void setIdYeuThich(String idYeuThich) {
         this.idYeuThich = idYeuThich;
+    }
+
+    public String getIdDanhGia() {
+        return idDanhGia;
+    }
+
+    public void setIdDanhGia(String idDanhGia) {
+        this.idDanhGia = idDanhGia;
     }
 
     public int getIdHinh() {
