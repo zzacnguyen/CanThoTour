@@ -35,6 +35,7 @@
                     android:tint="@color/colorWhite" />
 
                 <EditText
+                    android:id="@+id/etTimKiem"
                     android:layout_weight="6"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -45,6 +46,7 @@
                     android:textSize="16sp" />
 
                 <Button
+                    android:id="@+id/btnHuy"
                     android:layout_width="60dp"
                     android:layout_height="40dp"
                     android:text="Hủy"

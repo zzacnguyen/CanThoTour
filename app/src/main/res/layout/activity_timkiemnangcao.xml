@@ -34,6 +34,7 @@
                     android:tint="@color/colorWhite" />
 
                 <EditText
+                    android:id="@+id/etTimKiem"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="2dp"
@@ -44,6 +45,7 @@
                     android:textSize="16sp" />
 
                 <Button
+                    android:id="@+id/btnHuy"
                     android:layout_width="60dp"
                     android:layout_height="40dp"
                     android:background="@null"
@@ -68,45 +70,47 @@
             android:orientation="vertical">
 
             <RadioGroup
+                android:id="@+id/radioGroup1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <RadioButton
+                    android:id="@+id/rdbThamQuan"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Tham quan"/>
 
                 <RadioButton
+                    android:id="@+id/rdbAnUong"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Ăn uống"/>
 
                 <RadioButton
+                    android:id="@+id/rdbKhachSan"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Khách sạn"/>
             </RadioGroup>
 
             <RadioGroup
+                android:id="@+id/radioGroup2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <RadioButton
+                    android:id="@+id/rdbPhuongTien"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Tham quan"/>
+                    android:text="Phương tiện"/>
 
                 <RadioButton
+                    android:id="@+id/rdbVuiChoi"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Ăn uống"/>
-
-                <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Khách sạn"/>
+                    android:text="Vui chơi"/>
             </RadioGroup>
 
         </LinearLayout>

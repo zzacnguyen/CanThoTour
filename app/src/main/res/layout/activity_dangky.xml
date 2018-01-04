@@ -78,7 +78,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
-                android:text="Mật khẩu bao gồm 16 ký tự"/>
+                android:text="Mật khẩu tối đa 20 ký tự"/>
 
             <EditText
                 android:id="@+id/etNhapLaiMk"
@@ -88,16 +88,6 @@
                 android:ems="10"
                 android:hint="Nhập lại mật khẩu"
                 android:inputType="textPassword"
-                android:maxLength="20" />
-
-            <EditText
-                android:id="@+id/etEmail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:ems="10"
-                android:hint="Email"
-                android:inputType="textEmailAddress"
                 android:maxLength="20" />
 
             <EditText
@@ -126,7 +116,7 @@
                 />
 
             <Button
-                android:id="@+id/btnDangKyTk"
+                android:id="@+id/btnDangKy"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
