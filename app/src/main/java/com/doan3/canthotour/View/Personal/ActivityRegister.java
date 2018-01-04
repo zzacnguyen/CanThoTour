@@ -47,7 +47,7 @@ public class ActivityRegister extends AppCompatActivity {
                 } catch (InterruptedException | ExecutionException e) {
                     e.printStackTrace();
                 }
-                if (rs.equals("\\u0110\\u0103ng k\\u00fd th\\u00e0nh c\\u00f4ng")) {
+                if (rs.equals("Đăng ký thành công")) {
                     Intent intent = new Intent(ActivityRegister.this, ActivityLogin.class);
                     intent.putExtra("mess", rs);
                     startActivity(intent);

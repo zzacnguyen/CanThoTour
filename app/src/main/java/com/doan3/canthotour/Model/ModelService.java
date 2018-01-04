@@ -339,6 +339,49 @@ public class ModelService {
         return services;
     }
 
+    public ArrayList<Service> getAdvancedSearchList(String url, int loaiHinh) {
+
+        ArrayList<String> arr, arrayList;
+        ArrayList<Service> services = new ArrayList<>();
+
+        try {
+            arr = JsonHelper.parseJsonNoId(new JSONObject(new Load().
+                    execute(url).get()), Config.JSON_LOAD);
+            JSONArray jsonArray = new JSONArray(arr.get(0));
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+
+                Service service = new Service();
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                if (loaiHinh == 1) {
+                    arrayList = JsonHelper.parseJson(jsonObject, Config.JSON_EAT);
+                } else if (loaiHinh == 2) {
+                    arrayList = JsonHelper.parseJson(jsonObject, Config.JSON_HOTEL);
+                } else if (loaiHinh == 3) {
+                    arrayList = JsonHelper.parseJson(jsonObject, Config.JSON_VEHICLE);
+                } else if (loaiHinh == 4) {
+                    arrayList = JsonHelper.parseJson(jsonObject, Config.JSON_PLACE);
+                } else {
+                    arrayList = JsonHelper.parseJson(jsonObject, Config.JSON_ENTERTAINMENT);
+                }
+
+                //Set hình ảnh
+                service.setHinh(setImage(Config.URL_HOST + "thumbnails/" + arrayList.get(3),
+                        arrayList.get(2), arrayList.get(3)));
+                //Set mã dịch vụ
+                service.setMa(Integer.parseInt(arrayList.get(0)));
+                //Set tên dịch vụ yêu thích
+                service.setTen(arrayList.get(1));
+
+                services.add(service);
+            }
+        } catch (JSONException | InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        return services;
+    }
+
     public ArrayList<Event> getEventList(String url) { //Get danh sách thông báo sự kiện
 
         ArrayList<String> arr, arrayList;

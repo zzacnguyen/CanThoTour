@@ -74,8 +74,7 @@ public class ActivityLogin extends AppCompatActivity {
                             e.printStackTrace();
                         }
                         if (ma == 0) {
-                            finish();
-                            finishActivity(1);
+                            startActivity(new Intent(ActivityLogin.this, ActivityPersonal.class));
                         } else {
                             Intent intent = new Intent(ActivityLogin.this, ActivityServiceInfo.class);
                             intent.putExtra("id", ma);

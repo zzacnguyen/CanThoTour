@@ -7,6 +7,7 @@ public class Config {
     public static final String URL_HOST = "http://192.168.1.15/doan3_canthotour/public/";
     public static final String URL_LOGIN = "login";
     public static final String URL_REGISTER = "dangky";
+    public static final String URL_SEARCH = "timkiem/dichvunangcao/idtype=";
     public static final String URL_SEARCH_ALL = "timkiem/dichvuall/keyword=";
     public static final String URL_GET_ALL_EATS = "anuong";
     public static final String URL_GET_ALL_REVIEWS = "danhgia";

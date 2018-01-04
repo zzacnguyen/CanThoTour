@@ -68,18 +68,10 @@ public class ActivityFavorite extends AppCompatActivity {
                 new LinearLayoutManager(ActivityFavorite.this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
         load(file, idNguoiDung);
-
-        menuBotNavBar();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        File path = new File(Environment.getExternalStorageDirectory() + "/canthotour");
-        File file = new File(path, "dsyeuthich.json");
         if (file.exists()) {
             new PostJson(file).execute(Config.URL_HOST + Config.URL_GET_ALL_FAVORITE);
         }
+        menuBotNavBar();
     }
 
     private void menuBotNavBar() {

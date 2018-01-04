@@ -36,7 +36,7 @@ public class ActivityReviewList extends AppCompatActivity {
         setContentView(R.layout.activity_danhsachdanhgia);
 
         int ma = getIntent().getIntExtra("id", 1);
-        load(Config.URL_HOST + Config.URL_GET_ALL_REVIEWS + "/" + ma, Config.JSON_REVIEW);
+        load(Config.URL_HOST + Config.URL_GET_ALL_REVIEWS + "-dichvu/" + ma, Config.JSON_REVIEW);
         ActivityServiceInfo.menuBotNavBar(this);
     }
 

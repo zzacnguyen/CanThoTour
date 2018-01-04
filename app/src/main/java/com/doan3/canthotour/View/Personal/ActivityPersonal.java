@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.doan3.canthotour.Helper.BottomNavigationViewHelper;
@@ -21,14 +22,16 @@ import com.doan3.canthotour.View.Search.ActivityAdvancedSearch;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.doan3.canthotour.View.Personal.ActivityLogin.avatar;
+import static com.doan3.canthotour.View.Personal.ActivityLogin.idNguoiDung;
 import static com.doan3.canthotour.View.Personal.ActivityLogin.loaiNd;
 import static com.doan3.canthotour.View.Personal.ActivityLogin.tenNd;
 
 public class ActivityPersonal extends AppCompatActivity {
 
-    Button btnThemDiaDiem, btnThemDichVu, btnDangKyDoanhNghiep, btnCaiDat, btnDangNhap, btnTimKiemNangCao;
+    Button btnThemDiaDiem, btnThemDichVu, btnDangKyDoanhNghiep, btnCaiDat, btnDangNhap, btnTimKiemNangCao, btnDangXuat;
     TextView txtTenNd, txtLoaiNd;
     CircleImageView Cavatar;
+    LinearLayout themDiaDiem, themDichVu, DangKyDn, DangXuat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,19 +44,36 @@ public class ActivityPersonal extends AppCompatActivity {
         btnDangKyDoanhNghiep = findViewById(R.id.buttonDangKyDoanhNghiep);
         btnCaiDat = findViewById(R.id.buttonCaiDat);
         btnDangNhap = findViewById(R.id.buttonDangNhap);
+        btnDangXuat = findViewById(R.id.buttonDangXuat);
         txtTenNd = findViewById(R.id.txtTenND);
         txtLoaiNd = findViewById(R.id.txtLoaiND);
         Cavatar = findViewById(R.id.avatar);
+        themDiaDiem = findViewById(R.id.ThemDiaDiem);
+        themDichVu = findViewById(R.id.ThemDichVu);
+        DangKyDn = findViewById(R.id.DangKyDn);
+        DangXuat = findViewById(R.id.DangXuat);
 
         txtTenNd.setText(tenNd);
         txtLoaiNd.setText(loaiNd);
         Cavatar.setImageBitmap(avatar);
 
+        if (idNguoiDung == 0) {
+            themDiaDiem.setVisibility(View.GONE);
+            themDichVu.setVisibility(View.GONE);
+            DangKyDn.setVisibility(View.GONE);
+            DangXuat.setVisibility(View.GONE);
+        } else {
+            themDiaDiem.setVisibility(View.VISIBLE);
+            themDichVu.setVisibility(View.VISIBLE);
+            DangKyDn.setVisibility(View.VISIBLE);
+            DangXuat.setVisibility(View.VISIBLE);
+        }
+
         btnTimKiemNangCao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent iTimKiemNC = new Intent(ActivityPersonal.this, ActivityAdvancedSearch.class);
-                startActivity(iTimKiemNC);
+                startActivityForResult(new Intent(ActivityPersonal.this, ActivityAdvancedSearch.class),
+                        1);
             }
         });
         btnDangNhap.setOnClickListener(new View.OnClickListener() {
@@ -93,7 +113,18 @@ public class ActivityPersonal extends AppCompatActivity {
                 startActivity(iCaiDat);
             }
         });
-
+        btnDangXuat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                idNguoiDung = 0;
+                tenNd = null;
+                loaiNd = null;
+                avatar = null;
+                txtTenNd.setText(tenNd);
+                txtLoaiNd.setText(loaiNd);
+                Cavatar.setImageBitmap(avatar);
+            }
+        });
 
         menuBotNarBar();
     }
