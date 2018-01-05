@@ -31,7 +31,7 @@ public class ActivityPersonal extends AppCompatActivity {
     Button btnThemDiaDiem, btnThemDichVu, btnDangKyDoanhNghiep, btnCaiDat, btnDangNhap, btnTimKiemNangCao, btnDangXuat;
     TextView txtTenNd, txtLoaiNd;
     CircleImageView Cavatar;
-    LinearLayout themDiaDiem, themDichVu, DangKyDn, DangXuat;
+    LinearLayout themDiaDiem, themDichVu, DangKyDn, DangXuat, DangNhap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +52,7 @@ public class ActivityPersonal extends AppCompatActivity {
         themDichVu = findViewById(R.id.ThemDichVu);
         DangKyDn = findViewById(R.id.DangKyDn);
         DangXuat = findViewById(R.id.DangXuat);
+        DangNhap = findViewById(R.id.DangNhap);
 
         txtTenNd.setText(tenNd);
         txtLoaiNd.setText(loaiNd);
@@ -67,6 +68,7 @@ public class ActivityPersonal extends AppCompatActivity {
             themDichVu.setVisibility(View.VISIBLE);
             DangKyDn.setVisibility(View.VISIBLE);
             DangXuat.setVisibility(View.VISIBLE);
+            DangNhap.setVisibility(View.GONE);
         }
 
         btnTimKiemNangCao.setOnClickListener(new View.OnClickListener() {
