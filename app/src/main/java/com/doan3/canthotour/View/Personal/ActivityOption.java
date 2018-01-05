@@ -42,7 +42,7 @@ public class ActivityOption extends AppCompatActivity {
         final File file = new File(path, "khoangcach.json");
         try {
             txtKhoangCachLc.setText(new JSONArray(JsonHelper.readJson(file)).getJSONObject(0).
-                    getString("khoangcach"));
+                    getString("khoangcach")+"m");
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -66,7 +66,7 @@ public class ActivityOption extends AppCompatActivity {
                         khoangcach = etKhoangCach.getText().toString().trim();
                         try {
                             file.delete();
-                            JsonHelper.writeJson(file, new JSONObject("{\"khoangcach\":\"" + khoangcach + "m\"}"));
+                            JsonHelper.writeJson(file, new JSONObject("{\"khoangcach\":\"" + khoangcach + "\"}"));
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

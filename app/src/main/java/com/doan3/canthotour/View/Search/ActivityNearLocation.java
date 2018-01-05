@@ -2,6 +2,7 @@ package com.doan3.canthotour.View.Search;
 
 
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,11 +12,16 @@ import android.widget.TextView;
 
 import com.doan3.canthotour.Adapter.NearLocationAdapter;
 import com.doan3.canthotour.Config;
+import com.doan3.canthotour.Helper.JsonHelper;
 import com.doan3.canthotour.Model.ModelService;
 import com.doan3.canthotour.Model.ObjectClass.NearLocation;
 import com.doan3.canthotour.R;
 import com.doan3.canthotour.View.Main.ActivityServiceInfo;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.io.File;
 import java.util.ArrayList;
 
 public class ActivityNearLocation extends AppCompatActivity {
@@ -42,9 +48,25 @@ public class ActivityNearLocation extends AppCompatActivity {
 
     private void load() {
 
+        File path = new File(Environment.getExternalStorageDirectory() + "/canthotour");
+        if (!path.exists()) {
+            path.mkdirs();
+        }
+        final File file = new File(path, "khoangcach.json");
+        String radius = null;
+        if (file.exists()) {
+            try {
+                radius = new JSONArray(JsonHelper.readJson(file)).getJSONObject(0).
+                        getString("khoangcach");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        } else {
+            radius = "500";
+        }
         ArrayList<NearLocation> favoriteList = new ModelService().getNearLocationList(Config.URL_HOST +
                 "timkiem/dichvulancan/location=" + viDo.trim() + "," + kinhDo.trim() + "&type=" +
-                loaiHinh + "&radius=500", loaiHinh, this);
+                loaiHinh + "&radius=" + radius, loaiHinh, this);
         RecyclerView recyclerView = findViewById(R.id.RecyclerView_DiaDiemLanCan);
         recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
         LinearLayoutManager linearLayoutManager =
