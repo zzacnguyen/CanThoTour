@@ -125,6 +125,7 @@ public class ActivityPersonal extends AppCompatActivity {
                 txtTenNd.setText(tenNd);
                 txtLoaiNd.setText(loaiNd);
                 Cavatar.setImageBitmap(avatar);
+                startActivity(new Intent(ActivityPersonal.this, ActivityPersonal.class));
             }
         });
 

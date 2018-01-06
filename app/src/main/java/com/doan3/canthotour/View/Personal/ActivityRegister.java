@@ -7,11 +7,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.doan3.canthotour.Config;
 import com.doan3.canthotour.R;
 import com.doan3.canthotour.View.Main.ActivityServiceInfo;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.concurrent.ExecutionException;
 
@@ -37,24 +39,35 @@ public class ActivityRegister extends AppCompatActivity {
         btnDangKy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String rs = null;
+                JSONObject json;
+                String stt = null, error = null;
+                if (etTaiKhoan.getText().toString().length() < 5 || etTaiKhoan.getText().toString().length() > 25) {
+                    etTaiKhoan.setError("Tài khoản có độ dài từ 5-25 ký tự");
+                } else if (etMatKhau.getText().toString().length() < 6 || etMatKhau.getText().toString().length() > 26) {
+                    etMatKhau.setError("Mật khẩu phải có độ dài từ 6-20 ký tự");
+                } else if (!etMatKhau.getText().toString().equals(etNhapLaiMk.getText().toString())) {
+                    etNhapLaiMk.setError("Mật khẩu vừa nhập không khớp");
+                }
                 try {
-                    rs = new ActivityLogin.Post().execute(Config.URL_HOST + Config.URL_REGISTER,
+                    json = new JSONObject(new ActivityLogin.Post().execute(Config.URL_HOST + Config.URL_REGISTER,
                             "{\"taikhoan\":\"" + etTaiKhoan.getText().toString() +
                                     "\",\"password\":\"" + etMatKhau.getText().toString() +
                                     "\",\"nd_quocgia\":\"" + etQuocGia.getText().toString() +
-                                    "\",\"nd_ngonngu\":\"" + etNgonNgu.getText().toString() + "\"}").get().toString();
-                } catch (InterruptedException | ExecutionException e) {
+                                    "\",\"nd_ngonngu\":\"" + etNgonNgu.getText().toString() + "\"}").get());
+                    stt = json.getString("status");
+                    error = json.getString("error");
+                } catch (InterruptedException | ExecutionException | JSONException e) {
                     e.printStackTrace();
                 }
-                if (rs.equals("Đăng ký thành công")) {
+                if (stt != null && stt.equals("OK")) {
                     Intent intent = new Intent(ActivityRegister.this, ActivityLogin.class);
-                    intent.putExtra("mess", rs);
+                    intent.putExtra("mess", "Đăng ký thành công");
                     startActivity(intent);
                 } else {
-                    Toast.makeText(ActivityRegister.this, rs, Toast.LENGTH_SHORT).show();
+                    if (error != null && error.equals("3")) {
+                        etTaiKhoan.setError("Tên tài khoản đã tồn tại");
+                    }
                 }
-
             }
         });
 

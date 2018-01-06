@@ -41,89 +41,161 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:background="@color/colorWhite"
             android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Cần điền tất cả các mục"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/etTaiKhoan"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="20">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="13"
+                        android:gravity="fill"
+                        android:text="Tài khoản *" />
+
+                    <EditText
+                        android:id="@+id/etTaiKhoan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:layout_weight="7"
+                        android:ems="10"
+                        android:hint="Nhập tài khoản"
+                        android:singleLine="true" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="20">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="13"
+                        android:gravity="fill"
+                        android:text="Mật khẩu *" />
+
+                    <EditText
+                        android:id="@+id/etMatKhau"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:layout_weight="7"
+                        android:ems="10"
+                        android:hint="Nhập mật khẩu"
+                        android:inputType="textPassword"
+                        android:singleLine="true" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="20">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="13"
+                        android:gravity="fill"
+                        android:text="Nhập lại mật khẩu *" />
+
+                    <EditText
+                        android:id="@+id/etNhapLaiMk"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:layout_weight="7"
+                        android:ems="10"
+                        android:hint="Nhập lại mật khẩu"
+                        android:inputType="textPassword"
+                        android:singleLine="true" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="20">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="13"
+                        android:gravity="fill"
+                        android:text="Quốc gia *" />
+
+                    <EditText
+                        android:id="@+id/etQuocGia"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:layout_weight="7"
+                        android:ems="10"
+                        android:hint="Nhập quốc gia"
+                        android:singleLine="true" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="20">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="13"
+                        android:gravity="fill"
+                        android:text="Ngôn ngữ *" />
+
+                    <EditText
+                        android:id="@+id/etNgonNgu"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:layout_weight="7"
+                        android:ems="10"
+                        android:hint="Nhập ngôn ngữ"
+                        android:singleLine="true" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:ems="10"
-                android:hint="Tài khoản"
-                android:maxLength="20" />
+                android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/etMatKhau"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:ems="10"
-                android:hint="Mật khẩu"
-                android:inputType="textPassword"
-                android:maxLength="20" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="* thông tin bắt buộc" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:text="Mật khẩu tối đa 20 ký tự"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Bằng việc đăng ký tài khoản, bạn đã đồng ý các điều khoản của ứng dụng cần thơ tour" />
 
-            <EditText
-                android:id="@+id/etNhapLaiMk"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:ems="10"
-                android:hint="Nhập lại mật khẩu"
-                android:inputType="textPassword"
-                android:maxLength="20" />
-
-            <EditText
-                android:id="@+id/etQuocGia"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:ems="10"
-                android:hint="Quốc gia"
-                android:maxLength="20" />
-
-            <EditText
-                android:id="@+id/etNgonNgu"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:ems="10"
-                android:hint="Ngôn ngữ"
-                android:maxLength="20" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Chúng tôi đã hiểu rõ các điều khoản bảo mật của CanThoTour."
-                android:layout_margin="10dp"
-                />
-
-            <Button
-                android:id="@+id/btnDangKy"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:background="@color/tbThamQuan"
-                android:text="Đăng ký"
-                android:textColor="@color/colorWhite"
-                android:textSize="20sp" />
+                <Button
+                    android:id="@+id/btnDangKy"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:background="@color/tbThamQuan"
+                    android:text="Đăng ký"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="20sp" />
+            </LinearLayout>
         </LinearLayout>
 
 

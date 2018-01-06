@@ -18,7 +18,6 @@ import com.doan3.canthotour.Model.ModelService;
 import com.doan3.canthotour.R;
 import com.doan3.canthotour.View.Main.ActivityServiceInfo;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -49,7 +48,7 @@ public class ActivityLogin extends AppCompatActivity {
         ma = getIntent().getIntExtra("id", 0);
         String mess = getIntent().getStringExtra("mess");
         if (mess != null) {
-            Toast.makeText(this, "Đăng ký thành công", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, mess, Toast.LENGTH_SHORT).show();
         }
 
         btnDangNhap.setOnClickListener(new View.OnClickListener() {
@@ -59,15 +58,17 @@ public class ActivityLogin extends AppCompatActivity {
                     String rs = new Post().execute(Config.URL_HOST + Config.URL_LOGIN,
                             "{\"taikhoan\":\"" + etTaiKhoan.getText().toString() +
                                     "\",\"password\":\"" + etMatKhau.getText().toString() + "\"}").get();
-                    if (rs.startsWith("\"")) {
+                    JSONObject json = new JSONObject(rs);
+                    if (json.getString("status").toString().equals("ERROR")) {
                         Toast.makeText(ActivityLogin.this, "tài khoản hoặc mật khẩu không đúng",
                                 Toast.LENGTH_SHORT).show();
                     } else {
-                        ArrayList<String> arrayUser = JsonHelper.parseJson(new JSONArray(rs), Config.JSON_USER);
+                        ArrayList<String> arrayUser =
+                                JsonHelper.parseJson(new JSONObject(json.getString("result")), Config.JSON_USER);
 
                         idNguoiDung = Integer.parseInt(arrayUser.get(0));
                         tenNd = arrayUser.get(1);
-                        loaiNd = arrayUser.get(2);
+                        loaiNd = Integer.parseInt(arrayUser.get(2)) == 1 ? "cá nhân" : "doanh nghiệp";
                         try {
                             avatar = new ModelService.GetImage().execute(arrayUser.get(3)).get();
                         } catch (InterruptedException | ExecutionException e) {
