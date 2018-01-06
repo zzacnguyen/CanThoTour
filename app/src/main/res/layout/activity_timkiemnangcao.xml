@@ -67,7 +67,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:background="@drawable/white_grey_border_bottom">
 
             <RadioGroup
                 android:id="@+id/radioGroup1"
@@ -79,19 +80,22 @@
                     android:id="@+id/rdbThamQuan"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Tham quan"/>
+                    android:layout_weight="1"
+                    android:text="Tham quan" />
 
                 <RadioButton
                     android:id="@+id/rdbAnUong"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Ăn uống"/>
+                    android:layout_weight="1"
+                    android:text="Ăn uống" />
 
                 <RadioButton
                     android:id="@+id/rdbKhachSan"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Khách sạn"/>
+                    android:layout_weight="1"
+                    android:text="Khách sạn" />
             </RadioGroup>
 
             <RadioGroup
@@ -104,13 +108,16 @@
                     android:id="@+id/rdbPhuongTien"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Phương tiện"/>
+                    android:layout_weight="1"
+                    android:text="Phương tiện" />
 
                 <RadioButton
                     android:id="@+id/rdbVuiChoi"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Vui chơi"/>
+                    android:layout_weight="1"
+                    android:text="Vui chơi" />
+
             </RadioGroup>
 
         </LinearLayout>

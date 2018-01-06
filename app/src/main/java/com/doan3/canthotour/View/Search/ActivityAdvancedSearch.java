@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -52,6 +53,11 @@ public class ActivityAdvancedSearch extends AppCompatActivity {
         rdbPhuongTien = findViewById(R.id.rdbPhuongTien);
         rdbVuiChoi = findViewById(R.id.rdbVuiChoi);
         btnHuy = findViewById(R.id.btnHuy);
+
+        radioGroup1.clearCheck();
+        radioGroup2.clearCheck();
+        radioGroup1.setOnCheckedChangeListener(listener1);
+        radioGroup2.setOnCheckedChangeListener(listener2);
 
         etTimKiem.setOnKeyListener(new View.OnKeyListener() {
             @Override
@@ -149,4 +155,30 @@ public class ActivityAdvancedSearch extends AppCompatActivity {
             }
         });
     }
+
+    private RadioGroup.OnCheckedChangeListener listener1 = new RadioGroup.OnCheckedChangeListener() {
+
+        @Override
+        public void onCheckedChanged(RadioGroup group, int checkedId) {
+            if (checkedId != -1) {
+                radioGroup2.setOnCheckedChangeListener(null); // remove the listener before clearing so we don't throw that stackoverflow exception(like Vladimir Volodin pointed out)
+                radioGroup2.clearCheck(); // clear the second RadioGroup!
+                radioGroup2.setOnCheckedChangeListener(listener2); //reset the listener
+                Log.e("XXX2", "do the work");
+            }
+        }
+    };
+
+    private RadioGroup.OnCheckedChangeListener listener2 = new RadioGroup.OnCheckedChangeListener() {
+
+        @Override
+        public void onCheckedChanged(RadioGroup group, int checkedId) {
+            if (checkedId != -1) {
+                radioGroup1.setOnCheckedChangeListener(null);
+                radioGroup1.clearCheck();
+                radioGroup1.setOnCheckedChangeListener(listener1);
+                Log.e("XXX2", "do the work");
+            }
+        }
+    };
 }
