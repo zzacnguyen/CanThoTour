@@ -54,36 +54,43 @@ public class ActivityLogin extends AppCompatActivity {
         btnDangNhap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                try {
-                    String rs = new Post().execute(Config.URL_HOST + Config.URL_LOGIN,
-                            "{\"taikhoan\":\"" + etTaiKhoan.getText().toString() +
-                                    "\",\"password\":\"" + etMatKhau.getText().toString() + "\"}").get();
-                    JSONObject json = new JSONObject(rs);
-                    if (json.getString("status").toString().equals("ERROR")) {
-                        Toast.makeText(ActivityLogin.this, "tài khoản hoặc mật khẩu không đúng",
-                                Toast.LENGTH_SHORT).show();
-                    } else {
-                        ArrayList<String> arrayUser =
-                                JsonHelper.parseJson(new JSONObject(json.getString("result")), Config.JSON_USER);
 
-                        idNguoiDung = Integer.parseInt(arrayUser.get(0));
-                        tenNd = arrayUser.get(1);
-                        loaiNd = Integer.parseInt(arrayUser.get(2)) == 1 ? "cá nhân" : "doanh nghiệp";
-                        try {
-                            avatar = new ModelService.GetImage().execute(arrayUser.get(3)).get();
-                        } catch (InterruptedException | ExecutionException e) {
-                            e.printStackTrace();
-                        }
-                        if (ma == 0) {
-                            startActivity(new Intent(ActivityLogin.this, ActivityPersonal.class));
+                if (etTaiKhoan.getText().toString().equals("")) {
+                    etTaiKhoan.setError("Tài khoản không được để trống");
+                } else if (etMatKhau.getText().toString().equals("")) {
+                    etTaiKhoan.setError("Tài khoản không được để trống");
+                } else {
+                    try {
+                        String rs = new Post().execute(Config.URL_HOST + Config.URL_LOGIN,
+                                "{\"taikhoan\":\"" + etTaiKhoan.getText().toString() +
+                                        "\",\"password\":\"" + etMatKhau.getText().toString() + "\"}").get();
+                        JSONObject json = new JSONObject(rs);
+                        if (json.getString("status").toString().equals("ERROR")) {
+                            Toast.makeText(ActivityLogin.this, "tài khoản hoặc mật khẩu không đúng",
+                                    Toast.LENGTH_SHORT).show();
                         } else {
-                            Intent intent = new Intent(ActivityLogin.this, ActivityServiceInfo.class);
-                            intent.putExtra("id", ma);
-                            startActivity(intent);
+                            ArrayList<String> arrayUser =
+                                    JsonHelper.parseJson(new JSONObject(json.getString("result")), Config.JSON_USER);
+
+                            idNguoiDung = Integer.parseInt(arrayUser.get(0));
+                            tenNd = arrayUser.get(1);
+                            loaiNd = Integer.parseInt(arrayUser.get(2)) == 1 ? "cá nhân" : "doanh nghiệp";
+                            try {
+                                avatar = new ModelService.GetImage().execute(arrayUser.get(3)).get();
+                            } catch (InterruptedException | ExecutionException e) {
+                                e.printStackTrace();
+                            }
+                            if (ma == 0) {
+                                startActivity(new Intent(ActivityLogin.this, ActivityPersonal.class));
+                            } else {
+                                Intent intent = new Intent(ActivityLogin.this, ActivityServiceInfo.class);
+                                intent.putExtra("id", ma);
+                                startActivity(intent);
+                            }
                         }
+                    } catch (JSONException | ExecutionException | InterruptedException e) {
+                        e.printStackTrace();
                     }
-                } catch (JSONException | ExecutionException | InterruptedException e) {
-                    e.printStackTrace();
                 }
             }
         });

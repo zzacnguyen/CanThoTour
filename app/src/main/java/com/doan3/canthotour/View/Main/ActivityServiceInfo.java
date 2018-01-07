@@ -95,14 +95,17 @@ public class ActivityServiceInfo extends AppCompatActivity {
         btnXemDanhGia = findViewById(R.id.btnXemDanhGia);
 
         ma = getIntent().getIntExtra("id", 1);
-
+        String mess = getIntent().getStringExtra("mess");
+        if (mess != null) {
+            Toast.makeText(this, mess, Toast.LENGTH_SHORT).show();
+        }
         // region button luu
         btnLuu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (idNguoiDung == 0) {
                     Intent intent = new Intent(ActivityServiceInfo.this, ActivityLogin.class);
-                    intent.putExtra("id",ma);
+                    intent.putExtra("id", ma);
                     startActivity(intent);
                 } else {
                     File path = new File(Environment.getExternalStorageDirectory() + "/canthotour");
@@ -181,7 +184,7 @@ public class ActivityServiceInfo extends AppCompatActivity {
             public void onClick(View view) {
                 if (idNguoiDung == 0) {
                     Intent intent = new Intent(ActivityServiceInfo.this, ActivityLogin.class);
-                    intent.putExtra("id",ma);
+                    intent.putExtra("id", ma);
                     startActivity(intent);
                 } else {
                     Intent intent = new Intent(ActivityServiceInfo.this, ActivityReview.class);

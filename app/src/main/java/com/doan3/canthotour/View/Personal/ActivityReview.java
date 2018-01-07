@@ -78,6 +78,7 @@ public class ActivityReview extends AppCompatActivity {
 
                         Intent intent = new Intent(ActivityReview.this, ActivityServiceInfo.class);
                         intent.putExtra("id", id);
+                        intent.putExtra("mess", "Đánh giá thành công");
                         startActivity(intent);
                     } else {
                         new Put().execute(Config.URL_HOST + Config.URL_GET_ALL_REVIEWS + "/" + idDanhGia,
