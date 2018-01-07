@@ -212,8 +212,7 @@ public class ActivityServiceInfo extends AppCompatActivity {
     public void load(final Activity activity, String url) {
         TextView txtTenDv = activity.findViewById(R.id.textViewTenDv);
         TextView txtGioiThieu = activity.findViewById(R.id.textViewGioiThieuDv);
-        TextView txtGiaThap = activity.findViewById(R.id.textViewGiaThap);
-        TextView txtGiaCao = activity.findViewById(R.id.textViewGiaCao);
+        TextView txtGia = activity.findViewById(R.id.textViewGia);
         TextView txtGioMo = activity.findViewById(R.id.textViewGioMc);
         TextView txtGioDong = activity.findViewById(R.id.textViewGioDong);
         TextView txtDiaChi = activity.findViewById(R.id.textViewDiaChiDv);
@@ -312,8 +311,11 @@ public class ActivityServiceInfo extends AppCompatActivity {
         }
 
         txtGioiThieu.setText(serviceInfo.getGioiThieuDV());
-        txtGiaThap.setText(serviceInfo.getGiaThapNhat() + "đ");
-        txtGiaCao.setText(serviceInfo.getGiaCaoNhat() + "đ");
+        if (serviceInfo.getGiaThapNhat().equals("0") && serviceInfo.getGiaCaoNhat().equals("0")) {
+            txtGia.setText("Đang cập nhật");
+        } else {
+            txtGia.setText("Từ " + serviceInfo.getGiaThapNhat() + "đ" + " đến " + serviceInfo.getGiaCaoNhat() + "đ");
+        }
         txtGioMo.setText(serviceInfo.getGioMoCua());
         txtGioDong.setText(serviceInfo.getGioDongCua());
         txtDiaChi.setText(serviceInfo.getDiaChi());

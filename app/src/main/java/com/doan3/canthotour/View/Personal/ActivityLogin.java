@@ -98,7 +98,9 @@ public class ActivityLogin extends AppCompatActivity {
         btnDangKy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(ActivityLogin.this, ActivityRegister.class));
+                Intent intent = new Intent(ActivityLogin.this, ActivityRegister.class);
+                intent.putExtra("id", ma);
+                startActivity(intent);
             }
         });
 

@@ -24,6 +24,7 @@ import java.util.concurrent.ExecutionException;
 public class ActivityRegister extends AppCompatActivity {
     EditText etTaiKhoan, etMatKhau, etNhapLaiMk, etQuocGia, etNgonNgu;
     Button btnDangKy;
+    int ma;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -36,6 +37,7 @@ public class ActivityRegister extends AppCompatActivity {
         etNgonNgu = findViewById(R.id.etNgonNgu);
         btnDangKy = findViewById(R.id.btnDangKy);
 
+        ma = getIntent().getIntExtra("id", 0);
         btnDangKy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -47,6 +49,8 @@ public class ActivityRegister extends AppCompatActivity {
                     etMatKhau.setError("Mật khẩu phải có độ dài từ 6-20 ký tự");
                 } else if (!etMatKhau.getText().toString().equals(etNhapLaiMk.getText().toString())) {
                     etNhapLaiMk.setError("Mật khẩu vừa nhập không khớp");
+                } else if (etTaiKhoan.getText().toString().contains(" ")) {
+                    etTaiKhoan.setError("Tài khoản không được chứa khoảng trắng");
                 }
                 try {
                     json = new JSONObject(new ActivityLogin.Post().execute(Config.URL_HOST + Config.URL_REGISTER,
@@ -61,6 +65,7 @@ public class ActivityRegister extends AppCompatActivity {
                 }
                 if (stt != null && stt.equals("OK")) {
                     Intent intent = new Intent(ActivityRegister.this, ActivityLogin.class);
+                    intent.putExtra("id", ma);
                     intent.putExtra("mess", "Đăng ký thành công");
                     startActivity(intent);
                 } else {
