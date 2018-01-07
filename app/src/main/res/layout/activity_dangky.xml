@@ -131,7 +131,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="13"
                         android:gravity="fill"
-                        android:text="Quốc gia *" />
+                        android:text="Quốc gia" />
 
                     <EditText
                         android:id="@+id/etQuocGia"
@@ -154,7 +154,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="13"
                         android:gravity="fill"
-                        android:text="Ngôn ngữ *" />
+                        android:text="Ngôn ngữ" />
 
                     <EditText
                         android:id="@+id/etNgonNgu"

@@ -179,7 +179,8 @@
                     android:drawableTop="@drawable/ic_share_blue_36dp"
                     android:text="CHIA SẺ"
                     android:textColor="@color/bgToolbar"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    android:visibility="gone"/>
 
             </LinearLayout>
 
