@@ -73,7 +73,7 @@ public class ActivityService extends AppCompatActivity {
 
         load(url, formatJson);
 
-        ActivityServiceInfo.menuBotNavBar(this);
+        ActivityServiceInfo.menuBotNavBar(this,0);
     }
 
     private void load(String url, final ArrayList<String> formatJson) {

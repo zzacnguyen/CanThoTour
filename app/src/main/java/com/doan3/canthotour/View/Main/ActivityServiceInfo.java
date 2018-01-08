@@ -53,12 +53,12 @@ public class ActivityServiceInfo extends AppCompatActivity {
     String idYeuThich, kinhDo, viDo;
     JSONObject saveJson;
 
-    public static void menuBotNavBar(final Activity activity) {
+    public static void menuBotNavBar(final Activity activity,int i) {
         BottomNavigationView bottomNavigationView = activity.findViewById(R.id.bottomNavView_Bar);
         BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
 
         Menu menu = bottomNavigationView.getMenu();
-        MenuItem menuItem = menu.getItem(0);
+        MenuItem menuItem = menu.getItem(i);
         menuItem.setChecked(true);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -206,7 +206,7 @@ public class ActivityServiceInfo extends AppCompatActivity {
 
         load(this, Config.URL_HOST + Config.URL_GET_ALL_SERVICES + "/" + ma);
 
-        menuBotNavBar(this);
+        menuBotNavBar(this,0);
     }
 
     public void load(final Activity activity, String url) {

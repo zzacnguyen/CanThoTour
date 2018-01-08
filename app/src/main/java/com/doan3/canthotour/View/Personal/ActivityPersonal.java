@@ -133,7 +133,7 @@ public class ActivityPersonal extends AppCompatActivity {
     }
 
     private void menuBotNarBar() {
-        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavView_Bar);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavView_Bar);
         BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
 
         Menu menu = bottomNavigationView.getMenu();
@@ -154,7 +154,6 @@ public class ActivityPersonal extends AppCompatActivity {
                         startActivity(new Intent(ActivityPersonal.this, ActivityNotify.class));
                         break;
                     case R.id.ic_canhan:
-
                         break;
                 }
                 return false;

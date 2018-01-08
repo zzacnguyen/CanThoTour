@@ -6,11 +6,11 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.InputType;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.doan3.canthotour.Adapter.ListOfServiceAdapter;
 import com.doan3.canthotour.Config;
@@ -48,8 +48,12 @@ public class ActivitySearch extends AppCompatActivity {
             public boolean onKey(View view, int i, KeyEvent keyEvent) {
                 if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) &&
                         (i == KeyEvent.KEYCODE_ENTER)) {
-                    load(Config.URL_HOST + Config.URL_SEARCH_ALL +
-                            etTimKiem.getText().toString().replaceAll(" ", "\\+"));
+                    if (!etTimKiem.getText().toString().equals("")) {
+                        load(Config.URL_HOST + Config.URL_SEARCH_ALL +
+                                etTimKiem.getText().toString().replaceAll(" ", "\\+"));
+                    } else {
+                        Toast.makeText(ActivitySearch.this, "Chưa nhập", Toast.LENGTH_SHORT).show();
+                    }
                     return true;
                 }
                 return false;

@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.doan3.canthotour.Adapter.ListOfServiceAdapter;
 import com.doan3.canthotour.Config;
@@ -76,8 +77,11 @@ public class ActivityAdvancedSearch extends AppCompatActivity {
                     } else {
                         loaiHinh = 5;
                     }
+                    if (!etTimKiem.getText().toString().equals("")){
                     load(Config.URL_HOST + Config.URL_SEARCH + loaiHinh + "&keyword=" +
-                            etTimKiem.getText().toString().replaceAll(" ", "\\+"), loaiHinh);
+                            etTimKiem.getText().toString().replaceAll(" ", "\\+"), loaiHinh);} else {
+                        Toast.makeText(ActivityAdvancedSearch.this, "Chưa nhập", Toast.LENGTH_SHORT).show();
+                    }
                     return true;
                 }
                 return false;

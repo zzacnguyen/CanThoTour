@@ -101,7 +101,7 @@ public class ActivityReview extends AppCompatActivity {
                 finishActivity(1);
             }
         });
-        ActivityServiceInfo.menuBotNavBar(this);
+        ActivityServiceInfo.menuBotNavBar(this,0);
     }
 
     private class Put extends AsyncTask<String, Void, String> {

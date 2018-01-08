@@ -87,6 +87,6 @@ public class ActivityOption extends AppCompatActivity {
             }
         });
 
-        ActivityServiceInfo.menuBotNavBar(this);
+        ActivityServiceInfo.menuBotNavBar(this,3);
     }
 }

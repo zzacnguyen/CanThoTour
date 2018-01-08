@@ -141,6 +141,7 @@
                         android:layout_weight="7"
                         android:ems="10"
                         android:hint="Nhập quốc gia"
+                        android:maxLength="100"
                         android:singleLine="true" />
                 </LinearLayout>
 
@@ -164,6 +165,7 @@
                         android:layout_weight="7"
                         android:ems="10"
                         android:hint="Nhập ngôn ngữ"
+                        android:maxLength="100"
                         android:singleLine="true" />
                 </LinearLayout>
 

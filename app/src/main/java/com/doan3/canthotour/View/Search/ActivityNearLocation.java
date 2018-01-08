@@ -43,7 +43,7 @@ public class ActivityNearLocation extends AppCompatActivity {
         loaiHinh = getIntent().getIntExtra("loaihinh", 1);
         load();
 
-        ActivityServiceInfo.menuBotNavBar(this);
+        ActivityServiceInfo.menuBotNavBar(this,0);
     }
 
     private void load() {

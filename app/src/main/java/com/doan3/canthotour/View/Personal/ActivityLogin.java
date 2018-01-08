@@ -104,7 +104,7 @@ public class ActivityLogin extends AppCompatActivity {
             }
         });
 
-        ActivityServiceInfo.menuBotNavBar(this);
+        ActivityServiceInfo.menuBotNavBar(this,3);
     }
 
     public static class Post extends AsyncTask<String, Void, String> {

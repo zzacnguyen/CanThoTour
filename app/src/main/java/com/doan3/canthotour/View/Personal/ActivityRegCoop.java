@@ -23,7 +23,7 @@ public class ActivityRegCoop extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dangkydoanhnghiep);
 
-        ActivityServiceInfo.menuBotNavBar(this);
+        ActivityServiceInfo.menuBotNavBar(this,3);
     }
 
 }

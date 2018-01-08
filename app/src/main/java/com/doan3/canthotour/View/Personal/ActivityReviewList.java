@@ -37,7 +37,7 @@ public class ActivityReviewList extends AppCompatActivity {
 
         int ma = getIntent().getIntExtra("id", 1);
         load(Config.URL_HOST + Config.URL_GET_ALL_REVIEWS + "-dichvu/" + ma, Config.JSON_REVIEW);
-        ActivityServiceInfo.menuBotNavBar(this);
+        ActivityServiceInfo.menuBotNavBar(this,0);
     }
 
     private void load(String url, final ArrayList<String> formatJson) {
