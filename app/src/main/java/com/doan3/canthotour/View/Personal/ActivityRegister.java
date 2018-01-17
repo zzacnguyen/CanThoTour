@@ -22,42 +22,42 @@ import java.util.concurrent.ExecutionException;
  */
 
 public class ActivityRegister extends AppCompatActivity {
-    EditText etTaiKhoan, etMatKhau, etNhapLaiMk, etQuocGia, etNgonNgu;
-    Button btnDangKy;
-    int ma;
+    EditText etUserName, etPassword, etConfirmPassword, etCountry, etLanguage;
+    Button btnReg;
+    int id;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        etTaiKhoan = findViewById(R.id.etUserName);
-        etMatKhau = findViewById(R.id.etPassword);
-        etNhapLaiMk = findViewById(R.id.etPasswordConfirm);
-        etQuocGia = findViewById(R.id.etCountry);
-        etNgonNgu = findViewById(R.id.etLanguege);
-        btnDangKy = findViewById(R.id.btnRegister);
+        etUserName = findViewById(R.id.etUserName);
+        etPassword = findViewById(R.id.etPassword);
+        etConfirmPassword = findViewById(R.id.etPasswordConfirm);
+        etCountry = findViewById(R.id.etCountry);
+        etLanguage = findViewById(R.id.etLanguege);
+        btnReg = findViewById(R.id.btnRegister);
 
-        ma = getIntent().getIntExtra("id", 0);
-        btnDangKy.setOnClickListener(new View.OnClickListener() {
+        id = getIntent().getIntExtra("id", 0);
+        btnReg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 JSONObject json;
                 String stt = null, error = null;
-                if (etTaiKhoan.getText().toString().length() < 5 || etTaiKhoan.getText().toString().length() > 25) {
-                    etTaiKhoan.setError("Tài khoản có độ dài từ 5-25 ký tự");
-                } else if (etMatKhau.getText().toString().length() < 6 || etMatKhau.getText().toString().length() > 26) {
-                    etMatKhau.setError("Mật khẩu phải có độ dài từ 6-20 ký tự");
-                } else if (!etMatKhau.getText().toString().equals(etNhapLaiMk.getText().toString())) {
-                    etNhapLaiMk.setError("Mật khẩu vừa nhập không khớp");
-                } else if (etTaiKhoan.getText().toString().contains(" ")) {
-                    etTaiKhoan.setError("Tài khoản không được chứa khoảng trắng");
+                if (etUserName.getText().toString().length() < 5 || etUserName.getText().toString().length() > 25) {
+                    etUserName.setError("Tài khoản có độ dài từ 5-25 ký tự");
+                } else if (etPassword.getText().toString().length() < 6 || etPassword.getText().toString().length() > 26) {
+                    etPassword.setError("Mật khẩu phải có độ dài từ 6-20 ký tự");
+                } else if (!etPassword.getText().toString().equals(etConfirmPassword.getText().toString())) {
+                    etConfirmPassword.setError("Mật khẩu vừa nhập không khớp");
+                } else if (etUserName.getText().toString().contains(" ")) {
+                    etUserName.setError("Tài khoản không được chứa khoảng trắng");
                 }
                 try {
                     json = new JSONObject(new ActivityLogin.Post().execute(Config.URL_HOST + Config.URL_REGISTER,
-                            "{\"taikhoan\":\"" + etTaiKhoan.getText().toString() +
-                                    "\",\"password\":\"" + etMatKhau.getText().toString() +
-                                    "\",\"nd_quocgia\":\"" + etQuocGia.getText().toString() +
-                                    "\",\"nd_ngonngu\":\"" + etNgonNgu.getText().toString() + "\"}").get());
+                            "{\"taikhoan\":\"" + etUserName.getText().toString() +
+                                    "\",\"password\":\"" + etPassword.getText().toString() +
+                                    "\",\"nd_quocgia\":\"" + etCountry.getText().toString() +
+                                    "\",\"nd_ngonngu\":\"" + etLanguage.getText().toString() + "\"}").get());
                     stt = json.getString("status");
                     error = json.getString("error");
                 } catch (InterruptedException | ExecutionException | JSONException e) {
@@ -65,12 +65,12 @@ public class ActivityRegister extends AppCompatActivity {
                 }
                 if (stt != null && stt.equals("OK")) {
                     Intent intent = new Intent(ActivityRegister.this, ActivityLogin.class);
-                    intent.putExtra("id", ma);
+                    intent.putExtra("id", id);
                     intent.putExtra("mess", "Đăng ký thành công");
                     startActivity(intent);
                 } else {
                     if (error != null && error.equals("3")) {
-                        etTaiKhoan.setError("Tên tài khoản đã tồn tại");
+                        etUserName.setError("Tên tài khoản đã tồn tại");
                     }
                 }
             }

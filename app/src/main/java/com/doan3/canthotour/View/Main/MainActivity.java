@@ -32,9 +32,9 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     Toolbar toolbar;
-    Button btnDiaDanh, btnAnUong, btnKhachSan, btnVuiChoi, btnPhuongTien;
-    FloatingActionButton fab, fabThemDiaDiem;
-    boolean doanhnghiep = false;
+    Button btnPlace, btnEat, btnHoTel, btnEntertain, btnVehicle;
+    FloatingActionButton fab, fabAddPlace;
+    boolean enterprise = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,17 +43,17 @@ public class MainActivity extends AppCompatActivity {
 
         toolbar = findViewById(R.id.toolbar);
         fab = findViewById(R.id.fab);
-        fabThemDiaDiem = findViewById(R.id.fab_addplace);
-        btnDiaDanh = findViewById(R.id.btnAllPlace);
-        btnAnUong = findViewById(R.id.btnAllEat);
-        btnKhachSan = findViewById(R.id.btnAllHotel);
-        btnVuiChoi = findViewById(R.id.btnAllEntertain);
-        btnPhuongTien = findViewById(R.id.btnAllVehicle);
+        fabAddPlace = findViewById(R.id.fab_addplace);
+        btnPlace = findViewById(R.id.btnAllPlace);
+        btnEat = findViewById(R.id.btnAllEat);
+        btnHoTel = findViewById(R.id.btnAllHotel);
+        btnEntertain = findViewById(R.id.btnAllEntertain);
+        btnVehicle = findViewById(R.id.btnAllVehicle);
 
         setSupportActionBar(toolbar);
 
         // region click button
-        btnDiaDanh.setOnClickListener(new View.OnClickListener() {
+        btnPlace.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent iEventInfo = new Intent(MainActivity.this, ActivityService.class);
@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        btnAnUong.setOnClickListener(new View.OnClickListener() {
+        btnEat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent iEventInfo = new Intent(MainActivity.this, ActivityService.class);
@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        btnKhachSan.setOnClickListener(new View.OnClickListener() {
+        btnHoTel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent iEventInfo = new Intent(MainActivity.this, ActivityService.class);
@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        btnVuiChoi.setOnClickListener(new View.OnClickListener() {
+        btnEntertain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent iEventInfo = new Intent(MainActivity.this, ActivityService.class);
@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        btnPhuongTien.setOnClickListener(new View.OnClickListener() {
+        btnVehicle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent iEventInfo = new Intent(MainActivity.this, ActivityService.class);
@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
         loadService(recyclerViewPT, Config.URL_HOST + Config.URL_GET_ALL_VEHICLES, Config.JSON_VEHICLE);
         // endregion
 
-        display_doanhnghiep();
+        display_enterprise();
 
         menuBotNavBar();
 
@@ -152,8 +152,8 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    void display_doanhnghiep() {
-        if (doanhnghiep == false) {
+    void display_enterprise() {
+        if (enterprise == false) {
             fabOnClick();
         }
     }

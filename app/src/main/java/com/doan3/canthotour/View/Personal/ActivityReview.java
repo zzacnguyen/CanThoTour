@@ -25,7 +25,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
-import static com.doan3.canthotour.View.Personal.ActivityLogin.idNguoiDung;
+import static com.doan3.canthotour.View.Personal.ActivityLogin.userId;
 
 /**
  * Created by zzacn on 12/7/2017.
@@ -71,7 +71,7 @@ public class ActivityReview extends AppCompatActivity {
                 } else {
                     if (idDanhGia == 0) {
                         new ActivityLogin.Post().execute(Config.URL_HOST + Config.URL_GET_ALL_REVIEWS,
-                                "{\"dv_iddichvu\":\"" + id + "\",\"nd_idnguoidung\":\"" + idNguoiDung +
+                                "{\"dv_iddichvu\":\"" + id + "\",\"nd_idnguoidung\":\"" + userId +
                                         "\",\"dg_diem\":\"" + (int) rbDanhGia.getRating() +
                                         "\",\"dg_tieude\":\"" + txtTieuDe.getText() +
                                         "\",\"dg_noidung\":\"" + txtDanhGia.getText() + "\"}");
@@ -82,7 +82,7 @@ public class ActivityReview extends AppCompatActivity {
                         startActivity(intent);
                     } else {
                         new Put().execute(Config.URL_HOST + Config.URL_GET_ALL_REVIEWS + "/" + idDanhGia,
-                                "{\"dv_iddichvu\":\"" + id + "\",\"nd_idnguoidung\":\"" + idNguoiDung +
+                                "{\"dv_iddichvu\":\"" + id + "\",\"nd_idnguoidung\":\"" + userId +
                                         "\",\"dg_diem\":\"" + (int) rbDanhGia.getRating() +
                                         "\",\"dg_tieude\":\"" + txtTieuDe.getText() +
                                         "\",\"dg_noidung\":\"" + txtDanhGia.getText() + "\"}");

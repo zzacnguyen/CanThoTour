@@ -35,51 +35,51 @@ import java.util.concurrent.ExecutionException;
 
 public class ActivityAdvancedSearch extends AppCompatActivity {
     ArrayList<String> finalArr = new ArrayList<>();
-    EditText etTimKiem;
-    RadioButton rdbThamQuan, rdbAnUong, rdbKhachSan, rdbPhuongTien, rdbVuiChoi;
+    EditText etSearch;
+    RadioButton rdbPlace, rdbEat, rdbHotel, rdbVehicle, rdbEntertain;
     RadioGroup radioGroup1, radioGroup2;
-    Button btnHuy;
+    Button btnCancel;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_advancedsearch);
 
-        etTimKiem = findViewById(R.id.etSearch);
+        etSearch = findViewById(R.id.etSearch);
         radioGroup1 = findViewById(R.id.radioGroup1);
         radioGroup2 = findViewById(R.id.radioGroup2);
-        rdbAnUong = findViewById(R.id.rdbEat);
-        rdbThamQuan = findViewById(R.id.rdbPlace);
-        rdbKhachSan = findViewById(R.id.rdbHotel);
-        rdbPhuongTien = findViewById(R.id.rdbVehicle);
-        rdbVuiChoi = findViewById(R.id.rdbEntertain);
-        btnHuy = findViewById(R.id.btnCancel);
+        rdbEat = findViewById(R.id.rdbEat);
+        rdbPlace = findViewById(R.id.rdbPlace);
+        rdbHotel = findViewById(R.id.rdbHotel);
+        rdbVehicle = findViewById(R.id.rdbVehicle);
+        rdbEntertain = findViewById(R.id.rdbEntertain);
+        btnCancel = findViewById(R.id.btnCancel);
 
         radioGroup1.clearCheck();
         radioGroup2.clearCheck();
         radioGroup1.setOnCheckedChangeListener(listener1);
         radioGroup2.setOnCheckedChangeListener(listener2);
 
-        etTimKiem.setOnKeyListener(new View.OnKeyListener() {
+        etSearch.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View view, int i, KeyEvent keyEvent) {
                 if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) &&
                         (i == KeyEvent.KEYCODE_ENTER)) {
-                    int loaiHinh;
-                    if (rdbAnUong.isChecked()) {
-                        loaiHinh = 1;
-                    } else if (rdbKhachSan.isChecked()) {
-                        loaiHinh = 2;
-                    } else if (rdbPhuongTien.isChecked()) {
-                        loaiHinh = 3;
-                    } else if (rdbThamQuan.isChecked()) {
-                        loaiHinh = 4;
+                    int serviceType;
+                    if (rdbEat.isChecked()) {
+                        serviceType = 1;
+                    } else if (rdbHotel.isChecked()) {
+                        serviceType = 2;
+                    } else if (rdbVehicle.isChecked()) {
+                        serviceType = 3;
+                    } else if (rdbPlace.isChecked()) {
+                        serviceType = 4;
                     } else {
-                        loaiHinh = 5;
+                        serviceType = 5;
                     }
-                    if (!etTimKiem.getText().toString().equals("")){
-                    load(Config.URL_HOST + Config.URL_SEARCH + loaiHinh + "&keyword=" +
-                            etTimKiem.getText().toString().replaceAll(" ", "\\+"), loaiHinh);} else {
+                    if (!etSearch.getText().toString().equals("")){
+                    load(Config.URL_HOST + Config.URL_SEARCH + serviceType + "&keyword=" +
+                            etSearch.getText().toString().replaceAll(" ", "\\+"), serviceType);} else {
                         Toast.makeText(ActivityAdvancedSearch.this, "Chưa nhập", Toast.LENGTH_SHORT).show();
                     }
                     return true;
@@ -87,7 +87,7 @@ public class ActivityAdvancedSearch extends AppCompatActivity {
                 return false;
             }
         });
-        btnHuy.setOnClickListener(new View.OnClickListener() {
+        btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
@@ -96,7 +96,7 @@ public class ActivityAdvancedSearch extends AppCompatActivity {
         });
     }
 
-    private void load(String url, final int loaiHinh) {
+    private void load(String url, final int serviceType) {
 
         final ListOfServiceAdapter listOfServiceAdapter;
         final RecyclerView recyclerView;
@@ -107,7 +107,7 @@ public class ActivityAdvancedSearch extends AppCompatActivity {
                 new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        ArrayList<Service> services = new ModelService().getAdvancedSearchList(url, loaiHinh);
+        ArrayList<Service> services = new ModelService().getAdvancedSearchList(url, serviceType);
 
         listOfServiceAdapter = new ListOfServiceAdapter(recyclerView, services, getApplicationContext());
         recyclerView.setAdapter(listOfServiceAdapter);
@@ -140,7 +140,7 @@ public class ActivityAdvancedSearch extends AppCompatActivity {
                             listOfServiceAdapter.notifyItemRemoved(finalListService.size());
 
                             ArrayList<Service> serviceArrayList = new ModelService().
-                                    getAdvancedSearchList(finalArr.get(1), loaiHinh);
+                                    getAdvancedSearchList(finalArr.get(1), serviceType);
                             for (int i = 0; i < serviceArrayList.size(); i++) {
                                 finalListService.add(serviceArrayList.get(i));
                             }

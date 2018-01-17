@@ -29,41 +29,41 @@ import java.util.concurrent.ExecutionException;
  */
 
 public class ActivityLogin extends AppCompatActivity {
-    public static int idNguoiDung = 0;
-    public static String tenNd, loaiNd;
+    public static int userId = 0;
+    public static String userName, userType;
     public static Bitmap avatar;
-    EditText etTaiKhoan, etMatKhau;
-    Button btnDangKy, btnDangNhap;
-    int ma;
+    EditText etUserId, etPassword;
+    Button btnReg, btnLogin;
+    int id;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        etTaiKhoan = findViewById(R.id.etUserName);
-        etMatKhau = findViewById(R.id.etPassword);
-        btnDangNhap = findViewById(R.id.btnLogin);
-        btnDangKy = findViewById(R.id.btnRegister);
+        etUserId = findViewById(R.id.etUserName);
+        etPassword = findViewById(R.id.etPassword);
+        btnLogin = findViewById(R.id.btnLogin);
+        btnReg = findViewById(R.id.btnRegister);
 
-        ma = getIntent().getIntExtra("id", 0);
+        id = getIntent().getIntExtra("id", 0);
         String mess = getIntent().getStringExtra("mess");
         if (mess != null) {
             Toast.makeText(this, mess, Toast.LENGTH_SHORT).show();
         }
 
-        btnDangNhap.setOnClickListener(new View.OnClickListener() {
+        btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                if (etTaiKhoan.getText().toString().equals("")) {
-                    etTaiKhoan.setError("Tài khoản không được để trống");
-                } else if (etMatKhau.getText().toString().equals("")) {
-                    etTaiKhoan.setError("Tài khoản không được để trống");
+                if (etUserId.getText().toString().equals("")) {
+                    etUserId.setError("Tài khoản không được để trống");
+                } else if (etPassword.getText().toString().equals("")) {
+                    etUserId.setError("Tài khoản không được để trống");
                 } else {
                     try {
                         String rs = new Post().execute(Config.URL_HOST + Config.URL_LOGIN,
-                                "{\"taikhoan\":\"" + etTaiKhoan.getText().toString() +
-                                        "\",\"password\":\"" + etMatKhau.getText().toString() + "\"}").get();
+                                "{\"taikhoan\":\"" + etUserId.getText().toString() +
+                                        "\",\"password\":\"" + etPassword.getText().toString() + "\"}").get();
                         JSONObject json = new JSONObject(rs);
                         if (json.getString("status").toString().equals("ERROR")) {
                             Toast.makeText(ActivityLogin.this, "tài khoản hoặc mật khẩu không đúng",
@@ -72,19 +72,19 @@ public class ActivityLogin extends AppCompatActivity {
                             ArrayList<String> arrayUser =
                                     JsonHelper.parseJson(new JSONObject(json.getString("result")), Config.JSON_USER);
 
-                            idNguoiDung = Integer.parseInt(arrayUser.get(0));
-                            tenNd = arrayUser.get(1);
-                            loaiNd = Integer.parseInt(arrayUser.get(2)) == 1 ? "cá nhân" : "doanh nghiệp";
+                            userId = Integer.parseInt(arrayUser.get(0));
+                            userName = arrayUser.get(1);
+                            userType = Integer.parseInt(arrayUser.get(2)) == 1 ? "cá nhân" : "doanh nghiệp";
                             try {
                                 avatar = new ModelService.GetImage().execute(arrayUser.get(3)).get();
                             } catch (InterruptedException | ExecutionException e) {
                                 e.printStackTrace();
                             }
-                            if (ma == 0) {
+                            if (id == 0) {
                                 startActivity(new Intent(ActivityLogin.this, ActivityPersonal.class));
                             } else {
                                 Intent intent = new Intent(ActivityLogin.this, ActivityServiceInfo.class);
-                                intent.putExtra("id", ma);
+                                intent.putExtra("id", id);
                                 startActivity(intent);
                             }
                         }
@@ -95,11 +95,11 @@ public class ActivityLogin extends AppCompatActivity {
             }
         });
 
-        btnDangKy.setOnClickListener(new View.OnClickListener() {
+        btnReg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ActivityLogin.this, ActivityRegister.class);
-                intent.putExtra("id", ma);
+                intent.putExtra("id", id);
                 startActivity(intent);
             }
         });

@@ -24,7 +24,7 @@ import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
-import static com.doan3.canthotour.View.Personal.ActivityLogin.idNguoiDung;
+import static com.doan3.canthotour.View.Personal.ActivityLogin.userId;
 
 /**
  * Created by sieut on 12/20/2017.
@@ -141,7 +141,7 @@ public class ModelService {
             if (isLike && arrayIdNdYt.size() > 0) {
                 serviceInfo.setReviewUserFav(false);
                 for (int i = 0; i < arrayIdNdYt.size(); i++) {
-                    if (Integer.parseInt(arrayIdNdYt.get(i)) == idNguoiDung) {
+                    if (Integer.parseInt(arrayIdNdYt.get(i)) == userId) {
                         serviceInfo.setReviewUserFav(true);
                         serviceInfo.setIdYeuThich(arrayIdYt.get(i));
                     }
@@ -154,7 +154,7 @@ public class ModelService {
                 serviceInfo.setReviewUserRev(false);
                 serviceInfo.setReviewId("0");
                 for (int i = 0; i < arrayIdNdDg.size(); i++) {
-                    if (Integer.parseInt(arrayIdNdDg.get(i)) == idNguoiDung) {
+                    if (Integer.parseInt(arrayIdNdDg.get(i)) == userId) {
                         serviceInfo.setReviewUserRev(true);
                         serviceInfo.setReviewId(arrayIdDg.get(i));
                     }

@@ -36,7 +36,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
-import static com.doan3.canthotour.View.Personal.ActivityLogin.idNguoiDung;
+import static com.doan3.canthotour.View.Personal.ActivityLogin.userId;
 
 public class ActivityFavorite extends AppCompatActivity {
     ArrayList<String> finalArr = new ArrayList<>();
@@ -67,7 +67,7 @@ public class ActivityFavorite extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager =
                 new LinearLayoutManager(ActivityFavorite.this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
-        load(file, idNguoiDung);
+        load(file, userId);
         if (file.exists()) {
             new PostJson(file).execute(Config.URL_HOST + Config.URL_GET_ALL_FAVORITE);
         }
@@ -175,7 +175,7 @@ public class ActivityFavorite extends AppCompatActivity {
                 for (int i = 0; i < jsonFile.length(); i++) {
                     JSONObject jsonObject = new JSONObject("{\"dv_iddichvu\":\"" +
                             jsonFile.getJSONObject(i).getString("id") + "\"" +
-                            ",\"nd_idnguoidung\":\"" + idNguoiDung + "\"}");
+                            ",\"nd_idnguoidung\":\"" + userId + "\"}");
                     HttpRequestAdapter.httpPost(strings[0], jsonObject);
                 }
                 file.delete();

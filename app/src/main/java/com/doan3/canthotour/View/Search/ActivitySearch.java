@@ -33,24 +33,24 @@ import java.util.concurrent.ExecutionException;
 
 public class ActivitySearch extends AppCompatActivity {
     ArrayList<String> finalArr = new ArrayList<>();
-    EditText etTimKiem;
-    Button btnHuy;
+    EditText etSearch;
+    Button btnCancel;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-        etTimKiem = findViewById(R.id.etSearch);
-        btnHuy = findViewById(R.id.btnCancel);
+        etSearch = findViewById(R.id.etSearch);
+        btnCancel = findViewById(R.id.btnCancel);
 
-        etTimKiem.setOnKeyListener(new View.OnKeyListener() {
+        etSearch.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View view, int i, KeyEvent keyEvent) {
                 if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) &&
                         (i == KeyEvent.KEYCODE_ENTER)) {
-                    if (!etTimKiem.getText().toString().equals("")) {
+                    if (!etSearch.getText().toString().equals("")) {
                         load(Config.URL_HOST + Config.URL_SEARCH_ALL +
-                                etTimKiem.getText().toString().replaceAll(" ", "\\+"));
+                                etSearch.getText().toString().replaceAll(" ", "\\+"));
                     } else {
                         Toast.makeText(ActivitySearch.this, "Chưa nhập", Toast.LENGTH_SHORT).show();
                     }
@@ -59,7 +59,7 @@ public class ActivitySearch extends AppCompatActivity {
                 return false;
             }
         });
-        btnHuy.setOnClickListener(new View.OnClickListener() {
+        btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();

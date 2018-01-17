@@ -23,17 +23,17 @@ import java.io.File;
 
 
 public class ActivityOption extends AppCompatActivity {
-    LinearLayout btnKhoangCachLc;
-    TextView txtKhoangCachLc;
-    String khoangcach;
+    LinearLayout btnNearRadius;
+    TextView txtNearRadius;
+    String radius;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_option);
 
-        btnKhoangCachLc = findViewById(R.id.btnNearLocation);
-        txtKhoangCachLc = findViewById(R.id.textViewNearLocation);
+        btnNearRadius = findViewById(R.id.btnNearLocation);
+        txtNearRadius = findViewById(R.id.textViewNearLocation);
 
         File path = new File(Environment.getExternalStorageDirectory() + "/canthotour");
         if (!path.exists()) {
@@ -41,13 +41,13 @@ public class ActivityOption extends AppCompatActivity {
         }
         final File file = new File(path, "khoangcach.json");
         try {
-            txtKhoangCachLc.setText(new JSONArray(JsonHelper.readJson(file)).getJSONObject(0).
+            txtNearRadius.setText(new JSONArray(JsonHelper.readJson(file)).getJSONObject(0).
                     getString("khoangcach")+"m");
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        btnKhoangCachLc.setOnClickListener(new View.OnClickListener() {
+        btnNearRadius.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 final Dialog dialog = new Dialog(ActivityOption.this);
@@ -63,14 +63,14 @@ public class ActivityOption extends AppCompatActivity {
                 btnDongY.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        khoangcach = etKhoangCach.getText().toString().trim();
+                        radius = etKhoangCach.getText().toString().trim();
                         try {
                             file.delete();
-                            JsonHelper.writeJson(file, new JSONObject("{\"khoangcach\":\"" + khoangcach + "\"}"));
+                            JsonHelper.writeJson(file, new JSONObject("{\"khoangcach\":\"" + radius + "\"}"));
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        txtKhoangCachLc.setText(khoangcach + "m");
+                        txtNearRadius.setText(radius + "m");
 
                         dialog.cancel();
                     }

@@ -22,69 +22,69 @@ import com.doan3.canthotour.View.Search.ActivityAdvancedSearch;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.doan3.canthotour.View.Personal.ActivityLogin.avatar;
-import static com.doan3.canthotour.View.Personal.ActivityLogin.idNguoiDung;
-import static com.doan3.canthotour.View.Personal.ActivityLogin.loaiNd;
-import static com.doan3.canthotour.View.Personal.ActivityLogin.tenNd;
+import static com.doan3.canthotour.View.Personal.ActivityLogin.userId;
+import static com.doan3.canthotour.View.Personal.ActivityLogin.userType;
+import static com.doan3.canthotour.View.Personal.ActivityLogin.userName;
 
 public class ActivityPersonal extends AppCompatActivity {
 
-    Button btnThemDiaDiem, btnThemDichVu, btnDangKyDoanhNghiep, btnCaiDat, btnDangNhap, btnTimKiemNangCao, btnDangXuat;
-    TextView txtTenNd, txtLoaiNd;
+    Button btnAddPlace, btnAddService, btnRegEnterprise, btnOption, btnLogin, btnAdvancedSearch, btnLogout;
+    TextView txtUserName, txtUserType;
     CircleImageView Cavatar;
-    LinearLayout themDiaDiem, themDichVu, DangKyDn, DangXuat, DangNhap;
+    LinearLayout addPlace, addService, regEnterprise, Logout, Login;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal);
 
-        btnTimKiemNangCao = findViewById(R.id.buttonAdvancedSearch);
-        btnThemDiaDiem = findViewById(R.id.buttonAddPlace);
-        btnThemDichVu = findViewById(R.id.buttonAddService);
-        btnDangKyDoanhNghiep = findViewById(R.id.buttonRegEnterprise);
-        btnCaiDat = findViewById(R.id.buttonOption);
-        btnDangNhap = findViewById(R.id.buttonLogin);
-        btnDangXuat = findViewById(R.id.buttonLogout);
-        txtTenNd = findViewById(R.id.txtUserName);
-        txtLoaiNd = findViewById(R.id.txtUserType);
+        btnAdvancedSearch = findViewById(R.id.buttonAdvancedSearch);
+        btnAddPlace = findViewById(R.id.buttonAddPlace);
+        btnAddService = findViewById(R.id.buttonAddService);
+        btnRegEnterprise = findViewById(R.id.buttonRegEnterprise);
+        btnOption = findViewById(R.id.buttonOption);
+        btnLogin = findViewById(R.id.buttonLogin);
+        btnLogout = findViewById(R.id.buttonLogout);
+        txtUserName = findViewById(R.id.txtUserName);
+        txtUserType = findViewById(R.id.txtUserType);
         Cavatar = findViewById(R.id.avatar);
-        themDiaDiem = findViewById(R.id.AddPlace);
-        themDichVu = findViewById(R.id.AddService);
-        DangKyDn = findViewById(R.id.RegEnterprise);
-        DangXuat = findViewById(R.id.Logout);
-        DangNhap = findViewById(R.id.Login);
+        addPlace = findViewById(R.id.AddPlace);
+        addService = findViewById(R.id.AddService);
+        regEnterprise = findViewById(R.id.RegEnterprise);
+        Logout = findViewById(R.id.Logout);
+        Login = findViewById(R.id.Login);
 
-        txtTenNd.setText(tenNd);
-        txtLoaiNd.setText(loaiNd);
+        txtUserName.setText(userName);
+        txtUserType.setText(userType);
         Cavatar.setImageBitmap(avatar);
 
-        if (idNguoiDung == 0) {
-            themDiaDiem.setVisibility(View.GONE);
-            themDichVu.setVisibility(View.GONE);
-            DangKyDn.setVisibility(View.GONE);
-            DangXuat.setVisibility(View.GONE);
+        if (userId == 0) {
+            addPlace.setVisibility(View.GONE);
+            addService.setVisibility(View.GONE);
+            regEnterprise.setVisibility(View.GONE);
+            Logout.setVisibility(View.GONE);
         } else {
-            themDiaDiem.setVisibility(View.VISIBLE);
-            themDichVu.setVisibility(View.VISIBLE);
-            DangKyDn.setVisibility(View.VISIBLE);
-            DangXuat.setVisibility(View.VISIBLE);
-            DangNhap.setVisibility(View.GONE);
+            addPlace.setVisibility(View.VISIBLE);
+            addService.setVisibility(View.VISIBLE);
+            regEnterprise.setVisibility(View.VISIBLE);
+            Logout.setVisibility(View.VISIBLE);
+            Login.setVisibility(View.GONE);
         }
 
-        btnTimKiemNangCao.setOnClickListener(new View.OnClickListener() {
+        btnAdvancedSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivityForResult(new Intent(ActivityPersonal.this, ActivityAdvancedSearch.class),
                         1);
             }
         });
-        btnDangNhap.setOnClickListener(new View.OnClickListener() {
+        btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivityForResult(new Intent(ActivityPersonal.this, ActivityLogin.class), 1);
             }
         });
-        btnThemDiaDiem.setOnClickListener(new View.OnClickListener() {
+        btnAddPlace.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent iThemDiaDiem = new Intent(ActivityPersonal.this, ActivityAddPlace.class);
@@ -92,7 +92,7 @@ public class ActivityPersonal extends AppCompatActivity {
             }
         });
 
-        btnThemDichVu.setOnClickListener(new View.OnClickListener() {
+        btnAddService.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent iThemDichVu = new Intent(ActivityPersonal.this, ActivityAddService.class);
@@ -100,7 +100,7 @@ public class ActivityPersonal extends AppCompatActivity {
             }
         });
 
-        btnDangKyDoanhNghiep.setOnClickListener(new View.OnClickListener() {
+        btnRegEnterprise.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent iDangKyDoanhNghiep = new Intent(ActivityPersonal.this, ActivityRegCoop.class);
@@ -108,22 +108,22 @@ public class ActivityPersonal extends AppCompatActivity {
             }
         });
 
-        btnCaiDat.setOnClickListener(new View.OnClickListener() {
+        btnOption.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent iCaiDat = new Intent(ActivityPersonal.this, ActivityOption.class);
                 startActivity(iCaiDat);
             }
         });
-        btnDangXuat.setOnClickListener(new View.OnClickListener() {
+        btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                idNguoiDung = 0;
-                tenNd = null;
-                loaiNd = null;
+                userId = 0;
+                userName = null;
+                userType = null;
                 avatar = null;
-                txtTenNd.setText(tenNd);
-                txtLoaiNd.setText(loaiNd);
+                txtUserName.setText(userName);
+                txtUserType.setText(userType);
                 Cavatar.setImageBitmap(avatar);
                 startActivity(new Intent(ActivityPersonal.this, ActivityPersonal.class));
             }

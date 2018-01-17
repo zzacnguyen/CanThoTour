@@ -25,22 +25,22 @@ import java.io.File;
 import java.util.ArrayList;
 
 public class ActivityNearLocation extends AppCompatActivity {
-    String kinhDo, viDo;
-    int loaiHinh;
-    TextView txtTenDd, txtKhoangCach;
-    ImageView imgHinhDd;
+    String longitude, latitude;
+    int serviceType;
+    TextView txtPlaceName, txtRadius;
+    ImageView imgPlacePhoto;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nearlocation);
-        txtTenDd = findViewById(R.id.textViewNearName);
-        txtKhoangCach = findViewById(R.id.textViewRadius);
-        imgHinhDd = findViewById(R.id.imageViewNear);
+        txtPlaceName = findViewById(R.id.textViewNearName);
+        txtRadius = findViewById(R.id.textViewRadius);
+        imgPlacePhoto = findViewById(R.id.imageViewNear);
 
-        kinhDo = getIntent().getStringExtra("kinhdo");
-        viDo = getIntent().getStringExtra("vido");
-        loaiHinh = getIntent().getIntExtra("loaihinh", 1);
+        longitude = getIntent().getStringExtra("kinhdo");
+        latitude = getIntent().getStringExtra("vido");
+        serviceType = getIntent().getIntExtra("loaihinh", 1);
         load();
 
         ActivityServiceInfo.menuBotNavBar(this,0);
@@ -65,8 +65,8 @@ public class ActivityNearLocation extends AppCompatActivity {
             radius = "500";
         }
         ArrayList<NearLocation> favoriteList = new ModelService().getNearLocationList(Config.URL_HOST +
-                "timkiem/dichvulancan/location=" + viDo.trim() + "," + kinhDo.trim() + "&type=" +
-                loaiHinh + "&radius=" + radius, loaiHinh, this);
+                "timkiem/dichvulancan/location=" + latitude.trim() + "," + longitude.trim() + "&type=" +
+                serviceType + "&radius=" + radius, serviceType, this);
         RecyclerView recyclerView = findViewById(R.id.RecyclerView_NearLocation);
         recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
         LinearLayoutManager linearLayoutManager =

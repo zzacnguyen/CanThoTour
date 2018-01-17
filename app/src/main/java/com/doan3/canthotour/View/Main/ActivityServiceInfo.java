@@ -41,16 +41,16 @@ import org.json.JSONObject;
 
 import java.io.File;
 
-import static com.doan3.canthotour.View.Personal.ActivityLogin.idNguoiDung;
+import static com.doan3.canthotour.View.Personal.ActivityLogin.userId;
 
 /**
  * Created by sieut on 12/6/2017.
  */
 
 public class ActivityServiceInfo extends AppCompatActivity {
-    Button btnChiaSe, btnLuu, btnLanCan, btnDanhGia, btnXemDanhGia;
-    int ma, loaiHinh, idDanhGia;
-    String idYeuThich, kinhDo, viDo;
+    Button btnShare, btnLike, btnNear, btnReview, btnShowReview;
+    int id, serviceType, reviewId;
+    String favoriteId, longitude, latitude;
     JSONObject saveJson;
 
     public static void menuBotNavBar(final Activity activity,int i) {
@@ -88,24 +88,24 @@ public class ActivityServiceInfo extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_serviceinfo);
 
-        btnChiaSe = findViewById(R.id.btnShareService);
-        btnLuu = findViewById(R.id.btnLike);
-        btnLanCan = findViewById(R.id.btnNearLocation);
-        btnDanhGia = findViewById(R.id.btnReview);
-        btnXemDanhGia = findViewById(R.id.btnOpenListReview);
+        btnShare = findViewById(R.id.btnShareService);
+        btnLike = findViewById(R.id.btnLike);
+        btnNear = findViewById(R.id.btnNearLocation);
+        btnReview = findViewById(R.id.btnReview);
+        btnShowReview = findViewById(R.id.btnOpenListReview);
 
-        ma = getIntent().getIntExtra("id", 1);
+        id = getIntent().getIntExtra("id", 1);
         String mess = getIntent().getStringExtra("mess");
         if (mess != null) {
             Toast.makeText(this, mess, Toast.LENGTH_SHORT).show();
         }
         // region button luu
-        btnLuu.setOnClickListener(new View.OnClickListener() {
+        btnLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (idNguoiDung == 0) {
+                if (userId == 0) {
                     Intent intent = new Intent(ActivityServiceInfo.this, ActivityLogin.class);
-                    intent.putExtra("id", ma);
+                    intent.putExtra("id", id);
                     startActivity(intent);
                 } else {
                     File path = new File(Environment.getExternalStorageDirectory() + "/canthotour");
@@ -115,7 +115,7 @@ public class ActivityServiceInfo extends AppCompatActivity {
                     File file = new File(path, "dsyeuthich.json");
                     JSONArray getJsonInFile;
 
-                    if (btnLuu.getText().equals("THÍCH")) {
+                    if (btnLike.getText().equals("THÍCH")) {
                         try {
                             boolean isExists = true;
                             if (file.exists()) {
@@ -130,7 +130,7 @@ public class ActivityServiceInfo extends AppCompatActivity {
                                 JsonHelper.writeJson(file, saveJson);
                                 Toast.makeText(ActivityServiceInfo.this, "Đã thích",
                                         Toast.LENGTH_SHORT).show();
-                                btnLuu.setText("BỎ THÍCH");
+                                btnLike.setText("BỎ THÍCH");
                             }
                         } catch (JSONException ex) {
                             ex.printStackTrace();
@@ -142,7 +142,7 @@ public class ActivityServiceInfo extends AppCompatActivity {
                                 JSONArray jsonArray = new JSONArray();
                                 getJsonInFile = new JSONArray(JsonHelper.readJson(file));
                                 for (int i = 0; i < getJsonInFile.length(); i++) {
-                                    if (Integer.parseInt(getJsonInFile.getJSONObject(i).getString("id")) != (ma)) {
+                                    if (Integer.parseInt(getJsonInFile.getJSONObject(i).getString("id")) != (id)) {
                                         jsonArray.put(getJsonInFile.getJSONObject(i));
                                     }
                                 }
@@ -156,133 +156,133 @@ public class ActivityServiceInfo extends AppCompatActivity {
                                 }
                             }
                             if (isExists) {
-                                new DeleteFavorite().execute(Config.URL_HOST + Config.URL_GET_ALL_FAVORITE + "/" + idYeuThich);
+                                new DeleteFavorite().execute(Config.URL_HOST + Config.URL_GET_ALL_FAVORITE + "/" + favoriteId);
                             }
                         } catch (JSONException ex) {
                             ex.printStackTrace();
                         }
-                        btnLuu.setText("THÍCH");
+                        btnLike.setText("THÍCH");
                     }
                 }
             }
         });
         // endregion
 
-        btnLanCan.setOnClickListener(new View.OnClickListener() {
+        btnNear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ActivityServiceInfo.this, ActivityNearLocation.class);
-                intent.putExtra("kinhdo", kinhDo);
-                intent.putExtra("vido", viDo);
-                intent.putExtra("loaihinh", loaiHinh);
+                intent.putExtra("kinhdo", longitude);
+                intent.putExtra("vido", latitude);
+                intent.putExtra("loaihinh", serviceType);
                 startActivity(intent);
             }
         });
 
-        btnDanhGia.setOnClickListener(new View.OnClickListener() {
+        btnReview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (idNguoiDung == 0) {
+                if (userId == 0) {
                     Intent intent = new Intent(ActivityServiceInfo.this, ActivityLogin.class);
-                    intent.putExtra("id", ma);
+                    intent.putExtra("id", id);
                     startActivity(intent);
                 } else {
                     Intent intent = new Intent(ActivityServiceInfo.this, ActivityReview.class);
-                    intent.putExtra("id", ma);
-                    intent.putExtra("iddanhgia", idDanhGia);
+                    intent.putExtra("id", id);
+                    intent.putExtra("iddanhgia", reviewId);
                     startActivity(intent);
                 }
             }
         });
 
-        btnXemDanhGia.setOnClickListener(new View.OnClickListener() {
+        btnShowReview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ActivityServiceInfo.this, ActivityReviewList.class);
-                intent.putExtra("id", ma);
+                intent.putExtra("id", id);
                 startActivity(intent);
             }
         });
 
-        load(this, Config.URL_HOST + Config.URL_GET_ALL_SERVICES + "/" + ma);
+        load(this, Config.URL_HOST + Config.URL_GET_ALL_SERVICES + "/" + id);
 
         menuBotNavBar(this,0);
     }
 
     public void load(final Activity activity, String url) {
-        TextView txtTenDv = activity.findViewById(R.id.textViewServiceName);
-        TextView txtGioiThieu = activity.findViewById(R.id.textViewServiceAbout);
-        TextView txtGia = activity.findViewById(R.id.textViewCost);
-        TextView txtGioMo = activity.findViewById(R.id.textViewTimeOpen);
-        TextView txtGioDong = activity.findViewById(R.id.textViewTimeClose);
-        TextView txtDiaChi = activity.findViewById(R.id.textViewServiceAddress);
-        TextView txtSDT = activity.findViewById(R.id.textViewServicePhone);
+        TextView txtServiceName = activity.findViewById(R.id.textViewServiceName);
+        TextView txtServiceAbout = activity.findViewById(R.id.textViewServiceAbout);
+        TextView txtPrice = activity.findViewById(R.id.textViewCost);
+        TextView txtTimeOpen = activity.findViewById(R.id.textViewTimeOpen);
+        TextView txtTimeClose = activity.findViewById(R.id.textViewTimeClose);
+        TextView txtAddress = activity.findViewById(R.id.textViewServiceAddress);
+        TextView txtPhoneNumber = activity.findViewById(R.id.textViewServicePhone);
         TextView txtWebsite = activity.findViewById(R.id.textViewWebsite);
-        ImageView imgChiTiet1Thumb = activity.findViewById(R.id.imgInfo1);
-        ImageView imgChiTiet2Thumb = activity.findViewById(R.id.imgInfo2);
+        ImageView imgThumbInfo1 = activity.findViewById(R.id.imgInfo1);
+        ImageView imgThumbInfo2 = activity.findViewById(R.id.imgInfo2);
         ImageView imgBanner = activity.findViewById(R.id.imgBanner);
         Toolbar toolbar = findViewById(R.id.toolbar);
         TextView toolbarTitle = findViewById(R.id.toolbarTitle);
         TextView fbEvent = findViewById(R.id.fb_event);
         LinearLayout info = findViewById(R.id.info);
-        TextView txtDiem = findViewById(R.id.textViewRatingMark);
-        RatingBar rbSao = findViewById(R.id.ratingBarStars);
+        TextView txtMark = findViewById(R.id.textViewRatingMark);
+        RatingBar rbStar = findViewById(R.id.ratingBarStars);
 
         final ServiceInfo serviceInfo = new ModelService().getServiceInfo(url);
 
-        idYeuThich = serviceInfo.getIdYeuThich();
-        idDanhGia = Integer.parseInt(serviceInfo.getReviewId());
-        kinhDo = serviceInfo.getLongitude();
-        viDo = serviceInfo.getLatitude();
+        favoriteId = serviceInfo.getIdYeuThich();
+        reviewId = Integer.parseInt(serviceInfo.getReviewId());
+        longitude = serviceInfo.getLongitude();
+        latitude = serviceInfo.getLatitude();
 
         fbEvent.setSelected(true);
 
         // region get tên và set màu cho từng dịch vụ
         if (serviceInfo.getEatName() != null) {
-            txtTenDv.setText(serviceInfo.getEatName());
+            txtServiceName.setText(serviceInfo.getEatName());
             toolbar.setBackgroundColor(getResources().getColor(R.color.tbEat));
             info.setBackgroundColor(getResources().getColor(R.color.tbEat));
-            loaiHinh = 1;
+            serviceType = 1;
             toolbarTitle.setText("Chi tiết quán ăn");
             serviceInfo.setVehicleName("null");
             serviceInfo.setPlaceName("null");
             serviceInfo.setHotelName("null");
             serviceInfo.setEntertainName("null");
         } else if (serviceInfo.getHotelName() != null) {
-            txtTenDv.setText(serviceInfo.getHotelName());
+            txtServiceName.setText(serviceInfo.getHotelName());
             toolbar.setBackgroundColor(getResources().getColor(R.color.tbHotel));
             info.setBackgroundColor(getResources().getColor(R.color.tbHotel));
-            loaiHinh = 2;
+            serviceType = 2;
             toolbarTitle.setText("Chi tiết khách sạn");
             serviceInfo.setVehicleName("null");
             serviceInfo.setPlaceName("null");
             serviceInfo.setEatName("null");
             serviceInfo.setEntertainName("null");
         } else if (serviceInfo.getPlaceName() != null) {
-            txtTenDv.setText(serviceInfo.getPlaceName());
+            txtServiceName.setText(serviceInfo.getPlaceName());
             toolbar.setBackgroundColor(getResources().getColor(R.color.tbPlace));
             info.setBackgroundColor(getResources().getColor(R.color.tbPlace));
-            loaiHinh = 4;
+            serviceType = 4;
             toolbarTitle.setText("Chi tiết điểm tham quan");
             serviceInfo.setVehicleName("null");
             serviceInfo.setEatName("null");
             serviceInfo.setHotelName("null");
             serviceInfo.setEntertainName("null");
         } else if (serviceInfo.getVehicleName() != null) {
-            txtTenDv.setText(serviceInfo.getVehicleName());
+            txtServiceName.setText(serviceInfo.getVehicleName());
             toolbar.setBackgroundColor(getResources().getColor(R.color.tbVehicle));
             info.setBackgroundColor(getResources().getColor(R.color.tbVehicle));
-            loaiHinh = 3;
+            serviceType = 3;
             toolbarTitle.setText("Chi tiết phương tiện");
             serviceInfo.setEatName("null");
             serviceInfo.setPlaceName("null");
             serviceInfo.setHotelName("null");
             serviceInfo.setEntertainName("null");
         } else {
-            txtTenDv.setText(serviceInfo.getEntertainName());
+            txtServiceName.setText(serviceInfo.getEntertainName());
             toolbar.setBackgroundColor(getResources().getColor(R.color.tbEntertain));
             info.setBackgroundColor(getResources().getColor(R.color.tbEntertain));
-            loaiHinh = 5;
+            serviceType = 5;
             toolbarTitle.setText("Chi tiết điểm vui chơi");
             serviceInfo.setVehicleName("null");
             serviceInfo.setPlaceName("null");
@@ -299,33 +299,33 @@ public class ActivityServiceInfo extends AppCompatActivity {
         }
 
         if (serviceInfo.getReviewUserFav()) {
-            btnLuu.setText("BỎ THÍCH");
+            btnLike.setText("BỎ THÍCH");
         } else {
-            btnLuu.setText("THÍCH");
+            btnLike.setText("THÍCH");
         }
 
         if (serviceInfo.getReviewUserRev()) {
-            btnDanhGia.setText("ĐÃ ĐÁNH GIÁ");
+            btnReview.setText("ĐÃ ĐÁNH GIÁ");
         } else {
-            btnDanhGia.setText("ĐÁNH GIÁ");
+            btnReview.setText("ĐÁNH GIÁ");
         }
 
-        txtGioiThieu.setText(serviceInfo.getServiceAbout());
+        txtServiceAbout.setText(serviceInfo.getServiceAbout());
         if (serviceInfo.getLowestPrice().equals("0") && serviceInfo.getHighestPrice().equals("0")) {
-            txtGia.setText("Đang cập nhật");
+            txtPrice.setText("Đang cập nhật");
         } else {
-            txtGia.setText("Từ " + serviceInfo.getLowestPrice() + "đ" + " đến " + serviceInfo.getHighestPrice() + "đ");
+            txtPrice.setText("Từ " + serviceInfo.getLowestPrice() + "đ" + " đến " + serviceInfo.getHighestPrice() + "đ");
         }
-        txtGioMo.setText(serviceInfo.getTimeOpen());
-        txtGioDong.setText(serviceInfo.getTimeClose());
-        txtDiaChi.setText(serviceInfo.getAddress());
-        txtSDT.setText(serviceInfo.getPhoneNumber());
+        txtTimeOpen.setText(serviceInfo.getTimeOpen());
+        txtTimeClose.setText(serviceInfo.getTimeClose());
+        txtAddress.setText(serviceInfo.getAddress());
+        txtPhoneNumber.setText(serviceInfo.getPhoneNumber());
         txtWebsite.setText(serviceInfo.getWebsite());
         imgBanner.setImageBitmap(serviceInfo.getBanner());
-        imgChiTiet1Thumb.setImageBitmap(serviceInfo.getThumbInfo1());
-        imgChiTiet2Thumb.setImageBitmap(serviceInfo.getThumbInfo2());
-        txtDiem.setText(String.format("%.1f", serviceInfo.getReviewMark()));
-        rbSao.setRating(serviceInfo.getStars());
+        imgThumbInfo1.setImageBitmap(serviceInfo.getThumbInfo1());
+        imgThumbInfo2.setImageBitmap(serviceInfo.getThumbInfo2());
+        txtMark.setText(String.format("%.1f", serviceInfo.getReviewMark()));
+        rbStar.setRating(serviceInfo.getStars());
 
         try {
             saveJson = new JSONObject("{\"id\":\"" + serviceInfo.getId() +
