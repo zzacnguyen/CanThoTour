@@ -42,7 +42,7 @@ public class ActivityReviewList extends AppCompatActivity {
 
     private void load(String url, final ArrayList<String> formatJson) {
 
-        final RecyclerView recyclerView = findViewById(R.id.RecyclerView_DanhSachDanhGia);
+        final RecyclerView recyclerView = findViewById(R.id.RecyclerView_ReviewList);
         recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
 
         LinearLayoutManager linearLayoutManager =

@@ -65,9 +65,9 @@ public class NearLocationAdapter extends RecyclerView.Adapter<NearLocationAdapte
         public ViewHolder(View itemView) {
             super(itemView);
 
-            txtTen = itemView.findViewById(R.id.textViewTenLanCan);
-            txtKhoangCach = itemView.findViewById(R.id.textViewKhoangCach);
-            imgHinh = itemView.findViewById(R.id.imageViewLanCan);
+            txtTen = itemView.findViewById(R.id.textViewNearName);
+            txtKhoangCach = itemView.findViewById(R.id.textViewRadius);
+            imgHinh = itemView.findViewById(R.id.imageViewNear);
             cardView = itemView.findViewById(R.id.cardViewLanCan);
         }
     }

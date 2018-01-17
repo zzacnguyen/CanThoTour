@@ -30,12 +30,12 @@ public class ActivityRegister extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        etTaiKhoan = findViewById(R.id.etTaiKhoan);
-        etMatKhau = findViewById(R.id.etMatKhau);
-        etNhapLaiMk = findViewById(R.id.etNhapLaiMk);
-        etQuocGia = findViewById(R.id.etQuocGia);
-        etNgonNgu = findViewById(R.id.etNgonNgu);
-        btnDangKy = findViewById(R.id.btnDangKy);
+        etTaiKhoan = findViewById(R.id.etUserName);
+        etMatKhau = findViewById(R.id.etPassword);
+        etNhapLaiMk = findViewById(R.id.etPasswordConfirm);
+        etQuocGia = findViewById(R.id.etCountry);
+        etNgonNgu = findViewById(R.id.etLanguege);
+        btnDangKy = findViewById(R.id.btnRegister);
 
         ma = getIntent().getIntExtra("id", 0);
         btnDangKy.setOnClickListener(new View.OnClickListener() {

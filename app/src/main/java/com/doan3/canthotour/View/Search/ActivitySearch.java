@@ -40,8 +40,8 @@ public class ActivitySearch extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-        etTimKiem = findViewById(R.id.etTimKiem);
-        btnHuy = findViewById(R.id.btnHuy);
+        etTimKiem = findViewById(R.id.etSearch);
+        btnHuy = findViewById(R.id.btnCancel);
 
         etTimKiem.setOnKeyListener(new View.OnKeyListener() {
             @Override
@@ -72,7 +72,7 @@ public class ActivitySearch extends AppCompatActivity {
 
         final ListOfServiceAdapter listOfServiceAdapter;
         final RecyclerView recyclerView;
-        recyclerView = findViewById(R.id.RecyclerView_DanhSachTimKiem);
+        recyclerView = findViewById(R.id.RecyclerView_SearchList);
         recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
 
         LinearLayoutManager linearLayoutManager =

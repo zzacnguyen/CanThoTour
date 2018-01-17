@@ -64,8 +64,8 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ViewHold
         public ViewHolder(View itemView) {
             super(itemView);
 
-            txtTen = itemView.findViewById(R.id.txtTen);
-            imgHinh = itemView.findViewById(R.id.imgHinh);
+            txtTen = itemView.findViewById(R.id.txtPlaceName);
+            imgHinh = itemView.findViewById(R.id.imgPlacePhoto);
             cardView = itemView.findViewById(R.id.cardView);
         }
     }

@@ -38,21 +38,21 @@ public class ActivityPersonal extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal);
 
-        btnTimKiemNangCao = findViewById(R.id.buttonTimKiemNC);
-        btnThemDiaDiem = findViewById(R.id.buttonThemDiaDiem);
-        btnThemDichVu = findViewById(R.id.buttonThemDichVu);
-        btnDangKyDoanhNghiep = findViewById(R.id.buttonDangKyDoanhNghiep);
-        btnCaiDat = findViewById(R.id.buttonCaiDat);
-        btnDangNhap = findViewById(R.id.buttonDangNhap);
-        btnDangXuat = findViewById(R.id.buttonDangXuat);
-        txtTenNd = findViewById(R.id.txtTenND);
-        txtLoaiNd = findViewById(R.id.txtLoaiND);
+        btnTimKiemNangCao = findViewById(R.id.buttonAdvancedSearch);
+        btnThemDiaDiem = findViewById(R.id.buttonAddPlace);
+        btnThemDichVu = findViewById(R.id.buttonAddService);
+        btnDangKyDoanhNghiep = findViewById(R.id.buttonRegEnterprise);
+        btnCaiDat = findViewById(R.id.buttonOption);
+        btnDangNhap = findViewById(R.id.buttonLogin);
+        btnDangXuat = findViewById(R.id.buttonLogout);
+        txtTenNd = findViewById(R.id.txtUserName);
+        txtLoaiNd = findViewById(R.id.txtUserType);
         Cavatar = findViewById(R.id.avatar);
-        themDiaDiem = findViewById(R.id.ThemDiaDiem);
-        themDichVu = findViewById(R.id.ThemDichVu);
-        DangKyDn = findViewById(R.id.DangKyDn);
-        DangXuat = findViewById(R.id.DangXuat);
-        DangNhap = findViewById(R.id.DangNhap);
+        themDiaDiem = findViewById(R.id.AddPlace);
+        themDichVu = findViewById(R.id.AddService);
+        DangKyDn = findViewById(R.id.RegEnterprise);
+        DangXuat = findViewById(R.id.Logout);
+        DangNhap = findViewById(R.id.Login);
 
         txtTenNd.setText(tenNd);
         txtLoaiNd.setText(loaiNd);

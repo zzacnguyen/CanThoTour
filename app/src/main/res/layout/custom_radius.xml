@@ -7,7 +7,7 @@
     android:gravity="center">
 
     <EditText
-        android:id="@+id/etKhoangCach"
+        android:id="@+id/etRadius"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
@@ -34,22 +34,22 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/btnDongYKC"
+            android:id="@+id/btnConfirmRadius"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_margin="10dp"
-            android:background="@color/tbThamQuan"
+            android:background="@color/tbPlace"
             android:text="Đồng ý"
             android:textColor="@color/colorWhite"
             android:textSize="14sp"
             android:textAllCaps="false"/>
 
         <Button
-            android:id="@+id/btnHuyKC"
+            android:id="@+id/btnCancelRadius"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_margin="10dp"
-            android:background="@color/tbThamQuan"
+            android:background="@color/tbPlace"
             android:text="Hủy"
             android:textColor="@color/colorWhite"
             android:textSize="14sp"

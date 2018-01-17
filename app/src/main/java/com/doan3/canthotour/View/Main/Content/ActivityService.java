@@ -41,23 +41,23 @@ public class ActivityService extends AppCompatActivity {
         String url = getIntent().getStringExtra("url");
         if (url.equals(Config.URL_HOST + Config.URL_GET_ALL_EATS)) { //Kiểm tra từng đường dẫn url
             formatJson = Config.JSON_EAT;
-            toolbar.setBackgroundColor(getResources().getColor(R.color.tbAnUong));
+            toolbar.setBackgroundColor(getResources().getColor(R.color.tbEat));
             toolbarTitle.setText("Danh sách quán ăn");
         } else if (url.equals(Config.URL_HOST + Config.URL_GET_ALL_PLACES)) {
             formatJson = Config.JSON_PLACE;
-            toolbar.setBackgroundColor(getResources().getColor(R.color.tbThamQuan));
+            toolbar.setBackgroundColor(getResources().getColor(R.color.tbPlace));
             toolbarTitle.setText("Danh sách điểm tham quan");
         } else if (url.equals(Config.URL_HOST + Config.URL_GET_ALL_HOTELS)) {
             formatJson = Config.JSON_HOTEL;
-            toolbar.setBackgroundColor(getResources().getColor(R.color.tbKhachSan));
+            toolbar.setBackgroundColor(getResources().getColor(R.color.tbHotel));
             toolbarTitle.setText("Danh sách khách sạn");
         } else if (url.equals(Config.URL_HOST + Config.URL_GET_ALL_VEHICLES)) {
             formatJson = Config.JSON_VEHICLE;
-            toolbar.setBackgroundColor(getResources().getColor(R.color.tbPhuongTien));
+            toolbar.setBackgroundColor(getResources().getColor(R.color.tbVehicle));
             toolbarTitle.setText("Danh sách phương tiện");
         } else {
             formatJson = Config.JSON_ENTERTAINMENT;
-            toolbar.setBackgroundColor(getResources().getColor(R.color.tbVuiChoi));
+            toolbar.setBackgroundColor(getResources().getColor(R.color.tbEntertain));
             toolbarTitle.setText("Danh sách điểm vui chơi");
         }
 
@@ -70,7 +70,7 @@ public class ActivityService extends AppCompatActivity {
 
         final ListOfServiceAdapter listOfServiceAdapter;
         final RecyclerView recyclerView;
-        recyclerView = findViewById(R.id.RecyclerView_DanhSachDichVu);
+        recyclerView = findViewById(R.id.RecyclerView_ServiceList);
         recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
 
         LinearLayoutManager linearLayoutManager =

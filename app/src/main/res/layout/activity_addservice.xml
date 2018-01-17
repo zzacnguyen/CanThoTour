@@ -92,6 +92,7 @@
                 android:padding="10dp">
 
                 <EditText
+                    android:id="@+id/etServiceName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/white_grey_border_bottom"
@@ -101,6 +102,7 @@
                     android:textSize="16sp" />
 
                 <EditText
+                    android:id="@+id/ServicePhone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
@@ -111,6 +113,7 @@
                     android:textSize="16sp" />
 
                 <EditText
+                    android:id="@+id/etWebsite"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
@@ -121,6 +124,7 @@
                     android:textSize="16sp" />
 
                 <EditText
+                    android:id="@+id/etServiceAbout"
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
                     android:background="@null"

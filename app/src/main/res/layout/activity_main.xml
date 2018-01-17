@@ -84,7 +84,7 @@
                         android:textSize="16sp" />
 
                     <Button
-                        android:id="@+id/btnTatCaDiaDanh"
+                        android:id="@+id/btnAllPlace"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0"
@@ -98,7 +98,7 @@
                 </LinearLayout>
 
                 <android.support.v7.widget.RecyclerView
-                    android:id="@+id/RecyclerView_DiaDanh"
+                    android:id="@+id/RecyclerView_Place"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
 
@@ -110,7 +110,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="40dp"
                 android:layout_marginRight="40dp"
-                android:background="@color/tbThamQuan"
+                android:background="@color/tbPlace"
                 />
             <!--Ăn uống-->
             <LinearLayout
@@ -132,7 +132,7 @@
                         android:textSize="16sp" />
 
                     <Button
-                        android:id="@+id/btnTatCaQuanAn"
+                        android:id="@+id/btnAllEat"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0"
@@ -146,7 +146,7 @@
                 </LinearLayout>
 
                 <android.support.v7.widget.RecyclerView
-                    android:id="@+id/RecyclerView_AnUong"
+                    android:id="@+id/RecyclerView_Eat"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
 
@@ -158,7 +158,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="40dp"
                 android:layout_marginRight="40dp"
-                android:background="@color/tbAnUong" />
+                android:background="@color/tbEat" />
             <!--Khách sạn-->
             <LinearLayout
                 android:layout_width="match_parent"
@@ -179,7 +179,7 @@
                         android:textSize="16sp" />
 
                     <Button
-                        android:id="@+id/btnTatCaKhachSan"
+                        android:id="@+id/btnAllHotel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0"
@@ -193,7 +193,7 @@
                 </LinearLayout>
 
                 <android.support.v7.widget.RecyclerView
-                    android:id="@+id/RecyclerView_KhachSan"
+                    android:id="@+id/RecyclerView_Hotel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
 
@@ -205,7 +205,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="40dp"
                 android:layout_marginRight="40dp"
-                android:background="@color/tbKhachSan" />
+                android:background="@color/tbHotel" />
 
             <!--Địa điểm vui chơi giải trí-->
             <LinearLayout
@@ -227,7 +227,7 @@
                         android:textSize="16sp" />
 
                     <Button
-                        android:id="@+id/btnTatCaVuiChoi"
+                        android:id="@+id/btnAllEntertain"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0"
@@ -241,7 +241,7 @@
                 </LinearLayout>
 
                 <android.support.v7.widget.RecyclerView
-                    android:id="@+id/RecyclerView_VuiChoi"
+                    android:id="@+id/RecyclerView_Entertain"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
 
@@ -253,7 +253,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="40dp"
                 android:layout_marginRight="40dp"
-                android:background="@color/tbVuiChoi" />
+                android:background="@color/tbEntertain" />
 
             <!--Phương tiện-->
             <LinearLayout
@@ -275,7 +275,7 @@
                         android:textSize="16sp" />
 
                     <Button
-                        android:id="@+id/btnTatCaPhuongTien"
+                        android:id="@+id/btnAllVehicle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0"
@@ -289,7 +289,7 @@
                 </LinearLayout>
 
                 <android.support.v7.widget.RecyclerView
-                    android:id="@+id/RecyclerView_PhuongTien"
+                    android:id="@+id/RecyclerView_Vehicle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
 
@@ -301,7 +301,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="40dp"
                 android:layout_marginRight="40dp"
-                android:background="@color/tbPhuongTien" />
+                android:background="@color/tbVehicle" />
 
         </LinearLayout>
 

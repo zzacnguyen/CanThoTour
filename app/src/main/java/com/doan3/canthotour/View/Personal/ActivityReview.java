@@ -42,10 +42,10 @@ public class ActivityReview extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_review);
         btnGui = findViewById(R.id.btnGui);
-        btnHuy = findViewById(R.id.btnHuy);
-        rbDanhGia = findViewById(R.id.rbDanhGia);
-        txtTieuDe = findViewById(R.id.txtTieuDe);
-        txtDanhGia = findViewById(R.id.txtNhanXet);
+        btnHuy = findViewById(R.id.btnCancel);
+        rbDanhGia = findViewById(R.id.rbReview);
+        txtTieuDe = findViewById(R.id.etTitle);
+        txtDanhGia = findViewById(R.id.txtComment);
 
         id = getIntent().getIntExtra("id", 1);
         idDanhGia = getIntent().getIntExtra("iddanhgia", 1);

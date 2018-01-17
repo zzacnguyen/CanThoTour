@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.doan3.canthotour.View.Main.MainActivity"
-    android:background="@color/colorGrey">
+    android:background="@color/colorGrey"
+    tools:context="com.doan3.canthotour.View.Main.MainActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fitsSystemWindows="true"
-        android:background="@color/colorGrey">
+        android:background="@color/colorGrey"
+        android:fitsSystemWindows="true">
 
 
         <android.support.v7.widget.Toolbar
@@ -22,17 +22,17 @@
             app:layout_collapseMode="pin">
 
             <LinearLayout
-                android:weightSum="10"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:weightSum="10">
 
                 <ImageView
-                    android:layout_weight="1"
                     android:layout_width="36dp"
                     android:layout_height="36dp"
-                    android:tint="@color/colorWhite"
-                    android:src="@drawable/ic_arrow_left_36dp"/>
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_arrow_left_36dp"
+                    android:tint="@color/colorWhite" />
 
                 <TextView
                     android:id="@+id/toolbarTitle"
@@ -46,10 +46,9 @@
                     android:textSize="18sp" />
 
                 <ImageView
-                    android:layout_weight="1"
                     android:layout_width="36dp"
                     android:layout_height="36dp"
-                    />
+                    android:layout_weight="1" />
             </LinearLayout>
 
         </android.support.v7.widget.Toolbar>
@@ -67,20 +66,67 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/white_grey_border_bottom"
                 android:orientation="horizontal"
+                android:padding="5dp">
+
+                <LinearLayout
+                    android:id="@+id/btnNearLocation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:background="@null"
+                        android:text="Đặt khoảng cách địa điểm lân cận"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="15sp"
+                        android:typeface="sans" />
+
+                    <TextView
+                        android:id="@+id/textViewNearLocation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:background="@null"
+                        android:text=""
+                        android:textAllCaps="false"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="13sp"
+                        android:typeface="sans" />
+
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_arrow" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/white_grey_border_bottom"
+                android:orientation="horizontal"
                 android:visibility="gone">
 
                 <Button
-                    android:id="@+id/buttonDoiMk"
+                    android:id="@+id/buttonChangePassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textSize="14sp"
-                    android:background="@null"
                     android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:background="@null"
                     android:text="Đổi mật khẩu"
                     android:textAlignment="textStart"
                     android:textAllCaps="false"
-                    android:typeface = "sans"/>
+                    android:textSize="14sp"
+                    android:typeface="sans" />
 
                 <ImageView
                     android:layout_width="24dp"
@@ -92,8 +138,7 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="20dp"
-                android:layout_marginTop="10dp"
+                android:layout_height="10dp"
                 android:background="@color/colorGrey" />
 
             <LinearLayout
@@ -103,17 +148,17 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/buttonDieuKhoan"
+                    android:id="@+id/buttonPolicy"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textSize="14sp"
-                    android:background="@null"
                     android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:background="@null"
                     android:text="Điều khoản"
                     android:textAlignment="textStart"
                     android:textAllCaps="false"
-                    android:typeface = "sans"/>
+                    android:textSize="14sp"
+                    android:typeface="sans" />
 
                 <ImageView
                     android:layout_width="24dp"
@@ -130,17 +175,17 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/buttonGioiThieu"
+                    android:id="@+id/buttonAbout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textSize="14sp"
-                    android:background="@null"
                     android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:background="@null"
                     android:text="Giới thiệu Cần Thơ Tour"
                     android:textAlignment="textStart"
                     android:textAllCaps="false"
-                    android:typeface = "sans"/>
+                    android:textSize="14sp"
+                    android:typeface="sans" />
 
                 <ImageView
                     android:layout_width="24dp"
@@ -159,14 +204,14 @@
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textSize="14sp"
-                    android:background="@null"
                     android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:background="@null"
                     android:text="Phiên bản"
                     android:textAlignment="textStart"
                     android:textAllCaps="false"
-                    android:typeface = "sans"/>
+                    android:textSize="14sp"
+                    android:typeface="sans" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -194,14 +239,14 @@
                     android:id="@+id/buttonBaoLoi"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textSize="14sp"
-                    android:background="@null"
                     android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:background="@null"
                     android:text="Góp ý/Báo lỗi"
                     android:textAlignment="textStart"
                     android:textAllCaps="false"
-                    android:typeface = "sans"/>
+                    android:textSize="14sp"
+                    android:typeface="sans" />
 
                 <ImageView
                     android:layout_width="24dp"
@@ -211,57 +256,6 @@
 
             </LinearLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="10dp"
-                android:background="@color/colorGrey" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:background="@drawable/white_grey_border_bottom"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:id="@+id/btnKhoangCachLC"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:padding="5dp">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="15sp"
-                        android:layout_gravity="center_vertical"
-                        android:background="@null"
-                        android:textColor="@color/colorBlack"
-                        android:text="Đặt khoảng cách địa điểm lân cận"
-                        android:typeface="sans"/>
-
-                    <TextView
-                        android:id="@+id/textViewKhoanCachLc"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="13sp"
-                        android:layout_gravity="center_vertical"
-                        android:background="@null"
-                        android:text=""
-                        android:textColor="@color/colorBlack"
-                        android:textAllCaps="false"
-                        android:typeface = "sans"/>
-
-                </LinearLayout>
-
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ic_arrow" />
-
-            </LinearLayout>
         </LinearLayout>
 
     </android.support.design.widget.AppBarLayout>
@@ -277,15 +271,14 @@
             android:layout_width="match_parent"
             android:layout_height="4dp"
             android:layout_gravity="top"
-            android:background="@drawable/shadow"
-            />
+            android:background="@drawable/shadow" />
 
         <android.support.design.widget.BottomNavigationView
             android:id="@+id/bottomNavView_Bar"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            app:menu="@menu/bottom_navigation_menu"
-            android:background="@color/colorWhite">
+            android:background="@color/colorWhite"
+            app:menu="@menu/bottom_navigation_menu">
 
         </android.support.design.widget.BottomNavigationView>
 

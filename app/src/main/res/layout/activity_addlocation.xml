@@ -122,6 +122,7 @@
                 android:padding="10dp">
 
                 <EditText
+                    android:id="@+id/etPlaceName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/white_grey_border_bottom"
@@ -131,6 +132,7 @@
                     android:textSize="16sp" />
 
                 <EditText
+                    android:id="@+id/etAddress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
@@ -141,6 +143,7 @@
                     android:textSize="16sp" />
 
                 <EditText
+                    android:id="@+id/etPlacePhone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
@@ -151,6 +154,7 @@
                     android:textSize="16sp" />
 
                 <EditText
+                    android:id="@+id/etPlaceAbout"
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
                     android:background="@null"

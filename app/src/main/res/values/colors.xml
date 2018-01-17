@@ -24,11 +24,11 @@
         <item name="colorControlActivated">@color/bgBlue</item>
     </style>
     <!--Toolbar color-->
-    <color name="tbThamQuan">#168DDB</color>
-    <color name="tbAnUong">#B33030</color>
-    <color name="tbKhachSan">#FE6500</color>
-    <color name="tbVuiChoi">#56BBEF</color>
-    <color name="tbPhuongTien">#19AC5B</color>
+    <color name="tbPlace">#168DDB</color>
+    <color name="tbEat">#B33030</color>
+    <color name="tbHotel">#FE6500</color>
+    <color name="tbEntertain">#56BBEF</color>
+    <color name="tbVehicle">#19AC5B</color>
 
     <!--Layout đăng nhập-->
     <color name="colorbtnDangnhap2">#00eeff</color>

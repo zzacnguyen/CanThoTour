@@ -37,7 +37,7 @@
                 android:layout_marginTop="58dp">
 
                 <TextView
-                    android:id="@+id/fb_sukien"
+                    android:id="@+id/fb_event"
                     android:layout_width="110dp"
                     android:layout_height="wrap_content"
                     android:background="#dcff0404"
@@ -102,7 +102,7 @@
                 android:padding="10dp">
 
                 <TextView
-                    android:id="@+id/textViewTenDv"
+                    android:id="@+id/textViewServiceName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="2dp"
@@ -117,7 +117,7 @@
                     android:padding="2dp">
 
                     <TextView
-                        android:id="@+id/textViewDiemDG"
+                        android:id="@+id/textViewRatingMark"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text=""
@@ -125,7 +125,7 @@
                         android:textSize="14sp" />
 
                     <RatingBar
-                        android:id="@+id/ratingBarSoSao"
+                        android:id="@+id/ratingBarStars"
                         style="?attr/ratingBarStyleSmall"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -149,7 +149,7 @@
                 android:padding="5dp">
 
                 <Button
-                    android:id="@+id/btnLuu"
+                    android:id="@+id/btnLike"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -160,7 +160,7 @@
                     android:textSize="14sp" />
 
                 <Button
-                    android:id="@+id/btnLanCan"
+                    android:id="@+id/btnNearLocation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -171,7 +171,7 @@
                     android:textSize="14sp" />
 
                 <Button
-                    android:id="@+id/btnChiaSeDv"
+                    android:id="@+id/btnShareService"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -205,7 +205,7 @@
                         android:tint="@color/bgToolbar" />
 
                     <TextView
-                        android:id="@+id/textViewDiaChiDv"
+                        android:id="@+id/textViewServiceAddress"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -228,7 +228,7 @@
                         android:tint="@color/bgToolbar" />
 
                     <TextView
-                        android:id="@+id/textViewSdtDv"
+                        android:id="@+id/textViewServicePhone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -274,7 +274,7 @@
                         android:tint="@color/bgToolbar" />
 
                     <TextView
-                        android:id="@+id/textViewGia"
+                        android:id="@+id/textViewCost"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -306,7 +306,7 @@
                         android:textSize="14sp" />
 
                     <TextView
-                        android:id="@+id/textViewGioMc"
+                        android:id="@+id/textViewTimeOpen"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -325,7 +325,7 @@
                         android:textSize="14sp" />
 
                     <TextView
-                        android:id="@+id/textViewGioDong"
+                        android:id="@+id/textViewTimeClose"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -361,7 +361,7 @@
                     android:padding="5dp">
 
                     <ImageView
-                        android:id="@+id/imgChiTiet1"
+                        android:id="@+id/imgInfo1"
                         android:layout_width="match_parent"
                         android:layout_height="150dp"
                         android:layout_weight="1"
@@ -372,7 +372,7 @@
                         android:layout_height="match_parent" />
 
                     <ImageView
-                        android:id="@+id/imgChiTiet2"
+                        android:id="@+id/imgInfo2"
                         android:layout_width="match_parent"
                         android:layout_height="150dp"
                         android:layout_weight="1"
@@ -407,7 +407,7 @@
                     android:padding="10dp">
 
                     <Button
-                        android:id="@+id/btnDanhGia"
+                        android:id="@+id/btnReview"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -418,7 +418,7 @@
                         android:textSize="12sp" />
 
                     <Button
-                        android:id="@+id/btnXemDanhGia"
+                        android:id="@+id/btnOpenListReview"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -448,7 +448,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/textViewGioiThieuDv"
+                    android:id="@+id/textViewServiceAbout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=""

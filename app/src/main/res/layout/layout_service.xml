@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:layout_collapseMode="pin"
-            android:background="@color/bgRed">
+            android:background="@color/bgBlue">
 
             <TextView
                 android:id="@+id/toolbarTitle"
@@ -43,7 +43,7 @@
         android:padding="10dp">
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/RecyclerView_DanhSachDichVu"
+            android:id="@+id/RecyclerView_ServiceList"
             android:background="@color/colorWhite"
             android:layout_width="match_parent"
             android:layout_height="match_parent">

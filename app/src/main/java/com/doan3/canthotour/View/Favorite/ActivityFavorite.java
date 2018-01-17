@@ -49,8 +49,8 @@ public class ActivityFavorite extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorite);
 
-        txtTenDD = findViewById(R.id.textViewYeuThich);
-        imgHinhDD = findViewById(R.id.imageViewYeuThich);
+        txtTenDD = findViewById(R.id.textViewFavorite);
+        imgHinhDD = findViewById(R.id.imageViewFavorite);
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavView_Bar);
         BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
@@ -61,7 +61,7 @@ public class ActivityFavorite extends AppCompatActivity {
         }
         File file = new File(path, "dsyeuthich.json");
 
-        recyclerView = findViewById(R.id.RecyclerView_DanhSachYeuThich);
+        recyclerView = findViewById(R.id.RecyclerView_FavoriteList);
         recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
 
         LinearLayoutManager linearLayoutManager =

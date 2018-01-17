@@ -123,8 +123,8 @@ public class ListOfServiceAdapter extends RecyclerView.Adapter<RecyclerView.View
         public ViewHolder(View itemView) {
             super(itemView);
 
-            txtTen = itemView.findViewById(R.id.txtTen);
-            imgHinh = itemView.findViewById(R.id.imgHinh);
+            txtTen = itemView.findViewById(R.id.txtPlaceName);
+            imgHinh = itemView.findViewById(R.id.imgPlacePhoto);
             cardView = itemView.findViewById(R.id.cardViewDanhSach);
 
         }

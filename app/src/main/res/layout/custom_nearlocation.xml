@@ -14,7 +14,7 @@
         android:padding="5dp">
 
         <ImageView
-            android:id="@+id/imageViewLanCan"
+            android:id="@+id/imageViewNear"
             android:layout_width="90dp"
             android:layout_height="60dp"
             android:scaleType="centerCrop"
@@ -27,7 +27,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textViewTenLanCan"
+                android:id="@+id/textViewNearName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -37,7 +37,7 @@
                 android:textSize="15sp" />
 
             <TextView
-                android:id="@+id/textViewKhoangCach"
+                android:id="@+id/textViewRadius"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

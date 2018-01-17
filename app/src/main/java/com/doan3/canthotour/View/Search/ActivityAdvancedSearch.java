@@ -45,15 +45,15 @@ public class ActivityAdvancedSearch extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_advancedsearch);
 
-        etTimKiem = findViewById(R.id.etTimKiem);
+        etTimKiem = findViewById(R.id.etSearch);
         radioGroup1 = findViewById(R.id.radioGroup1);
         radioGroup2 = findViewById(R.id.radioGroup2);
-        rdbAnUong = findViewById(R.id.rdbAnUong);
-        rdbThamQuan = findViewById(R.id.rdbThamQuan);
-        rdbKhachSan = findViewById(R.id.rdbKhachSan);
-        rdbPhuongTien = findViewById(R.id.rdbPhuongTien);
-        rdbVuiChoi = findViewById(R.id.rdbVuiChoi);
-        btnHuy = findViewById(R.id.btnHuy);
+        rdbAnUong = findViewById(R.id.rdbEat);
+        rdbThamQuan = findViewById(R.id.rdbPlace);
+        rdbKhachSan = findViewById(R.id.rdbHotel);
+        rdbPhuongTien = findViewById(R.id.rdbVehicle);
+        rdbVuiChoi = findViewById(R.id.rdbEntertain);
+        btnHuy = findViewById(R.id.btnCancel);
 
         radioGroup1.clearCheck();
         radioGroup2.clearCheck();
@@ -100,7 +100,7 @@ public class ActivityAdvancedSearch extends AppCompatActivity {
 
         final ListOfServiceAdapter listOfServiceAdapter;
         final RecyclerView recyclerView;
-        recyclerView = findViewById(R.id.RecyclerView_DanhSachTimKiem);
+        recyclerView = findViewById(R.id.RecyclerView_SearchList);
         recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
 
         LinearLayoutManager linearLayoutManager =

@@ -42,7 +42,7 @@
         android:layout_marginBottom="50dp">
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/RecyclerView_DiaDiemLanCan"
+            android:id="@+id/RecyclerView_NearLocation"
             android:background="@color/colorWhite"
             android:layout_width="match_parent"
             android:layout_height="match_parent">

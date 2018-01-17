@@ -25,7 +25,7 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/btnHuy"
+                    android:id="@+id/btnCancel"
                     android:layout_width="46dp"
                     android:layout_height="wrap_content"
                     android:background="@null"
@@ -84,7 +84,7 @@
                 android:textSize="20sp" />
 
             <EditText
-                android:id="@+id/txtTieuDe"
+                android:id="@+id/etTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
@@ -95,7 +95,7 @@
                 android:textSize="16sp" />
 
             <RatingBar
-                android:id="@+id/rbDanhGia"
+                android:id="@+id/rbReview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -113,7 +113,7 @@
             android:orientation="vertical">
 
             <EditText
-                android:id="@+id/txtNhanXet"
+                android:id="@+id/txtComment"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:background="@null"

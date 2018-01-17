@@ -40,10 +40,10 @@ public class ActivityLogin extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        etTaiKhoan = findViewById(R.id.etTaiKhoan);
-        etMatKhau = findViewById(R.id.etMatKhau);
-        btnDangNhap = findViewById(R.id.btnDangNhap);
-        btnDangKy = findViewById(R.id.btnDangKy);
+        etTaiKhoan = findViewById(R.id.etUserName);
+        etMatKhau = findViewById(R.id.etPassword);
+        btnDangNhap = findViewById(R.id.btnLogin);
+        btnDangKy = findViewById(R.id.btnRegister);
 
         ma = getIntent().getIntExtra("id", 0);
         String mess = getIntent().getStringExtra("mess");

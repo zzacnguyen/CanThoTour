@@ -88,11 +88,11 @@ public class ActivityServiceInfo extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_serviceinfo);
 
-        btnChiaSe = findViewById(R.id.btnChiaSeDv);
-        btnLuu = findViewById(R.id.btnLuu);
-        btnLanCan = findViewById(R.id.btnLanCan);
-        btnDanhGia = findViewById(R.id.btnDanhGia);
-        btnXemDanhGia = findViewById(R.id.btnXemDanhGia);
+        btnChiaSe = findViewById(R.id.btnShareService);
+        btnLuu = findViewById(R.id.btnLike);
+        btnLanCan = findViewById(R.id.btnNearLocation);
+        btnDanhGia = findViewById(R.id.btnReview);
+        btnXemDanhGia = findViewById(R.id.btnOpenListReview);
 
         ma = getIntent().getIntExtra("id", 1);
         String mess = getIntent().getStringExtra("mess");
@@ -210,23 +210,23 @@ public class ActivityServiceInfo extends AppCompatActivity {
     }
 
     public void load(final Activity activity, String url) {
-        TextView txtTenDv = activity.findViewById(R.id.textViewTenDv);
-        TextView txtGioiThieu = activity.findViewById(R.id.textViewGioiThieuDv);
-        TextView txtGia = activity.findViewById(R.id.textViewGia);
-        TextView txtGioMo = activity.findViewById(R.id.textViewGioMc);
-        TextView txtGioDong = activity.findViewById(R.id.textViewGioDong);
-        TextView txtDiaChi = activity.findViewById(R.id.textViewDiaChiDv);
-        TextView txtSDT = activity.findViewById(R.id.textViewSdtDv);
+        TextView txtTenDv = activity.findViewById(R.id.textViewServiceName);
+        TextView txtGioiThieu = activity.findViewById(R.id.textViewServiceAbout);
+        TextView txtGia = activity.findViewById(R.id.textViewCost);
+        TextView txtGioMo = activity.findViewById(R.id.textViewTimeOpen);
+        TextView txtGioDong = activity.findViewById(R.id.textViewTimeClose);
+        TextView txtDiaChi = activity.findViewById(R.id.textViewServiceAddress);
+        TextView txtSDT = activity.findViewById(R.id.textViewServicePhone);
         TextView txtWebsite = activity.findViewById(R.id.textViewWebsite);
-        ImageView imgChiTiet1Thumb = activity.findViewById(R.id.imgChiTiet1);
-        ImageView imgChiTiet2Thumb = activity.findViewById(R.id.imgChiTiet2);
+        ImageView imgChiTiet1Thumb = activity.findViewById(R.id.imgInfo1);
+        ImageView imgChiTiet2Thumb = activity.findViewById(R.id.imgInfo2);
         ImageView imgBanner = activity.findViewById(R.id.imgBanner);
         Toolbar toolbar = findViewById(R.id.toolbar);
         TextView toolbarTitle = findViewById(R.id.toolbarTitle);
-        TextView fbEvent = findViewById(R.id.fb_sukien);
+        TextView fbEvent = findViewById(R.id.fb_event);
         LinearLayout info = findViewById(R.id.info);
-        TextView txtDiem = findViewById(R.id.textViewDiemDG);
-        RatingBar rbSao = findViewById(R.id.ratingBarSoSao);
+        TextView txtDiem = findViewById(R.id.textViewRatingMark);
+        RatingBar rbSao = findViewById(R.id.ratingBarStars);
 
         final ServiceInfo serviceInfo = new ModelService().getServiceInfo(url);
 
@@ -240,8 +240,8 @@ public class ActivityServiceInfo extends AppCompatActivity {
         // region get tên và set màu cho từng dịch vụ
         if (serviceInfo.getTenAU() != null) {
             txtTenDv.setText(serviceInfo.getTenAU());
-            toolbar.setBackgroundColor(getResources().getColor(R.color.tbAnUong));
-            info.setBackgroundColor(getResources().getColor(R.color.tbAnUong));
+            toolbar.setBackgroundColor(getResources().getColor(R.color.tbEat));
+            info.setBackgroundColor(getResources().getColor(R.color.tbEat));
             loaiHinh = 1;
             toolbarTitle.setText("Chi tiết quán ăn");
             serviceInfo.setTenPT("null");
@@ -250,8 +250,8 @@ public class ActivityServiceInfo extends AppCompatActivity {
             serviceInfo.setTenVC("null");
         } else if (serviceInfo.getTenKS() != null) {
             txtTenDv.setText(serviceInfo.getTenKS());
-            toolbar.setBackgroundColor(getResources().getColor(R.color.tbKhachSan));
-            info.setBackgroundColor(getResources().getColor(R.color.tbKhachSan));
+            toolbar.setBackgroundColor(getResources().getColor(R.color.tbHotel));
+            info.setBackgroundColor(getResources().getColor(R.color.tbHotel));
             loaiHinh = 2;
             toolbarTitle.setText("Chi tiết khách sạn");
             serviceInfo.setTenPT("null");
@@ -260,8 +260,8 @@ public class ActivityServiceInfo extends AppCompatActivity {
             serviceInfo.setTenVC("null");
         } else if (serviceInfo.getTenTQ() != null) {
             txtTenDv.setText(serviceInfo.getTenTQ());
-            toolbar.setBackgroundColor(getResources().getColor(R.color.tbThamQuan));
-            info.setBackgroundColor(getResources().getColor(R.color.tbThamQuan));
+            toolbar.setBackgroundColor(getResources().getColor(R.color.tbPlace));
+            info.setBackgroundColor(getResources().getColor(R.color.tbPlace));
             loaiHinh = 4;
             toolbarTitle.setText("Chi tiết điểm tham quan");
             serviceInfo.setTenPT("null");
@@ -270,8 +270,8 @@ public class ActivityServiceInfo extends AppCompatActivity {
             serviceInfo.setTenVC("null");
         } else if (serviceInfo.getTenPT() != null) {
             txtTenDv.setText(serviceInfo.getTenPT());
-            toolbar.setBackgroundColor(getResources().getColor(R.color.tbPhuongTien));
-            info.setBackgroundColor(getResources().getColor(R.color.tbPhuongTien));
+            toolbar.setBackgroundColor(getResources().getColor(R.color.tbVehicle));
+            info.setBackgroundColor(getResources().getColor(R.color.tbVehicle));
             loaiHinh = 3;
             toolbarTitle.setText("Chi tiết phương tiện");
             serviceInfo.setTenAU("null");
@@ -280,8 +280,8 @@ public class ActivityServiceInfo extends AppCompatActivity {
             serviceInfo.setTenVC("null");
         } else {
             txtTenDv.setText(serviceInfo.getTenVC());
-            toolbar.setBackgroundColor(getResources().getColor(R.color.tbVuiChoi));
-            info.setBackgroundColor(getResources().getColor(R.color.tbVuiChoi));
+            toolbar.setBackgroundColor(getResources().getColor(R.color.tbEntertain));
+            info.setBackgroundColor(getResources().getColor(R.color.tbEntertain));
             loaiHinh = 5;
             toolbarTitle.setText("Chi tiết điểm vui chơi");
             serviceInfo.setTenPT("null");

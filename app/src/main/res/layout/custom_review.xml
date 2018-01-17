@@ -17,7 +17,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textViewTen"
+                android:id="@+id/textViewName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -34,7 +34,7 @@
                 android:padding="2dp">
 
                 <RatingBar
-                    android:id="@+id/ratingBarGetSoSao"
+                    android:id="@+id/ratingBarGetStar"
                     style="?attr/ratingBarStyleSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -45,7 +45,7 @@
                     android:theme="@style/setRatingBar" />
 
                 <TextView
-                    android:id="@+id/textViewTieuDe"
+                    android:id="@+id/textViewTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -57,7 +57,7 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/textViewNhanXetNd"
+                android:id="@+id/textViewUserReview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -67,7 +67,7 @@
                 android:textSize="14sp" />
 
             <TextView
-                android:id="@+id/textViewNgayNx"
+                android:id="@+id/textViewDateReview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

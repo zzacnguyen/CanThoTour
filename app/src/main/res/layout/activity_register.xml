@@ -63,7 +63,7 @@
                         android:text="Tài khoản *" />
 
                     <EditText
-                        android:id="@+id/etTaiKhoan"
+                        android:id="@+id/etUserName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="8dp"
@@ -86,7 +86,7 @@
                         android:text="Mật khẩu *" />
 
                     <EditText
-                        android:id="@+id/etMatKhau"
+                        android:id="@+id/etPassword"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="8dp"
@@ -110,7 +110,7 @@
                         android:text="Nhập lại mật khẩu *" />
 
                     <EditText
-                        android:id="@+id/etNhapLaiMk"
+                        android:id="@+id/etPasswordConfirm"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="8dp"
@@ -134,7 +134,7 @@
                         android:text="Quốc gia" />
 
                     <EditText
-                        android:id="@+id/etQuocGia"
+                        android:id="@+id/etCountry"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="8dp"
@@ -158,7 +158,7 @@
                         android:text="Ngôn ngữ" />
 
                     <EditText
-                        android:id="@+id/etNgonNgu"
+                        android:id="@+id/etLanguege"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="8dp"
@@ -189,11 +189,11 @@
                     android:text="Bằng việc đăng ký tài khoản, bạn đã đồng ý các điều khoản của ứng dụng cần thơ tour" />
 
                 <Button
-                    android:id="@+id/btnDangKy"
+                    android:id="@+id/btnRegister"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:background="@color/tbThamQuan"
+                    android:background="@color/tbPlace"
                     android:text="Đăng ký"
                     android:textColor="@color/colorWhite"
                     android:textSize="20sp" />

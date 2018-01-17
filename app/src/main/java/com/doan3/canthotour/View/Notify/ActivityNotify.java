@@ -78,7 +78,7 @@ public class ActivityNotify extends AppCompatActivity {
 
         final ListOfServiceAdapter listOfServiceAdapter;
         final RecyclerView recyclerView;
-        recyclerView = findViewById(R.id.RecyclerView_DanhSachSuKien);
+        recyclerView = findViewById(R.id.RecyclerView_EventList);
         recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
 
         LinearLayoutManager linearLayoutManager =

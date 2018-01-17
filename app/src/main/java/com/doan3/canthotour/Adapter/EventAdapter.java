@@ -125,9 +125,9 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         public ViewHolder(View itemView) {
             super(itemView);
 
-            txtTenSk = itemView.findViewById(R.id.textViewTenSk);
+            txtTenSk = itemView.findViewById(R.id.textViewEventName);
             imgHinhSk = itemView.findViewById(R.id.imageViewSuKien);
-            txtNgaySk = itemView.findViewById(R.id.textViewNgaySk);
+            txtNgaySk = itemView.findViewById(R.id.textViewEventDate);
             cardView = itemView.findViewById(R.id.cardViewSuKien);
         }
     }

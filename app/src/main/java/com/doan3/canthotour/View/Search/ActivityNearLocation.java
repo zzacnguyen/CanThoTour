@@ -34,9 +34,9 @@ public class ActivityNearLocation extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nearlocation);
-        txtTenDd = findViewById(R.id.textViewTenLanCan);
-        txtKhoangCach = findViewById(R.id.textViewKhoangCach);
-        imgHinhDd = findViewById(R.id.imageViewLanCan);
+        txtTenDd = findViewById(R.id.textViewNearName);
+        txtKhoangCach = findViewById(R.id.textViewRadius);
+        imgHinhDd = findViewById(R.id.imageViewNear);
 
         kinhDo = getIntent().getStringExtra("kinhdo");
         viDo = getIntent().getStringExtra("vido");
@@ -67,7 +67,7 @@ public class ActivityNearLocation extends AppCompatActivity {
         ArrayList<NearLocation> favoriteList = new ModelService().getNearLocationList(Config.URL_HOST +
                 "timkiem/dichvulancan/location=" + viDo.trim() + "," + kinhDo.trim() + "&type=" +
                 loaiHinh + "&radius=" + radius, loaiHinh, this);
-        RecyclerView recyclerView = findViewById(R.id.RecyclerView_DiaDiemLanCan);
+        RecyclerView recyclerView = findViewById(R.id.RecyclerView_NearLocation);
         recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
         LinearLayoutManager linearLayoutManager =
                 new LinearLayoutManager(ActivityNearLocation.this, LinearLayoutManager.VERTICAL, false);

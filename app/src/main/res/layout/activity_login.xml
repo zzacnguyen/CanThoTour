@@ -51,7 +51,7 @@
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/etTaiKhoan"
+            android:id="@+id/etUserName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
@@ -60,7 +60,7 @@
             android:maxLength="20" />
 
         <EditText
-            android:id="@+id/etMatKhau"
+            android:id="@+id/etPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
@@ -70,21 +70,21 @@
             android:maxLength="20" />
 
         <Button
-            android:id="@+id/btnDangNhap"
+            android:id="@+id/btnLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:background="@color/tbThamQuan"
+            android:background="@color/tbPlace"
             android:text="Đăng nhập"
             android:textColor="@color/colorWhite"
             android:textSize="20sp" />
 
         <Button
-            android:id="@+id/btnDangKy"
+            android:id="@+id/btnRegister"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:background="@color/tbThamQuan"
+            android:background="@color/tbPlace"
             android:text="Đăng ký"
             android:textColor="@color/colorWhite"
             android:textSize="20sp" />

@@ -13,14 +13,14 @@
             android:padding="10dp">
 
             <ImageView
-                android:id="@+id/imgHinh"
+                android:id="@+id/imgPlacePhoto"
                 android:src="@mipmap/ic_launcher"
                 android:scaleType="centerCrop"
                 android:layout_width="180dp"
                 android:layout_height="150dp" />
 
             <TextView
-                android:id="@+id/txtTen"
+                android:id="@+id/txtPlaceName"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="Dia diem"

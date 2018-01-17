@@ -32,8 +32,8 @@ public class ActivityOption extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_option);
 
-        btnKhoangCachLc = findViewById(R.id.btnKhoangCachLC);
-        txtKhoangCachLc = findViewById(R.id.textViewKhoanCachLc);
+        btnKhoangCachLc = findViewById(R.id.btnNearLocation);
+        txtKhoangCachLc = findViewById(R.id.textViewNearLocation);
 
         File path = new File(Environment.getExternalStorageDirectory() + "/canthotour");
         if (!path.exists()) {
@@ -56,9 +56,9 @@ public class ActivityOption extends AppCompatActivity {
                 dialog.setContentView(R.layout.custom_radius);
 
                 //Ánh xạ các palette trong dialog
-                final EditText etKhoangCach = dialog.findViewById(R.id.etKhoangCach);
-                Button btnDongY = dialog.findViewById(R.id.btnDongYKC);
-                Button btnHuy = dialog.findViewById(R.id.btnHuyKC);
+                final EditText etKhoangCach = dialog.findViewById(R.id.etRadius);
+                Button btnDongY = dialog.findViewById(R.id.btnConfirmRadius);
+                Button btnHuy = dialog.findViewById(R.id.btnCancelRadius);
 
                 btnDongY.setOnClickListener(new View.OnClickListener() {
                     @Override

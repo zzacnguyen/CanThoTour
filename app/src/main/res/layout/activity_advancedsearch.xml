@@ -34,7 +34,7 @@
                     android:tint="@color/colorWhite" />
 
                 <EditText
-                    android:id="@+id/etTimKiem"
+                    android:id="@+id/etSearch"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="2dp"
@@ -45,7 +45,7 @@
                     android:textSize="16sp" />
 
                 <Button
-                    android:id="@+id/btnHuy"
+                    android:id="@+id/btnCancel"
                     android:layout_width="60dp"
                     android:layout_height="40dp"
                     android:background="@null"
@@ -77,21 +77,21 @@
                 android:orientation="horizontal">
 
                 <RadioButton
-                    android:id="@+id/rdbThamQuan"
+                    android:id="@+id/rdbPlace"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Tham quan" />
 
                 <RadioButton
-                    android:id="@+id/rdbAnUong"
+                    android:id="@+id/rdbEat"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Ăn uống" />
 
                 <RadioButton
-                    android:id="@+id/rdbKhachSan"
+                    android:id="@+id/rdbHotel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -105,14 +105,14 @@
                 android:orientation="horizontal">
 
                 <RadioButton
-                    android:id="@+id/rdbPhuongTien"
+                    android:id="@+id/rdbVehicle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Phương tiện" />
 
                 <RadioButton
-                    android:id="@+id/rdbVuiChoi"
+                    android:id="@+id/rdbEntertain"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -130,7 +130,7 @@
         </LinearLayout>
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/RecyclerView_DanhSachTimKiem"
+            android:id="@+id/RecyclerView_SearchList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/colorWhite"></android.support.v7.widget.RecyclerView>

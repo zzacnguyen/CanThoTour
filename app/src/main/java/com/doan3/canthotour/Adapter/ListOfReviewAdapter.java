@@ -113,11 +113,11 @@ public class ListOfReviewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         public ViewHolder(View itemView) {
             super(itemView);
 
-            txtTen = itemView.findViewById(R.id.textViewTen);
-            txtTieuDe = itemView.findViewById(R.id.textViewTieuDe);
-            txtDanhGia = itemView.findViewById(R.id.textViewNhanXetNd);
-            txtNgay = itemView.findViewById(R.id.textViewNgayNx);
-            rbSoSao = itemView.findViewById(R.id.ratingBarGetSoSao);
+            txtTen = itemView.findViewById(R.id.textViewName);
+            txtTieuDe = itemView.findViewById(R.id.textViewTitle);
+            txtDanhGia = itemView.findViewById(R.id.textViewUserReview);
+            txtNgay = itemView.findViewById(R.id.textViewDateReview);
+            rbSoSao = itemView.findViewById(R.id.ratingBarGetStar);
             cardView = itemView.findViewById(R.id.cardViewDanhSach);
 
         }
