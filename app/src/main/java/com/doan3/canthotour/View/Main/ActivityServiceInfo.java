@@ -86,7 +86,7 @@ public class ActivityServiceInfo extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chitietdichvu);
+        setContentView(R.layout.activity_serviceinfo);
 
         btnChiaSe = findViewById(R.id.btnChiaSeDv);
         btnLuu = findViewById(R.id.btnLuu);

@@ -23,7 +23,7 @@ public class ActivityAddService extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_themdichvu);
+        setContentView(R.layout.activity_addservice);
 
         menuBotNarBar();
     }

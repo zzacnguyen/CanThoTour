@@ -40,7 +40,7 @@ public class ActivityReview extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_danhgia);
+        setContentView(R.layout.activity_review);
         btnGui = findViewById(R.id.btnGui);
         btnHuy = findViewById(R.id.btnHuy);
         rbDanhGia = findViewById(R.id.rbDanhGia);

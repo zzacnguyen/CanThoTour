@@ -60,7 +60,7 @@ public class ListOfReviewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == VIEW_TYPE_ITEM) {
-            View view = LayoutInflater.from(context).inflate(R.layout.custom_danhgia, parent, false);
+            View view = LayoutInflater.from(context).inflate(R.layout.custom_review, parent, false);
             return new ViewHolder(view);
         } else if (viewType == VIEW_TYPE_LOADING) {
             View view = LayoutInflater.from(context).inflate(R.layout.item_loading, parent, false);

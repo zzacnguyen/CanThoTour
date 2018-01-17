@@ -36,7 +36,7 @@ public class ActivityPersonal extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_canhan);
+        setContentView(R.layout.activity_personal);
 
         btnTimKiemNangCao = findViewById(R.id.buttonTimKiemNC);
         btnThemDiaDiem = findViewById(R.id.buttonThemDiaDiem);

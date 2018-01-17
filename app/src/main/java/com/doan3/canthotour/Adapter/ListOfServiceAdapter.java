@@ -62,7 +62,7 @@ public class ListOfServiceAdapter extends RecyclerView.Adapter<RecyclerView.View
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == VIEW_TYPE_ITEM) {
-            View view = LayoutInflater.from(context).inflate(R.layout.custom_diadiem_list, parent, false);
+            View view = LayoutInflater.from(context).inflate(R.layout.custom_location_list, parent, false);
             return new ViewHolder(view);
         } else if (viewType == VIEW_TYPE_LOADING) {
             View view = LayoutInflater.from(context).inflate(R.layout.item_loading, parent, false);

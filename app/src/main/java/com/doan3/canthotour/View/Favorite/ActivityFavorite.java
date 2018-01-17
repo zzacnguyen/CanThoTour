@@ -47,7 +47,7 @@ public class ActivityFavorite extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_yeuthich);
+        setContentView(R.layout.activity_favorite);
 
         txtTenDD = findViewById(R.id.textViewYeuThich);
         imgHinhDD = findViewById(R.id.imageViewYeuThich);

@@ -37,7 +37,7 @@ public class ActivityNotify extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_thongbao);
+        setContentView(R.layout.activity_notify);
 
         loadInfo(Config.URL_HOST + Config.URL_GET_ALL_EVENTS);
 

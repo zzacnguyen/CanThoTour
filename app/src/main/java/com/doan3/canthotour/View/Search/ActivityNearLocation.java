@@ -33,7 +33,7 @@ public class ActivityNearLocation extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_diadiemlancan);
+        setContentView(R.layout.activity_nearlocation);
         txtTenDd = findViewById(R.id.textViewTenLanCan);
         txtKhoangCach = findViewById(R.id.textViewKhoangCach);
         imgHinhDd = findViewById(R.id.imageViewLanCan);

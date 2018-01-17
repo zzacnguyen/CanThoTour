@@ -39,7 +39,7 @@ public class ActivitySearch extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_timkiem);
+        setContentView(R.layout.activity_search);
         etTimKiem = findViewById(R.id.etTimKiem);
         btnHuy = findViewById(R.id.btnHuy);
 

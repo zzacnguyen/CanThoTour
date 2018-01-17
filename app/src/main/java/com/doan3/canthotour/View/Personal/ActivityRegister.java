@@ -29,7 +29,7 @@ public class ActivityRegister extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dangky);
+        setContentView(R.layout.activity_register);
         etTaiKhoan = findViewById(R.id.etTaiKhoan);
         etMatKhau = findViewById(R.id.etMatKhau);
         etNhapLaiMk = findViewById(R.id.etNhapLaiMk);

@@ -30,7 +30,7 @@ public class ActivityOption extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_caidat);
+        setContentView(R.layout.activity_option);
 
         btnKhoangCachLc = findViewById(R.id.btnKhoangCachLC);
         txtKhoangCachLc = findViewById(R.id.textViewKhoanCachLc);
@@ -53,7 +53,7 @@ public class ActivityOption extends AppCompatActivity {
                 final Dialog dialog = new Dialog(ActivityOption.this);
                 dialog.setTitle("Đặt lại khoảng cách");
                 dialog.setCancelable(false); //Khóa màn hình ngoài sau khi ấn vàodialog
-                dialog.setContentView(R.layout.custom_khoangcach);
+                dialog.setContentView(R.layout.custom_radius);
 
                 //Ánh xạ các palette trong dialog
                 final EditText etKhoangCach = dialog.findViewById(R.id.etKhoangCach);

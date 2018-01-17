@@ -29,7 +29,7 @@ public class NearLocationAdapter extends RecyclerView.Adapter<NearLocationAdapte
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) { //Khi gọi DiaDanhAdapter thì hàm này chạy đầu tiên
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View itemView = layoutInflater.inflate(R.layout.custom_lancan, parent, false);
+        View itemView = layoutInflater.inflate(R.layout.custom_nearlocation, parent, false);
         return new ViewHolder(itemView);
     }
 

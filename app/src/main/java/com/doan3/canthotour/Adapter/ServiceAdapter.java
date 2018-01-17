@@ -29,7 +29,7 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ViewHold
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) { //Khi gọi DiaDanhAdapter thì hàm này chạy đầu tiên
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View itemView = layoutInflater.inflate(R.layout.custom_trangchu_list_item, parent, false);
+        View itemView = layoutInflater.inflate(R.layout.custom_main_list_item, parent, false);
         return new ViewHolder(itemView);
     }
 

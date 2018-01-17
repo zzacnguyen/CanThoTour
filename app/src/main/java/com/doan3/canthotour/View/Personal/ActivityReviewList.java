@@ -33,7 +33,7 @@ public class ActivityReviewList extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_danhsachdanhgia);
+        setContentView(R.layout.activity_reviewlist);
 
         int ma = getIntent().getIntExtra("id", 1);
         load(Config.URL_HOST + Config.URL_GET_ALL_REVIEWS + "-dichvu/" + ma, Config.JSON_REVIEW);

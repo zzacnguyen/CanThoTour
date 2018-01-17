@@ -43,7 +43,7 @@ public class ActivityAdvancedSearch extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_timkiemnangcao);
+        setContentView(R.layout.activity_advancedsearch);
 
         etTimKiem = findViewById(R.id.etTimKiem);
         radioGroup1 = findViewById(R.id.radioGroup1);
