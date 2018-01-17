@@ -7,44 +7,44 @@ import android.graphics.Bitmap;
  */
 
 public class Event {
-    private int maSk;
-    private String tenSk;
-    private String ngaySk;
-    private Bitmap hinhSk;
+    private int eventId;
+    private String eventName;
+    private String eventDate;
+    private Bitmap eventImage;
 
     public Event(){
 
     }
 
-    public int getMaSk() {
-        return maSk;
+    public int getEventId() {
+        return eventId;
     }
 
-    public void setMaSk(int maSk) {
-        this.maSk = maSk;
+    public void setEventId(int eventId) {
+        this.eventId = eventId;
     }
 
-    public String getTenSk() {
-        return tenSk;
+    public String getEventName() {
+        return eventName;
     }
 
-    public void setTenSk(String tenSk) {
-        this.tenSk = tenSk;
+    public void setEventName(String eventName) {
+        this.eventName = eventName;
     }
 
-    public String getNgaySk() {
-        return ngaySk;
+    public String getEventDate() {
+        return eventDate;
     }
 
-    public void setNgaySk(String ngaySk) {
-        this.ngaySk = ngaySk;
+    public void setEventDate(String eventDate) {
+        this.eventDate = eventDate;
     }
 
-    public Bitmap getHinhSk() {
-        return hinhSk;
+    public Bitmap getEventImage() {
+        return eventImage;
     }
 
-    public void setHinhSk(Bitmap hinhSk) {
-        this.hinhSk = hinhSk;
+    public void setEventImage(Bitmap eventImage) {
+        this.eventImage = eventImage;
     }
 }

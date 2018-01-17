@@ -30,11 +30,11 @@ public class ModelReview {
                 Review review = new Review();
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 arrayList = JsonHelper.parseJsonNoId(jsonObject, formatJson);
-                review.setTenNguoiDung(arrayList.get(0));
-                review.setSoSao(Float.parseFloat(arrayList.get(1)));
-                review.setTieuDe(arrayList.get(2));
-                review.setDanhGia(arrayList.get(3));
-                review.setNgayDanhGia(arrayList.get(4));
+                review.setUserName(arrayList.get(0));
+                review.setStars(Float.parseFloat(arrayList.get(1)));
+                review.setTitle(arrayList.get(2));
+                review.setReview(arrayList.get(3));
+                review.setDateReview(arrayList.get(4));
 
                 reviews.add(review);
             }

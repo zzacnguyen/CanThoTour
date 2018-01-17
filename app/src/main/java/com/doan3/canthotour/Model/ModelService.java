@@ -14,7 +14,6 @@ import com.doan3.canthotour.Model.ObjectClass.Event;
 import com.doan3.canthotour.Model.ObjectClass.NearLocation;
 import com.doan3.canthotour.Model.ObjectClass.Service;
 import com.doan3.canthotour.Model.ObjectClass.ServiceInfo;
-import com.doan3.canthotour.View.Search.ActivityNearLocation;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -91,36 +90,36 @@ public class ModelService {
 
             serviceInfo.setWebsite("Đang cập nhật");
             if (!arrayDichVu.get(1).equals("null")) {
-                serviceInfo.setTenKS(arrayDichVu.get(1));
+                serviceInfo.setHotelName(arrayDichVu.get(1));
                 serviceInfo.setWebsite(arrayDichVu.get(2));
             } else if (!arrayDichVu.get(3).equals("null")) {
-                serviceInfo.setTenVC(arrayDichVu.get(3));
+                serviceInfo.setEntertainName(arrayDichVu.get(3));
             } else if (!arrayDichVu.get(4).equals("null")) {
-                serviceInfo.setTenPT(arrayDichVu.get(4));
+                serviceInfo.setVehicleName(arrayDichVu.get(4));
             } else if (!arrayDichVu.get(5).equals("null")) {
-                serviceInfo.setTenTQ(arrayDichVu.get(5));
+                serviceInfo.setPlaceName(arrayDichVu.get(5));
             } else if (!arrayDichVu.get(6).equals("null")) {
-                serviceInfo.setTenAU(arrayDichVu.get(6));
+                serviceInfo.setEatName(arrayDichVu.get(6));
             }
             serviceInfo.setId(Integer.parseInt(arrayDichVu.get(0)));
-            serviceInfo.setGioiThieuDV(arrayDichVu.get(7));
-            serviceInfo.setGioMoCua(arrayDichVu.get(8));
-            serviceInfo.setGioDongCua(arrayDichVu.get(9));
-            serviceInfo.setGiaThapNhat(arrayDichVu.get(10));
-            serviceInfo.setGiaCaoNhat(arrayDichVu.get(11));
-            serviceInfo.setDiaChi(arrayDichVu.get(12));
-            serviceInfo.setSdt(arrayDichVu.get(13));
+            serviceInfo.setServiceAbout(arrayDichVu.get(7));
+            serviceInfo.setTimeOpen(arrayDichVu.get(8));
+            serviceInfo.setTimeClose(arrayDichVu.get(9));
+            serviceInfo.setLowestPrice(arrayDichVu.get(10));
+            serviceInfo.setHighestPrice(arrayDichVu.get(11));
+            serviceInfo.setAddress(arrayDichVu.get(12));
+            serviceInfo.setPhoneNumber(arrayDichVu.get(13));
             if (arrayDichVu.get(14).equals("null")) {
-                serviceInfo.setDiemDG((float) 0);
-                serviceInfo.setSoSao(0);
+                serviceInfo.setReviewMark((float) 0);
+                serviceInfo.setStars(0);
             } else {
-                serviceInfo.setDiemDG(Float.parseFloat(arrayDichVu.get(14)));
-                serviceInfo.setSoSao(Float.parseFloat(arrayDichVu.get(14)));
+                serviceInfo.setReviewMark(Float.parseFloat(arrayDichVu.get(14)));
+                serviceInfo.setStars(Float.parseFloat(arrayDichVu.get(14)));
             }
-            serviceInfo.setKinhDo(arrayDichVu.get(15));
-            serviceInfo.setViDo(arrayDichVu.get(16));
+            serviceInfo.setLongitude(arrayDichVu.get(15));
+            serviceInfo.setLatitude(arrayDichVu.get(16));
 
-            serviceInfo.setLhsk(arrayLhsk);
+            serviceInfo.setEventType(arrayLhsk);
 //            serviceInfo.setIdYeuThich(arrayDichVu.get(15));
 
             File path = new File(Environment.getExternalStorageDirectory() + "/canthotour");
@@ -134,35 +133,35 @@ public class ModelService {
                 JSONArray jsonFile = new JSONArray(JsonHelper.readJson(file));
                 for (int i = 0; i < jsonFile.length(); i++) {
                     if (serviceInfo.getId() == Integer.parseInt(jsonFile.getJSONObject(i).getString("id"))) {
-                        serviceInfo.setIdNguoiDungYT(true);
+                        serviceInfo.setReviewUserFav(true);
                         isLike = false;
                     }
                 }
             }
             if (isLike && arrayIdNdYt.size() > 0) {
-                serviceInfo.setIdNguoiDungYT(false);
+                serviceInfo.setReviewUserFav(false);
                 for (int i = 0; i < arrayIdNdYt.size(); i++) {
                     if (Integer.parseInt(arrayIdNdYt.get(i)) == idNguoiDung) {
-                        serviceInfo.setIdNguoiDungYT(true);
+                        serviceInfo.setReviewUserFav(true);
                         serviceInfo.setIdYeuThich(arrayIdYt.get(i));
                     }
                 }
             } else {
-                serviceInfo.setIdNguoiDungYT(false);
+                serviceInfo.setReviewUserFav(false);
             }
 
             if (arrayIdNdDg.size() > 0) {
-                serviceInfo.setIdNguoiDungDG(false);
-                serviceInfo.setIdDanhGia("0");
+                serviceInfo.setReviewUserRev(false);
+                serviceInfo.setReviewId("0");
                 for (int i = 0; i < arrayIdNdDg.size(); i++) {
                     if (Integer.parseInt(arrayIdNdDg.get(i)) == idNguoiDung) {
-                        serviceInfo.setIdNguoiDungDG(true);
-                        serviceInfo.setIdDanhGia(arrayIdDg.get(i));
+                        serviceInfo.setReviewUserRev(true);
+                        serviceInfo.setReviewId(arrayIdDg.get(i));
                     }
                 }
             } else {
-                serviceInfo.setIdDanhGia("0");
-                serviceInfo.setIdNguoiDungDG(false);
+                serviceInfo.setReviewId("0");
+                serviceInfo.setReviewUserRev(false);
             }
 
             // lấy thông tin hình gồm : "url + id + tên hình"
@@ -180,11 +179,11 @@ public class ModelService {
                 e.printStackTrace();
             }
 
-            serviceInfo.setIdHinh(Integer.parseInt(urlHinhChiTiet1[1]));
-            serviceInfo.setTenHinh(urlHinhChiTiet1[2]);
-            serviceInfo.setChiTiet1Thumb(setImage(Config.URL_HOST + urlHinhChiTiet1[0],
+            serviceInfo.setIdImage(Integer.parseInt(urlHinhChiTiet1[1]));
+            serviceInfo.setImageName(urlHinhChiTiet1[2]);
+            serviceInfo.setThumbInfo1(setImage(Config.URL_HOST + urlHinhChiTiet1[0],
                     urlHinhChiTiet1[1], urlHinhChiTiet1[2]));
-            serviceInfo.setChiTiet2Thumb(setImage(Config.URL_HOST + urlHinhChiTiet2[0],
+            serviceInfo.setThumbInfo2(setImage(Config.URL_HOST + urlHinhChiTiet2[0],
                     urlHinhChiTiet2[1], urlHinhChiTiet2[2]));
             serviceInfo.setBanner(setImage(Config.URL_HOST + urlHinhBanner[0], urlHinhBanner[1], urlHinhBanner[2]));
 
@@ -212,10 +211,10 @@ public class ModelService {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 arrayList = JsonHelper.parseJson(jsonObject, formatJson);
 
-                service.setHinh(setImage(Config.URL_HOST + "thumbnails/" + arrayList.get(3),
+                service.setImage(setImage(Config.URL_HOST + "thumbnails/" + arrayList.get(3),
                         arrayList.get(2), arrayList.get(3)));
-                service.setMa(Integer.parseInt(arrayList.get(0)));
-                service.setTen(arrayList.get(1));
+                service.setId(Integer.parseInt(arrayList.get(0)));
+                service.setName(arrayList.get(1));
 
                 services.add(service);
             }
@@ -239,10 +238,10 @@ public class ModelService {
                 Service service = new Service();
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 arrayList = JsonHelper.parseJson(jsonObject, formatJson);
-                service.setHinh(setImage(Config.URL_HOST + "thumbnails/" + arrayList.get(3),
+                service.setImage(setImage(Config.URL_HOST + "thumbnails/" + arrayList.get(3),
                         arrayList.get(2), arrayList.get(3)));
-                service.setMa(Integer.parseInt(arrayList.get(0)));
-                service.setTen(arrayList.get(1));
+                service.setId(Integer.parseInt(arrayList.get(0)));
+                service.setName(arrayList.get(1));
 
                 services.add(service);
             }
@@ -274,12 +273,12 @@ public class ModelService {
                 arrayList = JsonHelper.parseJson(jsonObject, Config.JSON_FAVORITE);
 
                 //Set hình ảnh
-                service.setHinh(setImage(Config.URL_HOST + "thumbnails/" + arrayList.get(7),
+                service.setImage(setImage(Config.URL_HOST + "thumbnails/" + arrayList.get(7),
                         arrayList.get(6), arrayList.get(7)));
                 //Set mã dịch vụ
-                service.setMa(Integer.parseInt(arrayList.get(0)));
+                service.setId(Integer.parseInt(arrayList.get(0)));
                 //Set tên dịch vụ yêu thích
-                service.setTen(!arrayList.get(1).equals("null") ? arrayList.get(1) :
+                service.setName(!arrayList.get(1).equals("null") ? arrayList.get(1) :
                         !arrayList.get(2).equals("null") ? arrayList.get(2) :
                                 !arrayList.get(3).equals("null") ? arrayList.get(3) :
                                         !arrayList.get(4).equals("null") ? arrayList.get(4) : arrayList.get(5));
@@ -320,14 +319,14 @@ public class ModelService {
                     }
 
                     //Set hình ảnh
-                    service.setHinhDiaDiemLC(setImage(Config.URL_HOST + "thumbnails/" + arrayList.get(3),
+                    service.setNearLocationImage(setImage(Config.URL_HOST + "thumbnails/" + arrayList.get(3),
                             arrayList.get(2), arrayList.get(3)));
                     //Set mã dịch vụ
-                    service.setMaDiaDiemLC(Integer.parseInt(arrayList.get(0)));
+                    service.setNearLocationId(Integer.parseInt(arrayList.get(0)));
                     //Set tên dịch vụ yêu thích
-                    service.setTenDiaDiemLC(arrayList.get(1));
+                    service.setNearLocationName(arrayList.get(1));
                     JSONObject jsonKC = jsonArray.getJSONObject(i + 1);
-                    service.setKhoangCachLC(jsonKC.getString("khoangcach").toString());
+                    service.setNearLocationRadius(jsonKC.getString("khoangcach").toString());
 
                     services.add(service);
                 }
@@ -366,12 +365,12 @@ public class ModelService {
                 }
 
                 //Set hình ảnh
-                service.setHinh(setImage(Config.URL_HOST + "thumbnails/" + arrayList.get(3),
+                service.setImage(setImage(Config.URL_HOST + "thumbnails/" + arrayList.get(3),
                         arrayList.get(2), arrayList.get(3)));
                 //Set mã dịch vụ
-                service.setMa(Integer.parseInt(arrayList.get(0)));
+                service.setId(Integer.parseInt(arrayList.get(0)));
                 //Set tên dịch vụ yêu thích
-                service.setTen(arrayList.get(1));
+                service.setName(arrayList.get(1));
 
                 services.add(service);
             }
@@ -397,12 +396,12 @@ public class ModelService {
                 Event event = new Event();
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 arrayList = JsonHelper.parseJson(jsonObject, Config.JSON_EVENT); //Parse json event
-                event.setMaSk(Integer.parseInt(arrayList.get(0))); //Set mã sự kiện
-                event.setTenSk(arrayList.get(1)); //Set tên
+                event.setEventId(Integer.parseInt(arrayList.get(0))); //Set mã sự kiện
+                event.setEventName(arrayList.get(1)); //Set tên
 
                 //Set ngày bắt đầu và ngày kết thúc sự kiện
-                event.setNgaySk("Từ " + arrayList.get(2) + " đến " + arrayList.get(3));
-                event.setHinhSk(setImage(Config.URL_HOST + "thumbnails/" + arrayList.get(5),
+                event.setEventDate("Từ " + arrayList.get(2) + " đến " + arrayList.get(3));
+                event.setEventImage(setImage(Config.URL_HOST + "thumbnails/" + arrayList.get(5),
                         arrayList.get(4), arrayList.get(5)));
                 events.add(event);
             }

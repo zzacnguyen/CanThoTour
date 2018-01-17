@@ -74,11 +74,11 @@ public class ListOfReviewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         if (holder instanceof ViewHolder) {
             Review review = reviews.get(position);
             ViewHolder viewHolder = (ViewHolder) holder;
-            viewHolder.txtTen.setText(review.getTenNguoiDung());
-            viewHolder.txtTieuDe.setText(review.getTieuDe());
-            viewHolder.txtNgay.setText(review.getNgayDanhGia());
-            viewHolder.rbSoSao.setRating(review.getSoSao());
-            viewHolder.txtDanhGia.setText(review.getDanhGia());
+            viewHolder.txtTen.setText(review.getUserName());
+            viewHolder.txtTieuDe.setText(review.getTitle());
+            viewHolder.txtNgay.setText(review.getDateReview());
+            viewHolder.rbSoSao.setRating(review.getStars());
+            viewHolder.txtDanhGia.setText(review.getReview());
         } else if (holder instanceof LoadingViewHolder) {
             LoadingViewHolder loadingViewHolder = (LoadingViewHolder) holder;
             loadingViewHolder.progressBar.setIndeterminate(true);

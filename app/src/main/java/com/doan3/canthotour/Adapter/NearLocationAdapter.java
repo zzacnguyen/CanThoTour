@@ -36,10 +36,10 @@ public class NearLocationAdapter extends RecyclerView.Adapter<NearLocationAdapte
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) { //Mỗi 1 lần chạy hàm này tương ứng với load 1 item trong recycler view
         NearLocation nearLocation = nearLocations.get(position);
-        holder.txtTen.setText("Tên dịch vụ: " + nearLocation.getTenDiaDiemLC());
-        holder.imgHinh.setImageBitmap(nearLocation.getHinhDiaDiemLC());
-        holder.txtKhoangCach.setText("Khoảng cách: " + nearLocation.getKhoangCachLC() + "m");
-        holder.cardView.setTag(nearLocation.getMaDiaDiemLC());
+        holder.txtTen.setText("Tên dịch vụ: " + nearLocation.getNearLocationName());
+        holder.imgHinh.setImageBitmap(nearLocation.getNearLocationImage());
+        holder.txtKhoangCach.setText("Khoảng cách: " + nearLocation.getNearLocationRadius() + "m");
+        holder.cardView.setTag(nearLocation.getNearLocationId());
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {  //Bắt sự kiện click vào 1 item cardview
             @Override

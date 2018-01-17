@@ -2,66 +2,64 @@ package com.doan3.canthotour.Model.ObjectClass;
 
 import android.graphics.Bitmap;
 
-import java.util.ArrayList;
-
 /**
  * Created by zzacn on 11/17/2017.
  */
 
 public class ServiceInfo {
-    Bitmap banner, chiTiet1Thumb, chiTiet2Thumb;
-    private float soSao, diemDG;
-    private int id, idHinh;
-    private String tenAU, tenKS, tenTQ, tenPT, tenVC, gioiThieuDV, tenHinh, gioDongCua, gioMoCua,
-            giaCaoNhat, giaThapNhat, diaChi, sdt, kinhDo, viDo, website, lhsk, idYeuThich, idDanhGia;
-    private boolean idNguoiDungYT, idNguoiDungDG;
+    Bitmap banner, thumbInfo1, thumbInfo2;
+    private float stars, reviewMark;
+    private int id, idImage;
+    private String eatName, hotelName, placeName, vehicleName, entertainName, serviceAbout, imageName, timeClose, timeOpen,
+            highestPrice, lowestPrice, address, phoneNumber, longitude, latitude, website, eventType, idYeuThich, reviewId;
+    private boolean reviewUserFav, reviewUserRev;
 
-    public String getKinhDo() {
-        return kinhDo;
+    public String getLongitude() {
+        return longitude;
     }
 
-    public void setKinhDo(String kinhDo) {
-        this.kinhDo = kinhDo;
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
     }
 
-    public String getViDo() {
-        return viDo;
+    public String getLatitude() {
+        return latitude;
     }
 
-    public void setViDo(String viDo) {
-        this.viDo = viDo;
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
     }
 
-    public float getSoSao() {
-        return soSao;
+    public float getStars() {
+        return stars;
     }
 
-    public void setSoSao(float soSao) {
-        this.soSao = soSao;
+    public void setStars(float stars) {
+        this.stars = stars;
     }
 
-    public Float getDiemDG() {
-        return diemDG;
+    public Float getReviewMark() {
+        return reviewMark;
     }
 
-    public void setDiemDG(float diemDG) {
-        this.diemDG = diemDG;
+    public void setReviewMark(float reviewMark) {
+        this.reviewMark = reviewMark;
     }
 
-    public boolean getIdNguoiDungYT() {
-        return idNguoiDungYT;
+    public boolean getReviewUserFav() {
+        return reviewUserFav;
     }
 
-    public void setIdNguoiDungYT(boolean idNguoiDungYT) {
-        this.idNguoiDungYT = idNguoiDungYT;
+    public void setReviewUserFav(boolean reviewUserFav) {
+        this.reviewUserFav = reviewUserFav;
     }
 
-    public boolean getIdNguoiDungDG() {
-        return idNguoiDungDG;
+    public boolean getReviewUserRev() {
+        return reviewUserRev;
     }
 
-    public void setIdNguoiDungDG(boolean idNguoiDungDG) {
-        this.idNguoiDungDG = idNguoiDungDG;
+    public void setReviewUserRev(boolean reviewUserRev) {
+        this.reviewUserRev = reviewUserRev;
     }
 
     public String getIdYeuThich() {
@@ -72,28 +70,28 @@ public class ServiceInfo {
         this.idYeuThich = idYeuThich;
     }
 
-    public String getIdDanhGia() {
-        return idDanhGia;
+    public String getReviewId() {
+        return reviewId;
     }
 
-    public void setIdDanhGia(String idDanhGia) {
-        this.idDanhGia = idDanhGia;
+    public void setReviewId(String reviewId) {
+        this.reviewId = reviewId;
     }
 
-    public int getIdHinh() {
-        return idHinh;
+    public int getIdImage() {
+        return idImage;
     }
 
-    public void setIdHinh(int idHinh) {
-        this.idHinh = idHinh;
+    public void setIdImage(int idImage) {
+        this.idImage = idImage;
     }
 
-    public String getTenHinh() {
-        return tenHinh;
+    public String getImageName() {
+        return imageName;
     }
 
-    public void setTenHinh(String tenHinh) {
-        this.tenHinh = tenHinh;
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
     }
 
     public Bitmap getBanner() {
@@ -104,20 +102,20 @@ public class ServiceInfo {
         this.banner = banner;
     }
 
-    public Bitmap getChiTiet1Thumb() {
-        return chiTiet1Thumb;
+    public Bitmap getThumbInfo1() {
+        return thumbInfo1;
     }
 
-    public void setChiTiet1Thumb(Bitmap chiTiet1Thumb) {
-        this.chiTiet1Thumb = chiTiet1Thumb;
+    public void setThumbInfo1(Bitmap thumbInfo1) {
+        this.thumbInfo1 = thumbInfo1;
     }
 
-    public Bitmap getChiTiet2Thumb() {
-        return chiTiet2Thumb;
+    public Bitmap getThumbInfo2() {
+        return thumbInfo2;
     }
 
-    public void setChiTiet2Thumb(Bitmap chiTiet2Thumb) {
-        this.chiTiet2Thumb = chiTiet2Thumb;
+    public void setThumbInfo2(Bitmap thumbInfo2) {
+        this.thumbInfo2 = thumbInfo2;
     }
 
     public int getId() {
@@ -128,100 +126,100 @@ public class ServiceInfo {
         this.id = id;
     }
 
-    public String getTenAU() {
-        return tenAU;
+    public String getEatName() {
+        return eatName;
     }
 
-    public void setTenAU(String tenAU) {
-        this.tenAU = tenAU;
+    public void setEatName(String eatName) {
+        this.eatName = eatName;
     }
 
-    public String getTenKS() {
-        return tenKS;
+    public String getHotelName() {
+        return hotelName;
     }
 
-    public void setTenKS(String tenKS) {
-        this.tenKS = tenKS;
+    public void setHotelName(String hotelName) {
+        this.hotelName = hotelName;
     }
 
-    public String getTenTQ() {
-        return tenTQ;
+    public String getPlaceName() {
+        return placeName;
     }
 
-    public void setTenTQ(String tenTQ) {
-        this.tenTQ = tenTQ;
+    public void setPlaceName(String placeName) {
+        this.placeName = placeName;
     }
 
-    public String getTenPT() {
-        return tenPT;
+    public String getVehicleName() {
+        return vehicleName;
     }
 
-    public void setTenPT(String tenPT) {
-        this.tenPT = tenPT;
+    public void setVehicleName(String vehicleName) {
+        this.vehicleName = vehicleName;
     }
 
-    public String getTenVC() {
-        return tenVC;
+    public String getEntertainName() {
+        return entertainName;
     }
 
-    public void setTenVC(String tenVC) {
-        this.tenVC = tenVC;
+    public void setEntertainName(String entertainName) {
+        this.entertainName = entertainName;
     }
 
-    public String getDiaChi() {
-        return diaChi;
+    public String getAddress() {
+        return address;
     }
 
-    public void setDiaChi(String diaChi) {
-        this.diaChi = diaChi;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
-    public String getSdt() {
-        return sdt;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setSdt(String sdt) {
-        this.sdt = sdt;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
-    public String getGioiThieuDV() {
-        return gioiThieuDV;
+    public String getServiceAbout() {
+        return serviceAbout;
     }
 
-    public void setGioiThieuDV(String gioiThieuDV) {
-        this.gioiThieuDV = gioiThieuDV;
+    public void setServiceAbout(String serviceAbout) {
+        this.serviceAbout = serviceAbout;
     }
 
-    public String getGioDongCua() {
-        return gioDongCua;
+    public String getTimeClose() {
+        return timeClose;
     }
 
-    public void setGioDongCua(String gioDongCua) {
-        this.gioDongCua = gioDongCua;
+    public void setTimeClose(String timeClose) {
+        this.timeClose = timeClose;
     }
 
-    public String getGioMoCua() {
-        return gioMoCua;
+    public String getTimeOpen() {
+        return timeOpen;
     }
 
-    public void setGioMoCua(String gioMoCua) {
-        this.gioMoCua = gioMoCua;
+    public void setTimeOpen(String timeOpen) {
+        this.timeOpen = timeOpen;
     }
 
-    public String getGiaCaoNhat() {
-        return giaCaoNhat;
+    public String getHighestPrice() {
+        return highestPrice;
     }
 
-    public void setGiaCaoNhat(String giaCaoNhat) {
-        this.giaCaoNhat = giaCaoNhat;
+    public void setHighestPrice(String highestPrice) {
+        this.highestPrice = highestPrice;
     }
 
-    public String getGiaThapNhat() {
-        return giaThapNhat;
+    public String getLowestPrice() {
+        return lowestPrice;
     }
 
-    public void setGiaThapNhat(String giaThapNhat) {
-        this.giaThapNhat = giaThapNhat;
+    public void setLowestPrice(String lowestPrice) {
+        this.lowestPrice = lowestPrice;
     }
 
     public String getWebsite() {
@@ -232,11 +230,11 @@ public class ServiceInfo {
         this.website = website;
     }
 
-    public String getLhsk() {
-        return lhsk;
+    public String getEventType() {
+        return eventType;
     }
 
-    public void setLhsk(String lhsk) {
-        this.lhsk = lhsk;
+    public void setEventType(String eventType) {
+        this.eventType = eventType;
     }
 }

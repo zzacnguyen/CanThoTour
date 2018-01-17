@@ -76,10 +76,10 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         if (holder instanceof ViewHolder) {
             Event event = events.get(position);
             ViewHolder viewHolder = (ViewHolder) holder;
-            viewHolder.txtTenSk.setText(event.getTenSk());
-            viewHolder.txtNgaySk.setText(event.getNgaySk());
-            viewHolder.imgHinhSk.setImageBitmap(event.getHinhSk());
-            viewHolder.cardView.setTag(event.getMaSk());
+            viewHolder.txtTenSk.setText(event.getEventName());
+            viewHolder.txtNgaySk.setText(event.getEventDate());
+            viewHolder.imgHinhSk.setImageBitmap(event.getEventImage());
+            viewHolder.cardView.setTag(event.getEventId());
 
             viewHolder.cardView.setOnClickListener(new View.OnClickListener() {
                 @Override

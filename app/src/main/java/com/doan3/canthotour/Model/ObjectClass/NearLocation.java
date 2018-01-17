@@ -7,43 +7,43 @@ import android.graphics.Bitmap;
  */
 
 public class NearLocation {
-    private int maDiaDiemLC;
-    private String tenDiaDiemLC;
-    private String khoangCachLC;
-    private Bitmap hinhDiaDiemLC;
+    private int nearLocationId;
+    private String nearLocationName;
+    private String nearLocationRadius;
+    private Bitmap nearLocationImage;
 
     public NearLocation() {
     }
 
-    public int getMaDiaDiemLC() {
-        return maDiaDiemLC;
+    public int getNearLocationId() {
+        return nearLocationId;
     }
 
-    public void setMaDiaDiemLC(int maDiaDiemLC) {
-        this.maDiaDiemLC = maDiaDiemLC;
+    public void setNearLocationId(int nearLocationId) {
+        this.nearLocationId = nearLocationId;
     }
 
-    public String getTenDiaDiemLC() {
-        return tenDiaDiemLC;
+    public String getNearLocationName() {
+        return nearLocationName;
     }
 
-    public void setTenDiaDiemLC(String tenDiaDiemLC) {
-        this.tenDiaDiemLC = tenDiaDiemLC;
+    public void setNearLocationName(String nearLocationName) {
+        this.nearLocationName = nearLocationName;
     }
 
-    public String getKhoangCachLC() {
-        return khoangCachLC;
+    public String getNearLocationRadius() {
+        return nearLocationRadius;
     }
 
-    public void setKhoangCachLC(String khoangCachLC) {
-        this.khoangCachLC = khoangCachLC;
+    public void setNearLocationRadius(String nearLocationRadius) {
+        this.nearLocationRadius = nearLocationRadius;
     }
 
-    public Bitmap getHinhDiaDiemLC() {
-        return hinhDiaDiemLC;
+    public Bitmap getNearLocationImage() {
+        return nearLocationImage;
     }
 
-    public void setHinhDiaDiemLC(Bitmap hinhDiaDiemLC) {
-        this.hinhDiaDiemLC = hinhDiaDiemLC;
+    public void setNearLocationImage(Bitmap nearLocationImage) {
+        this.nearLocationImage = nearLocationImage;
     }
 }

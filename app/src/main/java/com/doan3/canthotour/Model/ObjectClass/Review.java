@@ -5,49 +5,49 @@ package com.doan3.canthotour.Model.ObjectClass;
  */
 
 public class Review {
-    private String tenNguoiDung, DanhGia, ngayDanhGia, tieuDe;
-    private Float soSao;
+    private String userName, review, dateReview, title;
+    private Float stars;
 
     public Review() {
     }
 
-    public String getTieuDe() {
-        return tieuDe;
+    public String getTitle() {
+        return title;
     }
 
-    public void setTieuDe(String tieuDe) {
-        this.tieuDe = tieuDe;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getNgayDanhGia() {
-        return ngayDanhGia;
+    public String getDateReview() {
+        return dateReview;
     }
 
-    public void setNgayDanhGia(String ngayDanhGia) {
-        this.ngayDanhGia = ngayDanhGia;
+    public void setDateReview(String dateReview) {
+        this.dateReview = dateReview;
     }
 
-    public Float getSoSao() {
-        return soSao;
+    public Float getStars() {
+        return stars;
     }
 
-    public void setSoSao(Float soSao) {
-        this.soSao = soSao;
+    public void setStars(Float stars) {
+        this.stars = stars;
     }
 
-    public String getTenNguoiDung() {
-        return tenNguoiDung;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setTenNguoiDung(String tenNguoiDung) {
-        this.tenNguoiDung = tenNguoiDung;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public String getDanhGia() {
-        return DanhGia;
+    public String getReview() {
+        return review;
     }
 
-    public void setDanhGia(String danhGia) {
-        DanhGia = danhGia;
+    public void setReview(String review) {
+        this.review = review;
     }
 }

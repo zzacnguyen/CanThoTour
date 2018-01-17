@@ -231,111 +231,111 @@ public class ActivityServiceInfo extends AppCompatActivity {
         final ServiceInfo serviceInfo = new ModelService().getServiceInfo(url);
 
         idYeuThich = serviceInfo.getIdYeuThich();
-        idDanhGia = Integer.parseInt(serviceInfo.getIdDanhGia());
-        kinhDo = serviceInfo.getKinhDo();
-        viDo = serviceInfo.getViDo();
+        idDanhGia = Integer.parseInt(serviceInfo.getReviewId());
+        kinhDo = serviceInfo.getLongitude();
+        viDo = serviceInfo.getLatitude();
 
         fbEvent.setSelected(true);
 
         // region get tên và set màu cho từng dịch vụ
-        if (serviceInfo.getTenAU() != null) {
-            txtTenDv.setText(serviceInfo.getTenAU());
+        if (serviceInfo.getEatName() != null) {
+            txtTenDv.setText(serviceInfo.getEatName());
             toolbar.setBackgroundColor(getResources().getColor(R.color.tbEat));
             info.setBackgroundColor(getResources().getColor(R.color.tbEat));
             loaiHinh = 1;
             toolbarTitle.setText("Chi tiết quán ăn");
-            serviceInfo.setTenPT("null");
-            serviceInfo.setTenTQ("null");
-            serviceInfo.setTenKS("null");
-            serviceInfo.setTenVC("null");
-        } else if (serviceInfo.getTenKS() != null) {
-            txtTenDv.setText(serviceInfo.getTenKS());
+            serviceInfo.setVehicleName("null");
+            serviceInfo.setPlaceName("null");
+            serviceInfo.setHotelName("null");
+            serviceInfo.setEntertainName("null");
+        } else if (serviceInfo.getHotelName() != null) {
+            txtTenDv.setText(serviceInfo.getHotelName());
             toolbar.setBackgroundColor(getResources().getColor(R.color.tbHotel));
             info.setBackgroundColor(getResources().getColor(R.color.tbHotel));
             loaiHinh = 2;
             toolbarTitle.setText("Chi tiết khách sạn");
-            serviceInfo.setTenPT("null");
-            serviceInfo.setTenTQ("null");
-            serviceInfo.setTenAU("null");
-            serviceInfo.setTenVC("null");
-        } else if (serviceInfo.getTenTQ() != null) {
-            txtTenDv.setText(serviceInfo.getTenTQ());
+            serviceInfo.setVehicleName("null");
+            serviceInfo.setPlaceName("null");
+            serviceInfo.setEatName("null");
+            serviceInfo.setEntertainName("null");
+        } else if (serviceInfo.getPlaceName() != null) {
+            txtTenDv.setText(serviceInfo.getPlaceName());
             toolbar.setBackgroundColor(getResources().getColor(R.color.tbPlace));
             info.setBackgroundColor(getResources().getColor(R.color.tbPlace));
             loaiHinh = 4;
             toolbarTitle.setText("Chi tiết điểm tham quan");
-            serviceInfo.setTenPT("null");
-            serviceInfo.setTenAU("null");
-            serviceInfo.setTenKS("null");
-            serviceInfo.setTenVC("null");
-        } else if (serviceInfo.getTenPT() != null) {
-            txtTenDv.setText(serviceInfo.getTenPT());
+            serviceInfo.setVehicleName("null");
+            serviceInfo.setEatName("null");
+            serviceInfo.setHotelName("null");
+            serviceInfo.setEntertainName("null");
+        } else if (serviceInfo.getVehicleName() != null) {
+            txtTenDv.setText(serviceInfo.getVehicleName());
             toolbar.setBackgroundColor(getResources().getColor(R.color.tbVehicle));
             info.setBackgroundColor(getResources().getColor(R.color.tbVehicle));
             loaiHinh = 3;
             toolbarTitle.setText("Chi tiết phương tiện");
-            serviceInfo.setTenAU("null");
-            serviceInfo.setTenTQ("null");
-            serviceInfo.setTenKS("null");
-            serviceInfo.setTenVC("null");
+            serviceInfo.setEatName("null");
+            serviceInfo.setPlaceName("null");
+            serviceInfo.setHotelName("null");
+            serviceInfo.setEntertainName("null");
         } else {
-            txtTenDv.setText(serviceInfo.getTenVC());
+            txtTenDv.setText(serviceInfo.getEntertainName());
             toolbar.setBackgroundColor(getResources().getColor(R.color.tbEntertain));
             info.setBackgroundColor(getResources().getColor(R.color.tbEntertain));
             loaiHinh = 5;
             toolbarTitle.setText("Chi tiết điểm vui chơi");
-            serviceInfo.setTenPT("null");
-            serviceInfo.setTenTQ("null");
-            serviceInfo.setTenKS("null");
-            serviceInfo.setTenAU("null");
+            serviceInfo.setVehicleName("null");
+            serviceInfo.setPlaceName("null");
+            serviceInfo.setHotelName("null");
+            serviceInfo.setEatName("null");
         }
         // endregion
 
-        if (serviceInfo.getLhsk().equals("null")) {
+        if (serviceInfo.getEventType().equals("null")) {
             fbEvent.setVisibility(TextView.GONE);
         } else {
             fbEvent.setVisibility(TextView.VISIBLE);
-            fbEvent.setText(serviceInfo.getLhsk());
+            fbEvent.setText(serviceInfo.getEventType());
         }
 
-        if (serviceInfo.getIdNguoiDungYT()) {
+        if (serviceInfo.getReviewUserFav()) {
             btnLuu.setText("BỎ THÍCH");
         } else {
             btnLuu.setText("THÍCH");
         }
 
-        if (serviceInfo.getIdNguoiDungDG()) {
+        if (serviceInfo.getReviewUserRev()) {
             btnDanhGia.setText("ĐÃ ĐÁNH GIÁ");
         } else {
             btnDanhGia.setText("ĐÁNH GIÁ");
         }
 
-        txtGioiThieu.setText(serviceInfo.getGioiThieuDV());
-        if (serviceInfo.getGiaThapNhat().equals("0") && serviceInfo.getGiaCaoNhat().equals("0")) {
+        txtGioiThieu.setText(serviceInfo.getServiceAbout());
+        if (serviceInfo.getLowestPrice().equals("0") && serviceInfo.getHighestPrice().equals("0")) {
             txtGia.setText("Đang cập nhật");
         } else {
-            txtGia.setText("Từ " + serviceInfo.getGiaThapNhat() + "đ" + " đến " + serviceInfo.getGiaCaoNhat() + "đ");
+            txtGia.setText("Từ " + serviceInfo.getLowestPrice() + "đ" + " đến " + serviceInfo.getHighestPrice() + "đ");
         }
-        txtGioMo.setText(serviceInfo.getGioMoCua());
-        txtGioDong.setText(serviceInfo.getGioDongCua());
-        txtDiaChi.setText(serviceInfo.getDiaChi());
-        txtSDT.setText(serviceInfo.getSdt());
+        txtGioMo.setText(serviceInfo.getTimeOpen());
+        txtGioDong.setText(serviceInfo.getTimeClose());
+        txtDiaChi.setText(serviceInfo.getAddress());
+        txtSDT.setText(serviceInfo.getPhoneNumber());
         txtWebsite.setText(serviceInfo.getWebsite());
         imgBanner.setImageBitmap(serviceInfo.getBanner());
-        imgChiTiet1Thumb.setImageBitmap(serviceInfo.getChiTiet1Thumb());
-        imgChiTiet2Thumb.setImageBitmap(serviceInfo.getChiTiet2Thumb());
-        txtDiem.setText(String.format("%.1f", serviceInfo.getDiemDG()));
-        rbSao.setRating(serviceInfo.getSoSao());
+        imgChiTiet1Thumb.setImageBitmap(serviceInfo.getThumbInfo1());
+        imgChiTiet2Thumb.setImageBitmap(serviceInfo.getThumbInfo2());
+        txtDiem.setText(String.format("%.1f", serviceInfo.getReviewMark()));
+        rbSao.setRating(serviceInfo.getStars());
 
         try {
             saveJson = new JSONObject("{\"id\":\"" + serviceInfo.getId() +
-                    "\",\"ks_tenkhachsan\":\"" + serviceInfo.getTenKS() +
-                    "\",\"vc_tendiemvuichoi\":\"" + serviceInfo.getTenVC() +
-                    "\",\"pt_tenphuongtien\":\"" + serviceInfo.getTenPT() +
-                    "\",\"tq_tendiemthamquan\":\"" + serviceInfo.getTenTQ() +
-                    "\",\"au_ten\":\"" + serviceInfo.getTenAU() +
-                    "\",\"id_hinhanh\":\"" + serviceInfo.getIdHinh() +
-                    "\",\"chitiet1\":\"" + serviceInfo.getTenHinh() +
+                    "\",\"ks_tenkhachsan\":\"" + serviceInfo.getHotelName() +
+                    "\",\"vc_tendiemvuichoi\":\"" + serviceInfo.getEntertainName() +
+                    "\",\"pt_tenphuongtien\":\"" + serviceInfo.getVehicleName() +
+                    "\",\"tq_tendiemthamquan\":\"" + serviceInfo.getPlaceName() +
+                    "\",\"au_ten\":\"" + serviceInfo.getEatName() +
+                    "\",\"id_hinhanh\":\"" + serviceInfo.getIdImage() +
+                    "\",\"chitiet1\":\"" + serviceInfo.getImageName() +
                     "\"}");
         } catch (JSONException e) {
             e.printStackTrace();

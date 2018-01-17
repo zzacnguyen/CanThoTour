@@ -7,35 +7,35 @@ import android.graphics.Bitmap;
  */
 
 public class Service {
-    private int ma;
-    private Bitmap hinh;
-    private String ten;
+    private int id;
+    private Bitmap image;
+    private String name;
 
     public Service() {
 
     }
 
-    public int getMa() {
-        return ma;
+    public int getId() {
+        return id;
     }
 
-    public void setMa(int ma) {
-        this.ma = ma;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public Bitmap getHinh() {
-        return hinh;
+    public Bitmap getImage() {
+        return image;
     }
 
-    public void setHinh(Bitmap hinh) {
-        this.hinh = hinh;
+    public void setImage(Bitmap image) {
+        this.image = image;
     }
 
-    public String getTen() {
-        return ten;
+    public String getName() {
+        return name;
     }
 
-    public void setTen(String ten) {
-        this.ten = ten;
+    public void setName(String name) {
+        this.name = name;
     }
 }

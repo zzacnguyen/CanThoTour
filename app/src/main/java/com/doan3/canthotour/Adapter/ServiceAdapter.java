@@ -36,9 +36,9 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ViewHold
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) { //Mỗi 1 lần chạy hàm này tương ứng với load 1 item trong recycler view
         Service service = services.get(position);
-        holder.txtTen.setText(service.getTen());
-        holder.imgHinh.setImageBitmap(service.getHinh());
-        holder.cardView.setTag(service.getMa());
+        holder.txtTen.setText(service.getName());
+        holder.imgHinh.setImageBitmap(service.getImage());
+        holder.cardView.setTag(service.getId());
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {  //Bắt sự kiện click vào 1 item cardview
             @Override

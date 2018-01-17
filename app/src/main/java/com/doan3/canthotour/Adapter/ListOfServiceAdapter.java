@@ -76,9 +76,9 @@ public class ListOfServiceAdapter extends RecyclerView.Adapter<RecyclerView.View
         if (holder instanceof ViewHolder) {
             Service service = services.get(position);
             ViewHolder viewHolder = (ViewHolder) holder;
-            viewHolder.txtTen.setText(service.getTen());
-            viewHolder.imgHinh.setImageBitmap(service.getHinh());
-            viewHolder.cardView.setTag(service.getMa());
+            viewHolder.txtTen.setText(service.getName());
+            viewHolder.imgHinh.setImageBitmap(service.getImage());
+            viewHolder.cardView.setTag(service.getId());
 
             viewHolder.cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
