@@ -2,8 +2,11 @@ package com.doan3.canthotour.View.Personal;
 
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
@@ -12,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -22,6 +26,8 @@ import com.doan3.canthotour.View.Favorite.ActivityFavorite;
 import com.doan3.canthotour.View.Main.MainActivity;
 import com.doan3.canthotour.View.Notify.ActivityNotify;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -29,12 +35,14 @@ import java.util.Calendar;
 public class ActivityAddService extends AppCompatActivity implements View.OnClickListener {
 
     //REQUEST Code
-    final int RESULT_BANNER = 111;
-    final int RESULT_INFO1 = 112;
-    final int RESULT_INFO2 = 113;
+    final int RESULT_BANNER = 111,
+            RESULT_INFO1 = 112,
+            RESULT_INFO2 = 113,
+            REQUEST_CAMERA_CAPTURE = 110;
 
     TextView etOpenTime, etCloseTime;
     ImageView imgBanner, imgInfo1, imgInfo2;
+    ImageButton ibCamera;
     private int mHour, mMinute;
 
     ArrayList<Uri> imgService;
@@ -49,6 +57,7 @@ public class ActivityAddService extends AppCompatActivity implements View.OnClic
         imgBanner = findViewById(R.id.imgPickBanner);
         imgInfo1 = findViewById(R.id.imgPickInfo1);
         imgInfo2 = findViewById(R.id.imgPickInfo2);
+        ibCamera = findViewById(R.id.ibCamera);
 
 
         imgService = new ArrayList<>();
@@ -59,12 +68,23 @@ public class ActivityAddService extends AppCompatActivity implements View.OnClic
         etOpenTime.setOnClickListener(this);
         etCloseTime.setOnClickListener(this);
 
+        ibCamera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dispatchTakePictureIntent();
+            }
+        });
+
         menuBotNarBar();
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) { //Lấy hình ảnh và đưa lên màn hình
         super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQUEST_CAMERA_CAPTURE && resultCode == RESULT_OK) {
+            galleryAddPic();
+        }
 
         switch (requestCode){
             case RESULT_BANNER:
@@ -129,6 +149,43 @@ public class ActivityAddService extends AppCompatActivity implements View.OnClic
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent,"Chọn hình..."),requestCode);
+    }
+
+    String mCurrentPhotoPath;
+
+    private File createImageFile() throws IOException {
+        File storageDir = Environment.getExternalStorageDirectory();
+        File image = File.createTempFile(
+                "example",  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
+        mCurrentPhotoPath = image.getAbsolutePath();
+        return image;
+    }
+
+    private void dispatchTakePictureIntent() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            File photoFile = null;
+            try {
+                photoFile = createImageFile();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+            if (photoFile != null) {
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile));
+                startActivityForResult(takePictureIntent, REQUEST_CAMERA_CAPTURE);
+            }
+        }
+    }
+
+    private void galleryAddPic() {
+        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        File f = new File(mCurrentPhotoPath);
+        Uri contentUri = Uri.fromFile(f);
+        mediaScanIntent.setData(contentUri);
+        this.sendBroadcast(mediaScanIntent);
     }
 
     private void menuBotNarBar() {
