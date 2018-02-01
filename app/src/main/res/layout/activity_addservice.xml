@@ -223,14 +223,13 @@
                     android:padding="5dp">
 
                     <TextView
-                        android:id="@+id/etOpenTime"
+                        android:id="@+id/txtOpenTime"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="@null"
-                        android:gravity="center"
+                        android:gravity="center_horizontal"
                         android:hint="Giờ mở cửa"
-                        android:maxLength="10"
                         android:padding="5dp"
                         android:textColor="@color/colorBlack"
                         android:textSize="16sp" />
@@ -240,17 +239,18 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="top"
                         android:layout_marginRight="15dp"
-                        android:maxLength="10"
                         android:text="_"
+                        android:padding="5dp"
                         android:textSize="20sp" />
 
                     <TextView
-                        android:id="@+id/etCloseTime"
+                        android:id="@+id/txtCloseTime"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="@null"
                         android:hint="Giờ đóng cửa"
+                        android:gravity="center_horizontal"
                         android:padding="5dp"
                         android:textColor="@color/colorBlack"
                         android:textSize="16sp" />

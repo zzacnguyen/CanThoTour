@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -40,7 +41,7 @@ public class ActivityAddService extends AppCompatActivity implements View.OnClic
             RESULT_INFO2 = 113,
             REQUEST_CAMERA_CAPTURE = 110;
 
-    TextView etOpenTime, etCloseTime;
+    TextView txtOpenTime, txtCloseTime;
     ImageView imgBanner, imgInfo1, imgInfo2;
     ImageButton ibCamera;
     private int mHour, mMinute;
@@ -52,8 +53,8 @@ public class ActivityAddService extends AppCompatActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_addservice);
 
-        etOpenTime = findViewById(R.id.etOpenTime);
-        etCloseTime = findViewById(R.id.etCloseTime);
+        txtOpenTime = findViewById(R.id.txtOpenTime);
+        txtCloseTime = findViewById(R.id.txtCloseTime);
         imgBanner = findViewById(R.id.imgPickBanner);
         imgInfo1 = findViewById(R.id.imgPickInfo1);
         imgInfo2 = findViewById(R.id.imgPickInfo2);
@@ -65,8 +66,8 @@ public class ActivityAddService extends AppCompatActivity implements View.OnClic
         imgBanner.setOnClickListener(this);
         imgInfo1.setOnClickListener(this);
         imgInfo2.setOnClickListener(this);
-        etOpenTime.setOnClickListener(this);
-        etCloseTime.setOnClickListener(this);
+        txtOpenTime.setOnClickListener(this);
+        txtCloseTime.setOnClickListener(this);
 
         ibCamera.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,7 +121,7 @@ public class ActivityAddService extends AppCompatActivity implements View.OnClic
         mHour = calendar.get(Calendar.HOUR_OF_DAY);
         mMinute = calendar.get(Calendar.MINUTE);
 
-        switch (view.getId()){
+        switch (view.getId()){ //Bắt sự kiện click dựa trên id của giao diện, ko phải id của biến
 
             case R.id.imgPickBanner:
                 PickImageFromGallery(RESULT_BANNER);
@@ -134,12 +135,26 @@ public class ActivityAddService extends AppCompatActivity implements View.OnClic
                 PickImageFromGallery(RESULT_INFO2);
                 break;
 
-            case R.id.etOpenTime: //Set sự kiện click cho textview
+            case R.id.txtOpenTime: //Set sự kiện click cho textview
+                TimePickerDialog openTimePickerDialog = new TimePickerDialog(ActivityAddService.this, new TimePickerDialog.OnTimeSetListener(){
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                        txtOpenTime.setText(String.format("%02d:%02d", hourOfDay, minute));
+                    }
+                },mHour,mMinute,true);
 
+                openTimePickerDialog.show();
                 break;
 
-            case R.id.etCloseTime:
+            case R.id.txtCloseTime:
+                TimePickerDialog closeTimePickerDialog = new TimePickerDialog(ActivityAddService.this, new TimePickerDialog.OnTimeSetListener(){
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                        txtCloseTime.setText(String.format("%02d:%02d", hourOfDay, minute));
+                    }
+                },mHour,mMinute,true);
 
+                closeTimePickerDialog.show();
                 break;
         }
     }
