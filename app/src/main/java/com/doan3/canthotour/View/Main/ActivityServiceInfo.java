@@ -40,6 +40,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 import static com.doan3.canthotour.View.Personal.ActivityLogin.userId;
 
@@ -314,7 +316,7 @@ public class ActivityServiceInfo extends AppCompatActivity {
         if (serviceInfo.getLowestPrice().equals("0") && serviceInfo.getHighestPrice().equals("0")) {
             txtPrice.setText("Đang cập nhật");
         } else {
-            txtPrice.setText("Từ " + serviceInfo.getLowestPrice() + "đ" + " đến " + serviceInfo.getHighestPrice() + "đ");
+            txtPrice.setText("Từ " + NumberFormat.getNumberInstance(Locale.US).format(Integer.parseInt(serviceInfo.getLowestPrice())) + "đ" + " đến " + NumberFormat.getNumberInstance(Locale.US).format(Integer.parseInt(serviceInfo.getHighestPrice())) + "đ");
         }
         txtTimeOpen.setText(serviceInfo.getTimeOpen());
         txtTimeClose.setText(serviceInfo.getTimeClose());

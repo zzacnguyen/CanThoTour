@@ -169,6 +169,7 @@
                         android:background="@null"
                         android:hint="Giá thấp nhất"
                         android:maxLength="11"
+                        android:inputType="number"
                         android:padding="5dp"
                         android:textSize="16sp" />
 
@@ -188,6 +189,7 @@
                         android:background="@null"
                         android:gravity="center"
                         android:hint="Giá cao nhất"
+                        android:inputType="number"
                         android:maxLength="11"
                         android:padding="5dp"
                         android:textSize="16sp" />

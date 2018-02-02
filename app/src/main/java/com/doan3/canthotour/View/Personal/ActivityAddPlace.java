@@ -84,7 +84,7 @@ public class ActivityAddPlace extends AppCompatActivity {
         Double latitude = placeSelected.getLatLng().latitude;
         Double longitude = placeSelected.getLatLng().longitude;
 
-        txtLat.setText(String.valueOf(latitude).substring(0,8));
+        txtLat.setText(String.valueOf(latitude).substring(0,9));
         txtLong.setText(String.valueOf(longitude).substring(0,10));
         etAddress.setText(placeSelected.getAddress().toString());
         etPlaceName.setText(placeSelected.getName().toString());
