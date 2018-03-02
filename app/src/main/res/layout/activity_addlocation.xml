@@ -25,30 +25,36 @@
                 android:orientation="horizontal"
                 android:weightSum="5">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <Button
+                    android:id="@+id/btnCancelLocation"
+                    android:layout_width="80dp"
+                    android:layout_height="40dp"
                     android:layout_weight="1"
+                    android:background="@null"
                     android:text="Hủy"
+                    android:textAllCaps="false"
                     android:textColor="@color/colorWhite"
                     android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/toolbarTitle"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:gravity="center"
                     android:text="Thêm địa điểm"
                     android:textColor="@color/colorWhite"
-                    android:textSize="18sp" />
+                    android:textSize="19sp" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <Button
+                    android:id="@+id/btnSendLocation"
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
                     android:layout_weight="1"
+                    android:background="@null"
                     android:gravity="center"
                     android:text="Gửi"
+                    android:textAllCaps="false"
                     android:textColor="@color/colorWhite"
                     android:textSize="18sp" />
 
@@ -83,109 +89,108 @@
                 android:layout_height="1dp"
                 android:background="@color/colorGrey" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorWhite"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/white_grey_border_bottom"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/btnPlacePicker"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_weight="1"
-                    android:background="@null"
-                    android:text="Chọn vị trí trên bản đồ"
-                    android:textAlignment="textStart"
-                    android:textAllCaps="false"
-                    android:textSize="14sp"
-                    android:typeface="sans" />
-
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ic_arrow" />
-
-            </LinearLayout>
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/colorWhite"
-                android:orientation="horizontal"
-                android:padding="10dp">
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_weight="1">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/white_grey_border_bottom"
-                        android:text="Lat:"
-                        android:padding="10dp"
-                        android:textSize="16sp" />
-
-                    <TextView
-                        android:id="@+id/txtLatitude"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/white_grey_border_bottom"
-                        android:text=""
-                        android:padding="10dp"
-                        android:textSize="16sp" />
-
-                </LinearLayout>
-
-                <TextView
-                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/white_grey_border_bottom"
-                    android:text="-"
-                    android:padding="10dp"
-                    android:textSize="16sp" />
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btnPlacePicker"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:text="Chọn vị trí trên bản đồ"
+                        android:textAlignment="textStart"
+                        android:textAllCaps="false"
+                        android:textSize="14sp"
+                        android:typeface="sans" />
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_arrow" />
+
+                </LinearLayout>
 
                 <LinearLayout
-                    android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:background="@color/colorWhite"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/white_grey_border_bottom"
+                            android:padding="10dp"
+                            android:text="Lat:"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/txtLatitude"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/white_grey_border_bottom"
+                            android:padding="10dp"
+                            android:text=""
+                            android:textSize="16sp" />
+
+                    </LinearLayout>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/white_grey_border_bottom"
-                        android:text="Long:"
                         android:padding="10dp"
+                        android:text="-"
                         android:textSize="16sp" />
 
-                    <TextView
-                        android:id="@+id/txtLongitude"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/white_grey_border_bottom"
-                        android:text=""
-                        android:padding="10dp"
-                        android:textSize="16sp" />
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/white_grey_border_bottom"
+                            android:padding="10dp"
+                            android:text="Long:"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/txtLongitude"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/white_grey_border_bottom"
+                            android:padding="10dp"
+                            android:text=""
+                            android:textSize="16sp" />
+
+                    </LinearLayout>
+
 
                 </LinearLayout>
 
-
             </LinearLayout>
-
-        </LinearLayout>
-
 
 
             <View
@@ -290,6 +295,7 @@
                     android:weightSum="5">
 
                     <LinearLayout
+                        android:id="@+id/linearPlace"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -314,6 +320,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/linearEat"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -338,6 +345,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/linearHotel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -362,6 +370,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/linearEntertainment"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -386,6 +395,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/linearVehicle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"

@@ -25,30 +25,36 @@
                 android:orientation="horizontal"
                 android:weightSum="5">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <Button
+                    android:id="@+id/btnCancelService"
+                    android:layout_width="80dp"
+                    android:layout_height="40dp"
                     android:layout_weight="1"
+                    android:background="@null"
                     android:text="Hủy"
+                    android:textAllCaps="false"
                     android:textColor="@color/colorWhite"
                     android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/toolbarTitle"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:gravity="center"
                     android:text="Thêm dịch vụ"
                     android:textColor="@color/colorWhite"
-                    android:textSize="18sp" />
+                    android:textSize="19sp" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <Button
+                    android:id="@+id/btnConfirmService"
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
                     android:layout_weight="1"
+                    android:background="@null"
                     android:gravity="center"
-                    android:text="Gửi"
+                    android:text="Xong"
+                    android:textAllCaps="false"
                     android:textColor="@color/colorWhite"
                     android:textSize="18sp" />
 
@@ -102,17 +108,6 @@
                     android:textSize="16sp" />
 
                 <EditText
-                    android:id="@+id/ServicePhone"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/white_grey_border_bottom"
-                    android:hint="Số điện thoại"
-                    android:maxLength="25"
-                    android:padding="5dp"
-                    android:textSize="16sp" />
-
-                <EditText
                     android:id="@+id/etWebsite"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -120,6 +115,17 @@
                     android:background="@drawable/white_grey_border_bottom"
                     android:hint="Website"
                     android:maxLength="100"
+                    android:padding="5dp"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/ServicePhone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/white_grey_border_bottom"
+                    android:hint="Số điện thoại"
+                    android:maxLength="25"
                     android:padding="5dp"
                     android:textSize="16sp" />
 
@@ -168,8 +174,8 @@
                         android:layout_weight="1"
                         android:background="@null"
                         android:hint="Giá thấp nhất"
-                        android:maxLength="11"
                         android:inputType="number"
+                        android:maxLength="11"
                         android:padding="5dp"
                         android:textSize="16sp" />
 
@@ -241,8 +247,8 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="top"
                         android:layout_marginRight="15dp"
-                        android:text="_"
                         android:padding="5dp"
+                        android:text="_"
                         android:textSize="20sp" />
 
                     <TextView
@@ -251,8 +257,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="@null"
-                        android:hint="Giờ đóng cửa"
                         android:gravity="center_horizontal"
+                        android:hint="Giờ đóng cửa"
                         android:padding="5dp"
                         android:textColor="@color/colorBlack"
                         android:textSize="16sp" />
@@ -295,8 +301,8 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_weight="2"
                             android:layout_marginRight="2dp"
+                            android:layout_weight="2"
                             android:orientation="vertical">
 
                             <ImageButton
@@ -311,8 +317,8 @@
                                 android:layout_height="wrap_content"
                                 android:background="#D8D8D8"
                                 android:gravity="center"
-                                android:text="Chụp ảnh"
                                 android:padding="6dp"
+                                android:text="Chụp ảnh"
                                 android:textColor="@color/colorBlack" />
 
                         </LinearLayout>
