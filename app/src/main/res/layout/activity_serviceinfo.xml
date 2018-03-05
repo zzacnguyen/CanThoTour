@@ -166,7 +166,7 @@
                     android:layout_weight="1"
                     android:background="@color/colorWhite"
                     android:drawableTop="@drawable/ic_place_blue_36dp"
-                    android:text="LÂN CẬN"
+                    android:text="@string/text_Near"
                     android:textColor="@color/bgToolbar"
                     android:textSize="14sp" />
 
@@ -256,7 +256,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginLeft="5dp"
-                        android:text="Website"
+                        android:text="@string/hint_Website"
                         android:textColor="#000"
                         android:textSize="14sp" />
 
@@ -301,7 +301,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginLeft="5dp"
-                        android:text="Từ"
+                        android:text="@string/text_From"
                         android:textColor="#000"
                         android:textSize="14sp" />
 
@@ -320,7 +320,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginLeft="5dp"
-                        android:text="đến"
+                        android:text="@string/text_To"
                         android:textColor="#000"
                         android:textSize="14sp" />
 
@@ -395,7 +395,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Đánh giá"
+                    android:text="@string/text_Review"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -413,7 +413,7 @@
                         android:layout_weight="1"
                         android:background="@color/colorWhite"
                         android:drawableTop="@drawable/ic_comment_24dp"
-                        android:text="ĐÁNH GIÁ"
+                        android:text="@string/text_Review"
                         android:textColor="@color/bgToolbar"
                         android:textSize="12sp" />
 
@@ -424,7 +424,7 @@
                         android:layout_weight="1"
                         android:background="@color/colorWhite"
                         android:drawableTop="@drawable/ic_load_comment_24dp"
-                        android:text="XEM CÁC BÀI ĐÁNH GIÁ"
+                        android:text="@string/text_ListOfReview"
                         android:textColor="@color/bgToolbar"
                         android:textSize="12sp" />
 
@@ -443,7 +443,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Giới thiệu"
+                    android:text="@string/text_About"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 

@@ -40,7 +40,7 @@
                     android:layout_marginLeft="2dp"
                     android:layout_weight="6"
                     android:background="@drawable/rounded__edit_text"
-                    android:hint="   Nhập tên địa điểm"
+                    android:hint="@string/hint_Search"
                     android:padding="6dp"
                     android:textSize="16sp" />
 
@@ -49,7 +49,7 @@
                     android:layout_width="60dp"
                     android:layout_height="40dp"
                     android:background="@null"
-                    android:text="Hủy"
+                    android:text="@string/text_Cancel"
                     android:textColor="@color/colorWhite" />
             </LinearLayout>
 
@@ -81,21 +81,21 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Tham quan" />
+                    android:text="@string/text_SightSeeing" />
 
                 <RadioButton
                     android:id="@+id/rdbEat"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Ăn uống" />
+                    android:text="@string/text_Food" />
 
                 <RadioButton
                     android:id="@+id/rdbHotel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Khách sạn" />
+                    android:text="@string/text_Hotel" />
             </RadioGroup>
 
             <RadioGroup
@@ -109,14 +109,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Phương tiện" />
+                    android:text="@string/text_Vehicle" />
 
                 <RadioButton
                     android:id="@+id/rdbEntertain"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Vui chơi" />
+                    android:text="@string/text_Entertainment_AdvancedSearch" />
 
                 <RadioButton
                     android:layout_width="wrap_content"

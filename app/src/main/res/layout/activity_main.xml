@@ -30,7 +30,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Trang chủ"
+                android:text="@string/text_Home"
                 android:textAlignment="center"
                 android:textColor="@color/colorWhite"
                 android:textSize="18sp" />
@@ -79,7 +79,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Địa điểm tham quan ở Cần Thơ"
+                        android:text="@string/text_PlacesToVisit"
                         android:textColor="@color/colorBlack"
                         android:textSize="16sp" />
 
@@ -90,7 +90,7 @@
                         android:layout_weight="0"
                         android:background="@null"
                         android:drawableRight="@drawable/ic_arrow"
-                        android:text="Tất cả"
+                        android:text="@string/text_All"
                         android:textAllCaps="false"
                         android:textColor="@color/colorGray"
                         android:textSize="12sp" />
@@ -127,7 +127,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Quán ngon ở Cần Thơ"
+                        android:text="@string/text_EatAndDrink"
                         android:textColor="@color/colorBlack"
                         android:textSize="16sp" />
 
@@ -138,7 +138,7 @@
                         android:layout_weight="0"
                         android:background="@null"
                         android:drawableRight="@drawable/ic_arrow"
-                        android:text="Tất cả"
+                        android:text="@string/text_All"
                         android:textAllCaps="false"
                         android:textColor="@color/colorGray"
                         android:textSize="12sp" />
@@ -174,7 +174,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Khách sạn ở Cần Thơ"
+                        android:text="@string/text_Hotelsde"
                         android:textColor="@color/colorBlack"
                         android:textSize="16sp" />
 
@@ -185,7 +185,7 @@
                         android:layout_weight="0"
                         android:background="@null"
                         android:drawableRight="@drawable/ic_arrow"
-                        android:text="Tất cả"
+                        android:text="@string/text_All"
                         android:textAllCaps="false"
                         android:textColor="@color/colorGray"
                         android:textSize="12sp" />
@@ -222,7 +222,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Vui chơi tại Cần Thơ"
+                        android:text="@string/text_ThingsToDo"
                         android:textColor="@color/colorBlack"
                         android:textSize="16sp" />
 
@@ -233,7 +233,7 @@
                         android:layout_weight="0"
                         android:background="@null"
                         android:drawableRight="@drawable/ic_arrow"
-                        android:text="Tất cả"
+                        android:text="@string/text_All"
                         android:textAllCaps="false"
                         android:textColor="@color/colorGray"
                         android:textSize="12sp" />
@@ -270,7 +270,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Phương tiện tại Cần Thơ"
+                        android:text="@string/text_Transport"
                         android:textColor="@color/colorBlack"
                         android:textSize="16sp" />
 
@@ -281,7 +281,7 @@
                         android:layout_weight="0"
                         android:background="@null"
                         android:drawableRight="@drawable/ic_arrow"
-                        android:text="Tất cả"
+                        android:text="@string/text_All"
                         android:textAllCaps="false"
                         android:textColor="@color/colorGray"
                         android:textSize="12sp" />

@@ -24,7 +24,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Cá nhân"
+                android:text="@string/text_Personal"
                 android:textColor="@color/colorWhite"
                 android:textSize="18sp" />
 
@@ -108,7 +108,7 @@
                     android:layout_weight="1"
                     android:background="@null"
                     android:drawableLeft="@drawable/ic_dangnhap_24dp"
-                    android:text="Đăng nhập tài khoản"
+                    android:text="@string/text_SignIn"
                     android:textAlignment="textStart"
                     android:textAllCaps="false" />
 
@@ -136,7 +136,7 @@
                     android:layout_weight="1"
                     android:background="@null"
                     android:drawableLeft="@drawable/ic_timdiadiem"
-                    android:text="Tìm kiếm nâng cao"
+                    android:text="@string/text_AdvancedSearch"
                     android:textAlignment="textStart"
                     android:textAllCaps="false" />
 
@@ -163,7 +163,7 @@
                     android:layout_weight="1"
                     android:background="@null"
                     android:drawableLeft="@drawable/ic_themdiadiem"
-                    android:text="Thêm địa điểm"
+                    android:text="@string/text_AddNewPlace"
                     android:textAlignment="textStart"
                     android:textAllCaps="false" />
 
@@ -190,7 +190,7 @@
                     android:layout_weight="1"
                     android:background="@null"
                     android:drawableLeft="@drawable/ic_service_24dp"
-                    android:text="Thêm dịch vụ"
+                    android:text="@string/text_AddNewService"
                     android:textAlignment="textStart"
                     android:textAllCaps="false" />
 
@@ -206,6 +206,7 @@
                 android:id="@+id/RegEnterprise"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:background="@drawable/white_grey_border_bottom"
                 android:orientation="horizontal"
                 android:padding="5dp">

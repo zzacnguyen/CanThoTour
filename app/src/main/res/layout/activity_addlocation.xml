@@ -27,11 +27,11 @@
 
                 <Button
                     android:id="@+id/btnCancelLocation"
-                    android:layout_width="80dp"
+                    android:layout_width="100dp"
                     android:layout_height="40dp"
                     android:layout_weight="1"
                     android:background="@null"
-                    android:text="Hủy"
+                    android:text="@string/text_Cancel"
                     android:textAllCaps="false"
                     android:textColor="@color/colorWhite"
                     android:textSize="18sp" />
@@ -42,7 +42,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:gravity="center"
-                    android:text="Thêm địa điểm"
+                    android:text="@string/text_AddNewPlace"
                     android:textColor="@color/colorWhite"
                     android:textSize="19sp" />
 
@@ -53,7 +53,7 @@
                     android:layout_weight="1"
                     android:background="@null"
                     android:gravity="center"
-                    android:text="Gửi"
+                    android:text="@string/text_Send"
                     android:textAllCaps="false"
                     android:textColor="@color/colorWhite"
                     android:textSize="18sp" />
@@ -81,7 +81,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="10dp"
                 android:padding="5dp"
-                android:text="Vị trí địa điểm"
+                android:text="@string/text_PlaceLocation"
                 android:textSize="16sp" />
 
             <View
@@ -108,7 +108,7 @@
                         android:layout_marginLeft="10dp"
                         android:layout_weight="1"
                         android:background="@null"
-                        android:text="Chọn vị trí trên bản đồ"
+                        android:text="@string/text_MapLocation"
                         android:textAlignment="textStart"
                         android:textAllCaps="false"
                         android:textSize="14sp"
@@ -203,7 +203,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:padding="5dp"
-                android:text="Thông tin liên lạc"
+                android:text="@string/text_Information"
                 android:textSize="16sp" />
 
             <LinearLayout
@@ -219,7 +219,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/white_grey_border_bottom"
-                    android:hint="Tên địa điểm"
+                    android:hint="@string/hint_PlaceName"
                     android:maxLength="100"
                     android:padding="5dp"
                     android:textSize="16sp" />
@@ -230,7 +230,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:background="@drawable/white_grey_border_bottom"
-                    android:hint="Địa chỉ"
+                    android:hint="@string/hint_Address"
                     android:maxLength="255"
                     android:padding="5dp"
                     android:textSize="16sp" />
@@ -241,7 +241,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:background="@drawable/white_grey_border_bottom"
-                    android:hint="Số điện thoại"
+                    android:hint="@string/hint_PhoneNumber"
+                    android:inputType="number"
                     android:maxLength="25"
                     android:padding="5dp"
                     android:textSize="16sp" />
@@ -251,7 +252,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
                     android:background="@null"
-                    android:hint="Nhập mô tả địa điểm"
+                    android:hint="@string/hint_Description"
+                    android:inputType="text"
                     android:padding="5dp"
                     android:textSize="16sp" />
 
@@ -284,7 +286,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Thêm dịch vụ cho địa điểm"
+                    android:text="@string/text_AddServiceForPlace"
                     android:textColor="@color/colorBlack"
                     android:textSize="16sp" />
 
@@ -313,7 +315,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center_horizontal"
-                            android:text="Tham quan"
+                            android:text="@string/text_SightSeeing"
                             android:textColor="@color/colorBlack"
                             android:textSize="12sp" />
 
@@ -338,7 +340,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center_horizontal"
-                            android:text="Ăn uống"
+                            android:text="@string/text_Food"
                             android:textColor="@color/colorBlack"
                             android:textSize="12sp" />
 
@@ -363,7 +365,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center_horizontal"
-                            android:text="Khách sạn"
+                            android:text="@string/text_Hotel"
                             android:textColor="@color/colorBlack"
                             android:textSize="12sp" />
 
@@ -388,7 +390,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center_horizontal"
-                            android:text="Vui chơi"
+                            android:text="@string/text_Entertainment"
                             android:textColor="@color/colorBlack"
                             android:textSize="12sp" />
 
@@ -413,7 +415,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center_horizontal"
-                            android:text="Phương tiện"
+                            android:text="@string/text_Vehicle"
                             android:textColor="@color/colorBlack"
                             android:textSize="12sp" />
 

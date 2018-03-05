@@ -27,11 +27,11 @@
 
                 <Button
                     android:id="@+id/btnCancelService"
-                    android:layout_width="80dp"
+                    android:layout_width="100dp"
                     android:layout_height="40dp"
                     android:layout_weight="1"
                     android:background="@null"
-                    android:text="Hủy"
+                    android:text="@string/text_Cancel"
                     android:textAllCaps="false"
                     android:textColor="@color/colorWhite"
                     android:textSize="18sp" />
@@ -42,7 +42,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:gravity="center"
-                    android:text="Thêm dịch vụ"
+                    android:text="@string/text_AddNewService"
                     android:textColor="@color/colorWhite"
                     android:textSize="19sp" />
 
@@ -53,7 +53,7 @@
                     android:layout_weight="1"
                     android:background="@null"
                     android:gravity="center"
-                    android:text="Xong"
+                    android:text="@string/text_Add"
                     android:textAllCaps="false"
                     android:textColor="@color/colorWhite"
                     android:textSize="18sp" />
@@ -86,7 +86,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:padding="5dp"
-                android:text="Thông tin dịch vụ"
+                android:text="@string/text_Information"
                 android:textSize="16sp" />
 
             <LinearLayout
@@ -102,7 +102,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/white_grey_border_bottom"
-                    android:hint="Tên dịch vụ"
+                    android:hint="@string/hint_ServiceName"
                     android:maxLength="50"
                     android:padding="5dp"
                     android:textSize="16sp" />
@@ -113,7 +113,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:background="@drawable/white_grey_border_bottom"
-                    android:hint="Website"
+                    android:hint="@string/hint_Website"
                     android:maxLength="100"
                     android:padding="5dp"
                     android:textSize="16sp" />
@@ -124,7 +124,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:background="@drawable/white_grey_border_bottom"
-                    android:hint="Số điện thoại"
+                    android:hint="@string/hint_PhoneNumber"
                     android:maxLength="25"
                     android:padding="5dp"
                     android:textSize="16sp" />
@@ -134,7 +134,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
                     android:background="@null"
-                    android:hint="Nhập giới thiệu dịch vụ"
+                    android:hint="@string/hint_Description"
                     android:padding="5dp"
                     android:text=""
                     android:textSize="16sp" />
@@ -151,7 +151,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:padding="5dp"
-                android:text="Giá dịch vụ"
+                android:text="@string/text_ServicePrice"
                 android:textSize="16sp" />
 
             <LinearLayout
@@ -173,7 +173,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="@null"
-                        android:hint="Giá thấp nhất"
+                        android:hint="@string/hint_LowestPrice"
                         android:inputType="number"
                         android:maxLength="11"
                         android:padding="5dp"
@@ -194,7 +194,7 @@
                         android:layout_weight="1"
                         android:background="@null"
                         android:gravity="center"
-                        android:hint="Giá cao nhất"
+                        android:hint="@string/hint_HighestPrice"
                         android:inputType="number"
                         android:maxLength="11"
                         android:padding="5dp"
@@ -214,7 +214,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:padding="5dp"
-                android:text="Thời gian hoạt động"
+                android:text="@string/text_OpeningTime"
                 android:textSize="16sp" />
 
             <LinearLayout
@@ -237,7 +237,7 @@
                         android:layout_weight="1"
                         android:background="@null"
                         android:gravity="center_horizontal"
-                        android:hint="Giờ mở cửa"
+                        android:hint="@string/hint_TimeOpen"
                         android:padding="5dp"
                         android:textColor="@color/colorBlack"
                         android:textSize="16sp" />
@@ -258,7 +258,7 @@
                         android:layout_weight="1"
                         android:background="@null"
                         android:gravity="center_horizontal"
-                        android:hint="Giờ đóng cửa"
+                        android:hint="@string/hint_TimeClose"
                         android:padding="5dp"
                         android:textColor="@color/colorBlack"
                         android:textSize="16sp" />
@@ -277,7 +277,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:padding="5dp"
-                android:text="Thêm hình ảnh cho dịch vụ"
+                android:text="@string/text_AddPhotos"
                 android:textSize="16sp" />
 
             <LinearLayout
@@ -318,7 +318,7 @@
                                 android:background="#D8D8D8"
                                 android:gravity="center"
                                 android:padding="6dp"
-                                android:text="Chụp ảnh"
+                                android:text="@string/text_Capture"
                                 android:textColor="@color/colorBlack" />
 
                         </LinearLayout>

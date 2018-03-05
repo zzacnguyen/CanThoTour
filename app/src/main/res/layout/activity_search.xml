@@ -36,12 +36,12 @@
 
                 <EditText
                     android:id="@+id/etSearch"
-                    android:layout_weight="6"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="2dp"
+                    android:layout_weight="6"
                     android:background="@drawable/rounded__edit_text"
-                    android:hint="   Nhập tên địa điểm"
+                    android:hint="@string/text_Search"
                     android:padding="6dp"
                     android:textSize="16sp" />
 
@@ -49,9 +49,9 @@
                     android:id="@+id/btnCancel"
                     android:layout_width="60dp"
                     android:layout_height="40dp"
-                    android:text="Hủy"
                     android:background="@null"
-                    android:textColor="@color/colorWhite"/>
+                    android:text="@string/text_Cancel"
+                    android:textColor="@color/colorWhite" />
             </LinearLayout>
 
         </android.support.v7.widget.Toolbar>

@@ -42,23 +42,23 @@ public class ActivityService extends AppCompatActivity {
         if (url.equals(Config.URL_HOST + Config.URL_GET_ALL_EATS)) { //Kiểm tra từng đường dẫn url
             formatJson = Config.JSON_EAT;
             toolbar.setBackgroundColor(getResources().getColor(R.color.tbEat));
-            toolbarTitle.setText("Danh sách quán ăn");
+            toolbarTitle.setText(getResources().getString(R.string.title_ListOfRestaurant));
         } else if (url.equals(Config.URL_HOST + Config.URL_GET_ALL_PLACES)) {
             formatJson = Config.JSON_PLACE;
             toolbar.setBackgroundColor(getResources().getColor(R.color.tbPlace));
-            toolbarTitle.setText("Danh sách điểm tham quan");
+            toolbarTitle.setText(getResources().getString(R.string.title_ListOfPlaceToVisit));
         } else if (url.equals(Config.URL_HOST + Config.URL_GET_ALL_HOTELS)) {
             formatJson = Config.JSON_HOTEL;
             toolbar.setBackgroundColor(getResources().getColor(R.color.tbHotel));
-            toolbarTitle.setText("Danh sách khách sạn");
+            toolbarTitle.setText(getResources().getString(R.string.title_ListOfHotel));
         } else if (url.equals(Config.URL_HOST + Config.URL_GET_ALL_VEHICLES)) {
             formatJson = Config.JSON_VEHICLE;
             toolbar.setBackgroundColor(getResources().getColor(R.color.tbVehicle));
-            toolbarTitle.setText("Danh sách phương tiện");
+            toolbarTitle.setText(getResources().getString(R.string.title_ListOfTransport));
         } else {
             formatJson = Config.JSON_ENTERTAINMENT;
             toolbar.setBackgroundColor(getResources().getColor(R.color.tbEntertain));
-            toolbarTitle.setText("Danh sách điểm vui chơi");
+            toolbarTitle.setText(getResources().getString(R.string.title_ListOfEntertainment));
         }
 
         load(url, formatJson);

@@ -23,11 +23,10 @@
                 android:id="@+id/toolbarTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Danh sách đánh giá"
                 android:gravity="center"
+                android:text="@string/text_ListOfReview"
                 android:textColor="@color/colorWhite"
-                android:textSize="18sp"
-                />
+                android:textSize="18sp" />
 
         </android.support.v7.widget.Toolbar>
 

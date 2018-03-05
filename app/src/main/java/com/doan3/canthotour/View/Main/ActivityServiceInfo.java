@@ -117,7 +117,7 @@ public class ActivityServiceInfo extends AppCompatActivity {
                     File file = new File(path, Config.FILE_NAME);
                     JSONArray getJsonInFile;
 
-                    if (btnLike.getText().equals("THÍCH")) {
+                    if (btnLike.getText().equals(getResources().getString(R.string.text_Like))) {
                         try {
                             boolean isExists = true;
                             if (file.exists()) {
@@ -130,9 +130,9 @@ public class ActivityServiceInfo extends AppCompatActivity {
                             }
                             if (isExists) {
                                 JsonHelper.writeJson(file, saveJson);
-                                Toast.makeText(ActivityServiceInfo.this, "Đã thích",
+                                Toast.makeText(ActivityServiceInfo.this, getResources().getString(R.string.text_Liked),
                                         Toast.LENGTH_SHORT).show();
-                                btnLike.setText("BỎ THÍCH");
+                                btnLike.setText(getResources().getString(R.string.text_UnLike));
                             }
                         } catch (JSONException ex) {
                             ex.printStackTrace();
@@ -154,7 +154,7 @@ public class ActivityServiceInfo extends AppCompatActivity {
                                         JsonHelper.writeJson(file, jsonArray);
                                     }
                                     isExists = false;
-                                    Toast.makeText(ActivityServiceInfo.this, "Đã bỏ thích", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(ActivityServiceInfo.this, getResources().getString(R.string.text_UnLiked), Toast.LENGTH_SHORT).show();
                                 }
                             }
                             if (isExists) {
@@ -163,7 +163,7 @@ public class ActivityServiceInfo extends AppCompatActivity {
                         } catch (JSONException ex) {
                             ex.printStackTrace();
                         }
-                        btnLike.setText("THÍCH");
+                        btnLike.setText(getResources().getString(R.string.text_Like));
                     }
                 }
             }
@@ -245,7 +245,7 @@ public class ActivityServiceInfo extends AppCompatActivity {
             toolbar.setBackgroundColor(getResources().getColor(R.color.tbEat));
             info.setBackgroundColor(getResources().getColor(R.color.tbEat));
             serviceType = 1;
-            toolbarTitle.setText("Chi tiết quán ăn");
+            toolbarTitle.setText(getResources().getString(R.string.title_RestaurantDetails));
             serviceInfo.setVehicleName("null");
             serviceInfo.setPlaceName("null");
             serviceInfo.setHotelName("null");
@@ -255,7 +255,7 @@ public class ActivityServiceInfo extends AppCompatActivity {
             toolbar.setBackgroundColor(getResources().getColor(R.color.tbHotel));
             info.setBackgroundColor(getResources().getColor(R.color.tbHotel));
             serviceType = 2;
-            toolbarTitle.setText("Chi tiết khách sạn");
+            toolbarTitle.setText(getResources().getString(R.string.title_HotelDetails));
             serviceInfo.setVehicleName("null");
             serviceInfo.setPlaceName("null");
             serviceInfo.setEatName("null");
@@ -265,7 +265,7 @@ public class ActivityServiceInfo extends AppCompatActivity {
             toolbar.setBackgroundColor(getResources().getColor(R.color.tbPlace));
             info.setBackgroundColor(getResources().getColor(R.color.tbPlace));
             serviceType = 4;
-            toolbarTitle.setText("Chi tiết điểm tham quan");
+            toolbarTitle.setText(getResources().getString(R.string.title_PlaceDetails));
             serviceInfo.setVehicleName("null");
             serviceInfo.setEatName("null");
             serviceInfo.setHotelName("null");
@@ -275,7 +275,7 @@ public class ActivityServiceInfo extends AppCompatActivity {
             toolbar.setBackgroundColor(getResources().getColor(R.color.tbVehicle));
             info.setBackgroundColor(getResources().getColor(R.color.tbVehicle));
             serviceType = 3;
-            toolbarTitle.setText("Chi tiết phương tiện");
+            toolbarTitle.setText(getResources().getString(R.string.title_TransportDetails));
             serviceInfo.setEatName("null");
             serviceInfo.setPlaceName("null");
             serviceInfo.setHotelName("null");
@@ -285,7 +285,7 @@ public class ActivityServiceInfo extends AppCompatActivity {
             toolbar.setBackgroundColor(getResources().getColor(R.color.tbEntertain));
             info.setBackgroundColor(getResources().getColor(R.color.tbEntertain));
             serviceType = 5;
-            toolbarTitle.setText("Chi tiết điểm vui chơi");
+            toolbarTitle.setText(getResources().getString(R.string.title_EntertainmentDetails));
             serviceInfo.setVehicleName("null");
             serviceInfo.setPlaceName("null");
             serviceInfo.setHotelName("null");
@@ -301,22 +301,22 @@ public class ActivityServiceInfo extends AppCompatActivity {
         }
 
         if (serviceInfo.getReviewUserFav()) {
-            btnLike.setText("BỎ THÍCH");
+            btnLike.setText(getResources().getString(R.string.text_UnLike));
         } else {
-            btnLike.setText("THÍCH");
+            btnLike.setText(getResources().getString(R.string.text_Like));
         }
 
         if (serviceInfo.getReviewUserRev()) {
-            btnReview.setText("ĐÃ ĐÁNH GIÁ");
+            btnReview.setText(getResources().getString(R.string.text_Reviewed));
         } else {
-            btnReview.setText("ĐÁNH GIÁ");
+            btnReview.setText(getResources().getString(R.string.text_Review));
         }
 
         txtServiceAbout.setText(serviceInfo.getServiceAbout());
         if (serviceInfo.getLowestPrice().equals("0") && serviceInfo.getHighestPrice().equals("0")) {
-            txtPrice.setText("Đang cập nhật");
+            txtPrice.setText(getResources().getString(R.string.text_Updating));
         } else {
-            txtPrice.setText("Từ " + NumberFormat.getNumberInstance(Locale.US).format(Integer.parseInt(serviceInfo.getLowestPrice())) + "đ" + " đến " + NumberFormat.getNumberInstance(Locale.US).format(Integer.parseInt(serviceInfo.getHighestPrice())) + "đ");
+            txtPrice.setText(getResources().getString(R.string.text_From) + " " + NumberFormat.getNumberInstance(Locale.US).format(Integer.parseInt(serviceInfo.getLowestPrice())) + "đ" + getResources().getString(R.string.text_To) + " " + NumberFormat.getNumberInstance(Locale.US).format(Integer.parseInt(serviceInfo.getHighestPrice())) + "đ");
         }
         txtTimeOpen.setText(serviceInfo.getTimeOpen());
         txtTimeClose.setText(serviceInfo.getTimeClose());
@@ -355,9 +355,9 @@ public class ActivityServiceInfo extends AppCompatActivity {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
             if (s.equals("success")) {
-                Toast.makeText(ActivityServiceInfo.this, "Đã bỏ thích", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ActivityServiceInfo.this, getResources().getString(R.string.text_UnLike), Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(ActivityServiceInfo.this, "Không thể bỏ", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ActivityServiceInfo.this, getResources().getString(R.string.text_CannotUnlike), Toast.LENGTH_SHORT).show();
             }
         }
     }

@@ -26,10 +26,10 @@
 
                 <Button
                     android:id="@+id/btnCancel"
-                    android:layout_width="46dp"
+                    android:layout_width="75dp"
                     android:layout_height="wrap_content"
                     android:background="@null"
-                    android:text="Hủy"
+                    android:text="@string/text_Cancel"
                     android:textAllCaps="false"
                     android:textColor="@color/colorWhite"
                     android:textSize="18sp" />
@@ -41,7 +41,7 @@
                     android:layout_gravity="center"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="Đánh giá"
+                    android:text="@string/text_Review"
                     android:textColor="@color/colorWhite"
                     android:textSize="20sp" />
 
@@ -50,7 +50,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@null"
-                    android:text="Gửi"
+                    android:text="@string/text_Send"
                     android:textAllCaps="false"
                     android:textColor="@color/colorWhite"
                     android:textSize="18sp" />
@@ -89,7 +89,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/white_grey_border_bottom"
-                android:hint="Tiêu đề"
+                android:hint="@string/hint_Title"
                 android:maxLength="25"
                 android:padding="10dp"
                 android:textSize="16sp" />
@@ -117,7 +117,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:background="@null"
-                android:hint="Nhận xét"
+                android:hint="@string/hint_YourComment"
                 android:padding="10dp"
                 android:textSize="16sp" />
 

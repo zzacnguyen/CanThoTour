@@ -2,22 +2,21 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/ic_trangchu"
-        android:title="Trang chủ"
-        android:icon="@drawable/ic_trangchu" />
+        android:icon="@drawable/ic_trangchu"
+        android:title="@string/text_Home" />
 
     <item
         android:id="@+id/ic_yeuthich"
-        android:title="Yêu thích"
-        android:icon="@drawable/ic_favorite_24dp" />
+        android:icon="@drawable/ic_favorite_24dp"
+        android:title="@string/text_Favorite" />
 
     <item
         android:id="@+id/ic_thongbao"
-        android:title="Thông báo"
-        android:icon="@drawable/ic_thongbao"/>
+        android:icon="@drawable/ic_thongbao"
+        android:title="@string/text_Notification" />
 
     <item
         android:id="@+id/ic_canhan"
-        android:title="Cá nhân"
         android:icon="@drawable/ic_canhan"
-        />
+        android:title="@string/text_Personal" />
 </menu>

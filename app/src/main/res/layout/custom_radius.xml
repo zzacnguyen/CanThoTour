@@ -13,17 +13,17 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="15dp"
-        android:hint="Nhập khoảng cách"
+        android:hint="@string/hint_InputRadius"
+        android:inputType="numberDecimal"
         android:maxLength="4"
         android:padding="10dp"
-        android:textSize="14sp"
-        android:inputType="numberDecimal"/>
+        android:textSize="14sp" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:text="Tính năng này cho phép bạn chỉnh sửa khoảng cách tìm kiếm các địa điểm lân cận"
+        android:text="@string/text_SetRadius"
         android:textColor="@color/colorGray"
         android:textSize="12sp" />
 
@@ -39,10 +39,10 @@
             android:layout_height="40dp"
             android:layout_margin="10dp"
             android:background="@color/tbPlace"
-            android:text="Đồng ý"
+            android:text="@string/text_Agree"
+            android:textAllCaps="false"
             android:textColor="@color/colorWhite"
-            android:textSize="14sp"
-            android:textAllCaps="false"/>
+            android:textSize="14sp" />
 
         <Button
             android:id="@+id/btnCancelRadius"
@@ -50,10 +50,10 @@
             android:layout_height="40dp"
             android:layout_margin="10dp"
             android:background="@color/tbPlace"
-            android:text="Hủy"
+            android:text="@string/text_Cancel"
+            android:textAllCaps="false"
             android:textColor="@color/colorWhite"
-            android:textSize="14sp"
-            android:textAllCaps="false"/>
+            android:textSize="14sp" />
 
     </LinearLayout>
 
