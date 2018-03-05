@@ -110,11 +110,11 @@ public class ActivityServiceInfo extends AppCompatActivity {
                     intent.putExtra("id", id);
                     startActivity(intent);
                 } else {
-                    File path = new File(Environment.getExternalStorageDirectory() + "/canthotour");
+                    File path = new File(Environment.getExternalStorageDirectory() + Config.FOLDER_IMAGE);
                     if (!path.exists()) {
                         path.mkdirs();
                     }
-                    File file = new File(path, "dsyeuthich.json");
+                    File file = new File(path, Config.FILE_NAME);
                     JSONArray getJsonInFile;
 
                     if (btnLike.getText().equals("THÍCH")) {
@@ -331,13 +331,13 @@ public class ActivityServiceInfo extends AppCompatActivity {
 
         try {
             saveJson = new JSONObject("{\"id\":\"" + serviceInfo.getId() +
-                    "\",\"ks_tenkhachsan\":\"" + serviceInfo.getHotelName() +
-                    "\",\"vc_tendiemvuichoi\":\"" + serviceInfo.getEntertainName() +
-                    "\",\"pt_tenphuongtien\":\"" + serviceInfo.getVehicleName() +
-                    "\",\"tq_tendiemthamquan\":\"" + serviceInfo.getPlaceName() +
-                    "\",\"au_ten\":\"" + serviceInfo.getEatName() +
-                    "\",\"id_hinhanh\":\"" + serviceInfo.getIdImage() +
-                    "\",\"chitiet1\":\"" + serviceInfo.getImageName() +
+                    "\",\"hotel_name\":\"" + serviceInfo.getHotelName() +
+                    "\",\"entertainments_name\":\"" + serviceInfo.getEntertainName() +
+                    "\",\"transport_name\":\"" + serviceInfo.getVehicleName() +
+                    "\",\"sightseeing_name\":\"" + serviceInfo.getPlaceName() +
+                    "\",\"eat_name\":\"" + serviceInfo.getEatName() +
+                    "\",\"image_id\":\"" + serviceInfo.getIdImage() +
+                    "\",\"image_details_1\":\"" + serviceInfo.getImageName() +
                     "\"}");
         } catch (JSONException e) {
             e.printStackTrace();

@@ -1,5 +1,6 @@
 package com.doan3.canthotour.View.Personal;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,17 +12,22 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.doan3.canthotour.Helper.BottomNavigationViewHelper;
 import com.doan3.canthotour.R;
 import com.doan3.canthotour.View.Favorite.ActivityFavorite;
+import com.doan3.canthotour.View.Main.ActivityServiceInfo;
 import com.doan3.canthotour.View.Main.MainActivity;
 import com.doan3.canthotour.View.Notify.ActivityNotify;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Created by zzacn on 12/7/2017.
@@ -30,9 +36,10 @@ import com.google.android.gms.location.places.ui.PlacePicker;
 public class ActivityAddPlace extends AppCompatActivity {
 
     private final int REQUEST_CODE_PLACEPICKER = 1;
-    TextView txtLat, txtLong;
-    EditText etAddress, etPlaceName;
+    TextView txtLat, txtLong, btnSend;
+    EditText etAddress, etPlaceName, etPlacePhone, etPlaceAbout;
     Button btnPlacePicker;
+    LinearLayout linearPlace, linearEat, linearHotel, linearEntertaiment, linearVehicle;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -43,7 +50,50 @@ public class ActivityAddPlace extends AppCompatActivity {
         txtLong = findViewById(R.id.txtLongitude);
         etAddress = findViewById(R.id.etAddress);
         etPlaceName = findViewById(R.id.etPlaceName);
+        etPlacePhone = findViewById(R.id.etPlacePhone);
+        etPlaceAbout = findViewById(R.id.etPlaceAbout);
         btnPlacePicker = findViewById(R.id.btnPlacePicker);
+        btnSend = findViewById(R.id.btnSendLocation);
+        linearPlace = findViewById(R.id.linearPlace);
+        linearEat = findViewById(R.id.linearEat);
+        linearHotel = findViewById(R.id.linearHotel);
+        linearEntertaiment = findViewById(R.id.linearEntertainment);
+        linearVehicle = findViewById(R.id.linearVehicle);
+
+        linearPlace.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openActivityAddService(4);
+            }
+        });
+
+        linearEat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openActivityAddService(1);
+            }
+        });
+
+        linearHotel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openActivityAddService(2);
+            }
+        });
+
+        linearEntertaiment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openActivityAddService(5);
+            }
+        });
+
+        linearVehicle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openActivityAddService(3);
+            }
+        });
 
         btnPlacePicker.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,7 +102,21 @@ public class ActivityAddPlace extends AppCompatActivity {
             }
         });
 
-        menuBotNarBar();
+        btnSend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        ActivityServiceInfo.menuBotNavBar(this,3);
+    }
+
+    private void openActivityAddService(int i) throws JSONException {
+        Intent intent =  new Intent(ActivityAddPlace.this, ActivityAddService.class);
+        intent.putExtra("type", i);
+        JSONObject jsonAddPlace = new JSONObject("{\"pl_name\":\"\"}");
+        startActivity(intent);
     }
 
     private void startPlacePickerActivity() {
@@ -88,35 +152,5 @@ public class ActivityAddPlace extends AppCompatActivity {
         txtLong.setText(String.valueOf(longitude).substring(0,10));
         etAddress.setText(placeSelected.getAddress().toString());
         etPlaceName.setText(placeSelected.getName().toString());
-    }
-
-    private void menuBotNarBar() {
-        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavView_Bar);
-        BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
-
-        Menu menu = bottomNavigationView.getMenu();
-        MenuItem menuItem = menu.getItem(3);
-        menuItem.setChecked(true);
-
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()){
-                    case R.id.ic_trangchu:
-                        startActivity(new Intent(ActivityAddPlace.this, MainActivity.class));
-                        break;
-                    case R.id.ic_yeuthich:
-                        startActivity(new Intent(ActivityAddPlace.this, ActivityFavorite.class));
-                        break;
-                    case R.id.ic_thongbao:
-                        startActivity(new Intent(ActivityAddPlace.this, ActivityNotify.class));
-                        break;
-                    case R.id.ic_canhan:
-                        startActivity(new Intent(ActivityAddPlace.this, ActivityPersonal.class));
-                        break;
-                }
-                return false;
-            }
-        });
     }
 }

@@ -41,7 +41,7 @@ public class ActivityAddService extends AppCompatActivity implements View.OnClic
             RESULT_INFO2 = 113,
             REQUEST_CAMERA_CAPTURE = 110;
 
-    TextView txtOpenTime, txtCloseTime;
+    TextView txtOpenTime, txtCloseTime, btnDone;
     ImageView imgBanner, imgInfo1, imgInfo2;
     ImageButton ibCamera;
     private int mHour, mMinute;
@@ -59,7 +59,7 @@ public class ActivityAddService extends AppCompatActivity implements View.OnClic
         imgInfo1 = findViewById(R.id.imgPickInfo1);
         imgInfo2 = findViewById(R.id.imgPickInfo2);
         ibCamera = findViewById(R.id.ibCamera);
-
+        btnDone = findViewById(R.id.btnConfirmService);
 
         imgService = new ArrayList<>();
 
@@ -76,6 +76,12 @@ public class ActivityAddService extends AppCompatActivity implements View.OnClic
             }
         });
 
+        btnDone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
         menuBotNarBar();
     }
 

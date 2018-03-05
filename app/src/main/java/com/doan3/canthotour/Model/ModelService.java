@@ -33,8 +33,8 @@ import static com.doan3.canthotour.View.Personal.ActivityLogin.userId;
 public class ModelService {
     public static Bitmap setImage(String url, String folderName, String fileName) {
         Bitmap bitmap = null;
-        if (!folderName.equals("null") && !fileName.equals("null")) {
-            File path = new File(Environment.getExternalStorageDirectory() + "/canthotour/" + folderName);
+        if (!folderName.equals(Config.NULL) && !fileName.equals(Config.NULL)) {
+            File path = new File(Environment.getExternalStorageDirectory() + Config.FOLDER_IMAGE + "/" + folderName);
             path.mkdirs();
             File file = new File(path, fileName);
             if (file.exists()) {
@@ -66,39 +66,39 @@ public class ModelService {
             String data = new Load().execute(url).get();
             JSONArray jsonArray = new JSONArray(data);
 
-            JSONArray jsonIdYT = new JSONArray(jsonArray.getJSONObject(0).get("yeuthich").toString());
+            JSONArray jsonIdYT = new JSONArray(jsonArray.getJSONObject(0).get(Config.GET_SERVICE_INFO.get(0)).toString());
             for (int i = 0; i < jsonIdYT.length(); i++) {
-                arrayIdYt.add(jsonIdYT.getJSONObject(i).getString("id_yeuthich"));
-                arrayIdNdYt.add(jsonIdYT.getJSONObject(i).getString("nd_idnguoidung"));
+                arrayIdYt.add(jsonIdYT.getJSONObject(i).getString(Config.GET_SERVICE_INFO.get(1)));
+                arrayIdNdYt.add(jsonIdYT.getJSONObject(i).getString(Config.GET_SERVICE_INFO.get(2)));
             }
 
-            JSONArray jsonIdDG = new JSONArray(jsonArray.getJSONObject(1).get("danhgia").toString());
+            JSONArray jsonIdDG = new JSONArray(jsonArray.getJSONObject(1).get(Config.GET_SERVICE_INFO.get(3)).toString());
             for (int i = 0; i < jsonIdDG.length(); i++) {
-                arrayIdDg.add(jsonIdDG.getJSONObject(i).getString("id_danhgia"));
-                arrayIdNdDg.add(jsonIdDG.getJSONObject(i).getString("nd_idnguoidung"));
+                arrayIdDg.add(jsonIdDG.getJSONObject(i).getString(Config.GET_SERVICE_INFO.get(4)));
+                arrayIdNdDg.add(jsonIdDG.getJSONObject(i).getString(Config.GET_SERVICE_INFO.get(2)));
             }
 
-            JSONArray jsonDichvu = new JSONArray(jsonArray.getJSONObject(2).get("dichvu").toString());
+            JSONArray jsonDichvu = new JSONArray(jsonArray.getJSONObject(2).get(Config.GET_SERVICE_INFO.get(5)).toString());
             arrayDichVu = JsonHelper.parseJson(jsonDichvu.getJSONObject(0), Config.JSON_SERVICE_INFO);
 
-            if (!jsonArray.getJSONObject(3).get("loaihinhsukien").toString().equals("null")) {
-                arrayLhsk = new JSONObject(jsonArray.getJSONObject(3).get("loaihinhsukien").toString())
-                        .getString("lhsk_ten");
+            if (!jsonArray.getJSONObject(3).get(Config.GET_SERVICE_INFO.get(6)).toString().equals(Config.NULL)) {
+                arrayLhsk = new JSONObject(jsonArray.getJSONObject(3).get(Config.GET_SERVICE_INFO.get(6)).toString())
+                        .getString(Config.GET_SERVICE_INFO.get(7));
             } else {
-                arrayLhsk = "null";
+                arrayLhsk = Config.NULL;
             }
 
             serviceInfo.setWebsite("Đang cập nhật");
-            if (!arrayDichVu.get(1).equals("null")) {
+            if (!arrayDichVu.get(1).equals(Config.NULL)) {
                 serviceInfo.setHotelName(arrayDichVu.get(1));
                 serviceInfo.setWebsite(arrayDichVu.get(2));
-            } else if (!arrayDichVu.get(3).equals("null")) {
+            } else if (!arrayDichVu.get(3).equals(Config.NULL)) {
                 serviceInfo.setEntertainName(arrayDichVu.get(3));
-            } else if (!arrayDichVu.get(4).equals("null")) {
+            } else if (!arrayDichVu.get(4).equals(Config.NULL)) {
                 serviceInfo.setVehicleName(arrayDichVu.get(4));
-            } else if (!arrayDichVu.get(5).equals("null")) {
+            } else if (!arrayDichVu.get(5).equals(Config.NULL)) {
                 serviceInfo.setPlaceName(arrayDichVu.get(5));
-            } else if (!arrayDichVu.get(6).equals("null")) {
+            } else if (!arrayDichVu.get(6).equals(Config.NULL)) {
                 serviceInfo.setEatName(arrayDichVu.get(6));
             }
             serviceInfo.setId(Integer.parseInt(arrayDichVu.get(0)));
@@ -109,7 +109,7 @@ public class ModelService {
             serviceInfo.setHighestPrice(arrayDichVu.get(11));
             serviceInfo.setAddress(arrayDichVu.get(12));
             serviceInfo.setPhoneNumber(arrayDichVu.get(13));
-            if (arrayDichVu.get(14).equals("null")) {
+            if (arrayDichVu.get(14).equals(Config.NULL)) {
                 serviceInfo.setReviewMark((float) 0);
                 serviceInfo.setStars(0);
             } else {
@@ -122,11 +122,11 @@ public class ModelService {
             serviceInfo.setEventType(arrayLhsk);
 //            serviceInfo.setIdYeuThich(arrayDichVu.get(15));
 
-            File path = new File(Environment.getExternalStorageDirectory() + "/canthotour");
+            File path = new File(Environment.getExternalStorageDirectory() + Config.FOLDER_IMAGE);
             if (!path.exists()) {
                 path.mkdirs();
             }
-            File file = new File(path, "dsyeuthich.json");
+            File file = new File(path, Config.FILE_NAME);
 
             boolean isLike = true;
             if (file.exists()) {
@@ -169,11 +169,11 @@ public class ModelService {
             // tách theo dấu + ra 3 phân tử truyền vào hàm setImage
             String[] urlHinhChiTiet1 = null, urlHinhChiTiet2 = null, urlHinhBanner = null;
             try {
-                urlHinhChiTiet1 = new Load().execute(Config.URL_HOST + Config.URL_GET_THUMB_1 + serviceInfo.getId())
+                urlHinhChiTiet1 = new Load().execute(Config.URL_HOST + Config.URL_GET_LINK_THUMB_1 + serviceInfo.getId())
                         .get().replaceAll("\"", "").split("\\+");
-                urlHinhChiTiet2 = new Load().execute(Config.URL_HOST + Config.URL_GET_THUMB_2 + serviceInfo.getId())
+                urlHinhChiTiet2 = new Load().execute(Config.URL_HOST + Config.URL_GET_LINK_THUMB_2 + serviceInfo.getId())
                         .get().replaceAll("\"", "").split("\\+");
-                urlHinhBanner = new Load().execute(Config.URL_HOST + Config.URL_GET_BANNER + serviceInfo.getId())
+                urlHinhBanner = new Load().execute(Config.URL_HOST + Config.URL_GET_LINK_BANNER + serviceInfo.getId())
                         .get().replaceAll("\"", "").split("\\+");
             } catch (InterruptedException | ExecutionException e) {
                 e.printStackTrace();
@@ -211,7 +211,7 @@ public class ModelService {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 arrayList = JsonHelper.parseJson(jsonObject, formatJson);
 
-                service.setImage(setImage(Config.URL_HOST + "thumbnails/" + arrayList.get(3),
+                service.setImage(setImage(Config.URL_HOST + Config.URL_GET_THUMB + arrayList.get(3),
                         arrayList.get(2), arrayList.get(3)));
                 service.setId(Integer.parseInt(arrayList.get(0)));
                 service.setName(arrayList.get(1));
@@ -238,7 +238,7 @@ public class ModelService {
                 Service service = new Service();
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 arrayList = JsonHelper.parseJson(jsonObject, formatJson);
-                service.setImage(setImage(Config.URL_HOST + "thumbnails/" + arrayList.get(3),
+                service.setImage(setImage(Config.URL_HOST + Config.URL_GET_THUMB + arrayList.get(3),
                         arrayList.get(2), arrayList.get(3)));
                 service.setId(Integer.parseInt(arrayList.get(0)));
                 service.setName(arrayList.get(1));
@@ -273,15 +273,15 @@ public class ModelService {
                 arrayList = JsonHelper.parseJson(jsonObject, Config.JSON_FAVORITE);
 
                 //Set hình ảnh
-                service.setImage(setImage(Config.URL_HOST + "thumbnails/" + arrayList.get(7),
+                service.setImage(setImage(Config.URL_HOST + Config.URL_GET_THUMB + arrayList.get(7),
                         arrayList.get(6), arrayList.get(7)));
                 //Set mã dịch vụ
                 service.setId(Integer.parseInt(arrayList.get(0)));
                 //Set tên dịch vụ yêu thích
-                service.setName(!arrayList.get(1).equals("null") ? arrayList.get(1) :
-                        !arrayList.get(2).equals("null") ? arrayList.get(2) :
-                                !arrayList.get(3).equals("null") ? arrayList.get(3) :
-                                        !arrayList.get(4).equals("null") ? arrayList.get(4) : arrayList.get(5));
+                service.setName(!arrayList.get(1).equals(Config.NULL) ? arrayList.get(1) :
+                        !arrayList.get(2).equals(Config.NULL) ? arrayList.get(2) :
+                                !arrayList.get(3).equals(Config.NULL) ? arrayList.get(3) :
+                                        !arrayList.get(4).equals(Config.NULL) ? arrayList.get(4) : arrayList.get(5));
 
                 services.add(service);
             }
@@ -319,7 +319,7 @@ public class ModelService {
                     }
 
                     //Set hình ảnh
-                    service.setNearLocationImage(setImage(Config.URL_HOST + "thumbnails/" + arrayList.get(3),
+                    service.setNearLocationImage(setImage(Config.URL_HOST + Config.URL_GET_THUMB + arrayList.get(3),
                             arrayList.get(2), arrayList.get(3)));
                     //Set mã dịch vụ
                     service.setNearLocationId(Integer.parseInt(arrayList.get(0)));
@@ -365,7 +365,7 @@ public class ModelService {
                 }
 
                 //Set hình ảnh
-                service.setImage(setImage(Config.URL_HOST + "thumbnails/" + arrayList.get(3),
+                service.setImage(setImage(Config.URL_HOST + Config.URL_GET_THUMB + arrayList.get(3),
                         arrayList.get(2), arrayList.get(3)));
                 //Set mã dịch vụ
                 service.setId(Integer.parseInt(arrayList.get(0)));
@@ -401,7 +401,7 @@ public class ModelService {
 
                 //Set ngày bắt đầu và ngày kết thúc sự kiện
                 event.setEventDate("Từ " + arrayList.get(2) + " đến " + arrayList.get(3));
-                event.setEventImage(setImage(Config.URL_HOST + "thumbnails/" + arrayList.get(5),
+                event.setEventImage(setImage(Config.URL_HOST + Config.URL_GET_THUMB + arrayList.get(5),
                         arrayList.get(4), arrayList.get(5)));
                 events.add(event);
             }
