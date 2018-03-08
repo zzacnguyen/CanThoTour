@@ -22,6 +22,8 @@ public class Config {
     public static final String URL_GET_LINK_THUMB_2 = "get-thumb-2/";
     public static final String URL_GET_LINK_BANNER = "get-banner/";
     public static final String URL_GET_THUMB = "thumbnails/";
+    public static final String URL_POST_PLACE = "add-places";
+    public static final String URL_POST_SERVICES = "add-services/";
 
     public static final String FOLDER_IMAGE = "/vietnamtour";
     public static final String FILE_NAME = "dsyeuthich.json";
@@ -69,6 +71,15 @@ public class Config {
 
     public static final ArrayList<String> JSON_REVIEW =
             new ArrayList<>(Arrays.asList("username", "vr_rating", "vr_title", "vr_ratings_details", "date_rating"));
+
     public static final ArrayList<String> JSON_RATE =
             new ArrayList<>(Arrays.asList("vr_rating", "vr_title", "vr_ratings_details"));
+
+    public static final ArrayList<String> JSON_ADD_PLACE =
+            new ArrayList<>(Arrays.asList("\"pl_name\"", "\"pl_details\"", "\"pl_address\"", "\"pl_phone_number\"",
+                    "\"pl_latitude\"", "\"pl_longtitude\"", "\"user_id\""));
+
+    public static final ArrayList<String> JSON_ADD_SERVICE =
+            new ArrayList<>(Arrays.asList("\"sv_description\"", "\"sv_open\"", "\"sv_close\"", "\"sv_highest_price\"",
+                    "\"sv_lowest_price\"", "\"sv_phone_number\"", "\"sv_types\"", "\"eat_name\""));
 }

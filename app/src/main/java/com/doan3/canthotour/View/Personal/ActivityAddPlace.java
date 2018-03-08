@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.doan3.canthotour.Config;
 import com.doan3.canthotour.Helper.BottomNavigationViewHelper;
 import com.doan3.canthotour.R;
 import com.doan3.canthotour.View.Favorite.ActivityFavorite;
@@ -29,6 +30,10 @@ import com.google.android.gms.location.places.ui.PlacePicker;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.concurrent.ExecutionException;
+
+import static com.doan3.canthotour.View.Personal.ActivityLogin.userId;
+
 /**
  * Created by zzacn on 12/7/2017.
  */
@@ -40,6 +45,8 @@ public class ActivityAddPlace extends AppCompatActivity {
     EditText etAddress, etPlaceName, etPlacePhone, etPlaceAbout;
     Button btnPlacePicker;
     LinearLayout linearPlace, linearEat, linearHotel, linearEntertaiment, linearVehicle;
+    String idPlace;
+    boolean isPosted = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -109,13 +116,28 @@ public class ActivityAddPlace extends AppCompatActivity {
             }
         });
 
-        ActivityServiceInfo.menuBotNavBar(this,3);
+        ActivityServiceInfo.menuBotNavBar(this, 3);
     }
 
-    private void openActivityAddService(int i) throws JSONException {
-        Intent intent =  new Intent(ActivityAddPlace.this, ActivityAddService.class);
+    private void openActivityAddService(int i) {
+        Intent intent = new Intent(ActivityAddPlace.this, ActivityAddService.class);
         intent.putExtra("type", i);
-        JSONObject jsonAddPlace = new JSONObject("{\"pl_name\":\"\"}");
+        if (!isPosted){
+            try {
+                idPlace = new ActivityLogin.Post().execute(Config.URL_HOST + Config.URL_POST_PLACE,
+                        "{" + Config.JSON_ADD_PLACE.get(0) + ":\"" + etPlaceName + "\"," +
+                                Config.JSON_ADD_PLACE.get(1) + ":\"" + etPlaceAbout + "\"" +
+                                Config.JSON_ADD_PLACE.get(2) + ":\"" + etAddress + "\"" +
+                                Config.JSON_ADD_PLACE.get(3) + ":\"" + etPlacePhone + "\"" +
+                                Config.JSON_ADD_PLACE.get(4) + ":\"" + txtLat + "\"" +
+                                Config.JSON_ADD_PLACE.get(5) + ":\"" + txtLong + "\"" +
+                                Config.JSON_ADD_PLACE.get(6) + ":\"" + userId + "\"" + "}").get();
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+            }
+            isPosted = true;
+        }
+        intent.putExtra("idPlace", idPlace);
         startActivity(intent);
     }
 
@@ -135,7 +157,7 @@ public class ActivityAddPlace extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        if (requestCode == REQUEST_CODE_PLACEPICKER && resultCode == RESULT_OK){
+        if (requestCode == REQUEST_CODE_PLACEPICKER && resultCode == RESULT_OK) {
             displaySelectedPlaceFromPlacePicker(data);
         }
 
@@ -143,13 +165,13 @@ public class ActivityAddPlace extends AppCompatActivity {
     }
 
     private void displaySelectedPlaceFromPlacePicker(Intent data) {
-        Place placeSelected = PlacePicker.getPlace(data,this);
+        Place placeSelected = PlacePicker.getPlace(data, this);
 
         Double latitude = placeSelected.getLatLng().latitude;
         Double longitude = placeSelected.getLatLng().longitude;
 
-        txtLat.setText(String.valueOf(latitude).substring(0,9));
-        txtLong.setText(String.valueOf(longitude).substring(0,10));
+        txtLat.setText(String.valueOf(latitude).substring(0, 9));
+        txtLong.setText(String.valueOf(longitude).substring(0, 10));
         etAddress.setText(placeSelected.getAddress().toString());
         etPlaceName.setText(placeSelected.getName().toString());
     }

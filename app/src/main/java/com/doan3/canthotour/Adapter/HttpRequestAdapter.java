@@ -2,19 +2,19 @@ package com.doan3.canthotour.Adapter;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.Environment;
+
+import org.apache.http.entity.mime.MultipartEntity;
 import org.json.JSONObject;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 public class HttpRequestAdapter {
@@ -54,6 +54,45 @@ public class HttpRequestAdapter {
             e.printStackTrace();
             return null;
         }
+    }
+
+    private static String httpPostImage(String urlString, MultipartEntity reqEntity) {
+        try {
+            URL url = new URL(urlString);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setReadTimeout(10000);
+            conn.setConnectTimeout(15000);
+            conn.setRequestMethod("POST");
+            conn.setUseCaches(false);
+            conn.setDoInput(true);
+            conn.setDoOutput(true);
+
+            conn.setRequestProperty("Connection", "Keep-Alive");
+            conn.addRequestProperty("Content-length", reqEntity.getContentLength() + "");
+            conn.addRequestProperty(reqEntity.getContentType().getName(), reqEntity.getContentType().getValue());
+
+            OutputStream os = conn.getOutputStream();
+            reqEntity.writeTo(conn.getOutputStream());
+            os.close();
+            conn.connect();
+
+            if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                BufferedReader in = new BufferedReader(new InputStreamReader(
+                        urlConnection.getInputStream()));
+                String line;
+                StringBuilder result = new StringBuilder();
+                while ((line = in.readLine()) != null) {
+                    result.append(line);
+                }
+                in.close();
+
+                return result.toString();
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public static String httpPost(String url, JSONObject json) {
