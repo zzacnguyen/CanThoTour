@@ -60,12 +60,12 @@ public class ActivityPersonal extends AppCompatActivity {
 
         if (userId == 0) {
             addPlace.setVisibility(View.GONE);
-            addService.setVisibility(View.GONE);
+//            addService.setVisibility(View.GONE);
             regEnterprise.setVisibility(View.GONE);
             Logout.setVisibility(View.GONE);
         } else {
             addPlace.setVisibility(View.VISIBLE);
-            addService.setVisibility(View.VISIBLE);
+//            addService.setVisibility(View.VISIBLE);
             regEnterprise.setVisibility(View.VISIBLE);
             Logout.setVisibility(View.VISIBLE);
             Login.setVisibility(View.GONE);

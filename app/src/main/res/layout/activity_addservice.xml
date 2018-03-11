@@ -119,6 +119,18 @@
                     android:textSize="16sp" />
 
                 <EditText
+                    android:id="@+id/etNumberOfStar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/white_grey_border_bottom"
+                    android:hint="@string/hint_NumberOfStar"
+                    android:inputType="number"
+                    android:maxLength="25"
+                    android:padding="5dp"
+                    android:textSize="16sp" />
+
+                <EditText
                     android:id="@+id/etServicePhone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

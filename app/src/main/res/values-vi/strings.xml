@@ -97,4 +97,5 @@
     <string name="text_UnLiked">Đã bỏ thích</string>
     <string name="text_CannotUnlike">Không thể bỏ</string>
     <string name="text_Updating">Đang cập nhật...</string>
+    <string name="hint_NumberOfStar">Số sao</string>
 </resources>

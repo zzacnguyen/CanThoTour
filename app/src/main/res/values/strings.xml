@@ -112,4 +112,5 @@
     <string name="text_UnLiked">UnLiked</string>
     <string name="text_CannotUnlike">Can\'t unlike</string>
     <string name="text_Updating">Updating...</string>
+    <string name="hint_NumberOfStar">Number of star</string>
 </resources>
