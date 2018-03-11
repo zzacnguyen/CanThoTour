@@ -81,5 +81,14 @@ public class Config {
 
     public static final ArrayList<String> JSON_ADD_SERVICE =
             new ArrayList<>(Arrays.asList("\"sv_description\"", "\"sv_open\"", "\"sv_close\"", "\"sv_highest_price\"",
-                    "\"sv_lowest_price\"", "\"sv_phone_number\"", "\"sv_types\"", "\"eat_name\""));
+                    "\"sv_lowest_price\"", "\"sv_phone_number\"", "\"sv_types\"", "\"tourist_places_id\""));
+
+    public static final ArrayList<String> JSON_ADD_SERVICE_EAT = new ArrayList<>(Arrays.asList("\"eat_name\""));
+    public static final ArrayList<String> JSON_ADD_SERVICE_HOTEL = new ArrayList<>(Arrays.asList("\"hotel_name\"",
+            "\"hotel_website\"", "\"hotel_number_star\""));
+    public static final ArrayList<String> JSON_ADD_SERVICE_SIGHTSEEING = new ArrayList<>(Arrays.asList("\"sightseeing_name\""));
+    public static final ArrayList<String> JSON_ADD_SERVICE_ENTERTAINMENTS = new ArrayList<>(Arrays.asList("\"entertainments_name\""));
+    public static final ArrayList<String> JSON_ADD_SERVICE_TRANSPORT = new ArrayList<>(Arrays.asList("\"transport_name\""));
+    public static final ArrayList<String> JSON_ADD_IMAGE = new ArrayList<>(Arrays.asList("\"banner\"", "\"details1\"", "\"details2\""));
+
 }

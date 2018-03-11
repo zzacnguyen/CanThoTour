@@ -2,35 +2,28 @@ package com.doan3.canthotour.View.Personal;
 
 import android.app.TimePickerDialog;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
-import com.doan3.canthotour.Helper.BottomNavigationViewHelper;
 import com.doan3.canthotour.R;
-import com.doan3.canthotour.View.Favorite.ActivityFavorite;
-import com.doan3.canthotour.View.Main.MainActivity;
-import com.doan3.canthotour.View.Notify.ActivityNotify;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
+
+import static com.doan3.canthotour.View.Main.ActivityServiceInfo.menuBotNavBar;
+import static com.doan3.canthotour.View.Personal.ActivityAddPlace.jsonServiceToString;
 
 
 public class ActivityAddService extends AppCompatActivity implements View.OnClickListener {
@@ -41,7 +34,8 @@ public class ActivityAddService extends AppCompatActivity implements View.OnClic
             RESULT_INFO2 = 113,
             REQUEST_CAMERA_CAPTURE = 110;
 
-    TextView txtOpenTime, txtCloseTime, btnDone;
+    TextView txtOpenTime, txtCloseTime, btnDone, btnCancel;
+    EditText etServiceName, etWebsite, etServicePhone, etServiceAbout, etLowestPrice, etHighestPrice, etNumberStar;
     ImageView imgBanner, imgInfo1, imgInfo2;
     ImageButton ibCamera;
     private int mHour, mMinute;
@@ -60,6 +54,14 @@ public class ActivityAddService extends AppCompatActivity implements View.OnClic
         imgInfo2 = findViewById(R.id.imgPickInfo2);
         ibCamera = findViewById(R.id.ibCamera);
         btnDone = findViewById(R.id.btnConfirmService);
+        btnCancel = findViewById(R.id.btnCancelService);
+        etServiceName = findViewById(R.id.etServiceName);
+        etWebsite = findViewById(R.id.etWebsite);
+        etServicePhone = findViewById(R.id.etServicePhone);
+        etServiceAbout = findViewById(R.id.etServiceAbout);
+        etLowestPrice = findViewById(R.id.etLowestPrice);
+        etHighestPrice = findViewById(R.id.etHighestPrice);
+        etNumberStar = findViewById(R.id.etNumberStar);
 
         imgService = new ArrayList<>();
 
@@ -76,13 +78,43 @@ public class ActivityAddService extends AppCompatActivity implements View.OnClic
             }
         });
 
+        final int type = getIntent().getIntExtra("type",0);
+        if (type != 2){
+            etWebsite.setVisibility(View.GONE);
+            etNumberStar.setVisibility(View.GONE);
+        }
+
         btnDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                jsonServiceToString = new ArrayList<>();
 
+                jsonServiceToString.add(etServiceAbout.getText().toString());
+                jsonServiceToString.add(txtOpenTime.getText().toString());
+                jsonServiceToString.add(txtCloseTime.getText().toString());
+                jsonServiceToString.add(etHighestPrice.getText().toString());
+                jsonServiceToString.add(etLowestPrice.getText().toString());
+                jsonServiceToString.add(etServicePhone.getText().toString());
+                jsonServiceToString.add(type+"");
+
+                jsonServiceToString.add(etServiceName.getText().toString());
+                if (etWebsite.getVisibility() != View.GONE) {
+                    jsonServiceToString.add(etWebsite.getText().toString());
+                    jsonServiceToString.add(etNumberStar.getText().toString());
+                }
+                finish();
+                finishActivity(2);
             }
         });
-        menuBotNarBar();
+
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+                finishActivity(2);
+            }
+        });
+        menuBotNavBar(this, 3);
     }
 
     @Override
@@ -93,9 +125,9 @@ public class ActivityAddService extends AppCompatActivity implements View.OnClic
             galleryAddPic();
         }
 
-        switch (requestCode){
+        switch (requestCode) {
             case RESULT_BANNER:
-                if (resultCode == RESULT_OK){
+                if (resultCode == RESULT_OK) {
                     Uri uri = data.getData();
                     imgBanner.setImageURI(uri);
                     imgService.add(uri);
@@ -103,7 +135,7 @@ public class ActivityAddService extends AppCompatActivity implements View.OnClic
                 break;
 
             case RESULT_INFO1:
-                if (resultCode == RESULT_OK){
+                if (resultCode == RESULT_OK) {
                     Uri uri = data.getData();
                     imgInfo1.setImageURI(uri);
                     imgService.add(uri);
@@ -111,7 +143,7 @@ public class ActivityAddService extends AppCompatActivity implements View.OnClic
                 break;
 
             case RESULT_INFO2:
-                if (resultCode == RESULT_OK){
+                if (resultCode == RESULT_OK) {
                     Uri uri = data.getData();
                     imgInfo2.setImageURI(uri);
                     imgService.add(uri);
@@ -127,7 +159,7 @@ public class ActivityAddService extends AppCompatActivity implements View.OnClic
         mHour = calendar.get(Calendar.HOUR_OF_DAY);
         mMinute = calendar.get(Calendar.MINUTE);
 
-        switch (view.getId()){ //Bắt sự kiện click dựa trên id của giao diện, ko phải id của biến
+        switch (view.getId()) { //Bắt sự kiện click dựa trên id của giao diện, ko phải id của biến
 
             case R.id.imgPickBanner:
                 PickImageFromGallery(RESULT_BANNER);
@@ -142,34 +174,34 @@ public class ActivityAddService extends AppCompatActivity implements View.OnClic
                 break;
 
             case R.id.txtOpenTime: //Set sự kiện click cho textview
-                TimePickerDialog openTimePickerDialog = new TimePickerDialog(ActivityAddService.this, new TimePickerDialog.OnTimeSetListener(){
+                TimePickerDialog openTimePickerDialog = new TimePickerDialog(ActivityAddService.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                         txtOpenTime.setText(String.format("%02d:%02d", hourOfDay, minute));
                     }
-                },mHour,mMinute,true);
+                }, mHour, mMinute, true);
 
                 openTimePickerDialog.show();
                 break;
 
             case R.id.txtCloseTime:
-                TimePickerDialog closeTimePickerDialog = new TimePickerDialog(ActivityAddService.this, new TimePickerDialog.OnTimeSetListener(){
+                TimePickerDialog closeTimePickerDialog = new TimePickerDialog(ActivityAddService.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                         txtCloseTime.setText(String.format("%02d:%02d", hourOfDay, minute));
                     }
-                },mHour,mMinute,true);
+                }, mHour, mMinute, true);
 
                 closeTimePickerDialog.show();
                 break;
         }
     }
 
-    private void PickImageFromGallery(int requestCode){ //Chọn 1 tấm hình từ thư viện
+    private void PickImageFromGallery(int requestCode) { //Chọn 1 tấm hình từ thư viện
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent,"Chọn hình..."),requestCode);
+        startActivityForResult(Intent.createChooser(intent, "Chọn hình..."), requestCode);
     }
 
     String mCurrentPhotoPath;
@@ -207,36 +239,6 @@ public class ActivityAddService extends AppCompatActivity implements View.OnClic
         Uri contentUri = Uri.fromFile(f);
         mediaScanIntent.setData(contentUri);
         this.sendBroadcast(mediaScanIntent);
-    }
-
-    private void menuBotNarBar() {
-        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavView_Bar);
-        BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
-
-        Menu menu = bottomNavigationView.getMenu();
-        MenuItem menuItem = menu.getItem(3);
-        menuItem.setChecked(true);
-
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()){
-                    case R.id.ic_trangchu:
-                        startActivity(new Intent(ActivityAddService.this, MainActivity.class));
-                        break;
-                    case R.id.ic_yeuthich:
-                        startActivity(new Intent(ActivityAddService.this, ActivityFavorite.class));
-                        break;
-                    case R.id.ic_thongbao:
-                        startActivity(new Intent(ActivityAddService.this, ActivityNotify.class));
-                        break;
-                    case R.id.ic_canhan:
-                        startActivity(new Intent(ActivityAddService.this, ActivityPersonal.class));
-                        break;
-                }
-                return false;
-            }
-        });
     }
 
 }
