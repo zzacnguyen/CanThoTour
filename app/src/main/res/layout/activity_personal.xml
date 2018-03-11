@@ -250,7 +250,7 @@
                     android:layout_weight="1"
                     android:background="@null"
                     android:drawableLeft="@drawable/ic_caidat"
-                    android:text="Cài đặt"
+                    android:text="@string/text_Settings"
                     android:textAlignment="textStart"
                     android:textAllCaps="false" />
 
@@ -277,7 +277,7 @@
                     android:layout_weight="1"
                     android:background="@null"
                     android:drawableLeft="@drawable/ic_dangxuat"
-                    android:text="Đăng xuất"
+                    android:text="@string/text_SignOut"
                     android:textAlignment="textStart"
                     android:textAllCaps="false" />
 

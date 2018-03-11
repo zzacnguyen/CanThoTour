@@ -29,11 +29,9 @@ import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
+import static com.doan3.canthotour.View.Personal.ActivityAddService.bitmapArraylist;
 import static com.doan3.canthotour.View.Personal.ActivityLogin.userId;
 
-/**
- * Created by zzacn on 12/7/2017.
- */
 
 public class ActivityAddPlace extends AppCompatActivity {
 
@@ -44,7 +42,7 @@ public class ActivityAddPlace extends AppCompatActivity {
     LinearLayout linearPlace, linearEat, linearHotel, linearEntertaiment, linearVehicle;
     String idPlace, idService;
     public static ArrayList<String> jsonServiceToString;
-    public static ArrayList<Bitmap> bitmapArrayList;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -152,15 +150,15 @@ public class ActivityAddPlace extends AppCompatActivity {
                 }
 
                 ByteArrayOutputStream ban = new ByteArrayOutputStream();
-                bitmapArrayList.get(0).compress(Bitmap.CompressFormat.JPEG, 100, ban);
+                bitmapArraylist.get(0).compress(Bitmap.CompressFormat.JPEG, 100, ban);
                 ContentBody contentBanner = new ByteArrayBody(ban.toByteArray(),"");
 
                 ByteArrayOutputStream de1 = new ByteArrayOutputStream();
-                bitmapArrayList.get(1).compress(Bitmap.CompressFormat.JPEG, 100, de1);
+                bitmapArraylist.get(1).compress(Bitmap.CompressFormat.JPEG, 100, de1);
                 ContentBody contentDetails1 = new ByteArrayBody(de1.toByteArray(),"");
 
                 ByteArrayOutputStream de2 = new ByteArrayOutputStream();
-                bitmapArrayList.get(2).compress(Bitmap.CompressFormat.JPEG, 100, de2);
+                bitmapArraylist.get(2).compress(Bitmap.CompressFormat.JPEG, 100, de2);
                 ContentBody contentDetails2 = new ByteArrayBody(de2.toByteArray(),"");
 
                 MultipartEntity reqEntity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
@@ -218,10 +216,13 @@ public class ActivityAddPlace extends AppCompatActivity {
 
         Double latitude = placeSelected.getLatLng().latitude;
         Double longitude = placeSelected.getLatLng().longitude;
+        String placeName = placeSelected.getName().toString();
 
         txtLat.setText(String.valueOf(latitude).substring(0, 9));
         txtLong.setText(String.valueOf(longitude).substring(0, 10));
         etAddress.setText(placeSelected.getAddress().toString());
-        etPlaceName.setText(placeSelected.getName().toString());
+        if(!placeName.contains("\'")){
+            etPlaceName.setText(placeSelected.getName().toString());
+        }
     }
 }
