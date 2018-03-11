@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Config {
-    public static final String URL_HOST = "http://192.168.1.114/doan3_canthotour/public/";
+    public static final String URL_HOST = "http://192.168.1.12/doan3_canthotour/public/";
     public static final String URL_LOGIN = "login";
     public static final String URL_REGISTER = "dangky";
     public static final String URL_SEARCH = "timkiem/dichvunangcao/idtype=";
@@ -23,7 +23,8 @@ public class Config {
     public static final String URL_GET_LINK_BANNER = "get-banner/";
     public static final String URL_GET_THUMB = "thumbnails/";
     public static final String URL_POST_PLACE = "add-places";
-    public static final String URL_POST_SERVICES = "add-services/";
+    public static final String URL_POST_IMAGE = "upload-image/";
+//    public static final String URL_POST_SERVICES = "add-services/";
 
     public static final String FOLDER_IMAGE = "/vietnamtour";
     public static final String FILE_NAME = "dsyeuthich.json";
