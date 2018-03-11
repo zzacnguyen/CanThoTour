@@ -56,7 +56,7 @@ public class HttpRequestAdapter {
         }
     }
 
-    private static String httpPostImage(String urlString, MultipartEntity reqEntity) {
+    public static String httpPostImage(String urlString, MultipartEntity reqEntity) {
         try {
             URL url = new URL(urlString);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();

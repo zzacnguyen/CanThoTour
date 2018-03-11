@@ -1,35 +1,31 @@
 package com.doan3.canthotour.View.Personal;
 
-import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.doan3.canthotour.Adapter.HttpRequestAdapter;
 import com.doan3.canthotour.Config;
-import com.doan3.canthotour.Helper.BottomNavigationViewHelper;
 import com.doan3.canthotour.R;
-import com.doan3.canthotour.View.Favorite.ActivityFavorite;
 import com.doan3.canthotour.View.Main.ActivityServiceInfo;
-import com.doan3.canthotour.View.Main.MainActivity;
-import com.doan3.canthotour.View.Notify.ActivityNotify;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import org.apache.http.entity.mime.HttpMultipartMode;
+import org.apache.http.entity.mime.MultipartEntity;
+import org.apache.http.entity.mime.content.ByteArrayBody;
+import org.apache.http.entity.mime.content.ContentBody;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
@@ -48,6 +44,7 @@ public class ActivityAddPlace extends AppCompatActivity {
     LinearLayout linearPlace, linearEat, linearHotel, linearEntertaiment, linearVehicle;
     String idPlace, idService;
     public static ArrayList<String> jsonServiceToString;
+    public static ArrayList<Bitmap> bitmapArrayList;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -153,6 +150,27 @@ public class ActivityAddPlace extends AppCompatActivity {
                 } catch (InterruptedException | ExecutionException e) {
                     e.printStackTrace();
                 }
+
+                ByteArrayOutputStream ban = new ByteArrayOutputStream();
+                bitmapArrayList.get(0).compress(Bitmap.CompressFormat.JPEG, 100, ban);
+                ContentBody contentBanner = new ByteArrayBody(ban.toByteArray(),"");
+
+                ByteArrayOutputStream de1 = new ByteArrayOutputStream();
+                bitmapArrayList.get(1).compress(Bitmap.CompressFormat.JPEG, 100, de1);
+                ContentBody contentDetails1 = new ByteArrayBody(de1.toByteArray(),"");
+
+                ByteArrayOutputStream de2 = new ByteArrayOutputStream();
+                bitmapArrayList.get(2).compress(Bitmap.CompressFormat.JPEG, 100, de2);
+                ContentBody contentDetails2 = new ByteArrayBody(de2.toByteArray(),"");
+
+                MultipartEntity reqEntity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
+                reqEntity.addPart("banner", contentBanner);
+                reqEntity.addPart("details1", contentDetails1);
+                reqEntity.addPart("đetails2", contentDetails2);
+                HttpRequestAdapter.httpPostImage(Config.URL_HOST + Config.URL_POST_IMAGE + idService, reqEntity);
+
+                finish();
+                finishActivity(1);
             }
         });
 

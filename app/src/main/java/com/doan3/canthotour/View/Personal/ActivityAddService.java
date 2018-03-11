@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import static com.doan3.canthotour.View.Main.ActivityServiceInfo.menuBotNavBar;
+import static com.doan3.canthotour.View.Personal.ActivityAddPlace.bitmapArrayList;
 import static com.doan3.canthotour.View.Personal.ActivityAddPlace.jsonServiceToString;
 
 
@@ -45,7 +46,7 @@ public class ActivityAddService extends AppCompatActivity implements View.OnClic
     private int mHour, mMinute;
 
     ArrayList<Uri> imgService;
-    ArrayList<Bitmap> bitmapArrayList;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -69,7 +70,6 @@ public class ActivityAddService extends AppCompatActivity implements View.OnClic
         etNumberStar = findViewById(R.id.etNumberOfStar);
 
         imgService = new ArrayList<>();
-        bitmapArrayList = new ArrayList<>();
 
         imgBanner.setOnClickListener(this);
         imgInfo1.setOnClickListener(this);
@@ -101,7 +101,6 @@ public class ActivityAddService extends AppCompatActivity implements View.OnClic
                 jsonServiceToString.add(etHighestPrice.getText().toString());
                 jsonServiceToString.add(etLowestPrice.getText().toString());
                 jsonServiceToString.add(etServicePhone.getText().toString());
-//                jsonServiceToString.add(bitmapArrayList.get(0).toString()); Chỗ này t ghi thử vậy đúng chưa
                 jsonServiceToString.add(type+"");
 
                 jsonServiceToString.add(etServiceName.getText().toString());
