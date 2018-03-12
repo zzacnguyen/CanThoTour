@@ -29,7 +29,6 @@ import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
-import static com.doan3.canthotour.View.Personal.ActivityAddService.bitmapArraylist;
 import static com.doan3.canthotour.View.Personal.ActivityLogin.userId;
 
 
@@ -42,6 +41,7 @@ public class ActivityAddPlace extends AppCompatActivity {
     LinearLayout linearPlace, linearEat, linearHotel, linearEntertaiment, linearVehicle;
     String idPlace, idService;
     public static ArrayList<String> jsonServiceToString;
+    public static ArrayList<Bitmap> bitmapArrayList;
 
 
     @Override
@@ -150,15 +150,15 @@ public class ActivityAddPlace extends AppCompatActivity {
                 }
 
                 ByteArrayOutputStream ban = new ByteArrayOutputStream();
-                bitmapArraylist.get(0).compress(Bitmap.CompressFormat.JPEG, 100, ban);
+                bitmapArrayList.get(0).compress(Bitmap.CompressFormat.JPEG, 100, ban);
                 ContentBody contentBanner = new ByteArrayBody(ban.toByteArray(),"");
 
                 ByteArrayOutputStream de1 = new ByteArrayOutputStream();
-                bitmapArraylist.get(1).compress(Bitmap.CompressFormat.JPEG, 100, de1);
+                bitmapArrayList.get(1).compress(Bitmap.CompressFormat.JPEG, 100, de1);
                 ContentBody contentDetails1 = new ByteArrayBody(de1.toByteArray(),"");
 
                 ByteArrayOutputStream de2 = new ByteArrayOutputStream();
-                bitmapArraylist.get(2).compress(Bitmap.CompressFormat.JPEG, 100, de2);
+                bitmapArrayList.get(2).compress(Bitmap.CompressFormat.JPEG, 100, de2);
                 ContentBody contentDetails2 = new ByteArrayBody(de2.toByteArray(),"");
 
                 MultipartEntity reqEntity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
