@@ -31,7 +31,7 @@ public class Config {
     public static final String NULL = "null";
 
     public static final ArrayList<String> GET_SERVICE_INFO =
-            new ArrayList<>(Arrays.asList("like", "like_id", "user_id", "rating", "id_rating", "service", "type_event", "tpe_name"));
+            new ArrayList<>(Arrays.asList("like", "like_id", "user_id", "rating", "id_rating", "service", "type_event", "type_name"));
 
     public static final ArrayList<String> ADD_PLACE =
             new ArrayList<>(Arrays.asList("pl_name", "pl_details", "pl_address", "pl_phone_number", "pl_latitude", "pl_longtitude", "user_id"));

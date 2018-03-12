@@ -316,7 +316,7 @@ public class ActivityServiceInfo extends AppCompatActivity {
         if (serviceInfo.getLowestPrice().equals("0") && serviceInfo.getHighestPrice().equals("0")) {
             txtPrice.setText(getResources().getString(R.string.text_Updating));
         } else {
-            txtPrice.setText(getResources().getString(R.string.text_From) + " " + NumberFormat.getNumberInstance(Locale.US).format(Integer.parseInt(serviceInfo.getLowestPrice())) + "đ" + getResources().getString(R.string.text_To) + " " + NumberFormat.getNumberInstance(Locale.US).format(Integer.parseInt(serviceInfo.getHighestPrice())) + "đ");
+            txtPrice.setText(getResources().getString(R.string.text_From) + " " + serviceInfo.getLowestPrice() + " " + getResources().getString(R.string.text_To) + " " + serviceInfo.getHighestPrice());
         }
         txtTimeOpen.setText(serviceInfo.getTimeOpen());
         txtTimeClose.setText(serviceInfo.getTimeClose());
