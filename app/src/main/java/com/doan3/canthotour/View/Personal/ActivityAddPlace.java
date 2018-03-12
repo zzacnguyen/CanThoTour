@@ -2,6 +2,7 @@ package com.doan3.canthotour.View.Personal;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -29,6 +30,8 @@ import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
+import static com.doan3.canthotour.View.Personal.ActivityAddService.bitmapArrayList;
+import static com.doan3.canthotour.View.Personal.ActivityAddService.jsonServiceToString;
 import static com.doan3.canthotour.View.Personal.ActivityLogin.userId;
 
 
@@ -40,9 +43,7 @@ public class ActivityAddPlace extends AppCompatActivity {
     Button btnPlacePicker;
     LinearLayout linearPlace, linearEat, linearHotel, linearEntertaiment, linearVehicle;
     String idPlace, idService;
-    public static ArrayList<String> jsonServiceToString;
-    public static ArrayList<Bitmap> bitmapArrayList;
-
+    MultipartEntity reqEntity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -123,9 +124,9 @@ public class ActivityAddPlace extends AppCompatActivity {
                 }
                 try {
                     String name;
-                    if (jsonServiceToString.get(6).equals("1")){
+                    if (jsonServiceToString.get(6).equals("1")) {
                         name = Config.JSON_ADD_SERVICE_EAT.get(0) + ":\"" + jsonServiceToString.get(7) + "\"";
-                    } else if (jsonServiceToString.get(6).equals("2")){
+                    } else if (jsonServiceToString.get(6).equals("2")) {
                         name = Config.JSON_ADD_SERVICE_HOTEL.get(0) + ":\"" + jsonServiceToString.get(7) + "\"," +
                                 Config.JSON_ADD_SERVICE_HOTEL.get(1) + ":\"" + jsonServiceToString.get(8) + "\"," +
                                 Config.JSON_ADD_SERVICE_HOTEL.get(2) + ":\"" + jsonServiceToString.get(9) + "\"";
@@ -148,24 +149,28 @@ public class ActivityAddPlace extends AppCompatActivity {
                 } catch (InterruptedException | ExecutionException e) {
                     e.printStackTrace();
                 }
-
+                System.out.println(idPlace + "+" + idService);
                 ByteArrayOutputStream ban = new ByteArrayOutputStream();
                 bitmapArrayList.get(0).compress(Bitmap.CompressFormat.JPEG, 100, ban);
-                ContentBody contentBanner = new ByteArrayBody(ban.toByteArray(),"");
+                ContentBody contentBanner = new ByteArrayBody(ban.toByteArray(), "");
 
                 ByteArrayOutputStream de1 = new ByteArrayOutputStream();
                 bitmapArrayList.get(1).compress(Bitmap.CompressFormat.JPEG, 100, de1);
-                ContentBody contentDetails1 = new ByteArrayBody(de1.toByteArray(),"");
+                ContentBody contentDetails1 = new ByteArrayBody(de1.toByteArray(), "");
 
                 ByteArrayOutputStream de2 = new ByteArrayOutputStream();
                 bitmapArrayList.get(2).compress(Bitmap.CompressFormat.JPEG, 100, de2);
-                ContentBody contentDetails2 = new ByteArrayBody(de2.toByteArray(),"");
+                ContentBody contentDetails2 = new ByteArrayBody(de2.toByteArray(), "");
 
-                MultipartEntity reqEntity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
                 reqEntity.addPart("banner", contentBanner);
                 reqEntity.addPart("details1", contentDetails1);
                 reqEntity.addPart("đetails2", contentDetails2);
-                HttpRequestAdapter.httpPostImage(Config.URL_HOST + Config.URL_POST_IMAGE + idService, reqEntity);
+                try {
+                    String s = new PostImage().execute(Config.URL_HOST + Config.URL_POST_IMAGE + idService).get();
+                    System.out.println(s);
+                } catch (InterruptedException | ExecutionException e) {
+                    e.printStackTrace();
+                }
 
                 finish();
                 finishActivity(1);
@@ -185,7 +190,7 @@ public class ActivityAddPlace extends AppCompatActivity {
     private void openActivityAddService(int i) {
         Intent intent = new Intent(ActivityAddPlace.this, ActivityAddService.class);
         intent.putExtra("type", i);
-        startActivityForResult(intent,2);
+        startActivityForResult(intent, 2);
     }
 
     private void startPlacePickerActivity() {
@@ -221,8 +226,15 @@ public class ActivityAddPlace extends AppCompatActivity {
         txtLat.setText(String.valueOf(latitude).substring(0, 9));
         txtLong.setText(String.valueOf(longitude).substring(0, 10));
         etAddress.setText(placeSelected.getAddress().toString());
-        if(!placeName.contains("\'")){
+        if (!placeName.contains("\'")) {
             etPlaceName.setText(placeSelected.getName().toString());
+        }
+    }
+
+    private class PostImage extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... strings) {
+            return HttpRequestAdapter.httpPostImage(strings[0], reqEntity);
         }
     }
 }

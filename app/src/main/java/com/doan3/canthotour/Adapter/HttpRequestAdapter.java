@@ -59,24 +59,24 @@ public class HttpRequestAdapter {
     public static String httpPostImage(String urlString, MultipartEntity reqEntity) {
         try {
             URL url = new URL(urlString);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setReadTimeout(10000);
-            conn.setConnectTimeout(15000);
-            conn.setRequestMethod("POST");
-            conn.setUseCaches(false);
-            conn.setDoInput(true);
-            conn.setDoOutput(true);
+            urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.setReadTimeout(10000);
+            urlConnection.setConnectTimeout(15000);
+            urlConnection.setRequestMethod("POST");
+            urlConnection.setUseCaches(false);
+            urlConnection.setDoInput(true);
+            urlConnection.setDoOutput(true);
 
-            conn.setRequestProperty("Connection", "Keep-Alive");
-            conn.addRequestProperty("Content-length", reqEntity.getContentLength() + "");
-            conn.addRequestProperty(reqEntity.getContentType().getName(), reqEntity.getContentType().getValue());
+            urlConnection.setRequestProperty("Connection", "Keep-Alive");
+            urlConnection.addRequestProperty("Content-length", reqEntity.getContentLength() + "");
+            urlConnection.addRequestProperty(reqEntity.getContentType().getName(), reqEntity.getContentType().getValue());
 
-            OutputStream os = conn.getOutputStream();
-            reqEntity.writeTo(conn.getOutputStream());
+            OutputStream os = urlConnection.getOutputStream();
+            reqEntity.writeTo(urlConnection.getOutputStream());
             os.close();
-            conn.connect();
+            urlConnection.connect();
 
-            if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
+            if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
                 BufferedReader in = new BufferedReader(new InputStreamReader(
                         urlConnection.getInputStream()));
                 String line;
@@ -87,12 +87,17 @@ public class HttpRequestAdapter {
                 in.close();
 
                 return result.toString();
+            } else {
+                return "failure";
             }
-
         } catch (Exception e) {
             e.printStackTrace();
+            return "error";
+        } finally {
+            if (urlConnection != null) {
+                urlConnection.disconnect();
+            }
         }
-        return null;
     }
 
     public static String httpPost(String url, JSONObject json) {

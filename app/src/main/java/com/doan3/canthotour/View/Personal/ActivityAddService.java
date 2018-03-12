@@ -3,7 +3,6 @@ package com.doan3.canthotour.View.Personal;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -20,15 +19,11 @@ import android.widget.TimePicker;
 import com.doan3.canthotour.R;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 
 import static com.doan3.canthotour.View.Main.ActivityServiceInfo.menuBotNavBar;
-import static com.doan3.canthotour.View.Personal.ActivityAddPlace.bitmapArrayList;
-import static com.doan3.canthotour.View.Personal.ActivityAddPlace.jsonServiceToString;
 
 
 public class ActivityAddService extends AppCompatActivity implements View.OnClickListener {
@@ -45,8 +40,8 @@ public class ActivityAddService extends AppCompatActivity implements View.OnClic
     ImageButton ibCamera;
     private int mHour, mMinute;
 
-    ArrayList<Uri> imgService;
-
+    public static ArrayList<Bitmap> bitmapArrayList = new ArrayList<>();
+    public static ArrayList<String> jsonServiceToString;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -69,9 +64,6 @@ public class ActivityAddService extends AppCompatActivity implements View.OnClic
         etHighestPrice = findViewById(R.id.etHighestPrice);
         etNumberStar = findViewById(R.id.etNumberOfStar);
 
-        imgService = new ArrayList<>();
-        bitmapArrayList = new ArrayList<>();
-
         imgBanner.setOnClickListener(this);
         imgInfo1.setOnClickListener(this);
         imgInfo2.setOnClickListener(this);
@@ -85,8 +77,8 @@ public class ActivityAddService extends AppCompatActivity implements View.OnClic
             }
         });
 
-        final int type = getIntent().getIntExtra("type",0);
-        if (type != 2){
+        final int type = getIntent().getIntExtra("type", 0);
+        if (type != 2) {
             etWebsite.setVisibility(View.GONE);
             etNumberStar.setVisibility(View.GONE);
         }
@@ -102,7 +94,7 @@ public class ActivityAddService extends AppCompatActivity implements View.OnClic
                 jsonServiceToString.add(etHighestPrice.getText().toString());
                 jsonServiceToString.add(etLowestPrice.getText().toString());
                 jsonServiceToString.add(etServicePhone.getText().toString());
-                jsonServiceToString.add(type+"");
+                jsonServiceToString.add(type + "");
 
                 jsonServiceToString.add(etServiceName.getText().toString());
                 if (etWebsite.getVisibility() != View.GONE) {
@@ -136,7 +128,7 @@ public class ActivityAddService extends AppCompatActivity implements View.OnClic
             case RESULT_BANNER:
                 if (resultCode == RESULT_OK) {
                     Uri uri = data.getData();
-                    Bitmap bitmap = null;
+                    Bitmap bitmap;
                     try {
                         bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
                         imgBanner.setImageBitmap(bitmap);
@@ -150,7 +142,7 @@ public class ActivityAddService extends AppCompatActivity implements View.OnClic
             case RESULT_INFO1:
                 if (resultCode == RESULT_OK) {
                     Uri uri = data.getData();
-                    Bitmap bitmap = null;
+                    Bitmap bitmap;
                     try {
                         bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
                         imgInfo1.setImageBitmap(bitmap);
@@ -165,7 +157,7 @@ public class ActivityAddService extends AppCompatActivity implements View.OnClic
             case RESULT_INFO2:
                 if (resultCode == RESULT_OK) {
                     Uri uri = data.getData();
-                    Bitmap bitmap = null;
+                    Bitmap bitmap;
                     try {
                         bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
                         imgInfo2.setImageBitmap(bitmap);
