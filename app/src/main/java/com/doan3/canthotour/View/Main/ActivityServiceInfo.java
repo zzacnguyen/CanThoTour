@@ -2,6 +2,10 @@ package com.doan3.canthotour.View.Main;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
@@ -10,6 +14,8 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Base64;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -34,12 +40,21 @@ import com.doan3.canthotour.View.Personal.ActivityPersonal;
 import com.doan3.canthotour.View.Personal.ActivityReview;
 import com.doan3.canthotour.View.Personal.ActivityReviewList;
 import com.doan3.canthotour.View.Search.ActivityNearLocation;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.share.Sharer;
+import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.widget.ShareDialog;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.NumberFormat;
 import java.util.Locale;
 
@@ -54,6 +69,8 @@ public class ActivityServiceInfo extends AppCompatActivity {
     int id, serviceType, reviewId;
     String favoriteId, longitude, latitude;
     JSONObject saveJson;
+    CallbackManager callbackManager;
+    ShareDialog shareDialog;
 
     public static void menuBotNavBar(final Activity activity,int i) {
         BottomNavigationView bottomNavigationView = activity.findViewById(R.id.bottomNavView_Bar);
@@ -88,6 +105,7 @@ public class ActivityServiceInfo extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FacebookSdk.sdkInitialize(this.getApplicationContext());
         setContentView(R.layout.activity_serviceinfo);
 
         btnShare = findViewById(R.id.btnShareService);
@@ -95,6 +113,10 @@ public class ActivityServiceInfo extends AppCompatActivity {
         btnNear = findViewById(R.id.btnNearLocation);
         btnReview = findViewById(R.id.btnReview);
         btnShowReview = findViewById(R.id.btnOpenListReview);
+
+        //Init FB share content
+        callbackManager = CallbackManager.Factory.create();
+        shareDialog = new ShareDialog(this);
 
         id = getIntent().getIntExtra("id", 1);
         String mess = getIntent().getStringExtra("mess");
@@ -181,6 +203,37 @@ public class ActivityServiceInfo extends AppCompatActivity {
             }
         });
 
+        btnShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                shareDialog.registerCallback(callbackManager, new FacebookCallback<Sharer.Result>() {
+                    @Override
+                    public void onSuccess(Sharer.Result result) {
+                        Toast.makeText(ActivityServiceInfo.this, "Share successful", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onCancel() {
+                        Toast.makeText(ActivityServiceInfo.this, "Share cancel", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onError(FacebookException error) {
+                        Toast.makeText(ActivityServiceInfo.this, "Share error", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                ShareLinkContent linkContent = new ShareLinkContent.Builder()
+                        .setQuote("This is use full link")
+                        .setContentUrl(Uri.parse("https://vietnamtour.com/"))
+                        .build();
+                if(ShareDialog.canShow(ShareLinkContent.class)){
+                    shareDialog.show(linkContent);
+                }
+            }
+        });
+
         btnReview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -207,6 +260,7 @@ public class ActivityServiceInfo extends AppCompatActivity {
         });
 
         load(this, Config.URL_HOST + Config.URL_GET_ALL_SERVICES + "/" + id);
+
 
         menuBotNavBar(this,0);
     }
@@ -359,6 +413,22 @@ public class ActivityServiceInfo extends AppCompatActivity {
             } else {
                 Toast.makeText(ActivityServiceInfo.this, getResources().getString(R.string.text_CannotUnlike), Toast.LENGTH_SHORT).show();
             }
+        }
+    }
+
+    private void printKeyHash() {
+        try{
+            PackageInfo info = getPackageManager().getPackageInfo("com.example.zzacn.sharinglink",
+                    PackageManager.GET_SIGNATURES);;
+            for (Signature signature : info.signatures){
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                Log.d("KeyHash", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
         }
     }
 }

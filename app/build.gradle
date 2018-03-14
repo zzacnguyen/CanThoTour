@@ -37,4 +37,5 @@ dependencies {
     compile('org.apache.httpcomponents:httpmime:4.3') {
         exclude module: "httpclient"
     }
+    compile 'com.facebook.android:facebook-share:[4,5)'
 }

@@ -8,6 +8,9 @@
         <item>button_5</item>
     </string-array>
 
+    <string name="facebook_app_id">294630491068215</string>
+    <string name="facebook_login_protocol_scheme">fb294630491068215</string>
+
     <string name="text_Home">Home</string>
     <string name="text_Search">Search...</string>
     <string name="text_Cancel">Cancel</string>
