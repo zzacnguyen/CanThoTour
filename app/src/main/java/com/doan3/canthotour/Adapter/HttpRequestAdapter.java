@@ -66,7 +66,6 @@ public class HttpRequestAdapter {
             urlConnection.setUseCaches(false);
             urlConnection.setDoInput(true);
             urlConnection.setDoOutput(true);
-
             urlConnection.setRequestProperty("Connection", "Keep-Alive");
             urlConnection.addRequestProperty("Content-length", reqEntity.getContentLength() + "");
             urlConnection.addRequestProperty(reqEntity.getContentType().getName(), reqEntity.getContentType().getValue());
@@ -88,6 +87,7 @@ public class HttpRequestAdapter {
 
                 return result.toString();
             } else {
+                System.out.println(urlConnection.getResponseCode());
                 return "failure";
             }
         } catch (Exception e) {

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Config {
-    public static final String URL_HOST = "http://192.168.1.12/doan3_canthotour/public/";
+    public static final String URL_HOST = "http://192.168.1.5/doan3_canthotour/public/";
     public static final String URL_LOGIN = "login";
     public static final String URL_REGISTER = "dangky";
     public static final String URL_SEARCH = "timkiem/dichvunangcao/idtype=";
@@ -32,9 +32,6 @@ public class Config {
 
     public static final ArrayList<String> GET_SERVICE_INFO =
             new ArrayList<>(Arrays.asList("like", "like_id", "user_id", "rating", "id_rating", "service", "type_event", "type_name"));
-
-    public static final ArrayList<String> ADD_PLACE =
-            new ArrayList<>(Arrays.asList("pl_name", "pl_details", "pl_address", "pl_phone_number", "pl_latitude", "pl_longtitude", "user_id"));
 
     public static final ArrayList<String> JSON_EAT =
             new ArrayList<>(Arrays.asList("eat_name", "image_id", "image_details_1"));
@@ -78,7 +75,7 @@ public class Config {
 
     public static final ArrayList<String> JSON_ADD_PLACE =
             new ArrayList<>(Arrays.asList("\"pl_name\"", "\"pl_details\"", "\"pl_address\"", "\"pl_phone_number\"",
-                    "\"pl_latitude\"", "\"pl_longtitude\"", "\"user_id\""));
+                    "\"pl_latitude\"", "\"pl_longitude\"", "\"user_id\""));
 
     public static final ArrayList<String> JSON_ADD_SERVICE =
             new ArrayList<>(Arrays.asList("\"sv_description\"", "\"sv_open\"", "\"sv_close\"", "\"sv_highest_price\"",
@@ -90,6 +87,5 @@ public class Config {
     public static final ArrayList<String> JSON_ADD_SERVICE_SIGHTSEEING = new ArrayList<>(Arrays.asList("\"sightseeing_name\""));
     public static final ArrayList<String> JSON_ADD_SERVICE_ENTERTAINMENTS = new ArrayList<>(Arrays.asList("\"entertainments_name\""));
     public static final ArrayList<String> JSON_ADD_SERVICE_TRANSPORT = new ArrayList<>(Arrays.asList("\"transport_name\""));
-    public static final ArrayList<String> JSON_ADD_IMAGE = new ArrayList<>(Arrays.asList("\"banner\"", "\"details1\"", "\"details2\""));
 
 }

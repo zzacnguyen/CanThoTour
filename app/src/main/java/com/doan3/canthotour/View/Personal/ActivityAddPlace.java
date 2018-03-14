@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.doan3.canthotour.Adapter.HttpRequestAdapter;
 import com.doan3.canthotour.Config;
@@ -112,13 +113,13 @@ public class ActivityAddPlace extends AppCompatActivity {
             public void onClick(View view) {
                 try {
                     idPlace = new ActivityLogin.Post().execute(Config.URL_HOST + Config.URL_POST_PLACE,
-                            "{" + Config.JSON_ADD_PLACE.get(0) + ":\"" + etPlaceName + "\"," +
-                                    Config.JSON_ADD_PLACE.get(1) + ":\"" + etPlaceAbout + "\"," +
-                                    Config.JSON_ADD_PLACE.get(2) + ":\"" + etAddress + "\"," +
-                                    Config.JSON_ADD_PLACE.get(3) + ":\"" + etPlacePhone + "\"," +
-                                    Config.JSON_ADD_PLACE.get(4) + ":\"" + txtLat + "\"," +
-                                    Config.JSON_ADD_PLACE.get(5) + ":\"" + txtLong + "\"," +
-                                    Config.JSON_ADD_PLACE.get(6) + ":\"" + userId + "\"" + "}").get();
+                            "{" + Config.JSON_ADD_PLACE.get(0) + ":\"" + etPlaceName.getText().toString() + "\"," +
+                                    Config.JSON_ADD_PLACE.get(1) + ":\"" + etPlaceAbout.getText().toString() + "\"," +
+                                    Config.JSON_ADD_PLACE.get(2) + ":\"" + etAddress.getText().toString() + "\"," +
+                                    Config.JSON_ADD_PLACE.get(3) + ":\"" + etPlacePhone.getText().toString() + "\"," +
+                                    Config.JSON_ADD_PLACE.get(4) + ":\"" + txtLat.getText().toString() + "\"," +
+                                    Config.JSON_ADD_PLACE.get(5) + ":\"" + txtLong.getText().toString() + "\"," +
+                                    Config.JSON_ADD_PLACE.get(6) + ":\"" + "1" + "\"" + "}").get();
                 } catch (InterruptedException | ExecutionException e) {
                     e.printStackTrace();
                 }
@@ -145,35 +146,42 @@ public class ActivityAddPlace extends AppCompatActivity {
                                     Config.JSON_ADD_SERVICE.get(4) + ":\"" + jsonServiceToString.get(4) + "\"," +
                                     Config.JSON_ADD_SERVICE.get(5) + ":\"" + jsonServiceToString.get(5) + "\"," +
                                     Config.JSON_ADD_SERVICE.get(6) + ":\"" + jsonServiceToString.get(6) + "\"," +
-                                    Config.JSON_ADD_SERVICE.get(7) + ":\"" + idPlace + "\"," + name + "}").get();
+                                    Config.JSON_ADD_SERVICE.get(7) + ":\"" +
+                                    idPlace.replaceAll("\"", "").split(":")[1] + "\"," + name + "}").get();
                 } catch (InterruptedException | ExecutionException e) {
                     e.printStackTrace();
                 }
-                System.out.println(idPlace + "+" + idService);
+
                 ByteArrayOutputStream ban = new ByteArrayOutputStream();
                 bitmapArrayList.get(0).compress(Bitmap.CompressFormat.JPEG, 100, ban);
-                ContentBody contentBanner = new ByteArrayBody(ban.toByteArray(), "");
+                ContentBody contentBanner = new ByteArrayBody(ban.toByteArray(), "a.jpg");
 
                 ByteArrayOutputStream de1 = new ByteArrayOutputStream();
                 bitmapArrayList.get(1).compress(Bitmap.CompressFormat.JPEG, 100, de1);
-                ContentBody contentDetails1 = new ByteArrayBody(de1.toByteArray(), "");
+                ContentBody contentDetails1 = new ByteArrayBody(de1.toByteArray(), "b.jpg");
 
                 ByteArrayOutputStream de2 = new ByteArrayOutputStream();
                 bitmapArrayList.get(2).compress(Bitmap.CompressFormat.JPEG, 100, de2);
-                ContentBody contentDetails2 = new ByteArrayBody(de2.toByteArray(), "");
+                ContentBody contentDetails2 = new ByteArrayBody(de2.toByteArray(), "c.jpg");
 
                 reqEntity.addPart("banner", contentBanner);
                 reqEntity.addPart("details1", contentDetails1);
-                reqEntity.addPart("đetails2", contentDetails2);
+                reqEntity.addPart("details2", contentDetails2);
                 try {
-                    String s = new PostImage().execute(Config.URL_HOST + Config.URL_POST_IMAGE + idService).get();
-                    System.out.println(s);
+                    String response = new PostImage().execute(Config.URL_HOST + Config.URL_POST_IMAGE
+                            + idService.replaceAll("\"", "").split(":")[1]).get();
+                    System.out.println(response);
+                    if (response.equals("\"status:200\"")) {
+                        Toast.makeText(ActivityAddPlace.this, "Thành công", Toast.LENGTH_SHORT).show();
+                        bitmapArrayList.clear();
+                        finish();
+                        finishActivity(1);
+                    } else {
+                        Toast.makeText(ActivityAddPlace.this, "Lỗi", Toast.LENGTH_SHORT).show();
+                    }
                 } catch (InterruptedException | ExecutionException e) {
                     e.printStackTrace();
                 }
-
-                finish();
-                finishActivity(1);
             }
         });
 
