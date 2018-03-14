@@ -82,9 +82,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@null"
-                    android:textSize="16sp"
-                    android:hint="Tên doanh nghiệp"
-                    android:padding="5dp"/>
+                    android:hint="@string/hint_EnterpriseName"
+                    android:padding="5dp"
+                    android:textSize="16sp" />
 
             </LinearLayout>
 
@@ -105,34 +105,35 @@
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="14sp"
-                    android:hint="Địa chỉ"
                     android:background="@drawable/white_grey_border_bottom"
-                    android:padding="10dp"/>
+                    android:hint="@string/hint_Address"
+                    android:padding="10dp"
+                    android:textSize="14sp" />
 
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="14sp"
                     android:background="@null"
-                    android:hint="Số điện thoại"
-                    android:padding="10dp"/>
+                    android:hint="@string/hint_PhoneNumber"
+                    android:inputType="number"
+                    android:padding="10dp"
+                    android:textSize="14sp" />
 
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="14sp"
                     android:background="@null"
-                    android:hint="Website"
-                    android:padding="10dp"/>
+                    android:hint="@string/hint_Website"
+                    android:padding="10dp"
+                    android:textSize="14sp" />
 
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="14sp"
                     android:background="@null"
-                    android:hint="Email"
-                    android:padding="10dp"/>
+                    android:hint="@string/hint_Email"
+                    android:padding="10dp"
+                    android:textSize="14sp" />
 
             </LinearLayout>
 
@@ -153,10 +154,10 @@
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="14sp"
                     android:background="@null"
-                    android:hint="Ghi chú"
-                    android:padding="5dp"/>
+                    android:hint="@string/hint_Notice"
+                    android:padding="5dp"
+                    android:textSize="14sp" />
 
             </LinearLayout>
 
@@ -177,10 +178,10 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="16sp"
-                    android:text="Điều khoản"
+                    android:background="@drawable/white_grey_border_bottom"
+                    android:text="@string/hint_Policy"
                     android:textColor="@color/colorBlack"
-                    android:background="@drawable/white_grey_border_bottom"/>
+                    android:textSize="16sp" />
 
                 <TextView
                     android:layout_width="match_parent"

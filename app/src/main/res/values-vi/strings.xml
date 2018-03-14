@@ -98,4 +98,7 @@
     <string name="text_CannotUnlike">Không thể bỏ</string>
     <string name="text_Updating">Đang cập nhật...</string>
     <string name="hint_NumberOfStar">Số sao</string>
+    <string name="hint_EnterpriseName">Tên doanh nghiệp</string>
+    <string name="hint_Notice">Ghi chú</string>
+    <string name="hint_Policy">Điều khoản</string>
 </resources>

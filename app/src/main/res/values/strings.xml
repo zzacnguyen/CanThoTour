@@ -113,4 +113,8 @@
     <string name="text_CannotUnlike">Can\'t unlike</string>
     <string name="text_Updating">Updating...</string>
     <string name="hint_NumberOfStar">Number of star</string>
+    <string name="hint_EnterpriseName">Your enterprise name</string>
+    <string name="hint_Email" translatable="false">Email</string>
+    <string name="hint_Notice">Notice</string>
+    <string name="hint_Policy">Policy</string>
 </resources>
