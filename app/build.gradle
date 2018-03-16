@@ -33,7 +33,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-maps:11.6.2'
     compile 'com.github.Gavras:MultiLineRadioGroup:v1.0.0.6'
     compile 'com.google.android.gms:play-services-places:11.8.0'
-    compile group: 'org.apache.httpcomponents' , name: 'httpclient-android' , version: '4.3.5.1'
+    compile group: 'org.apache.httpcomponents', name: 'httpclient-android', version: '4.3.5.1'
     compile('org.apache.httpcomponents:httpmime:4.3') {
         exclude module: "httpclient"
     }

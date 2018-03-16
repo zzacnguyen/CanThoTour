@@ -2,10 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.doan3.canthotour">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -14,8 +14,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <meta-data android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/facebook_app_id"/>
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+
         <activity android:name=".View.Main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,29 +28,30 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyBKurSOfLU5k_ZdLqPINkqVrQHivEqoE1M"/>
+            android:value="AIzaSyBKurSOfLU5k_ZdLqPINkqVrQHivEqoE1M" />
 
         <provider
-            android:authorities="com.facebook.app.FacebookContentProvider294630491068215"
             android:name="com.facebook.FacebookContentProvider"
-            android:exported="true"/>
+            android:authorities="com.facebook.app.FacebookContentProvider294630491068215"
+            android:exported="true" />
 
-        <activity android:name=".View.Favorite.ActivityFavorite"></activity>
-        <activity android:name=".View.Notify.ActivityNotify"></activity>
-        <activity android:name=".View.Personal.ActivityPersonal"></activity>
-        <activity android:name=".View.Main.ActivityServiceInfo"></activity>
-        <activity android:name=".View.Main.Content.ActivityService"></activity>
-        <activity android:name=".View.Personal.ActivityAddPlace"></activity>
-        <activity android:name=".View.Search.ActivitySearch"></activity>
-        <activity android:name=".View.Personal.ActivityRegCoop"></activity>
-        <activity android:name=".View.Personal.ActivityOption"></activity>
-        <activity android:name=".View.Search.ActivityNearLocation"></activity>
-        <activity android:name=".View.Personal.ActivityAddService"></activity>
-        <activity android:name=".View.Personal.ActivityLogin"></activity>
-        <activity android:name=".View.Personal.ActivityReview"></activity>
-        <activity android:name=".View.Personal.ActivityReviewList"></activity>
-        <activity android:name=".View.Personal.ActivityRegister"></activity>
-        <activity android:name=".View.Search.ActivityAdvancedSearch"></activity>
+        <activity android:name=".View.Favorite.ActivityFavorite" />
+        <activity android:name=".View.Notify.ActivityNotify" />
+        <activity android:name=".View.Personal.ActivityPersonal" />
+        <activity android:name=".View.Main.ActivityServiceInfo" />
+        <activity android:name=".View.Main.Content.ActivityService" />
+        <activity android:name=".View.Personal.ActivityAddPlace" />
+        <activity android:name=".View.Search.ActivitySearch" />
+        <activity android:name=".View.Personal.ActivityRegCoop" />
+        <activity android:name=".View.Personal.ActivityOption" />
+        <activity android:name=".View.Search.ActivityNearLocation" />
+        <activity android:name=".View.Personal.ActivityAddService" />
+        <activity android:name=".View.Personal.ActivityLogin" />
+        <activity android:name=".View.Personal.ActivityReview" />
+        <activity android:name=".View.Personal.ActivityReviewList" />
+        <activity android:name=".View.Personal.ActivityRegister" />
+        <activity android:name=".View.Search.ActivityAdvancedSearch" />
+        <activity android:name=".View.Main.FullImageActivity"></activity>
     </application>
 
 </manifest>
