@@ -40,23 +40,23 @@ public class ActivityService extends AppCompatActivity {
 
         String url = getIntent().getStringExtra("url");
         if (url.equals(Config.URL_HOST + Config.URL_GET_ALL_EATS)) { //Kiểm tra từng đường dẫn url
-            formatJson = Config.JSON_EAT;
+            formatJson = Config.GET_KEY_JSON_EAT;
             toolbar.setBackgroundColor(getResources().getColor(R.color.tbEat));
             toolbarTitle.setText(getResources().getString(R.string.title_ListOfRestaurant));
         } else if (url.equals(Config.URL_HOST + Config.URL_GET_ALL_PLACES)) {
-            formatJson = Config.JSON_PLACE;
+            formatJson = Config.GET_KEY_JSON_PLACE;
             toolbar.setBackgroundColor(getResources().getColor(R.color.tbPlace));
             toolbarTitle.setText(getResources().getString(R.string.title_ListOfPlaceToVisit));
         } else if (url.equals(Config.URL_HOST + Config.URL_GET_ALL_HOTELS)) {
-            formatJson = Config.JSON_HOTEL;
+            formatJson = Config.GET_KEY_JSON_HOTEL;
             toolbar.setBackgroundColor(getResources().getColor(R.color.tbHotel));
             toolbarTitle.setText(getResources().getString(R.string.title_ListOfHotel));
         } else if (url.equals(Config.URL_HOST + Config.URL_GET_ALL_VEHICLES)) {
-            formatJson = Config.JSON_VEHICLE;
+            formatJson = Config.GET_KEY_JSON_VEHICLE;
             toolbar.setBackgroundColor(getResources().getColor(R.color.tbVehicle));
             toolbarTitle.setText(getResources().getString(R.string.title_ListOfTransport));
         } else {
-            formatJson = Config.JSON_ENTERTAINMENT;
+            formatJson = Config.GET_KEY_JSON_ENTERTAINMENT;
             toolbar.setBackgroundColor(getResources().getColor(R.color.tbEntertain));
             toolbarTitle.setText(getResources().getString(R.string.title_ListOfEntertainment));
         }
@@ -87,7 +87,7 @@ public class ActivityService extends AppCompatActivity {
         final ArrayList<Service> finalListService = services;
         try {
             finalArr = JsonHelper.parseJsonNoId(new JSONObject
-                    (new ModelService.Load().execute(url).get()), Config.JSON_LOAD);
+                    (new ModelService.Load().execute(url).get()), Config.GET_KEY_JSON_LOAD);
         } catch (JSONException | InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
@@ -116,7 +116,7 @@ public class ActivityService extends AppCompatActivity {
                             }
                             try {
                                 finalArr = JsonHelper.parseJsonNoId(new JSONObject
-                                        (new ModelService.Load().execute(finalArr.get(1)).get()), Config.JSON_LOAD);
+                                        (new ModelService.Load().execute(finalArr.get(1)).get()), Config.GET_KEY_JSON_LOAD);
                             } catch (JSONException | InterruptedException | ExecutionException e) {
                                 e.printStackTrace();
                             }

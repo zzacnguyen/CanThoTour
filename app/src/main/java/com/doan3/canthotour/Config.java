@@ -6,9 +6,11 @@ import java.util.Arrays;
 public class Config {
     public static final String URL_HOST = "http://192.168.1.5/doan3_canthotour/public/";
     public static final String URL_LOGIN = "login";
-    public static final String URL_REGISTER = "dangky";
+    public static final String URL_REGISTER = "register";
     public static final String URL_SEARCH = "timkiem/dichvunangcao/idtype=";
-    public static final String URL_SEARCH_ALL = "timkiem/dichvuall/keyword=";
+    public static final String URL_SEARCH_ALL = "search/services/keyword=";
+    public static final ArrayList<String> URL_SEARCH_SERVICE_VICINITY =
+            new ArrayList<>(Arrays.asList("search/servicevicinity/location=", "&type=", "&radius="));
     public static final String URL_GET_ALL_EATS = "eating";
     public static final String URL_GET_ALL_REVIEWS = "visitor-ratings";
     public static final String URL_GET_ALL_PLACES = "sightseeing";
@@ -24,68 +26,80 @@ public class Config {
     public static final String URL_GET_THUMB = "thumbnails/";
     public static final String URL_POST_PLACE = "add-places";
     public static final String URL_POST_IMAGE = "upload-image/";
-//    public static final String URL_POST_SERVICES = "add-services/";
 
     public static final String FOLDER_IMAGE = "/vietnamtour";
     public static final String FILE_NAME = "dsyeuthich.json";
+    public static final String FILE_DISTANCE = "khoangcach.json";
     public static final String NULL = "null";
+    public static final String KEY_DISTANCE = "khoangcach";
+    public static final String DEFAULT_DISTANCE = "500";
 
-    public static final ArrayList<String> GET_SERVICE_INFO =
+    public static final ArrayList<String> KEY_NEAR_LOCATION =
+            new ArrayList<>(Arrays.asList("longitude", "latitude", "serviceType"));
+
+    public static final ArrayList<String> GET_KEY_SERVICE_INFO =
             new ArrayList<>(Arrays.asList("like", "like_id", "user_id", "rating", "id_rating", "service", "type_event", "type_name"));
 
-    public static final ArrayList<String> JSON_EAT =
+    public static final ArrayList<String> GET_KEY_JSON_EAT =
             new ArrayList<>(Arrays.asList("eat_name", "image_id", "image_details_1"));
 
-    public static final ArrayList<String> JSON_USER =
+    public static final ArrayList<String> GET_KEY_JSON_USER =
             new ArrayList<>(Arrays.asList("username", "user_status", "user_avatar"));
 
-    public static final ArrayList<String> JSON_PLACE =
+    public static final ArrayList<String> GET_KEY_JSON_PLACE =
             new ArrayList<>(Arrays.asList("sightseeing_name", "image_id", "image_details_1"));
 
-    public static final ArrayList<String> JSON_SERVICE_INFO =
+    public static final ArrayList<String> GET_KEY_JSON_SERVICE_INFO =
             new ArrayList<>(Arrays.asList("hotel_name", "hotel_website", "entertainments_name", "transport_name",
                     "sightseeing_name", "eat_name", "sv_description", "sv_open", "sv_close", "sv_lowest_price",
                     "sv_highest_price", "pl_address", "pl_phone_number", "rating", "pl_latitude", "pl_longitude"));
 
-    public static final ArrayList<String> JSON_HOTEL =
+    public static final ArrayList<String> GET_KEY_JSON_HOTEL =
             new ArrayList<>(Arrays.asList("hotel_name", "image_id", "image_details_1"));
 
-    public static final ArrayList<String> JSON_VEHICLE =
+    public static final ArrayList<String> GET_KEY_JSON_VEHICLE =
             new ArrayList<>(Arrays.asList("transport_name", "image_id", "image_details_1"));
 
-    public static final ArrayList<String> JSON_EVENT =
+    public static final ArrayList<String> GET_KEY_JSON_EVENT =
             new ArrayList<>(Arrays.asList("event_name", "event_start", "event_end",
                     "image_id", "image_details_1"));
 
-    public static final ArrayList<String> JSON_ENTERTAINMENT =
+    public static final ArrayList<String> GET_KEY_JSON_ENTERTAINMENT =
             new ArrayList<>(Arrays.asList("entertainments_name", "image_id", "image_details_1"));
 
-    public static final ArrayList<String> JSON_FAVORITE =
+    public static final ArrayList<String> GET_KEY_JSON_FAVORITE =
             new ArrayList<>(Arrays.asList("hotel_name", "entertainments_name", "transport_name",
                     "sightseeing_name", "eat_name", "image_id", "image_details_1"));
 
-    public static final ArrayList<String> JSON_LOAD =
+    public static final ArrayList<String> GET_KEY_JSON_LOAD =
             new ArrayList<>(Arrays.asList("data", "next_page_url", "total"));
 
-    public static final ArrayList<String> JSON_REVIEW =
+    public static final ArrayList<String> GET_KEY_JSON_REVIEW =
             new ArrayList<>(Arrays.asList("username", "vr_rating", "vr_title", "vr_ratings_details", "date_rating"));
 
-    public static final ArrayList<String> JSON_RATE =
+    public static final ArrayList<String> GET_KEY_JSON_RATE =
             new ArrayList<>(Arrays.asList("vr_rating", "vr_title", "vr_ratings_details"));
 
-    public static final ArrayList<String> JSON_ADD_PLACE =
+    public static final ArrayList<String> POST_KEY_LOGIN_REGISTER =
+            new ArrayList<>(Arrays.asList("\"username\"", "\"password\"", "\"passwordC\""));
+
+    public static final ArrayList<String> POST_KEY_JSON_PLACE =
             new ArrayList<>(Arrays.asList("\"pl_name\"", "\"pl_details\"", "\"pl_address\"", "\"pl_phone_number\"",
                     "\"pl_latitude\"", "\"pl_longitude\"", "\"user_id\""));
 
-    public static final ArrayList<String> JSON_ADD_SERVICE =
+    public static final ArrayList<String> POST_KEY_JSON_SERVICE_INFO =
+            new ArrayList<>(Arrays.asList("\"id\"", "\"hotel_name\"", "\"entertainments_name\"", "\"transport_name\"",
+                    "\"sightseeing_name\"", "\"eat_name\"", "\"image_id\"", "\"image_details_1\""));
+
+    public static final ArrayList<String> POST_KEY_JSON_SERVICE =
             new ArrayList<>(Arrays.asList("\"sv_description\"", "\"sv_open\"", "\"sv_close\"", "\"sv_highest_price\"",
                     "\"sv_lowest_price\"", "\"sv_phone_number\"", "\"sv_types\"", "\"tourist_places_id\""));
 
-    public static final ArrayList<String> JSON_ADD_SERVICE_EAT = new ArrayList<>(Arrays.asList("\"eat_name\""));
-    public static final ArrayList<String> JSON_ADD_SERVICE_HOTEL = new ArrayList<>(Arrays.asList("\"hotel_name\"",
+    public static final ArrayList<String> POST_KEY_JSON_SERVICE_EAT = new ArrayList<>(Arrays.asList("\"eat_name\""));
+    public static final ArrayList<String> POST_KEY_JSON_SERVICE_HOTEL = new ArrayList<>(Arrays.asList("\"hotel_name\"",
             "\"hotel_website\"", "\"hotel_number_star\""));
-    public static final ArrayList<String> JSON_ADD_SERVICE_SIGHTSEEING = new ArrayList<>(Arrays.asList("\"sightseeing_name\""));
-    public static final ArrayList<String> JSON_ADD_SERVICE_ENTERTAINMENTS = new ArrayList<>(Arrays.asList("\"entertainments_name\""));
-    public static final ArrayList<String> JSON_ADD_SERVICE_TRANSPORT = new ArrayList<>(Arrays.asList("\"transport_name\""));
+    public static final ArrayList<String> POST_KEY_JSON_SERVICE_SIGHTSEEING = new ArrayList<>(Arrays.asList("\"sightseeing_name\""));
+    public static final ArrayList<String> POST_KEY_JSON_SERVICE_ENTERTAINMENTS = new ArrayList<>(Arrays.asList("\"entertainments_name\""));
+    public static final ArrayList<String> POST_KEY_JSON_SERVICE_TRANSPORT = new ArrayList<>(Arrays.asList("\"transport_name\""));
 
 }

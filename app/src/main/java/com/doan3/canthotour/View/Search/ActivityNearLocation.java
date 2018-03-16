@@ -38,9 +38,9 @@ public class ActivityNearLocation extends AppCompatActivity {
         txtRadius = findViewById(R.id.textViewRadius);
         imgPlacePhoto = findViewById(R.id.imageViewNear);
 
-        longitude = getIntent().getStringExtra("kinhdo");
-        latitude = getIntent().getStringExtra("vido");
-        serviceType = getIntent().getIntExtra("loaihinh", 1);
+        longitude = getIntent().getStringExtra(Config.KEY_NEAR_LOCATION.get(0));
+        latitude = getIntent().getStringExtra(Config.KEY_NEAR_LOCATION.get(1));
+        serviceType = getIntent().getIntExtra(Config.KEY_NEAR_LOCATION.get(2), 1);
         load();
 
         ActivityServiceInfo.menuBotNavBar(this,0);
@@ -48,25 +48,25 @@ public class ActivityNearLocation extends AppCompatActivity {
 
     private void load() {
 
-        File path = new File(Environment.getExternalStorageDirectory() + "/canthotour");
+        File path = new File(Environment.getExternalStorageDirectory() + Config.FOLDER_IMAGE);
         if (!path.exists()) {
             path.mkdirs();
         }
-        final File file = new File(path, "khoangcach.json");
+        final File file = new File(path, Config.FILE_DISTANCE);
         String radius = null;
         if (file.exists()) {
             try {
                 radius = new JSONArray(JsonHelper.readJson(file)).getJSONObject(0).
-                        getString("khoangcach");
+                        getString(Config.KEY_DISTANCE);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         } else {
-            radius = "500";
+            radius = Config.DEFAULT_DISTANCE;
         }
         ArrayList<NearLocation> favoriteList = new ModelService().getNearLocationList(Config.URL_HOST +
-                "timkiem/dichvulancan/location=" + latitude.trim() + "," + longitude.trim() + "&type=" +
-                serviceType + "&radius=" + radius, serviceType, this);
+                Config.URL_SEARCH_SERVICE_VICINITY.get(0) + latitude.trim() + "," + longitude.trim() + Config.URL_SEARCH_SERVICE_VICINITY.get(1) +
+                serviceType + Config.URL_SEARCH_SERVICE_VICINITY.get(2) + radius, serviceType, this);
         RecyclerView recyclerView = findViewById(R.id.RecyclerView_NearLocation);
         recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
         LinearLayoutManager linearLayoutManager =

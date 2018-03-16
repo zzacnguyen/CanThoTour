@@ -95,7 +95,7 @@ public class ActivityNotify extends AppCompatActivity {
         final ArrayList<Event> finalListService = services;
         try {
             finalArr = JsonHelper.parseJsonNoId(new JSONObject
-                    (new ModelService.Load().execute(url).get()), Config.JSON_LOAD);
+                    (new ModelService.Load().execute(url).get()), Config.GET_KEY_JSON_LOAD);
         } catch (JSONException | InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
@@ -124,7 +124,7 @@ public class ActivityNotify extends AppCompatActivity {
                             }
                             try {
                                 finalArr = JsonHelper.parseJsonNoId(new JSONObject
-                                        (new ModelService.Load().execute(finalArr.get(1)).get()), Config.JSON_LOAD);
+                                        (new ModelService.Load().execute(finalArr.get(1)).get()), Config.GET_KEY_JSON_LOAD);
                             } catch (JSONException | InterruptedException | ExecutionException e) {
                                 e.printStackTrace();
                             }

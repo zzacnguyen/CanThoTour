@@ -41,7 +41,7 @@ public class ActivityAddService extends AppCompatActivity implements View.OnClic
     private int mHour, mMinute;
 
     public static ArrayList<Bitmap> bitmapArrayList = new ArrayList<>();
-    public static ArrayList<String> jsonServiceToString;
+    public static ArrayList<String> jsonServiceToString = new ArrayList<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

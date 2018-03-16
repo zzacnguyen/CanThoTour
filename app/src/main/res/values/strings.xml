@@ -31,6 +31,7 @@
     <string name="text_Favorite">Favorite</string>
     <string name="text_Notification">Notification</string>
 
+    <string name="text_Enterprise">Enterprise</string>
     <string name="text_Personal">Personal</string>
     <string name="text_SignIn">Sign in</string>
     <string name="text_SignUp">Sign up</string>
@@ -46,8 +47,8 @@
     <string name="text_AddNewPlace">Add new place</string>
     <string name="text_PlaceLocation">Place location</string>
     <string name="text_MapLocation">Map location</string>
-    <string name="text_Lat" translatable="false">Lat</string>
-    <string name="text_Long" translatable="false">Long</string>
+    <string name="text_Lat">Latitude</string>
+    <string name="text_Long">Longitude</string>
     <string name="text_Information">Information</string>
     <string name="hint_PlaceName">Place Name</string>
     <string name="hint_Address">Address</string>
@@ -86,7 +87,7 @@
     <string name="text_resCountry">Country</string>
     <string name="text_resLanguage">Language</string>
     <string name="text_ImperativeInformation">* Imperative Information</string>
-    <string name="text_SignupPolicy">By the way sign up, you have agreed with the rules of Cantho Tour Application</string>
+    <string name="text_SignupPolicy">By the way sign up, you have agreed with the rules of VietNam Tour Application</string>
     <string name="hint_InputUsername">Create your username</string>
     <string name="hint_InputPassword">Type your password</string>
     <string name="hint_InputPasswordAgain">Type your password again</string>

@@ -102,23 +102,23 @@ public class MainActivity extends AppCompatActivity {
         // region load service
         // load place
         RecyclerView recyclerViewDD = findViewById(R.id.RecyclerView_Place);
-        loadService(recyclerViewDD, Config.URL_HOST + Config.URL_GET_ALL_PLACES, Config.JSON_PLACE);
+        loadService(recyclerViewDD, Config.URL_HOST + Config.URL_GET_ALL_PLACES, Config.GET_KEY_JSON_PLACE);
 
         // load eat
         RecyclerView recyclerViewAU = findViewById(R.id.RecyclerView_Eat);
-        loadService(recyclerViewAU, Config.URL_HOST + Config.URL_GET_ALL_EATS, Config.JSON_EAT);
+        loadService(recyclerViewAU, Config.URL_HOST + Config.URL_GET_ALL_EATS, Config.GET_KEY_JSON_EAT);
 
         // load entertainment
         RecyclerView recyclerViewVC = findViewById(R.id.RecyclerView_Entertain);
-        loadService(recyclerViewVC, Config.URL_HOST + Config.URL_GET_ALL_ENTERTAINMENTS, Config.JSON_ENTERTAINMENT);
+        loadService(recyclerViewVC, Config.URL_HOST + Config.URL_GET_ALL_ENTERTAINMENTS, Config.GET_KEY_JSON_ENTERTAINMENT);
 
         // load hotel
         RecyclerView recyclerViewKS = findViewById(R.id.RecyclerView_Hotel);
-        loadService(recyclerViewKS, Config.URL_HOST + Config.URL_GET_ALL_HOTELS, Config.JSON_HOTEL);
+        loadService(recyclerViewKS, Config.URL_HOST + Config.URL_GET_ALL_HOTELS, Config.GET_KEY_JSON_HOTEL);
 
         // load vehicle
         RecyclerView recyclerViewPT = findViewById(R.id.RecyclerView_Vehicle);
-        loadService(recyclerViewPT, Config.URL_HOST + Config.URL_GET_ALL_VEHICLES, Config.JSON_VEHICLE);
+        loadService(recyclerViewPT, Config.URL_HOST + Config.URL_GET_ALL_VEHICLES, Config.GET_KEY_JSON_VEHICLE);
         // endregion
 
         display_enterprise();

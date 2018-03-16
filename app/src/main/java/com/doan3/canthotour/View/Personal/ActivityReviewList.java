@@ -36,7 +36,7 @@ public class ActivityReviewList extends AppCompatActivity {
         setContentView(R.layout.activity_reviewlist);
 
         int ma = getIntent().getIntExtra("id", 1);
-        load(Config.URL_HOST + Config.URL_GET_ALL_REVIEWS + "-dichvu/" + ma, Config.JSON_REVIEW);
+        load(Config.URL_HOST + Config.URL_GET_ALL_REVIEWS + "-dichvu/" + ma, Config.GET_KEY_JSON_REVIEW);
         ActivityServiceInfo.menuBotNavBar(this,0);
     }
 
@@ -60,7 +60,7 @@ public class ActivityReviewList extends AppCompatActivity {
         final ArrayList<Review> finalListService = reviews;
         try {
             finalArr = JsonHelper.parseJsonNoId(new JSONObject
-                    (new ModelService.Load().execute(url).get()), Config.JSON_LOAD);
+                    (new ModelService.Load().execute(url).get()), Config.GET_KEY_JSON_LOAD);
         } catch (JSONException | InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
@@ -89,7 +89,7 @@ public class ActivityReviewList extends AppCompatActivity {
                             }
                             try {
                                 finalArr = JsonHelper.parseJsonNoId(new JSONObject
-                                        (new ModelService.Load().execute(finalArr.get(1)).get()), Config.JSON_LOAD);
+                                        (new ModelService.Load().execute(finalArr.get(1)).get()), Config.GET_KEY_JSON_LOAD);
                             } catch (JSONException | InterruptedException | ExecutionException e) {
                                 e.printStackTrace();
                             }

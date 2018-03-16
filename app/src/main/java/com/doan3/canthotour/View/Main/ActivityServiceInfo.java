@@ -72,7 +72,7 @@ public class ActivityServiceInfo extends AppCompatActivity {
     CallbackManager callbackManager;
     ShareDialog shareDialog;
 
-    public static void menuBotNavBar(final Activity activity,int i) {
+    public static void menuBotNavBar(final Activity activity, int i) {
         BottomNavigationView bottomNavigationView = activity.findViewById(R.id.bottomNavView_Bar);
         BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
 
@@ -196,9 +196,9 @@ public class ActivityServiceInfo extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ActivityServiceInfo.this, ActivityNearLocation.class);
-                intent.putExtra("kinhdo", longitude);
-                intent.putExtra("vido", latitude);
-                intent.putExtra("loaihinh", serviceType);
+                intent.putExtra(Config.KEY_NEAR_LOCATION.get(0), longitude);
+                intent.putExtra(Config.KEY_NEAR_LOCATION.get(1), latitude);
+                intent.putExtra(Config.KEY_NEAR_LOCATION.get(2), serviceType);
                 startActivity(intent);
             }
         });
@@ -228,7 +228,7 @@ public class ActivityServiceInfo extends AppCompatActivity {
                         .setQuote("This is use full link")
                         .setContentUrl(Uri.parse("https://vietnamtour.com/"))
                         .build();
-                if(ShareDialog.canShow(ShareLinkContent.class)){
+                if (ShareDialog.canShow(ShareLinkContent.class)) {
                     shareDialog.show(linkContent);
                 }
             }
@@ -262,7 +262,7 @@ public class ActivityServiceInfo extends AppCompatActivity {
         load(this, Config.URL_HOST + Config.URL_GET_ALL_SERVICES + "/" + id);
 
 
-        menuBotNavBar(this,0);
+        menuBotNavBar(this, 0);
     }
 
     public void load(final Activity activity, String url) {
@@ -300,54 +300,54 @@ public class ActivityServiceInfo extends AppCompatActivity {
             info.setBackgroundColor(getResources().getColor(R.color.tbEat));
             serviceType = 1;
             toolbarTitle.setText(getResources().getString(R.string.title_RestaurantDetails));
-            serviceInfo.setVehicleName("null");
-            serviceInfo.setPlaceName("null");
-            serviceInfo.setHotelName("null");
-            serviceInfo.setEntertainName("null");
+            serviceInfo.setVehicleName(Config.NULL);
+            serviceInfo.setPlaceName(Config.NULL);
+            serviceInfo.setHotelName(Config.NULL);
+            serviceInfo.setEntertainName(Config.NULL);
         } else if (serviceInfo.getHotelName() != null) {
             txtServiceName.setText(serviceInfo.getHotelName());
             toolbar.setBackgroundColor(getResources().getColor(R.color.tbHotel));
             info.setBackgroundColor(getResources().getColor(R.color.tbHotel));
             serviceType = 2;
             toolbarTitle.setText(getResources().getString(R.string.title_HotelDetails));
-            serviceInfo.setVehicleName("null");
-            serviceInfo.setPlaceName("null");
-            serviceInfo.setEatName("null");
-            serviceInfo.setEntertainName("null");
+            serviceInfo.setVehicleName(Config.NULL);
+            serviceInfo.setPlaceName(Config.NULL);
+            serviceInfo.setEatName(Config.NULL);
+            serviceInfo.setEntertainName(Config.NULL);
         } else if (serviceInfo.getPlaceName() != null) {
             txtServiceName.setText(serviceInfo.getPlaceName());
             toolbar.setBackgroundColor(getResources().getColor(R.color.tbPlace));
             info.setBackgroundColor(getResources().getColor(R.color.tbPlace));
             serviceType = 4;
             toolbarTitle.setText(getResources().getString(R.string.title_PlaceDetails));
-            serviceInfo.setVehicleName("null");
-            serviceInfo.setEatName("null");
-            serviceInfo.setHotelName("null");
-            serviceInfo.setEntertainName("null");
+            serviceInfo.setVehicleName(Config.NULL);
+            serviceInfo.setEatName(Config.NULL);
+            serviceInfo.setHotelName(Config.NULL);
+            serviceInfo.setEntertainName(Config.NULL);
         } else if (serviceInfo.getVehicleName() != null) {
             txtServiceName.setText(serviceInfo.getVehicleName());
             toolbar.setBackgroundColor(getResources().getColor(R.color.tbVehicle));
             info.setBackgroundColor(getResources().getColor(R.color.tbVehicle));
             serviceType = 3;
             toolbarTitle.setText(getResources().getString(R.string.title_TransportDetails));
-            serviceInfo.setEatName("null");
-            serviceInfo.setPlaceName("null");
-            serviceInfo.setHotelName("null");
-            serviceInfo.setEntertainName("null");
+            serviceInfo.setEatName(Config.NULL);
+            serviceInfo.setPlaceName(Config.NULL);
+            serviceInfo.setHotelName(Config.NULL);
+            serviceInfo.setEntertainName(Config.NULL);
         } else {
             txtServiceName.setText(serviceInfo.getEntertainName());
             toolbar.setBackgroundColor(getResources().getColor(R.color.tbEntertain));
             info.setBackgroundColor(getResources().getColor(R.color.tbEntertain));
             serviceType = 5;
             toolbarTitle.setText(getResources().getString(R.string.title_EntertainmentDetails));
-            serviceInfo.setVehicleName("null");
-            serviceInfo.setPlaceName("null");
-            serviceInfo.setHotelName("null");
-            serviceInfo.setEatName("null");
+            serviceInfo.setVehicleName(Config.NULL);
+            serviceInfo.setPlaceName(Config.NULL);
+            serviceInfo.setHotelName(Config.NULL);
+            serviceInfo.setEatName(Config.NULL);
         }
         // endregion
 
-        if (serviceInfo.getEventType().equals("null")) {
+        if (serviceInfo.getEventType().equals(Config.NULL)) {
             fbEvent.setVisibility(TextView.GONE);
         } else {
             fbEvent.setVisibility(TextView.VISIBLE);
@@ -384,15 +384,14 @@ public class ActivityServiceInfo extends AppCompatActivity {
         rbStar.setRating(serviceInfo.getStars());
 
         try {
-            saveJson = new JSONObject("{\"id\":\"" + serviceInfo.getId() +
-                    "\",\"hotel_name\":\"" + serviceInfo.getHotelName() +
-                    "\",\"entertainments_name\":\"" + serviceInfo.getEntertainName() +
-                    "\",\"transport_name\":\"" + serviceInfo.getVehicleName() +
-                    "\",\"sightseeing_name\":\"" + serviceInfo.getPlaceName() +
-                    "\",\"eat_name\":\"" + serviceInfo.getEatName() +
-                    "\",\"image_id\":\"" + serviceInfo.getIdImage() +
-                    "\",\"image_details_1\":\"" + serviceInfo.getImageName() +
-                    "\"}");
+            saveJson = new JSONObject("{" + Config.POST_KEY_JSON_SERVICE_INFO.get(0) + ":\"" + serviceInfo.getId() + "\"," +
+                    Config.POST_KEY_JSON_SERVICE_INFO.get(1) + ":\"" + serviceInfo.getHotelName() + "\"," +
+                    Config.POST_KEY_JSON_SERVICE_INFO.get(2) + ":\"" + serviceInfo.getEntertainName() + "\"," +
+                    Config.POST_KEY_JSON_SERVICE_INFO.get(3) + ":\"" + serviceInfo.getVehicleName() + "\"," +
+                    Config.POST_KEY_JSON_SERVICE_INFO.get(4) + ":\"" + serviceInfo.getPlaceName() + "\"," +
+                    Config.POST_KEY_JSON_SERVICE_INFO.get(5) + ":\"" + serviceInfo.getEatName() + "\"," +
+                    Config.POST_KEY_JSON_SERVICE_INFO.get(6) + ":\"" + serviceInfo.getIdImage() + "\"," +
+                    Config.POST_KEY_JSON_SERVICE_INFO.get(7) + ":\"" + serviceInfo.getImageName() + "\"}");
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -417,10 +416,11 @@ public class ActivityServiceInfo extends AppCompatActivity {
     }
 
     private void printKeyHash() {
-        try{
+        try {
             PackageInfo info = getPackageManager().getPackageInfo("com.example.zzacn.sharinglink",
-                    PackageManager.GET_SIGNATURES);;
-            for (Signature signature : info.signatures){
+                    PackageManager.GET_SIGNATURES);
+            ;
+            for (Signature signature : info.signatures) {
                 MessageDigest md = MessageDigest.getInstance("SHA");
                 md.update(signature.toByteArray());
                 Log.d("KeyHash", Base64.encodeToString(md.digest(), Base64.DEFAULT));

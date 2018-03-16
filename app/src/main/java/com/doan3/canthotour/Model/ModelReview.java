@@ -22,7 +22,7 @@ public class ModelReview {
         ArrayList<Review> reviews = new ArrayList<>();
 
         try {
-            arr = JsonHelper.parseJsonNoId(new JSONObject(new ModelService.Load().execute(url).get()), Config.JSON_LOAD);
+            arr = JsonHelper.parseJsonNoId(new JSONObject(new ModelService.Load().execute(url).get()), Config.GET_KEY_JSON_LOAD);
             JSONArray jsonArray = new JSONArray(arr.get(0));
 
             for (int i = 0; i < jsonArray.length(); i++) {

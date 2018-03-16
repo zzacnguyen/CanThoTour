@@ -28,12 +28,10 @@ import org.apache.http.entity.mime.content.ByteArrayBody;
 import org.apache.http.entity.mime.content.ContentBody;
 
 import java.io.ByteArrayOutputStream;
-import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 import static com.doan3.canthotour.View.Personal.ActivityAddService.bitmapArrayList;
 import static com.doan3.canthotour.View.Personal.ActivityAddService.jsonServiceToString;
-import static com.doan3.canthotour.View.Personal.ActivityLogin.userId;
 
 
 public class ActivityAddPlace extends AppCompatActivity {
@@ -113,40 +111,40 @@ public class ActivityAddPlace extends AppCompatActivity {
             public void onClick(View view) {
                 try {
                     idPlace = new ActivityLogin.Post().execute(Config.URL_HOST + Config.URL_POST_PLACE,
-                            "{" + Config.JSON_ADD_PLACE.get(0) + ":\"" + etPlaceName.getText().toString() + "\"," +
-                                    Config.JSON_ADD_PLACE.get(1) + ":\"" + etPlaceAbout.getText().toString() + "\"," +
-                                    Config.JSON_ADD_PLACE.get(2) + ":\"" + etAddress.getText().toString() + "\"," +
-                                    Config.JSON_ADD_PLACE.get(3) + ":\"" + etPlacePhone.getText().toString() + "\"," +
-                                    Config.JSON_ADD_PLACE.get(4) + ":\"" + txtLat.getText().toString() + "\"," +
-                                    Config.JSON_ADD_PLACE.get(5) + ":\"" + txtLong.getText().toString() + "\"," +
-                                    Config.JSON_ADD_PLACE.get(6) + ":\"" + "1" + "\"" + "}").get();
+                            "{" + Config.POST_KEY_JSON_PLACE.get(0) + ":\"" + etPlaceName.getText().toString() + "\"," +
+                                    Config.POST_KEY_JSON_PLACE.get(1) + ":\"" + etPlaceAbout.getText().toString() + "\"," +
+                                    Config.POST_KEY_JSON_PLACE.get(2) + ":\"" + etAddress.getText().toString() + "\"," +
+                                    Config.POST_KEY_JSON_PLACE.get(3) + ":\"" + etPlacePhone.getText().toString() + "\"," +
+                                    Config.POST_KEY_JSON_PLACE.get(4) + ":\"" + txtLat.getText().toString() + "\"," +
+                                    Config.POST_KEY_JSON_PLACE.get(5) + ":\"" + txtLong.getText().toString() + "\"," +
+                                    Config.POST_KEY_JSON_PLACE.get(6) + ":\"" + "1" + "\"" + "}").get();
                 } catch (InterruptedException | ExecutionException e) {
                     e.printStackTrace();
                 }
                 try {
                     String name;
                     if (jsonServiceToString.get(6).equals("1")) {
-                        name = Config.JSON_ADD_SERVICE_EAT.get(0) + ":\"" + jsonServiceToString.get(7) + "\"";
+                        name = Config.POST_KEY_JSON_SERVICE_EAT.get(0) + ":\"" + jsonServiceToString.get(7) + "\"";
                     } else if (jsonServiceToString.get(6).equals("2")) {
-                        name = Config.JSON_ADD_SERVICE_HOTEL.get(0) + ":\"" + jsonServiceToString.get(7) + "\"," +
-                                Config.JSON_ADD_SERVICE_HOTEL.get(1) + ":\"" + jsonServiceToString.get(8) + "\"," +
-                                Config.JSON_ADD_SERVICE_HOTEL.get(2) + ":\"" + jsonServiceToString.get(9) + "\"";
+                        name = Config.POST_KEY_JSON_SERVICE_HOTEL.get(0) + ":\"" + jsonServiceToString.get(7) + "\"," +
+                                Config.POST_KEY_JSON_SERVICE_HOTEL.get(1) + ":\"" + jsonServiceToString.get(8) + "\"," +
+                                Config.POST_KEY_JSON_SERVICE_HOTEL.get(2) + ":\"" + jsonServiceToString.get(9) + "\"";
                     } else if (jsonServiceToString.get(6).equals("3")) {
-                        name = Config.JSON_ADD_SERVICE_TRANSPORT.get(0) + ":\"" + jsonServiceToString.get(7) + "\"";
+                        name = Config.POST_KEY_JSON_SERVICE_TRANSPORT.get(0) + ":\"" + jsonServiceToString.get(7) + "\"";
                     } else if (jsonServiceToString.get(6).equals("4")) {
-                        name = Config.JSON_ADD_SERVICE_SIGHTSEEING.get(0) + ":\"" + jsonServiceToString.get(7) + "\"";
+                        name = Config.POST_KEY_JSON_SERVICE_SIGHTSEEING.get(0) + ":\"" + jsonServiceToString.get(7) + "\"";
                     } else {
-                        name = Config.JSON_ADD_SERVICE_ENTERTAINMENTS.get(0) + ":\"" + jsonServiceToString.get(7) + "\"";
+                        name = Config.POST_KEY_JSON_SERVICE_ENTERTAINMENTS.get(0) + ":\"" + jsonServiceToString.get(7) + "\"";
                     }
                     idService = new ActivityLogin.Post().execute(Config.URL_HOST + Config.URL_GET_ALL_SERVICES,
-                            "{" + Config.JSON_ADD_SERVICE.get(0) + ":\"" + jsonServiceToString.get(0) + "\"," +
-                                    Config.JSON_ADD_SERVICE.get(1) + ":\"" + jsonServiceToString.get(1) + "\"," +
-                                    Config.JSON_ADD_SERVICE.get(2) + ":\"" + jsonServiceToString.get(2) + "\"," +
-                                    Config.JSON_ADD_SERVICE.get(3) + ":\"" + jsonServiceToString.get(3) + "\"," +
-                                    Config.JSON_ADD_SERVICE.get(4) + ":\"" + jsonServiceToString.get(4) + "\"," +
-                                    Config.JSON_ADD_SERVICE.get(5) + ":\"" + jsonServiceToString.get(5) + "\"," +
-                                    Config.JSON_ADD_SERVICE.get(6) + ":\"" + jsonServiceToString.get(6) + "\"," +
-                                    Config.JSON_ADD_SERVICE.get(7) + ":\"" +
+                            "{" + Config.POST_KEY_JSON_SERVICE.get(0) + ":\"" + jsonServiceToString.get(0) + "\"," +
+                                    Config.POST_KEY_JSON_SERVICE.get(1) + ":\"" + jsonServiceToString.get(1) + "\"," +
+                                    Config.POST_KEY_JSON_SERVICE.get(2) + ":\"" + jsonServiceToString.get(2) + "\"," +
+                                    Config.POST_KEY_JSON_SERVICE.get(3) + ":\"" + jsonServiceToString.get(3) + "\"," +
+                                    Config.POST_KEY_JSON_SERVICE.get(4) + ":\"" + jsonServiceToString.get(4) + "\"," +
+                                    Config.POST_KEY_JSON_SERVICE.get(5) + ":\"" + jsonServiceToString.get(5) + "\"," +
+                                    Config.POST_KEY_JSON_SERVICE.get(6) + ":\"" + jsonServiceToString.get(6) + "\"," +
+                                    Config.POST_KEY_JSON_SERVICE.get(7) + ":\"" +
                                     idPlace.replaceAll("\"", "").split(":")[1] + "\"," + name + "}").get();
                 } catch (InterruptedException | ExecutionException e) {
                     e.printStackTrace();
@@ -170,6 +168,7 @@ public class ActivityAddPlace extends AppCompatActivity {
                 try {
                     String response = new PostImage().execute(Config.URL_HOST + Config.URL_POST_IMAGE
                             + idService.replaceAll("\"", "").split(":")[1]).get();
+                    System.out.println(idPlace + idService);
                     System.out.println(response);
                     if (response.equals("\"status:200\"")) {
                         Toast.makeText(ActivityAddPlace.this, "Thành công", Toast.LENGTH_SHORT).show();

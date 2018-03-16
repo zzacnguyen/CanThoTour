@@ -58,23 +58,24 @@ public class ActivityLogin extends AppCompatActivity {
                 if (etUserId.getText().toString().equals("")) {
                     etUserId.setError("Tài khoản không được để trống");
                 } else if (etPassword.getText().toString().equals("")) {
-                    etUserId.setError("Tài khoản không được để trống");
+                    etUserId.setError("Mật khẩu không được để trống");
                 } else {
                     try {
                         String rs = new Post().execute(Config.URL_HOST + Config.URL_LOGIN,
-                                "{\"taikhoan\":\"" + etUserId.getText().toString() +
-                                        "\",\"password\":\"" + etPassword.getText().toString() + "\"}").get();
+                                "{" + Config.POST_KEY_LOGIN_REGISTER.get(0) + ":\"" + etUserId.getText().toString() + "\"," +
+                                        Config.POST_KEY_LOGIN_REGISTER.get(0) + ":\"" + etPassword.getText().toString() + "\"}").get();
                         JSONObject json = new JSONObject(rs);
                         if (json.getString("status").toString().equals("ERROR")) {
                             Toast.makeText(ActivityLogin.this, "tài khoản hoặc mật khẩu không đúng",
                                     Toast.LENGTH_SHORT).show();
                         } else {
                             ArrayList<String> arrayUser =
-                                    JsonHelper.parseJson(new JSONObject(json.getString("result")), Config.JSON_USER);
+                                    JsonHelper.parseJson(new JSONObject(json.getString("result")), Config.GET_KEY_JSON_USER);
 
                             userId = Integer.parseInt(arrayUser.get(0));
                             userName = arrayUser.get(1);
-                            userType = Integer.parseInt(arrayUser.get(2)) == 1 ? "cá nhân" : "doanh nghiệp";
+                            userType = Integer.parseInt(arrayUser.get(2)) == 1 ?
+                                    getResources().getString(R.string.text_Personal) : getResources().getString(R.string.text_Enterprise);
                             try {
                                 avatar = new ModelService.GetImage().execute(arrayUser.get(3)).get();
                             } catch (InterruptedException | ExecutionException e) {
@@ -104,7 +105,7 @@ public class ActivityLogin extends AppCompatActivity {
             }
         });
 
-        ActivityServiceInfo.menuBotNavBar(this,3);
+        ActivityServiceInfo.menuBotNavBar(this, 3);
     }
 
     public static class Post extends AsyncTask<String, Void, String> {

@@ -66,24 +66,24 @@ public class ModelService {
             String data = new Load().execute(url).get();
             JSONArray jsonArray = new JSONArray(data);
 
-            JSONArray jsonIdYT = new JSONArray(jsonArray.getJSONObject(0).get(Config.GET_SERVICE_INFO.get(0)).toString());
+            JSONArray jsonIdYT = new JSONArray(jsonArray.getJSONObject(0).get(Config.GET_KEY_SERVICE_INFO.get(0)).toString());
             for (int i = 0; i < jsonIdYT.length(); i++) {
-                arrayIdYt.add(jsonIdYT.getJSONObject(i).getString(Config.GET_SERVICE_INFO.get(1)));
-                arrayIdNdYt.add(jsonIdYT.getJSONObject(i).getString(Config.GET_SERVICE_INFO.get(2)));
+                arrayIdYt.add(jsonIdYT.getJSONObject(i).getString(Config.GET_KEY_SERVICE_INFO.get(1)));
+                arrayIdNdYt.add(jsonIdYT.getJSONObject(i).getString(Config.GET_KEY_SERVICE_INFO.get(2)));
             }
 
-            JSONArray jsonIdDG = new JSONArray(jsonArray.getJSONObject(1).get(Config.GET_SERVICE_INFO.get(3)).toString());
+            JSONArray jsonIdDG = new JSONArray(jsonArray.getJSONObject(1).get(Config.GET_KEY_SERVICE_INFO.get(3)).toString());
             for (int i = 0; i < jsonIdDG.length(); i++) {
-                arrayIdDg.add(jsonIdDG.getJSONObject(i).getString(Config.GET_SERVICE_INFO.get(4)));
-                arrayIdNdDg.add(jsonIdDG.getJSONObject(i).getString(Config.GET_SERVICE_INFO.get(2)));
+                arrayIdDg.add(jsonIdDG.getJSONObject(i).getString(Config.GET_KEY_SERVICE_INFO.get(4)));
+                arrayIdNdDg.add(jsonIdDG.getJSONObject(i).getString(Config.GET_KEY_SERVICE_INFO.get(2)));
             }
 
-            JSONArray jsonDichvu = new JSONArray(jsonArray.getJSONObject(2).get(Config.GET_SERVICE_INFO.get(5)).toString());
-            arrayDichVu = JsonHelper.parseJson(jsonDichvu.getJSONObject(0), Config.JSON_SERVICE_INFO);
+            JSONArray jsonDichvu = new JSONArray(jsonArray.getJSONObject(2).get(Config.GET_KEY_SERVICE_INFO.get(5)).toString());
+            arrayDichVu = JsonHelper.parseJson(jsonDichvu.getJSONObject(0), Config.GET_KEY_JSON_SERVICE_INFO);
 
-            if (!jsonArray.getJSONObject(3).get(Config.GET_SERVICE_INFO.get(6)).toString().equals(Config.NULL)) {
-                arrayLhsk = new JSONObject(jsonArray.getJSONObject(3).get(Config.GET_SERVICE_INFO.get(6)).toString())
-                        .getString(Config.GET_SERVICE_INFO.get(7));
+            if (!jsonArray.getJSONObject(3).get(Config.GET_KEY_SERVICE_INFO.get(6)).toString().equals(Config.NULL)) {
+                arrayLhsk = new JSONObject(jsonArray.getJSONObject(3).get(Config.GET_KEY_SERVICE_INFO.get(6)).toString())
+                        .getString(Config.GET_KEY_SERVICE_INFO.get(7));
             } else {
                 arrayLhsk = Config.NULL;
             }
@@ -200,7 +200,7 @@ public class ModelService {
 
         try {
             String rs = new Load().execute(url).get();
-            arr = JsonHelper.parseJsonNoId(new JSONObject(rs), Config.JSON_LOAD);
+            arr = JsonHelper.parseJsonNoId(new JSONObject(rs), Config.GET_KEY_JSON_LOAD);
             JSONArray jsonArray = new JSONArray(arr.get(0));
 
             int limit = jsonArray.length() > 5 ? 5 : jsonArray.length();
@@ -230,7 +230,7 @@ public class ModelService {
         ArrayList<Service> services = new ArrayList<>();
 
         try {
-            arr = JsonHelper.parseJsonNoId(new JSONObject(new Load().execute(url).get()), Config.JSON_LOAD);
+            arr = JsonHelper.parseJsonNoId(new JSONObject(new Load().execute(url).get()), Config.GET_KEY_JSON_LOAD);
             JSONArray jsonArray = new JSONArray(arr.get(0));
 
             for (int i = 0; i < jsonArray.length(); i++) {
@@ -258,7 +258,7 @@ public class ModelService {
 
         try {
             arr = JsonHelper.parseJsonNoId(new JSONObject(new Load().
-                    execute(url).get()), Config.JSON_LOAD);
+                    execute(url).get()), Config.GET_KEY_JSON_LOAD);
             JSONArray jsonArray;
             if (file.exists()) {
                 jsonArray = JsonHelper.mergeJson(new JSONArray(arr.get(0)), new JSONArray(JsonHelper.readJson(file)));
@@ -270,7 +270,7 @@ public class ModelService {
 
                 Service service = new Service();
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-                arrayList = JsonHelper.parseJson(jsonObject, Config.JSON_FAVORITE);
+                arrayList = JsonHelper.parseJson(jsonObject, Config.GET_KEY_JSON_FAVORITE);
 
                 //Set hình ảnh
                 service.setImage(setImage(Config.URL_HOST + Config.URL_GET_THUMB + arrayList.get(7),
@@ -307,15 +307,15 @@ public class ModelService {
                     NearLocation service = new NearLocation();
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                     if (loaiHinh == 1) {
-                        arrayList = JsonHelper.parseJson(jsonObject, Config.JSON_EAT);
+                        arrayList = JsonHelper.parseJson(jsonObject, Config.GET_KEY_JSON_EAT);
                     } else if (loaiHinh == 2) {
-                        arrayList = JsonHelper.parseJson(jsonObject, Config.JSON_HOTEL);
+                        arrayList = JsonHelper.parseJson(jsonObject, Config.GET_KEY_JSON_HOTEL);
                     } else if (loaiHinh == 3) {
-                        arrayList = JsonHelper.parseJson(jsonObject, Config.JSON_VEHICLE);
+                        arrayList = JsonHelper.parseJson(jsonObject, Config.GET_KEY_JSON_VEHICLE);
                     } else if (loaiHinh == 4) {
-                        arrayList = JsonHelper.parseJson(jsonObject, Config.JSON_PLACE);
+                        arrayList = JsonHelper.parseJson(jsonObject, Config.GET_KEY_JSON_PLACE);
                     } else {
-                        arrayList = JsonHelper.parseJson(jsonObject, Config.JSON_ENTERTAINMENT);
+                        arrayList = JsonHelper.parseJson(jsonObject, Config.GET_KEY_JSON_ENTERTAINMENT);
                     }
 
                     //Set hình ảnh
@@ -345,7 +345,7 @@ public class ModelService {
 
         try {
             arr = JsonHelper.parseJsonNoId(new JSONObject(new Load().
-                    execute(url).get()), Config.JSON_LOAD);
+                    execute(url).get()), Config.GET_KEY_JSON_LOAD);
             JSONArray jsonArray = new JSONArray(arr.get(0));
 
             for (int i = 0; i < jsonArray.length(); i++) {
@@ -353,15 +353,15 @@ public class ModelService {
                 Service service = new Service();
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 if (loaiHinh == 1) {
-                    arrayList = JsonHelper.parseJson(jsonObject, Config.JSON_EAT);
+                    arrayList = JsonHelper.parseJson(jsonObject, Config.GET_KEY_JSON_EAT);
                 } else if (loaiHinh == 2) {
-                    arrayList = JsonHelper.parseJson(jsonObject, Config.JSON_HOTEL);
+                    arrayList = JsonHelper.parseJson(jsonObject, Config.GET_KEY_JSON_HOTEL);
                 } else if (loaiHinh == 3) {
-                    arrayList = JsonHelper.parseJson(jsonObject, Config.JSON_VEHICLE);
+                    arrayList = JsonHelper.parseJson(jsonObject, Config.GET_KEY_JSON_VEHICLE);
                 } else if (loaiHinh == 4) {
-                    arrayList = JsonHelper.parseJson(jsonObject, Config.JSON_PLACE);
+                    arrayList = JsonHelper.parseJson(jsonObject, Config.GET_KEY_JSON_PLACE);
                 } else {
-                    arrayList = JsonHelper.parseJson(jsonObject, Config.JSON_ENTERTAINMENT);
+                    arrayList = JsonHelper.parseJson(jsonObject, Config.GET_KEY_JSON_ENTERTAINMENT);
                 }
 
                 //Set hình ảnh
@@ -387,15 +387,15 @@ public class ModelService {
         ArrayList<Event> events = new ArrayList<>();
 
         try {
-            //Sử dụng parseJsonNoId vì JSON_LOAD ko có id
-            arr = JsonHelper.parseJsonNoId(new JSONObject(new Load().execute(url).get()), Config.JSON_LOAD);
+            //Sử dụng parseJsonNoId vì KEY_JSON_LOAD ko có id
+            arr = JsonHelper.parseJsonNoId(new JSONObject(new Load().execute(url).get()), Config.GET_KEY_JSON_LOAD);
             JSONArray jsonArray = new JSONArray(arr.get(0));
 
             for (int i = 0; i < jsonArray.length(); i++) {
 
                 Event event = new Event();
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-                arrayList = JsonHelper.parseJson(jsonObject, Config.JSON_EVENT); //Parse json event
+                arrayList = JsonHelper.parseJson(jsonObject, Config.GET_KEY_JSON_EVENT); //Parse json event
                 event.setEventId(Integer.parseInt(arrayList.get(0))); //Set mã sự kiện
                 event.setEventName(arrayList.get(1)); //Set tên
 

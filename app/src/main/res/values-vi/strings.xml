@@ -18,6 +18,8 @@
     <string name="text_About">Giới thiệu</string>
     <string name="text_Favorite">Yêu thích</string>
     <string name="text_Notification">Thông báo</string>
+
+    <string name="text_Enterprise">Doanh nghiệp</string>
     <string name="text_Personal">Cá nhân</string>
     <string name="text_SignIn">Đăng nhập</string>
     <string name="text_SignUp">Đăng ký</string>
@@ -101,4 +103,6 @@
     <string name="hint_EnterpriseName">Tên doanh nghiệp</string>
     <string name="hint_Notice">Ghi chú</string>
     <string name="hint_Policy">Điều khoản</string>
+    <string name="text_Lat">Vĩ độ</string>
+    <string name="text_Long">Kinh độ</string>
 </resources>

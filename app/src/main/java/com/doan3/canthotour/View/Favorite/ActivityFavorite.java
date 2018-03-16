@@ -118,7 +118,7 @@ public class ActivityFavorite extends AppCompatActivity {
         final ArrayList<Service> finalListService = favoriteList;
         try {
             finalArr = JsonHelper.parseJsonNoId(new JSONObject(new ModelService.Load().execute(Config.URL_HOST +
-                    Config.URL_GET_ALL_FAVORITE + "/" + id).get()), Config.JSON_LOAD);
+                    Config.URL_GET_ALL_FAVORITE + "/" + id).get()), Config.GET_KEY_JSON_LOAD);
         } catch (JSONException | InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
@@ -147,7 +147,7 @@ public class ActivityFavorite extends AppCompatActivity {
                             }
                             try {
                                 finalArr = JsonHelper.parseJsonNoId(new JSONObject
-                                        (new ModelService.Load().execute(finalArr.get(1)).get()), Config.JSON_LOAD);
+                                        (new ModelService.Load().execute(finalArr.get(1)).get()), Config.GET_KEY_JSON_LOAD);
                             } catch (JSONException | InterruptedException | ExecutionException e) {
                                 e.printStackTrace();
                             }

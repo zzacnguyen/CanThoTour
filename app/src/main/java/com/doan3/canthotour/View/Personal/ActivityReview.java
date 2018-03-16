@@ -53,7 +53,7 @@ public class ActivityReview extends AppCompatActivity {
             try {
                 String rs =
                         new ModelService.Load().execute(Config.URL_HOST + Config.URL_GET_ALL_REVIEWS + "/" + idDanhGia).get();
-                ArrayList<String> arr = JsonHelper.parseJsonNoId(new JSONArray(rs), Config.JSON_RATE);
+                ArrayList<String> arr = JsonHelper.parseJsonNoId(new JSONArray(rs), Config.GET_KEY_JSON_RATE);
                 rbDanhGia.setRating(Float.parseFloat(arr.get(0)));
                 txtTieuDe.setText(arr.get(1));
                 txtDanhGia.setText(arr.get(2));
