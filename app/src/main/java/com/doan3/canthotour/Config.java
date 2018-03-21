@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Config {
-    public static final String URL_HOST = "http://192.168.1.5/doan3_canthotour/public/";
+    public static final String URL_HOST = "http://192.168.1.12/doan3_canthotour/public/";
     public static final String URL_LOGIN = "login";
     public static final String URL_REGISTER = "register";
     public static final String URL_SEARCH = "timkiem/dichvunangcao/idtype=";
@@ -22,6 +22,8 @@ public class Config {
     public static final String URL_GET_ALL_FAVORITE = "like";
     public static final String URL_GET_LINK_THUMB_1 = "get-thumb-1/";
     public static final String URL_GET_LINK_THUMB_2 = "get-thumb-2/";
+    public static final String URL_GET_LINK_DETAIL_1 = "get-detail-1/";
+    public static final String URL_GET_LINK_DETAIL_2 = "get-detail-2/";
     public static final String URL_GET_LINK_BANNER = "get-banner/";
     public static final String URL_GET_THUMB = "thumbnails/";
     public static final String URL_POST_PLACE = "add-places";

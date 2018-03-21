@@ -8,8 +8,8 @@
         <item>button_5</item>
     </string-array>
 
-    <string name="facebook_app_id">294630491068215</string>
-    <string name="facebook_login_protocol_scheme">fb294630491068215</string>
+    <string name="facebook_app_id" translatable="false">294630491068215</string>
+    <string name="facebook_login_protocol_scheme" translatable="false">fb294630491068215</string>
 
     <string name="text_Home">Home</string>
     <string name="text_Search">Search...</string>
@@ -121,4 +121,6 @@
     <string name="hint_Email" translatable="false">Email</string>
     <string name="hint_Notice">Notice</string>
     <string name="hint_Policy">Policy</string>
+    <string name="text_SearchHistory">Search history</string>
+    <string name="text_ViewSearchHistory">View search history</string>
 </resources>

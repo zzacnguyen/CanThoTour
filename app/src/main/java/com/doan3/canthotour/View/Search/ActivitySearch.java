@@ -1,5 +1,6 @@
 package com.doan3.canthotour.View.Search;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -10,6 +11,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.doan3.canthotour.Adapter.ListOfServiceAdapter;
@@ -19,6 +21,8 @@ import com.doan3.canthotour.Interface.OnLoadMoreListener;
 import com.doan3.canthotour.Model.ModelService;
 import com.doan3.canthotour.Model.ObjectClass.Service;
 import com.doan3.canthotour.R;
+import com.doan3.canthotour.View.Main.ActivitySearchHistory;
+import com.doan3.canthotour.View.Main.Content.ActivityService;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -31,10 +35,11 @@ import java.util.concurrent.ExecutionException;
  * Created by zzacn on 12/7/2017.
  */
 
-public class ActivitySearch extends AppCompatActivity {
+public class ActivitySearch extends AppCompatActivity implements View.OnClickListener {
     ArrayList<String> finalArr = new ArrayList<>();
     EditText etSearch;
     Button btnCancel;
+    TextView txtSearchHistory;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -42,6 +47,7 @@ public class ActivitySearch extends AppCompatActivity {
         setContentView(R.layout.activity_search);
         etSearch = findViewById(R.id.etSearch);
         btnCancel = findViewById(R.id.btnCancel);
+        txtSearchHistory = findViewById(R.id.textViewSearchHistory);
 
         etSearch.setOnKeyListener(new View.OnKeyListener() {
             @Override
@@ -66,6 +72,8 @@ public class ActivitySearch extends AppCompatActivity {
                 finishActivity(2);
             }
         });
+
+        txtSearchHistory.setOnClickListener(this);
     }
 
     private void load(String url) {
@@ -130,5 +138,15 @@ public class ActivitySearch extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public void onClick(View view) { //Tạo sự kiện click cho TextView
+        switch (view.getId()){
+            case R.id.textViewSearchHistory:
+                Intent iSearchHistory = new Intent(ActivitySearch.this, ActivitySearchHistory.class);
+                startActivity(iSearchHistory);
+                break;
+        }
     }
 }

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -57,6 +58,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.NumberFormat;
 import java.util.Locale;
+import java.util.concurrent.ExecutionException;
 
 import static com.doan3.canthotour.View.Personal.ActivityLogin.userId;
 
@@ -64,13 +66,14 @@ import static com.doan3.canthotour.View.Personal.ActivityLogin.userId;
  * Created by sieut on 12/6/2017.
  */
 
-public class ActivityServiceInfo extends AppCompatActivity {
+public class ActivityServiceInfo extends AppCompatActivity implements View.OnClickListener {
     Button btnShare, btnLike, btnNear, btnReview, btnShowReview;
     int id, serviceType, reviewId;
     String favoriteId, longitude, latitude;
     JSONObject saveJson;
     CallbackManager callbackManager;
     ShareDialog shareDialog;
+    public static String[] imgDetail = null;
 
     public static void menuBotNavBar(final Activity activity, int i) {
         BottomNavigationView bottomNavigationView = activity.findViewById(R.id.bottomNavView_Bar);
@@ -100,6 +103,40 @@ public class ActivityServiceInfo extends AppCompatActivity {
                 return false;
             }
         });
+    }
+
+    @Override
+    public void onClick(View view) {
+
+        Intent iDetail = new Intent(ActivityServiceInfo.this, FullImageActivity.class);
+
+        switch (view.getId()){
+            case R.id.imgInfo1:
+                try {
+                    imgDetail = new ModelService.Load().execute(Config.URL_HOST + Config.URL_GET_LINK_DETAIL_1 + id).get()
+                            .replaceAll("\"", "")
+                            .split("\\+");
+                    startActivity(iDetail);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }
+                break;
+
+            case R.id.imgInfo2:
+                try {
+                    imgDetail = new ModelService.Load().execute(Config.URL_HOST + Config.URL_GET_LINK_DETAIL_2 + id).get()
+                            .replaceAll("\"", "")
+                            .split("\\+");
+                    startActivity(iDetail);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }
+                break;
+        }
     }
 
     @Override
@@ -261,7 +298,6 @@ public class ActivityServiceInfo extends AppCompatActivity {
 
         load(this, Config.URL_HOST + Config.URL_GET_ALL_SERVICES + "/" + id);
 
-
         menuBotNavBar(this, 0);
     }
 
@@ -283,6 +319,9 @@ public class ActivityServiceInfo extends AppCompatActivity {
         LinearLayout info = findViewById(R.id.info);
         TextView txtMark = findViewById(R.id.textViewRatingMark);
         RatingBar rbStar = findViewById(R.id.ratingBarStars);
+
+        imgThumbInfo1.setOnClickListener(this);
+        imgThumbInfo2.setOnClickListener(this);
 
         final ServiceInfo serviceInfo = new ModelService().getServiceInfo(url);
 

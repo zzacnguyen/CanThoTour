@@ -51,7 +51,8 @@
         <activity android:name=".View.Personal.ActivityReviewList" />
         <activity android:name=".View.Personal.ActivityRegister" />
         <activity android:name=".View.Search.ActivityAdvancedSearch" />
-        <activity android:name=".View.Main.FullImageActivity"></activity>
+        <activity android:name=".View.Main.FullImageActivity" />
+        <activity android:name=".View.Main.ActivitySearchHistory"></activity>
     </application>
 
 </manifest>

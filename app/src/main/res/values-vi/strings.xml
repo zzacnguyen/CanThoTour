@@ -105,4 +105,6 @@
     <string name="hint_Policy">Điều khoản</string>
     <string name="text_Lat">Vĩ độ</string>
     <string name="text_Long">Kinh độ</string>
+    <string name="text_SearchHistory">Lịch sử tìm kiếm</string>
+    <string name="text_ViewSearchHistory">Lịch sử tìm kiếm</string>
 </resources>
