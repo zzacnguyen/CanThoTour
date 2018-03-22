@@ -15,6 +15,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.doan3.canthotour.R;
 
@@ -86,23 +87,42 @@ public class ActivityAddService extends AppCompatActivity implements View.OnClic
         btnDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                jsonServiceToString = new ArrayList<>();
 
-                jsonServiceToString.add(etServiceAbout.getText().toString());
-                jsonServiceToString.add(txtOpenTime.getText().toString());
-                jsonServiceToString.add(txtCloseTime.getText().toString());
-                jsonServiceToString.add(etHighestPrice.getText().toString());
-                jsonServiceToString.add(etLowestPrice.getText().toString());
-                jsonServiceToString.add(etServicePhone.getText().toString());
-                jsonServiceToString.add(type + "");
+                String[] timeOpen = null, timeClose = null;
+                timeOpen = txtOpenTime.getText().toString().split(":");
+                timeClose = txtCloseTime.getText().toString().split(":");
 
-                jsonServiceToString.add(etServiceName.getText().toString());
-                if (etWebsite.getVisibility() != View.GONE) {
-                    jsonServiceToString.add(etWebsite.getText().toString());
-                    jsonServiceToString.add(etNumberStar.getText().toString());
+                if(Integer.parseInt(etLowestPrice.getText().toString()) > Integer.parseInt(etHighestPrice.getText().toString())) {
+                    Toast.makeText(ActivityAddService.this, "Giá thấp nhất không được lớn hơn giá cao nhất", Toast.LENGTH_SHORT).show();
+                }else if (Integer.parseInt(timeOpen[0]) > Integer.parseInt(timeClose[0])){
+                    etServiceAbout.setError("Giờ mở cửa phải sớm hơn giờ đóng cửa");
+                }else if(etServiceName.getText().toString().equals("")){
+                    etServiceName.setError("Tên dịch vụ không được để trống");
+                }else if (etWebsite.getText().toString().equals("")){
+                    etWebsite.setError("Website không được để trống");
+                }else if (etNumberStar.getText().toString().equals("")){
+                    etNumberStar.setError("Số sao không được để trống");
+                }else if (etServiceAbout.getText().toString().equals("")){
+                    etServiceAbout.setError("Mô tả không được để trống");
+                }else{
+                    jsonServiceToString = new ArrayList<>();
+
+                    jsonServiceToString.add(etServiceAbout.getText().toString());
+                    jsonServiceToString.add(txtOpenTime.getText().toString());
+                    jsonServiceToString.add(txtCloseTime.getText().toString());
+                    jsonServiceToString.add(etHighestPrice.getText().toString());
+                    jsonServiceToString.add(etLowestPrice.getText().toString());
+                    jsonServiceToString.add(etServicePhone.getText().toString());
+                    jsonServiceToString.add(type + "");
+
+                    jsonServiceToString.add(etServiceName.getText().toString());
+                    if (etWebsite.getVisibility() != View.GONE) {
+                        jsonServiceToString.add(etWebsite.getText().toString());
+                        jsonServiceToString.add(etNumberStar.getText().toString());
+                    }
+                    finish();
+                    finishActivity(2);
                 }
-                finish();
-                finishActivity(2);
             }
         });
 

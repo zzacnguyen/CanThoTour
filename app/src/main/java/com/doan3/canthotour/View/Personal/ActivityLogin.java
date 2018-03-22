@@ -58,7 +58,7 @@ public class ActivityLogin extends AppCompatActivity {
                 if (etUserId.getText().toString().equals("")) {
                     etUserId.setError("Tài khoản không được để trống");
                 } else if (etPassword.getText().toString().equals("")) {
-                    etUserId.setError("Mật khẩu không được để trống");
+                    etPassword.setError("Mật khẩu không được để trống");
                 } else {
                     try {
                         String rs = new Post().execute(Config.URL_HOST + Config.URL_LOGIN,

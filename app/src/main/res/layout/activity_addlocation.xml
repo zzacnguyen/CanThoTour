@@ -243,7 +243,7 @@
                     android:background="@drawable/white_grey_border_bottom"
                     android:hint="@string/hint_PhoneNumber"
                     android:inputType="number"
-                    android:maxLength="25"
+                    android:maxLength="13"
                     android:padding="5dp"
                     android:textSize="16sp" />
 
@@ -254,6 +254,7 @@
                     android:background="@null"
                     android:hint="@string/hint_Description"
                     android:inputType="text"
+                    android:maxLength="255"
                     android:padding="5dp"
                     android:textSize="16sp" />
 
