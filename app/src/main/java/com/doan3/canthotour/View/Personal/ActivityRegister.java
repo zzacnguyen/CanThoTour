@@ -54,16 +54,16 @@ public class ActivityRegister extends AppCompatActivity {
                 }
                 try {
                     json = new JSONObject(new ActivityLogin.Post().execute(Config.URL_HOST + Config.URL_REGISTER,
-                            "{\"taikhoan\":\"" + etUserName.getText().toString() +
-                                    "\",\"password\":\"" + etPassword.getText().toString() +
-                                    "\",\"nd_quocgia\":\"" + etCountry.getText().toString() +
-                                    "\",\"nd_ngonngu\":\"" + etLanguage.getText().toString() + "\"}").get());
-                    stt = json.getString("status");
-                    error = json.getString("error");
+                            "{" + Config.POST_KEY_REGISTER.get(0) + ":\"" + etUserName.getText().toString() + "\"," +
+                                    Config.POST_KEY_REGISTER.get(0) + ":\"" + etPassword.getText().toString() + "\"," +
+                                    Config.POST_KEY_REGISTER.get(0) + ":\"" + etCountry.getText().toString() + "\"," +
+                                    Config.POST_KEY_REGISTER.get(0) + ":\"" + etLanguage.getText().toString() + "\"}").get());
+                    stt = json.getString(Config.GET_KEY_JSON_LOGIN.get(2));
+                    error = json.getString(Config.GET_KEY_JSON_LOGIN.get(1));
                 } catch (InterruptedException | ExecutionException | JSONException e) {
                     e.printStackTrace();
                 }
-                if (stt != null && stt.equals("OK")) {
+                if (stt != null && stt.equals(Config.GET_KEY_JSON_LOGIN.get(4))) {
                     Intent intent = new Intent(ActivityRegister.this, ActivityLogin.class);
                     intent.putExtra("id", id);
                     intent.putExtra("mess", "Đăng ký thành công");
@@ -76,7 +76,7 @@ public class ActivityRegister extends AppCompatActivity {
             }
         });
 
-        ActivityServiceInfo.menuBotNavBar(this,3);
+        ActivityServiceInfo.menuBotNavBar(this, 3);
     }
 
 }

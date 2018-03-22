@@ -136,47 +136,53 @@ public class ActivityAddPlace extends AppCompatActivity {
                     } else {
                         name = Config.POST_KEY_JSON_SERVICE_ENTERTAINMENTS.get(0) + ":\"" + jsonServiceToString.get(7) + "\"";
                     }
-                    idService = new ActivityLogin.Post().execute(Config.URL_HOST + Config.URL_GET_ALL_SERVICES,
-                            "{" + Config.POST_KEY_JSON_SERVICE.get(0) + ":\"" + jsonServiceToString.get(0) + "\"," +
-                                    Config.POST_KEY_JSON_SERVICE.get(1) + ":\"" + jsonServiceToString.get(1) + "\"," +
-                                    Config.POST_KEY_JSON_SERVICE.get(2) + ":\"" + jsonServiceToString.get(2) + "\"," +
-                                    Config.POST_KEY_JSON_SERVICE.get(3) + ":\"" + jsonServiceToString.get(3) + "\"," +
-                                    Config.POST_KEY_JSON_SERVICE.get(4) + ":\"" + jsonServiceToString.get(4) + "\"," +
-                                    Config.POST_KEY_JSON_SERVICE.get(5) + ":\"" + jsonServiceToString.get(5) + "\"," +
-                                    Config.POST_KEY_JSON_SERVICE.get(6) + ":\"" + jsonServiceToString.get(6) + "\"," +
-                                    Config.POST_KEY_JSON_SERVICE.get(7) + ":\"" +
-                                    idPlace.replaceAll("\"", "").split(":")[1] + "\"," + name + "}").get();
-                } catch (InterruptedException | ExecutionException e) {
-                    e.printStackTrace();
-                }
+                    String idP = idPlace.contains(":") ? idPlace.replaceAll("\"", "").split(":")[1] : "";
+                    if (!idP.equals("")) {
+                        idService = new ActivityLogin.Post().execute(Config.URL_HOST + Config.URL_GET_ALL_SERVICES,
+                                "{" + Config.POST_KEY_JSON_SERVICE.get(0) + ":\"" + jsonServiceToString.get(0) + "\"," +
+                                        Config.POST_KEY_JSON_SERVICE.get(1) + ":\"" + jsonServiceToString.get(1) + "\"," +
+                                        Config.POST_KEY_JSON_SERVICE.get(2) + ":\"" + jsonServiceToString.get(2) + "\"," +
+                                        Config.POST_KEY_JSON_SERVICE.get(3) + ":\"" + jsonServiceToString.get(3) + "\"," +
+                                        Config.POST_KEY_JSON_SERVICE.get(4) + ":\"" + jsonServiceToString.get(4) + "\"," +
+                                        Config.POST_KEY_JSON_SERVICE.get(5) + ":\"" + jsonServiceToString.get(5) + "\"," +
+                                        Config.POST_KEY_JSON_SERVICE.get(6) + ":\"" + jsonServiceToString.get(6) + "\"," +
+                                        Config.POST_KEY_JSON_SERVICE.get(7) + ":\"" + idP + "\"," + name + "}").get();
+                        String idS = idService.contains(":") ? idService.replaceAll("\"", "").split(":")[1] : "";
+                        if (!idS.equals("")) {
+                            ByteArrayOutputStream ban = new ByteArrayOutputStream();
+                            bitmapArrayList.get(0).compress(Bitmap.CompressFormat.JPEG, 100, ban);
+                            ContentBody contentBanner = new ByteArrayBody(ban.toByteArray(), "a.jpg");
 
-                ByteArrayOutputStream ban = new ByteArrayOutputStream();
-                bitmapArrayList.get(0).compress(Bitmap.CompressFormat.JPEG, 100, ban);
-                ContentBody contentBanner = new ByteArrayBody(ban.toByteArray(), "a.jpg");
+                            ByteArrayOutputStream de1 = new ByteArrayOutputStream();
+                            bitmapArrayList.get(1).compress(Bitmap.CompressFormat.JPEG, 100, de1);
+                            ContentBody contentDetails1 = new ByteArrayBody(de1.toByteArray(), "b.jpg");
 
-                ByteArrayOutputStream de1 = new ByteArrayOutputStream();
-                bitmapArrayList.get(1).compress(Bitmap.CompressFormat.JPEG, 100, de1);
-                ContentBody contentDetails1 = new ByteArrayBody(de1.toByteArray(), "b.jpg");
+                            ByteArrayOutputStream de2 = new ByteArrayOutputStream();
+                            bitmapArrayList.get(2).compress(Bitmap.CompressFormat.JPEG, 100, de2);
+                            ContentBody contentDetails2 = new ByteArrayBody(de2.toByteArray(), "c.jpg");
 
-                ByteArrayOutputStream de2 = new ByteArrayOutputStream();
-                bitmapArrayList.get(2).compress(Bitmap.CompressFormat.JPEG, 100, de2);
-                ContentBody contentDetails2 = new ByteArrayBody(de2.toByteArray(), "c.jpg");
-
-                reqEntity.addPart("banner", contentBanner);
-                reqEntity.addPart("details1", contentDetails1);
-                reqEntity.addPart("details2", contentDetails2);
-                try {
-                    String response = new PostImage().execute(Config.URL_HOST + Config.URL_POST_IMAGE
-                            + idService.replaceAll("\"", "").split(":")[1]).get();
-                    System.out.println(idPlace + idService);
-                    System.out.println(response);
-                    if (response.equals("\"status:200\"")) {
-                        Toast.makeText(ActivityAddPlace.this, "Thành công", Toast.LENGTH_SHORT).show();
-                        bitmapArrayList.clear();
-                        finish();
-                        finishActivity(1);
+                            reqEntity.addPart("banner", contentBanner);
+                            reqEntity.addPart("details1", contentDetails1);
+                            reqEntity.addPart("details2", contentDetails2);
+                            try {
+                                String response = new PostImage().execute(Config.URL_HOST + Config.URL_POST_IMAGE
+                                        + idService.replaceAll("\"", "").split(":")[1]).get();
+                                if (response.equals("\"status:200\"")) {
+                                    Toast.makeText(ActivityAddPlace.this, "Thành công", Toast.LENGTH_SHORT).show();
+                                    bitmapArrayList.clear();
+                                    finish();
+                                    finishActivity(1);
+                                } else {
+                                    Toast.makeText(ActivityAddPlace.this, "Lỗi", Toast.LENGTH_SHORT).show();
+                                }
+                            } catch (InterruptedException | ExecutionException e) {
+                                e.printStackTrace();
+                            }
+                        } else {
+                            Toast.makeText(ActivityAddPlace.this, "Thêm thất bại", Toast.LENGTH_SHORT).show();
+                        }
                     } else {
-                        Toast.makeText(ActivityAddPlace.this, "Lỗi", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ActivityAddPlace.this, "Thêm thất bại", Toast.LENGTH_SHORT).show();
                     }
                 } catch (InterruptedException | ExecutionException e) {
                     e.printStackTrace();

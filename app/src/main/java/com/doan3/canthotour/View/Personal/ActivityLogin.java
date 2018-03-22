@@ -62,15 +62,16 @@ public class ActivityLogin extends AppCompatActivity {
                 } else {
                     try {
                         String rs = new Post().execute(Config.URL_HOST + Config.URL_LOGIN,
-                                "{" + Config.POST_KEY_LOGIN_REGISTER.get(0) + ":\"" + etUserId.getText().toString() + "\"," +
-                                        Config.POST_KEY_LOGIN_REGISTER.get(0) + ":\"" + etPassword.getText().toString() + "\"}").get();
+                                "{" + Config.POST_KEY_LOGIN.get(0) + ":\"" + etUserId.getText().toString() + "\"," +
+                                        Config.POST_KEY_LOGIN.get(0) + ":\"" + etPassword.getText().toString() + "\"}").get();
                         JSONObject json = new JSONObject(rs);
-                        if (json.getString("status").toString().equals("ERROR")) {
+                        if (json.getString(Config.GET_KEY_JSON_LOGIN.get(2)).toString().equals(Config.GET_KEY_JSON_LOGIN.get(3))) {
                             Toast.makeText(ActivityLogin.this, "tài khoản hoặc mật khẩu không đúng",
                                     Toast.LENGTH_SHORT).show();
                         } else {
                             ArrayList<String> arrayUser =
-                                    JsonHelper.parseJson(new JSONObject(json.getString("result")), Config.GET_KEY_JSON_USER);
+                                    JsonHelper.parseJson(new JSONObject(json.getString(Config.GET_KEY_JSON_LOGIN.get(0))),
+                                            Config.GET_KEY_JSON_USER);
 
                             userId = Integer.parseInt(arrayUser.get(0));
                             userName = arrayUser.get(1);

@@ -82,8 +82,14 @@ public class Config {
     public static final ArrayList<String> GET_KEY_JSON_RATE =
             new ArrayList<>(Arrays.asList("vr_rating", "vr_title", "vr_ratings_details"));
 
-    public static final ArrayList<String> POST_KEY_LOGIN_REGISTER =
-            new ArrayList<>(Arrays.asList("\"username\"", "\"password\"", "\"passwordC\""));
+    public static final ArrayList<String> GET_KEY_JSON_LOGIN =
+            new ArrayList<>(Arrays.asList("result", "error", "status", "ERROR", "OK"));
+
+    public static final ArrayList<String> POST_KEY_LOGIN =
+            new ArrayList<>(Arrays.asList("\"username\"", "\"password\""));
+
+    public static final ArrayList<String> POST_KEY_REGISTER =
+            new ArrayList<>(Arrays.asList("\"username\"", "\"password\"", "\"country\"", "\"language\""));
 
     public static final ArrayList<String> POST_KEY_JSON_PLACE =
             new ArrayList<>(Arrays.asList("\"pl_name\"", "\"pl_details\"", "\"pl_address\"", "\"pl_phone_number\"",
