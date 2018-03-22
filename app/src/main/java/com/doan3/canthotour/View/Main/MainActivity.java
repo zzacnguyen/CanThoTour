@@ -3,16 +3,20 @@ package com.doan3.canthotour.View.Main;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.internal.BottomNavigationItemView;
+import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.doan3.canthotour.Adapter.ServiceAdapter;
 import com.doan3.canthotour.Config;
@@ -35,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     Button btnPlace, btnEat, btnHoTel, btnEntertain, btnVehicle;
     FloatingActionButton fab, fabAddPlace;
     boolean enterprise = false;
+    public static int test = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -160,12 +165,24 @@ public class MainActivity extends AppCompatActivity {
 
     //Bottom navigation bar
     private void menuBotNavBar() {
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavView_Bar);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavView_Bar); //Bottom navigation view
         BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
 
         Menu menu = bottomNavigationView.getMenu();
         MenuItem menuItem = menu.getItem(0);
         menuItem.setChecked(true);
+
+        BottomNavigationMenuView bottomNavigationMenuView =
+                (BottomNavigationMenuView) bottomNavigationView.getChildAt(0); //Hiển thị ở trang chủ
+        View v = bottomNavigationMenuView.getChildAt(2); //Hiển thị dấu chấm đỏ khi có thông báo
+        BottomNavigationItemView itemView = (BottomNavigationItemView) v;
+
+        View badge = LayoutInflater.from(this)
+                .inflate(R.layout.notification_badge, bottomNavigationMenuView, false);
+
+        if(test > 0){
+            itemView.addView(badge);
+        }
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
