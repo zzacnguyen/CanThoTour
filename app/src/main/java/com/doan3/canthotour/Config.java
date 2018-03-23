@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Config {
-    public static final String URL_HOST = "http://192.168.1.12/doan3_canthotour/public/";
+    public static final String URL_HOST = "http://172.20.10.3/doan3_canthotour/public/";
     public static final String URL_LOGIN = "login";
     public static final String URL_REGISTER = "register";
     public static final String URL_SEARCH = "timkiem/dichvunangcao/idtype=";
