@@ -38,4 +38,5 @@ dependencies {
         exclude module: "httpclient"
     }
     compile 'com.facebook.android:facebook-share:[4,5)'
+    compile 'q.rorbin:badgeview:1.1.3'
 }

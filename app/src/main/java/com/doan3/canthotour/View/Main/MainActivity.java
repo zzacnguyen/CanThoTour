@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -32,6 +33,8 @@ import com.doan3.canthotour.View.Personal.ActivityPersonal;
 import com.doan3.canthotour.View.Search.ActivitySearch;
 
 import java.util.ArrayList;
+
+import q.rorbin.badgeview.QBadgeView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -176,13 +179,10 @@ public class MainActivity extends AppCompatActivity {
                 (BottomNavigationMenuView) bottomNavigationView.getChildAt(0); //Hiển thị ở trang chủ
         View v = bottomNavigationMenuView.getChildAt(2); //Hiển thị dấu chấm đỏ khi có thông báo
         BottomNavigationItemView itemView = (BottomNavigationItemView) v;
-
-        View badge = LayoutInflater.from(this)
-                .inflate(R.layout.notification_badge, bottomNavigationMenuView, false);
-
-        if(test > 0){
-            itemView.addView(badge);
-        }
+        new QBadgeView(this).bindTarget(v)
+                        .setBadgeNumber(1)  //Set số hoạt động
+                        .setBadgeGravity(Gravity.START | Gravity.TOP)
+                        .setGravityOffset(26,0,true);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
