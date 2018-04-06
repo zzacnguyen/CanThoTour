@@ -48,7 +48,7 @@ public class ActivityNearLocation extends AppCompatActivity {
 
     private void load() {
 
-        File path = new File(Environment.getExternalStorageDirectory() + Config.FOLDER_IMAGE);
+        File path = new File(Environment.getExternalStorageDirectory() + Config.FOLDER_NAME);
         if (!path.exists()) {
             path.mkdirs();
         }

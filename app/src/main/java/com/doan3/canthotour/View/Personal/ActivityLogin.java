@@ -65,6 +65,7 @@ public class ActivityLogin extends AppCompatActivity {
                                 "{" + Config.POST_KEY_LOGIN.get(0) + ":\"" + etUserId.getText().toString() + "\"," +
                                         Config.POST_KEY_LOGIN.get(0) + ":\"" + etPassword.getText().toString() + "\"}").get();
                         JSONObject json = new JSONObject(rs);
+                        // status = error
                         if (json.getString(Config.GET_KEY_JSON_LOGIN.get(2)).toString().equals(Config.GET_KEY_JSON_LOGIN.get(3))) {
                             Toast.makeText(ActivityLogin.this, "tài khoản hoặc mật khẩu không đúng",
                                     Toast.LENGTH_SHORT).show();
@@ -75,10 +76,11 @@ public class ActivityLogin extends AppCompatActivity {
 
                             userId = Integer.parseInt(arrayUser.get(0));
                             userName = arrayUser.get(1);
-                            userType = Integer.parseInt(arrayUser.get(2)) == 1 ?
-                                    getResources().getString(R.string.text_Personal) : getResources().getString(R.string.text_Enterprise);
+                            userType = getResources().getString(R.string.text_Personal);
+//                            userType = Integer.parseInt(arrayUser.get(2)) == 1 ?
+//                                    getResources().getString(R.string.text_Personal) : getResources().getString(R.string.text_Enterprise);
                             try {
-                                avatar = new ModelService.GetImage().execute(arrayUser.get(3)).get();
+                                avatar = new ModelService.GetImage().execute(arrayUser.get(2)).get();
                             } catch (InterruptedException | ExecutionException e) {
                                 e.printStackTrace();
                             }

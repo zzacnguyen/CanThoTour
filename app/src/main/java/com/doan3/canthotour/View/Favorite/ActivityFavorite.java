@@ -55,11 +55,11 @@ public class ActivityFavorite extends AppCompatActivity {
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavView_Bar);
         BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
 
-        File path = new File(Environment.getExternalStorageDirectory() + "/canthotour");
+        File path = new File(Environment.getExternalStorageDirectory() + Config.FOLDER_NAME);
         if (!path.exists()) {
             path.mkdirs();
         }
-        File file = new File(path, "dsyeuthich.json");
+        File file = new File(path, Config.FILE_LIKE);
 
         recyclerView = findViewById(R.id.RecyclerView_FavoriteList);
         recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter

@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -56,8 +55,6 @@ import org.json.JSONObject;
 import java.io.File;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.text.NumberFormat;
-import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 
 import static com.doan3.canthotour.View.Personal.ActivityLogin.userId;
@@ -169,11 +166,11 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
                     intent.putExtra("id", id);
                     startActivity(intent);
                 } else {
-                    File path = new File(Environment.getExternalStorageDirectory() + Config.FOLDER_IMAGE);
+                    File path = new File(Environment.getExternalStorageDirectory() + Config.FOLDER_NAME);
                     if (!path.exists()) {
                         path.mkdirs();
                     }
-                    File file = new File(path, Config.FILE_NAME);
+                    File file = new File(path, Config.FILE_LIKE);
                     JSONArray getJsonInFile;
 
                     if (btnLike.getText().equals(getResources().getString(R.string.text_Like))) {

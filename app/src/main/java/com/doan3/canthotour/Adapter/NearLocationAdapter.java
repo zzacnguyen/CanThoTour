@@ -38,7 +38,7 @@ public class NearLocationAdapter extends RecyclerView.Adapter<NearLocationAdapte
         NearLocation nearLocation = nearLocations.get(position);
         holder.txtTen.setText("Tên dịch vụ: " + nearLocation.getNearLocationName());
         holder.imgHinh.setImageBitmap(nearLocation.getNearLocationImage());
-        holder.txtKhoangCach.setText("Khoảng cách: " + nearLocation.getNearLocationRadius() + "m");
+        holder.txtKhoangCach.setText("Khoảng cách: " + nearLocation.getNearLocationDistance() + "m");
         holder.cardView.setTag(nearLocation.getNearLocationId());
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {  //Bắt sự kiện click vào 1 item cardview

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Config {
-    public static final String URL_HOST = "http://172.20.10.3/doan3_canthotour/public/";
+    public static final String URL_HOST = "http://192.168.1.4/doan3_canthotour/public/";
     public static final String URL_LOGIN = "login";
     public static final String URL_REGISTER = "register";
     public static final String URL_SEARCH = "timkiem/dichvunangcao/idtype=";
@@ -29,31 +29,31 @@ public class Config {
     public static final String URL_POST_PLACE = "add-places";
     public static final String URL_POST_IMAGE = "upload-image/";
 
-    public static final String FOLDER_IMAGE = "/vietnamtour";
-    public static final String FILE_NAME = "dsyeuthich.json";
+    public static final String FOLDER_NAME = "/vietnamtour";
+    public static final String FILE_LIKE = "dsyeuthich.json";
     public static final String FILE_DISTANCE = "khoangcach.json";
     public static final String NULL = "null";
-    public static final String KEY_DISTANCE = "khoangcach";
+    public static final String KEY_DISTANCE = "distance";
     public static final String DEFAULT_DISTANCE = "500";
 
     public static final ArrayList<String> KEY_NEAR_LOCATION =
             new ArrayList<>(Arrays.asList("longitude", "latitude", "serviceType"));
 
-    public static final ArrayList<String> GET_KEY_SERVICE_INFO =
+    public static final ArrayList<String> KEY_SERVICE_INFO =
             new ArrayList<>(Arrays.asList("like", "like_id", "user_id", "rating", "id_rating", "service", "type_event", "type_name"));
 
     public static final ArrayList<String> GET_KEY_JSON_EAT =
             new ArrayList<>(Arrays.asList("eat_name", "image_id", "image_details_1"));
 
     public static final ArrayList<String> GET_KEY_JSON_USER =
-            new ArrayList<>(Arrays.asList("username", "user_status", "user_avatar"));
+            new ArrayList<>(Arrays.asList("username", "user_avatar"));
 
     public static final ArrayList<String> GET_KEY_JSON_PLACE =
             new ArrayList<>(Arrays.asList("sightseeing_name", "image_id", "image_details_1"));
 
     public static final ArrayList<String> GET_KEY_JSON_SERVICE_INFO =
-            new ArrayList<>(Arrays.asList("hotel_name", "hotel_website", "entertainments_name", "transport_name",
-                    "sightseeing_name", "eat_name", "sv_description", "sv_open", "sv_close", "sv_lowest_price",
+            new ArrayList<>(Arrays.asList("hotel_name", "entertainments_name", "transport_name",
+                    "sightseeing_name", "eat_name", "sv_website", "sv_description", "sv_open", "sv_close", "sv_lowest_price",
                     "sv_highest_price", "pl_address", "pl_phone_number", "rating", "pl_latitude", "pl_longitude"));
 
     public static final ArrayList<String> GET_KEY_JSON_HOTEL =
@@ -84,6 +84,9 @@ public class Config {
 
     public static final ArrayList<String> GET_KEY_JSON_LOGIN =
             new ArrayList<>(Arrays.asList("result", "error", "status", "ERROR", "OK"));
+
+    public static final ArrayList<String> GET_KEY_SEARCH_NEAR =
+            new ArrayList<>(Arrays.asList("data", "status", "NOT FOUND", "OK"));
 
     public static final ArrayList<String> POST_KEY_LOGIN =
             new ArrayList<>(Arrays.asList("\"username\"", "\"password\""));

@@ -9,7 +9,7 @@ import android.graphics.Bitmap;
 public class NearLocation {
     private int nearLocationId;
     private String nearLocationName;
-    private String nearLocationRadius;
+    private String nearLocationDistance;
     private Bitmap nearLocationImage;
 
     public NearLocation() {
@@ -31,12 +31,12 @@ public class NearLocation {
         this.nearLocationName = nearLocationName;
     }
 
-    public String getNearLocationRadius() {
-        return nearLocationRadius;
+    public String getNearLocationDistance() {
+        return nearLocationDistance;
     }
 
-    public void setNearLocationRadius(String nearLocationRadius) {
-        this.nearLocationRadius = nearLocationRadius;
+    public void setNearLocationDistance(String nearLocationDistance) {
+        this.nearLocationDistance = nearLocationDistance;
     }
 
     public Bitmap getNearLocationImage() {
