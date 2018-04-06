@@ -123,4 +123,5 @@
     <string name="hint_Policy">Policy</string>
     <string name="text_SearchHistory">Search history</string>
     <string name="text_ViewSearchHistory">View search history</string>
+    <string name="text_TripSchedule">Trip schedule</string>
 </resources>

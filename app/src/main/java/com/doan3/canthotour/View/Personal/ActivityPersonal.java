@@ -28,16 +28,17 @@ import static com.doan3.canthotour.View.Personal.ActivityLogin.userName;
 
 public class ActivityPersonal extends AppCompatActivity {
 
-    Button btnAddPlace, btnAddService, btnRegEnterprise, btnOption, btnLogin, btnAdvancedSearch, btnLogout;
+    Button btnAddPlace, btnAddService, btnRegEnterprise, btnOption, btnLogin, btnAdvancedSearch, btnLogout, btnTripSchedule;
     TextView txtUserName, txtUserType;
     CircleImageView Cavatar;
-    LinearLayout addPlace, addService, regEnterprise, Logout, Login;
+    LinearLayout addPlace, addService, regEnterprise, Logout, Login, tripSchedule;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal);
 
+        btnTripSchedule = findViewById(R.id.buttonTripSchedule);
         btnAdvancedSearch = findViewById(R.id.buttonAdvancedSearch);
         btnAddPlace = findViewById(R.id.buttonAddPlace);
         btnAddService = findViewById(R.id.buttonAddService);
@@ -51,6 +52,7 @@ public class ActivityPersonal extends AppCompatActivity {
         addPlace = findViewById(R.id.AddPlace);
         addService = findViewById(R.id.AddService);
         regEnterprise = findViewById(R.id.RegEnterprise);
+        tripSchedule = findViewById(R.id.TripSchedule);
         Logout = findViewById(R.id.Logout);
         Login = findViewById(R.id.Login);
 
@@ -59,18 +61,27 @@ public class ActivityPersonal extends AppCompatActivity {
         Cavatar.setImageBitmap(avatar);
 
         if (userId == 0) {
-//            addPlace.setVisibility(View.GONE);
-//            addService.setVisibility(View.GONE);
+            addPlace.setVisibility(View.GONE);
+            addService.setVisibility(View.GONE);
+            tripSchedule.setVisibility(View.GONE);
             regEnterprise.setVisibility(View.GONE);
             Logout.setVisibility(View.GONE);
         } else {
-//            addPlace.setVisibility(View.VISIBLE);
-//            addService.setVisibility(View.VISIBLE);
+            addPlace.setVisibility(View.VISIBLE);
+            addService.setVisibility(View.VISIBLE);
             regEnterprise.setVisibility(View.VISIBLE);
+            tripSchedule.setVisibility(View.VISIBLE);
             Logout.setVisibility(View.VISIBLE);
             Login.setVisibility(View.GONE);
         }
 
+        btnTripSchedule.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent iTripSchedule = new Intent(ActivityPersonal.this, ActivityTripSchedule.class);
+                startActivity(iTripSchedule);
+            }
+        });
         btnAdvancedSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
