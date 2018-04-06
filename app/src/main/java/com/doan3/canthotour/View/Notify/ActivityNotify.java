@@ -23,6 +23,7 @@ import com.doan3.canthotour.R;
 import com.doan3.canthotour.View.Favorite.ActivityFavorite;
 import com.doan3.canthotour.View.Main.MainActivity;
 import com.doan3.canthotour.View.Personal.ActivityPersonal;
+import static com.doan3.canthotour.View.Main.MainActivity.menuBotNavBar;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -41,37 +42,7 @@ public class ActivityNotify extends AppCompatActivity {
 
         loadInfo(Config.URL_HOST + Config.URL_GET_ALL_EVENTS);
 
-        menuBotNavBar();
-    }
-
-    private void menuBotNavBar() {
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavView_Bar);
-        BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
-
-        Menu menu = bottomNavigationView.getMenu();
-        MenuItem menuItem = menu.getItem(2);
-        menuItem.setChecked(true);
-
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.ic_trangchu:
-                        startActivity(new Intent(ActivityNotify.this, MainActivity.class));
-                        break;
-                    case R.id.ic_yeuthich:
-                        startActivity(new Intent(ActivityNotify.this, ActivityFavorite.class));
-                        break;
-                    case R.id.ic_thongbao:
-
-                        break;
-                    case R.id.ic_canhan:
-                        startActivity(new Intent(ActivityNotify.this, ActivityPersonal.class));
-                        break;
-                }
-                return false;
-            }
-        });
+        menuBotNavBar(this, 2);
     }
 
     private void loadInfo(String url) {

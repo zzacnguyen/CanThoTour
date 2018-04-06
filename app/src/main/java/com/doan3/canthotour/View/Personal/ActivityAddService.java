@@ -24,7 +24,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import static com.doan3.canthotour.View.Main.ActivityServiceInfo.menuBotNavBar;
+import static com.doan3.canthotour.View.Main.MainActivity.menuBotNavBar;
 
 
 public class ActivityAddService extends AppCompatActivity implements View.OnClickListener {

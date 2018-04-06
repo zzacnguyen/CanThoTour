@@ -4,7 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.doan3.canthotour.R;
-import com.doan3.canthotour.View.Main.ActivityServiceInfo;
+import static com.doan3.canthotour.View.Main.MainActivity.menuBotNavBar;
 
 public class ActivityAddTripSchedule extends AppCompatActivity {
 
@@ -13,6 +13,6 @@ public class ActivityAddTripSchedule extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_addtripschedule);
 
-        ActivityServiceInfo.menuBotNavBar(this, 3);
+        menuBotNavBar(this, 3);
     }
 }

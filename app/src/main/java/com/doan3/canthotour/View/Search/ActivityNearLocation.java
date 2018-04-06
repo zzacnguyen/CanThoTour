@@ -16,7 +16,7 @@ import com.doan3.canthotour.Helper.JsonHelper;
 import com.doan3.canthotour.Model.ModelService;
 import com.doan3.canthotour.Model.ObjectClass.NearLocation;
 import com.doan3.canthotour.R;
-import com.doan3.canthotour.View.Main.ActivityServiceInfo;
+import static com.doan3.canthotour.View.Main.MainActivity.menuBotNavBar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -43,7 +43,7 @@ public class ActivityNearLocation extends AppCompatActivity {
         serviceType = getIntent().getIntExtra(Config.KEY_NEAR_LOCATION.get(2), 1);
         load();
 
-        ActivityServiceInfo.menuBotNavBar(this,0);
+        menuBotNavBar(this,0);
     }
 
     private void load() {

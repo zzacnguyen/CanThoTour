@@ -12,6 +12,7 @@ import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
+
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Base64;
@@ -57,6 +58,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.concurrent.ExecutionException;
 
+import static com.doan3.canthotour.View.Main.MainActivity.menuBotNavBar;
 import static com.doan3.canthotour.View.Personal.ActivityLogin.userId;
 
 /**
@@ -71,36 +73,6 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
     CallbackManager callbackManager;
     ShareDialog shareDialog;
     public static String[] imgDetail = null;
-
-    public static void menuBotNavBar(final Activity activity, int i) {
-        BottomNavigationView bottomNavigationView = activity.findViewById(R.id.bottomNavView_Bar);
-        BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
-
-        Menu menu = bottomNavigationView.getMenu();
-        MenuItem menuItem = menu.getItem(i);
-        menuItem.setChecked(true);
-
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.ic_trangchu:
-                        activity.startActivity(new Intent(activity, MainActivity.class));
-                        break;
-                    case R.id.ic_yeuthich:
-                        activity.startActivity(new Intent(activity, ActivityFavorite.class));
-                        break;
-                    case R.id.ic_thongbao:
-                        activity.startActivity(new Intent(activity, ActivityNotify.class));
-                        break;
-                    case R.id.ic_canhan:
-                        activity.startActivity(new Intent(activity, ActivityPersonal.class));
-                        break;
-                }
-                return false;
-            }
-        });
-    }
 
     @Override
     public void onClick(View view) {

@@ -18,6 +18,7 @@ import com.doan3.canthotour.View.Favorite.ActivityFavorite;
 import com.doan3.canthotour.View.Main.MainActivity;
 import com.doan3.canthotour.View.Notify.ActivityNotify;
 import com.doan3.canthotour.View.Search.ActivityAdvancedSearch;
+import static com.doan3.canthotour.View.Main.MainActivity.menuBotNavBar;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -140,35 +141,6 @@ public class ActivityPersonal extends AppCompatActivity {
             }
         });
 
-        menuBotNarBar();
-    }
-
-    private void menuBotNarBar() {
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavView_Bar);
-        BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
-
-        Menu menu = bottomNavigationView.getMenu();
-        MenuItem menuItem = menu.getItem(3);
-        menuItem.setChecked(true);
-
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.ic_trangchu:
-                        startActivity(new Intent(ActivityPersonal.this, MainActivity.class));
-                        break;
-                    case R.id.ic_yeuthich:
-                        startActivity(new Intent(ActivityPersonal.this, ActivityFavorite.class));
-                        break;
-                    case R.id.ic_thongbao:
-                        startActivity(new Intent(ActivityPersonal.this, ActivityNotify.class));
-                        break;
-                    case R.id.ic_canhan:
-                        break;
-                }
-                return false;
-            }
-        });
+        menuBotNavBar(this, 3);
     }
 }

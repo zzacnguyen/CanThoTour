@@ -37,6 +37,7 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 import static com.doan3.canthotour.View.Personal.ActivityLogin.userId;
+import static com.doan3.canthotour.View.Main.MainActivity.menuBotNavBar;
 
 public class ActivityFavorite extends AppCompatActivity {
     ArrayList<String> finalArr = new ArrayList<>();
@@ -71,38 +72,9 @@ public class ActivityFavorite extends AppCompatActivity {
         if (file.exists()) {
             new PostJson(file).execute(Config.URL_HOST + Config.URL_GET_ALL_FAVORITE);
         }
-        menuBotNavBar();
+        menuBotNavBar(this, 1);
     }
 
-    private void menuBotNavBar() {
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavView_Bar);
-        BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
-
-        Menu menu = bottomNavigationView.getMenu();
-        MenuItem menuItem = menu.getItem(1);
-        menuItem.setChecked(true);
-
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.ic_trangchu:
-                        startActivity(new Intent(ActivityFavorite.this, MainActivity.class));
-                        break;
-                    case R.id.ic_yeuthich:
-
-                        break;
-                    case R.id.ic_thongbao:
-                        startActivity(new Intent(ActivityFavorite.this, ActivityNotify.class));
-                        break;
-                    case R.id.ic_canhan:
-                        startActivity(new Intent(ActivityFavorite.this, ActivityPersonal.class));
-                        break;
-                }
-                return false;
-            }
-        });
-    }
 
     private void load(final File file, int id) {
 

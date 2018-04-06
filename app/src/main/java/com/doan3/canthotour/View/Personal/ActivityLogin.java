@@ -17,6 +17,7 @@ import com.doan3.canthotour.Helper.JsonHelper;
 import com.doan3.canthotour.Model.ModelService;
 import com.doan3.canthotour.R;
 import com.doan3.canthotour.View.Main.ActivityServiceInfo;
+import static com.doan3.canthotour.View.Main.MainActivity.menuBotNavBar;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -108,7 +109,7 @@ public class ActivityLogin extends AppCompatActivity {
             }
         });
 
-        ActivityServiceInfo.menuBotNavBar(this, 3);
+        menuBotNavBar(this, 3);
     }
 
     public static class Post extends AsyncTask<String, Void, String> {

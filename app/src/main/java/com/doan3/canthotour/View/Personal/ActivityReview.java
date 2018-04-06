@@ -17,6 +17,7 @@ import com.doan3.canthotour.Helper.JsonHelper;
 import com.doan3.canthotour.Model.ModelService;
 import com.doan3.canthotour.R;
 import com.doan3.canthotour.View.Main.ActivityServiceInfo;
+import static com.doan3.canthotour.View.Main.MainActivity.menuBotNavBar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -101,7 +102,7 @@ public class ActivityReview extends AppCompatActivity {
                 finishActivity(1);
             }
         });
-        ActivityServiceInfo.menuBotNavBar(this,0);
+        menuBotNavBar(this,0);
     }
 
     private class Put extends AsyncTask<String, Void, String> {

@@ -5,7 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 import com.doan3.canthotour.R;
-import com.doan3.canthotour.View.Main.ActivityServiceInfo;
+import static com.doan3.canthotour.View.Main.MainActivity.menuBotNavBar;
 
 
 public class ActivityRegCoop extends AppCompatActivity {
@@ -14,7 +14,7 @@ public class ActivityRegCoop extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registerprise);
 
-        ActivityServiceInfo.menuBotNavBar(this,3);
+        menuBotNavBar(this,3);
     }
 
 }

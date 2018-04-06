@@ -1,5 +1,6 @@
 package com.doan3.canthotour.View.Main;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -42,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
     Button btnPlace, btnEat, btnHoTel, btnEntertain, btnVehicle;
     FloatingActionButton fab, fabAddPlace;
     boolean enterprise = false;
-    public static int test = 1;
+    public static int badgeNumber = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
 
         display_enterprise();
 
-        menuBotNavBar();
+        menuBotNavBar(this, 0);
 
     }
 
@@ -167,20 +168,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //Bottom navigation bar
-    private void menuBotNavBar() {
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavView_Bar); //Bottom navigation view
+    public static void menuBotNavBar(final Activity activity, int i) {
+        BottomNavigationView bottomNavigationView = activity.findViewById(R.id.bottomNavView_Bar); //Bottom navigation view
         BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
 
         Menu menu = bottomNavigationView.getMenu();
-        MenuItem menuItem = menu.getItem(0);
+        MenuItem menuItem = menu.getItem(i);
         menuItem.setChecked(true);
 
         BottomNavigationMenuView bottomNavigationMenuView =
                 (BottomNavigationMenuView) bottomNavigationView.getChildAt(0); //Hiển thị ở trang chủ
         View v = bottomNavigationMenuView.getChildAt(2); //Hiển thị dấu chấm đỏ khi có thông báo
         BottomNavigationItemView itemView = (BottomNavigationItemView) v;
-        new QBadgeView(this).bindTarget(v)
-                        .setBadgeNumber(1)  //Set số hoạt động
+
+        new QBadgeView(activity).bindTarget(v)
+                        .setBadgeNumber(badgeNumber)  //Set số thông báo hiển thị
                         .setBadgeGravity(Gravity.START | Gravity.TOP)
                         .setGravityOffset(26,0,true);
 
@@ -189,15 +191,18 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.ic_trangchu:
+                        activity.startActivity(new Intent(activity, MainActivity.class));
                         break;
                     case R.id.ic_yeuthich:
-                        startActivity(new Intent(MainActivity.this, ActivityFavorite.class));
+                        activity.startActivity(new Intent(activity, ActivityFavorite.class));
                         break;
                     case R.id.ic_thongbao:
-                        startActivity(new Intent(MainActivity.this, ActivityNotify.class));
+                        Intent iNotify = new Intent(activity, ActivityNotify.class);
+                        badgeNumber = 0; //Ẩn thông báo đi khi đã ấn vào
+                        activity.startActivity(iNotify);
                         break;
                     case R.id.ic_canhan:
-                        startActivity(new Intent(MainActivity.this, ActivityPersonal.class));
+                        activity.startActivity(new Intent(activity, ActivityPersonal.class));
                         break;
                 }
                 return false;

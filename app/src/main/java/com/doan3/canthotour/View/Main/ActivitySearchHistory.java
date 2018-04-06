@@ -5,7 +5,8 @@ import android.os.Bundle;
 
 import com.doan3.canthotour.R;
 
-import static com.doan3.canthotour.View.Main.ActivityServiceInfo.menuBotNavBar;
+import static com.doan3.canthotour.View.Main.MainActivity.menuBotNavBar;
+
 
 public class ActivitySearchHistory extends AppCompatActivity {
 

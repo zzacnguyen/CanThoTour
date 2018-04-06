@@ -16,6 +16,7 @@ import com.doan3.canthotour.Model.ModelService;
 import com.doan3.canthotour.Model.ObjectClass.Review;
 import com.doan3.canthotour.R;
 import com.doan3.canthotour.View.Main.ActivityServiceInfo;
+import static com.doan3.canthotour.View.Main.MainActivity.menuBotNavBar;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -37,7 +38,8 @@ public class ActivityReviewList extends AppCompatActivity {
 
         int ma = getIntent().getIntExtra("id", 1);
         load(Config.URL_HOST + Config.URL_GET_ALL_REVIEWS + "-dichvu/" + ma, Config.GET_KEY_JSON_REVIEW);
-        ActivityServiceInfo.menuBotNavBar(this,0);
+
+        menuBotNavBar(this,0);
     }
 
     private void load(String url, final ArrayList<String> formatJson) {

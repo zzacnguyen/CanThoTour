@@ -16,7 +16,7 @@ import android.widget.Toast;
 import com.doan3.canthotour.Adapter.HttpRequestAdapter;
 import com.doan3.canthotour.Config;
 import com.doan3.canthotour.R;
-import com.doan3.canthotour.View.Main.ActivityServiceInfo;
+import static com.doan3.canthotour.View.Main.MainActivity.menuBotNavBar;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.location.places.Place;
@@ -208,7 +208,7 @@ public class ActivityAddPlace extends AppCompatActivity {
                 finishActivity(1);
             }
         });
-        ActivityServiceInfo.menuBotNavBar(this, 3);
+        menuBotNavBar(this, 3);
     }
 
     private void openActivityAddService(int i) {

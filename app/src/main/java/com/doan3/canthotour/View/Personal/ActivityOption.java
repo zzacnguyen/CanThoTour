@@ -13,8 +13,8 @@ import android.widget.TextView;
 
 import com.doan3.canthotour.Helper.JsonHelper;
 import com.doan3.canthotour.R;
-import com.doan3.canthotour.View.Main.ActivityServiceInfo;
 
+import static com.doan3.canthotour.View.Main.MainActivity.menuBotNavBar;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -87,6 +87,6 @@ public class ActivityOption extends AppCompatActivity {
             }
         });
 
-        ActivityServiceInfo.menuBotNavBar(this,3);
+        menuBotNavBar(this,3);
     }
 }

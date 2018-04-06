@@ -10,16 +10,13 @@ import android.widget.EditText;
 
 import com.doan3.canthotour.Config;
 import com.doan3.canthotour.R;
-import com.doan3.canthotour.View.Main.ActivityServiceInfo;
+import static com.doan3.canthotour.View.Main.MainActivity.menuBotNavBar;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.concurrent.ExecutionException;
 
-/**
- * Created by zzacn on 12/7/2017.
- */
 
 public class ActivityRegister extends AppCompatActivity {
     EditText etUserName, etPassword, etConfirmPassword, etCountry, etLanguage;
@@ -76,7 +73,7 @@ public class ActivityRegister extends AppCompatActivity {
             }
         });
 
-        ActivityServiceInfo.menuBotNavBar(this, 3);
+        menuBotNavBar(this, 3);
     }
 
 }

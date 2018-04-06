@@ -16,7 +16,7 @@ import com.doan3.canthotour.Interface.OnLoadMoreListener;
 import com.doan3.canthotour.Model.ModelService;
 import com.doan3.canthotour.Model.ObjectClass.Service;
 import com.doan3.canthotour.R;
-import com.doan3.canthotour.View.Main.ActivityServiceInfo;
+import static com.doan3.canthotour.View.Main.MainActivity.menuBotNavBar;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -63,7 +63,7 @@ public class ActivityService extends AppCompatActivity {
 
         load(url, formatJson);
 
-        ActivityServiceInfo.menuBotNavBar(this,0);
+        menuBotNavBar(this, 0);
     }
 
     private void load(String url, final ArrayList<String> formatJson) {
