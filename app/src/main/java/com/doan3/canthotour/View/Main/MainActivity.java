@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -34,6 +35,7 @@ import com.doan3.canthotour.View.Personal.ActivityPersonal;
 import com.doan3.canthotour.View.Search.ActivitySearch;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 import q.rorbin.badgeview.QBadgeView;
 
@@ -43,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
     Button btnPlace, btnEat, btnHoTel, btnEntertain, btnVehicle;
     FloatingActionButton fab, fabAddPlace;
     boolean enterprise = false;
-    public static int badgeNumber = 1;
+    public static int badgeNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -180,6 +182,16 @@ public class MainActivity extends AppCompatActivity {
                 (BottomNavigationMenuView) bottomNavigationView.getChildAt(0); //Hiển thị ở trang chủ
         View v = bottomNavigationMenuView.getChildAt(2); //Hiển thị dấu chấm đỏ khi có thông báo
         BottomNavigationItemView itemView = (BottomNavigationItemView) v;
+
+        try {
+            String getBadgeNumber = new ModelService.Load().execute(Config.URL_HOST + Config.URL_GET_EVENT_NUMBER).get();
+            badgeNumber = Integer.parseInt(getBadgeNumber);
+            Log.d("badge number", getBadgeNumber);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
 
         new QBadgeView(activity).bindTarget(v)
                         .setBadgeNumber(badgeNumber)  //Set số thông báo hiển thị

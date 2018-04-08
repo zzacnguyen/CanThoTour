@@ -28,6 +28,7 @@ public class Config {
     public static final String URL_GET_THUMB = "thumbnails/";
     public static final String URL_POST_PLACE = "add-places";
     public static final String URL_POST_IMAGE = "upload-image/";
+    public static final String URL_GET_EVENT_NUMBER = "counter-events";
 
     public static final String FOLDER_NAME = "/vietnamtour";
     public static final String FILE_LIKE = "dsyeuthich.json";
