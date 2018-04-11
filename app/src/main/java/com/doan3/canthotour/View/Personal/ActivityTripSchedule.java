@@ -16,7 +16,7 @@ public class ActivityTripSchedule extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_trip_schedule);
+        setContentView(R.layout.activity_trip_schedule_list);
 
         fabAddTripSchedule = findViewById(R.id.fabAddTripSchedule);
 

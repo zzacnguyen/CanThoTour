@@ -54,7 +54,8 @@
         <activity android:name=".View.Main.FullImageActivity" />
         <activity android:name=".View.Main.ActivitySearchHistory" />
         <activity android:name=".View.Personal.ActivityAddTripSchedule" />
-        <activity android:name=".View.Personal.ActivityTripSchedule"></activity>
+        <activity android:name=".View.Personal.ActivityTripSchedule" />
+        <activity android:name=".View.Personal.ActitityTripScheduleInfo"></activity>
     </application>
 
 </manifest>
