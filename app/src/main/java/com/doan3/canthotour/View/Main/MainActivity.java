@@ -1,6 +1,9 @@
 package com.doan3.canthotour.View.Main;
 
 import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -29,6 +32,7 @@ import com.doan3.canthotour.Model.ObjectClass.Service;
 import com.doan3.canthotour.R;
 import com.doan3.canthotour.View.Favorite.ActivityFavorite;
 import com.doan3.canthotour.View.Main.Content.ActivityService;
+import com.doan3.canthotour.View.Main.Content.FragmentService;
 import com.doan3.canthotour.View.Notify.ActivityNotify;
 import com.doan3.canthotour.View.Personal.ActivityAddPlace;
 import com.doan3.canthotour.View.Personal.ActivityPersonal;
@@ -236,6 +240,31 @@ public class MainActivity extends AppCompatActivity {
                 new ServiceAdapter(services, getApplicationContext());
         recyclerView.setAdapter(serviceAdapter);
         serviceAdapter.notifyDataSetChanged();
+    }
+
+    public void addFragment(View view){
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        Fragment fragment = null;
+
+        switch (view.getId()){
+            case R.id.btnAllPlace:
+                fragment = new FragmentService();
+                break;
+        }
+
+        fragmentTransaction.add(R.id.mainFragContent, fragment);
+        fragmentTransaction.addToBackStack("aaa");
+        fragmentTransaction.commit();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(getFragmentManager().getBackStackEntryCount() > 0){ //đếm số lượng trong ngăn xếp còn bao nhiêu số lượng fragment
+            getFragmentManager().popBackStack();
+        }else{
+            super.onBackPressed();
+        }
     }
 }
 

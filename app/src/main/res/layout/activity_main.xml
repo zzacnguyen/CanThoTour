@@ -4,40 +4,48 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/mainFragContent"
     tools:context="com.doan3.canthotour.View.Main.MainActivity">
 
-    <android.support.design.widget.AppBarLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorWhite"
-        android:fitsSystemWindows="true">
+        android:layout_height="wrap_content">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+        <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:layout_gravity="center"
-            android:background="@color/bgToolbar"
-            app:layout_collapseMode="pin">
+            android:layout_height="wrap_content"
+            android:background="@color/colorWhite"
+            android:fitsSystemWindows="true">
 
-            <ImageView
-                android:layout_width="46dp"
-                android:layout_height="match_parent"
-                android:background="@null" />
-
-            <TextView
-                android:id="@+id/toolbarTitle"
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@string/text_Home"
-                android:textAlignment="center"
-                android:textColor="@color/colorWhite"
-                android:textSize="18sp" />
+                android:layout_height="?attr/actionBarSize"
+                android:layout_gravity="center"
+                android:background="@color/bgToolbar"
+                app:layout_collapseMode="pin">
 
-        </android.support.v7.widget.Toolbar>
+                <ImageView
+                    android:layout_width="46dp"
+                    android:layout_height="match_parent"
+                    android:background="@null" />
 
-    </android.support.design.widget.AppBarLayout>
+                <TextView
+                    android:id="@+id/toolbarTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/text_Home"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="18sp" />
+
+            </android.support.v7.widget.Toolbar>
+
+        </android.support.design.widget.AppBarLayout>
+
+    </FrameLayout>
+
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
@@ -55,6 +63,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="50dp"
+        android:layout_marginTop="50dp"
         android:background="@color/colorWhite"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
@@ -100,7 +109,7 @@
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/RecyclerView_Place"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+                    android:layout_height="wrap_content"/>
 
             </LinearLayout>
 
