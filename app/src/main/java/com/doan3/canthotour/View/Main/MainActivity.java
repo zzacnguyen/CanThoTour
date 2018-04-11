@@ -68,14 +68,14 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         // region click button
-        btnPlace.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent iEventInfo = new Intent(MainActivity.this, ActivityService.class);
-                iEventInfo.putExtra("url", Config.URL_HOST + Config.URL_GET_ALL_PLACES);
-                startActivity(iEventInfo);
-            }
-        });
+//        btnPlace.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent iEventInfo = new Intent(MainActivity.this, ActivityService.class);
+//                iEventInfo.putExtra("url", Config.URL_HOST + Config.URL_GET_ALL_PLACES);
+//                startActivity(iEventInfo);
+//            }
+//        });
 
         btnEat.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -250,6 +250,11 @@ public class MainActivity extends AppCompatActivity {
         switch (view.getId()){
             case R.id.btnAllPlace:
                 fragment = new FragmentService();
+
+                Bundle bundle = new Bundle();
+                bundle.putString("url", Config.URL_HOST + Config.URL_GET_ALL_PLACES);
+                fragment.setArguments(bundle);
+
                 break;
         }
 
