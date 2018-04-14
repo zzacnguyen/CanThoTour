@@ -33,7 +33,6 @@
     <string name="text_AddNewPlace">Thêm địa điểm mới</string>
     <string name="text_PlaceLocation">Vị trí địa điểm</string>
     <string name="text_MapLocation">Chọn vị trí trên bản đồ</string>
-    <string name="text_Information">Thông tin địa điểm</string>
     <string name="hint_PlaceName">Tên địa điểm</string>
     <string name="hint_Address">Địa chỉ</string>
     <string name="hint_PhoneNumber">Số điện thoại</string>
@@ -108,4 +107,6 @@
     <string name="text_SearchHistory">Lịch sử tìm kiếm</string>
     <string name="text_ViewSearchHistory">Lịch sử tìm kiếm</string>
     <string name="text_TripSchedule">Lịch trình</string>
+    <string name="text_UserInfomation">Thông tin người dùng</string>
+    <string name="text_PlaceInformation">Thông tin địa điểm</string>
 </resources>

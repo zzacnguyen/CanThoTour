@@ -49,7 +49,6 @@
     <string name="text_MapLocation">Map location</string>
     <string name="text_Lat">Latitude</string>
     <string name="text_Long">Longitude</string>
-    <string name="text_Information">Information</string>
     <string name="hint_PlaceName">Place Name</string>
     <string name="hint_Address">Address</string>
     <string name="hint_PhoneNumber">Phone number</string>
@@ -124,4 +123,6 @@
     <string name="text_SearchHistory">Search history</string>
     <string name="text_ViewSearchHistory">View search history</string>
     <string name="text_TripSchedule">Trip schedule</string>
+    <string name="text_UserInfomation">Infomation</string>
+    <string name="text_PlaceInformation">Information</string>
 </resources>
