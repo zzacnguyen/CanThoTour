@@ -50,6 +50,8 @@ public class MainActivity extends AppCompatActivity {
     FloatingActionButton fab, fabAddPlace;
     boolean enterprise = false;
     public static int badgeNumber;
+    FragmentManager fragmentManager = getFragmentManager();
+    public static Fragment fragment = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,53 +68,6 @@ public class MainActivity extends AppCompatActivity {
         btnVehicle = findViewById(R.id.btnAllVehicle);
 
         setSupportActionBar(toolbar);
-
-        // region click button
-//        btnPlace.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent iEventInfo = new Intent(MainActivity.this, ActivityService.class);
-//                iEventInfo.putExtra("url", Config.URL_HOST + Config.URL_GET_ALL_PLACES);
-//                startActivity(iEventInfo);
-//            }
-//        });
-
-        btnEat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent iEventInfo = new Intent(MainActivity.this, ActivityService.class);
-                iEventInfo.putExtra("url", Config.URL_HOST + Config.URL_GET_ALL_EATS);
-                startActivity(iEventInfo);
-            }
-        });
-
-        btnHoTel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent iEventInfo = new Intent(MainActivity.this, ActivityService.class);
-                iEventInfo.putExtra("url", Config.URL_HOST + Config.URL_GET_ALL_HOTELS);
-                startActivity(iEventInfo);
-            }
-        });
-
-        btnEntertain.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent iEventInfo = new Intent(MainActivity.this, ActivityService.class);
-                iEventInfo.putExtra("url", Config.URL_HOST + Config.URL_GET_ALL_ENTERTAINMENTS);
-                startActivity(iEventInfo);
-            }
-        });
-
-        btnVehicle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent iEventInfo = new Intent(MainActivity.this, ActivityService.class);
-                iEventInfo.putExtra("url", Config.URL_HOST + Config.URL_GET_ALL_VEHICLES);
-                startActivity(iEventInfo);
-            }
-        });
-        // endregion
 
         // region load service
         // load place
@@ -243,22 +198,38 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void addFragment(View view){
-        FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        Fragment fragment = null;
+        fragment = new FragmentService();
+        Bundle bundle = new Bundle();
 
         switch (view.getId()){
             case R.id.btnAllPlace:
-                fragment = new FragmentService();
-
-                Bundle bundle = new Bundle();
                 bundle.putString("url", Config.URL_HOST + Config.URL_GET_ALL_PLACES);
                 fragment.setArguments(bundle);
+                break;
 
+            case R.id.btnAllEat:
+                bundle.putString("url", Config.URL_HOST + Config.URL_GET_ALL_EATS);
+                fragment.setArguments(bundle);
+                break;
+
+            case R.id.btnAllHotel:
+                bundle.putString("url", Config.URL_HOST + Config.URL_GET_ALL_HOTELS);
+                fragment.setArguments(bundle);
+                break;
+
+            case R.id.btnAllEntertain:
+                bundle.putString("url", Config.URL_HOST + Config.URL_GET_ALL_ENTERTAINMENTS);
+                fragment.setArguments(bundle);
+                break;
+
+            case R.id.btnAllVehicle:
+                bundle.putString("url", Config.URL_HOST + Config.URL_GET_ALL_VEHICLES);
+                fragment.setArguments(bundle);
                 break;
         }
 
-        fragmentTransaction.add(R.id.mainFragContent, fragment);
+        fragmentTransaction.add(R.id.mainFragContent, fragment, "frag");
         fragmentTransaction.addToBackStack("aaa");
         fragmentTransaction.commit();
     }

@@ -45,6 +45,7 @@ import java.util.concurrent.ExecutionException;
 import q.rorbin.badgeview.QBadgeView;
 
 import static com.doan3.canthotour.View.Main.MainActivity.badgeNumber;
+import static com.doan3.canthotour.View.Main.MainActivity.fragment;
 import static com.doan3.canthotour.View.Main.MainActivity.menuBotNavBar;
 import static com.facebook.FacebookSdk.getApplicationContext;
 
@@ -96,6 +97,7 @@ public class FragmentService extends Fragment {
 
         load(url, formatJson, view);
 
+        bottomNavBar(view);
         return view;
     }
 
@@ -159,6 +161,57 @@ public class FragmentService extends Fragment {
                         }
                     }, 1000);
                 }
+            }
+        });
+    }
+
+    private void bottomNavBar(final View view) {
+        BottomNavigationView bottomNavigationView = view.findViewById(R.id.bottomNavView_Bar); //Bottom navigation view
+        BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
+
+        Menu menu = bottomNavigationView.getMenu();
+        MenuItem menuItem = menu.getItem(0);
+        menuItem.setChecked(true);
+
+        BottomNavigationMenuView bottomNavigationMenuView =
+                (BottomNavigationMenuView) bottomNavigationView.getChildAt(0); //Hiển thị ở trang chủ
+        View v = bottomNavigationMenuView.getChildAt(2); //Hiển thị dấu chấm đỏ khi có thông báo
+
+        try {
+            String getBadgeNumber = new ModelService.Load().execute(Config.URL_HOST + Config.URL_GET_EVENT_NUMBER).get();
+            badgeNumber = Integer.parseInt(getBadgeNumber);
+            Log.d("badge number", getBadgeNumber);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        new QBadgeView(getActivity()).bindTarget(v)
+                .setBadgeNumber(badgeNumber)  //Set số thông báo hiển thị
+                .setBadgeGravity(Gravity.START | Gravity.TOP)
+                .setGravityOffset(26,0,true);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.ic_trangchu:
+                        getActivity().getFragmentManager().beginTransaction().remove(fragment).commit();
+                        break;
+                    case R.id.ic_yeuthich:
+                        getActivity().startActivity(new Intent(getApplicationContext(), ActivityFavorite.class));
+                        break;
+                    case R.id.ic_thongbao:
+                        Intent iNotify = new Intent(getApplicationContext(), ActivityNotify.class);
+                        badgeNumber = 0; //Ẩn thông báo đi khi đã ấn vào
+                        getActivity().startActivity(iNotify);
+                        break;
+                    case R.id.ic_canhan:
+                        getActivity().startActivity(new Intent(getApplicationContext(), ActivityPersonal.class));
+                        break;
+                }
+                return false;
             }
         });
     }

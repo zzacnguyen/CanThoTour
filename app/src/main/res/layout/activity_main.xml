@@ -2,9 +2,9 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainFragContent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/mainFragContent"
     tools:context="com.doan3.canthotour.View.Main.MainActivity">
 
     <FrameLayout
@@ -56,8 +56,8 @@
         android:layout_marginRight="5dp"
         android:src="@drawable/ic_add_36dp"
         android:tint="#fff"
-        app:backgroundTint="@color/bgToolbar"
-        android:visibility="invisible"/>
+        android:visibility="invisible"
+        app:backgroundTint="@color/bgToolbar" />
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -93,13 +93,13 @@
                         android:textSize="16sp" />
 
                     <Button
-                        android:onClick="addFragment"
                         android:id="@+id/btnAllPlace"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0"
                         android:background="@null"
                         android:drawableRight="@drawable/ic_arrow"
+                        android:onClick="addFragment"
                         android:text="@string/text_All"
                         android:textAllCaps="false"
                         android:textColor="@color/colorGray"
@@ -110,18 +110,17 @@
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/RecyclerView_Place"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content" />
 
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
-                android:layout_marginTop="10dp"
                 android:layout_marginLeft="40dp"
                 android:layout_marginRight="40dp"
-                android:background="@color/tbPlace"
-                />
+                android:layout_marginTop="10dp"
+                android:background="@color/tbPlace" />
             <!--Ăn uống-->
             <LinearLayout
                 android:layout_width="match_parent"
@@ -148,6 +147,7 @@
                         android:layout_weight="0"
                         android:background="@null"
                         android:drawableRight="@drawable/ic_arrow"
+                        android:onClick="addFragment"
                         android:text="@string/text_All"
                         android:textAllCaps="false"
                         android:textColor="@color/colorGray"
@@ -158,16 +158,16 @@
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/RecyclerView_Eat"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+                    android:layout_height="wrap_content" />
 
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
-                android:layout_marginTop="10dp"
                 android:layout_marginLeft="40dp"
                 android:layout_marginRight="40dp"
+                android:layout_marginTop="10dp"
                 android:background="@color/tbEat" />
             <!--Khách sạn-->
             <LinearLayout
@@ -195,6 +195,7 @@
                         android:layout_weight="0"
                         android:background="@null"
                         android:drawableRight="@drawable/ic_arrow"
+                        android:onClick="addFragment"
                         android:text="@string/text_All"
                         android:textAllCaps="false"
                         android:textColor="@color/colorGray"
@@ -205,16 +206,16 @@
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/RecyclerView_Hotel"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content" />
 
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
-                android:layout_marginTop="10dp"
                 android:layout_marginLeft="40dp"
                 android:layout_marginRight="40dp"
+                android:layout_marginTop="10dp"
                 android:background="@color/tbHotel" />
 
             <!--Địa điểm vui chơi giải trí-->
@@ -243,6 +244,7 @@
                         android:layout_weight="0"
                         android:background="@null"
                         android:drawableRight="@drawable/ic_arrow"
+                        android:onClick="addFragment"
                         android:text="@string/text_All"
                         android:textAllCaps="false"
                         android:textColor="@color/colorGray"
@@ -253,16 +255,16 @@
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/RecyclerView_Entertain"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content" />
 
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
-                android:layout_marginTop="10dp"
                 android:layout_marginLeft="40dp"
                 android:layout_marginRight="40dp"
+                android:layout_marginTop="10dp"
                 android:background="@color/tbEntertain" />
 
             <!--Phương tiện-->
@@ -291,6 +293,7 @@
                         android:layout_weight="0"
                         android:background="@null"
                         android:drawableRight="@drawable/ic_arrow"
+                        android:onClick="addFragment"
                         android:text="@string/text_All"
                         android:textAllCaps="false"
                         android:textColor="@color/colorGray"
@@ -301,16 +304,16 @@
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/RecyclerView_Vehicle"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content" />
 
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
-                android:layout_marginTop="10dp"
                 android:layout_marginLeft="40dp"
                 android:layout_marginRight="40dp"
+                android:layout_marginTop="10dp"
                 android:background="@color/tbVehicle" />
 
         </LinearLayout>
