@@ -1,38 +1,32 @@
 package com.doan3.canthotour.View.Personal;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.doan3.canthotour.Helper.BottomNavigationViewHelper;
+import com.doan3.canthotour.Model.SessionManager;
 import com.doan3.canthotour.R;
-import com.doan3.canthotour.View.Favorite.ActivityFavorite;
-import com.doan3.canthotour.View.Main.MainActivity;
-import com.doan3.canthotour.View.Notify.ActivityNotify;
 import com.doan3.canthotour.View.Search.ActivityAdvancedSearch;
-import static com.doan3.canthotour.View.Main.MainActivity.menuBotNavBar;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-import static com.doan3.canthotour.View.Personal.ActivityLogin.avatar;
-import static com.doan3.canthotour.View.Personal.ActivityLogin.userId;
-import static com.doan3.canthotour.View.Personal.ActivityLogin.userType;
-import static com.doan3.canthotour.View.Personal.ActivityLogin.userName;
+import static com.doan3.canthotour.View.Main.MainActivity.menuBotNavBar;
 
 public class ActivityPersonal extends AppCompatActivity {
 
+    public static int userId = 0;
+    public static String userName, userType;
+    public static Bitmap avatar;
     Button btnAddPlace, btnAddService, btnRegEnterprise, btnOption, btnLogin, btnAdvancedSearch, btnLogout, btnTripSchedule;
     TextView txtUserName, txtUserType;
     CircleImageView Cavatar;
     LinearLayout addPlace, addService, regEnterprise, Logout, Login, tripSchedule;
+    SessionManager sessionManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +50,9 @@ public class ActivityPersonal extends AppCompatActivity {
         tripSchedule = findViewById(R.id.TripSchedule);
         Logout = findViewById(R.id.Logout);
         Login = findViewById(R.id.Login);
+
+        sessionManager = new SessionManager(getApplicationContext());
+        sessionManager.checkLogin();
 
         txtUserName.setText(userName);
         txtUserType.setText(userType);
@@ -137,6 +134,7 @@ public class ActivityPersonal extends AppCompatActivity {
                 txtUserName.setText(userName);
                 txtUserType.setText(userType);
                 Cavatar.setImageBitmap(avatar);
+                sessionManager.logoutUser();
                 startActivity(new Intent(ActivityPersonal.this, ActivityPersonal.class));
             }
         });

@@ -6,19 +6,14 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.BottomNavigationView;
 
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Base64;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -29,15 +24,11 @@ import android.widget.Toast;
 
 import com.doan3.canthotour.Adapter.HttpRequestAdapter;
 import com.doan3.canthotour.Config;
-import com.doan3.canthotour.Helper.BottomNavigationViewHelper;
 import com.doan3.canthotour.Helper.JsonHelper;
 import com.doan3.canthotour.Model.ModelService;
 import com.doan3.canthotour.Model.ObjectClass.ServiceInfo;
 import com.doan3.canthotour.R;
-import com.doan3.canthotour.View.Favorite.ActivityFavorite;
-import com.doan3.canthotour.View.Notify.ActivityNotify;
 import com.doan3.canthotour.View.Personal.ActivityLogin;
-import com.doan3.canthotour.View.Personal.ActivityPersonal;
 import com.doan3.canthotour.View.Personal.ActivityReview;
 import com.doan3.canthotour.View.Personal.ActivityReviewList;
 import com.doan3.canthotour.View.Search.ActivityNearLocation;
@@ -59,7 +50,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.concurrent.ExecutionException;
 
 import static com.doan3.canthotour.View.Main.MainActivity.menuBotNavBar;
-import static com.doan3.canthotour.View.Personal.ActivityLogin.userId;
+import static com.doan3.canthotour.View.Personal.ActivityPersonal.userId;
 
 /**
  * Created by sieut on 12/6/2017.
@@ -82,7 +73,7 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
         switch (view.getId()){
             case R.id.imgInfo1:
                 try {
-                    imgDetail = new ModelService.Load().execute(Config.URL_HOST + Config.URL_GET_LINK_DETAIL_1 + id).get()
+                    imgDetail = new HttpRequestAdapter.httpGet().execute(Config.URL_HOST + Config.URL_GET_LINK_DETAIL_1 + id).get()
                             .replaceAll("\"", "")
                             .split("\\+");
                     startActivity(iDetail);
@@ -95,7 +86,7 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
 
             case R.id.imgInfo2:
                 try {
-                    imgDetail = new ModelService.Load().execute(Config.URL_HOST + Config.URL_GET_LINK_DETAIL_2 + id).get()
+                    imgDetail = new HttpRequestAdapter.httpGet().execute(Config.URL_HOST + Config.URL_GET_LINK_DETAIL_2 + id).get()
                             .replaceAll("\"", "")
                             .split("\\+");
                     startActivity(iDetail);
@@ -138,7 +129,7 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
                     intent.putExtra("id", id);
                     startActivity(intent);
                 } else {
-                    File path = new File(Environment.getExternalStorageDirectory() + Config.FOLDER_NAME);
+                    File path = new File(Environment.getExternalStorageDirectory() + Config.FOLDER);
                     if (!path.exists()) {
                         path.mkdirs();
                     }
@@ -186,7 +177,7 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
                                 }
                             }
                             if (isExists) {
-                                new DeleteFavorite().execute(Config.URL_HOST + Config.URL_GET_ALL_FAVORITE + "/" + favoriteId);
+                                new HttpRequestAdapter.httpDelete().execute(Config.URL_HOST + Config.URL_GET_ALL_FAVORITE + "/" + favoriteId);
                             }
                         } catch (JSONException ex) {
                             ex.printStackTrace();
@@ -294,8 +285,8 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
 
         final ServiceInfo serviceInfo = new ModelService().getServiceInfo(url);
 
-        favoriteId = serviceInfo.getIdYeuThich();
-        reviewId = Integer.parseInt(serviceInfo.getReviewId());
+        favoriteId = serviceInfo.getIdLike();
+        reviewId = Integer.parseInt(serviceInfo.getIdReview());
         longitude = serviceInfo.getLongitude();
         latitude = serviceInfo.getLatitude();
 
@@ -404,23 +395,6 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
             e.printStackTrace();
         }
 
-    }
-
-    private class DeleteFavorite extends AsyncTask<String, Void, String> {
-        @Override
-        protected String doInBackground(String... strings) {
-            return HttpRequestAdapter.httpDelete(strings[0]);
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-            if (s.equals("success")) {
-                Toast.makeText(ActivityServiceInfo.this, getResources().getString(R.string.text_UnLike), Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(ActivityServiceInfo.this, getResources().getString(R.string.text_CannotUnlike), Toast.LENGTH_SHORT).show();
-            }
-        }
     }
 
     private void printKeyHash() {

@@ -1,35 +1,28 @@
 package com.doan3.canthotour.View.Notify;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.Menu;
-import android.view.MenuItem;
 
 import com.doan3.canthotour.Adapter.EventAdapter;
+import com.doan3.canthotour.Adapter.HttpRequestAdapter.httpGet;
 import com.doan3.canthotour.Adapter.ListOfServiceAdapter;
 import com.doan3.canthotour.Config;
-import com.doan3.canthotour.Helper.BottomNavigationViewHelper;
 import com.doan3.canthotour.Helper.JsonHelper;
 import com.doan3.canthotour.Interface.OnLoadMoreListener;
 import com.doan3.canthotour.Model.ModelService;
 import com.doan3.canthotour.Model.ObjectClass.Event;
 import com.doan3.canthotour.R;
-import com.doan3.canthotour.View.Favorite.ActivityFavorite;
-import com.doan3.canthotour.View.Main.MainActivity;
-import com.doan3.canthotour.View.Personal.ActivityPersonal;
-import static com.doan3.canthotour.View.Main.MainActivity.menuBotNavBar;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
+
+import static com.doan3.canthotour.View.Main.MainActivity.menuBotNavBar;
 
 public class ActivityNotify extends AppCompatActivity {
 
@@ -66,7 +59,7 @@ public class ActivityNotify extends AppCompatActivity {
         final ArrayList<Event> finalListService = services;
         try {
             finalArr = JsonHelper.parseJsonNoId(new JSONObject
-                    (new ModelService.Load().execute(url).get()), Config.GET_KEY_JSON_LOAD);
+                    (new httpGet().execute(url).get()), Config.GET_KEY_JSON_LOAD);
         } catch (JSONException | InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
@@ -95,7 +88,7 @@ public class ActivityNotify extends AppCompatActivity {
                             }
                             try {
                                 finalArr = JsonHelper.parseJsonNoId(new JSONObject
-                                        (new ModelService.Load().execute(finalArr.get(1)).get()), Config.GET_KEY_JSON_LOAD);
+                                        (new httpGet().execute(finalArr.get(1)).get()), Config.GET_KEY_JSON_LOAD);
                             } catch (JSONException | InterruptedException | ExecutionException e) {
                                 e.printStackTrace();
                             }

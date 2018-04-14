@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.doan3.canthotour.Adapter.HttpRequestAdapter.httpGet;
 import com.doan3.canthotour.Adapter.ListOfServiceAdapter;
 import com.doan3.canthotour.Config;
 import com.doan3.canthotour.Helper.JsonHelper;
@@ -22,7 +23,6 @@ import com.doan3.canthotour.Model.ModelService;
 import com.doan3.canthotour.Model.ObjectClass.Service;
 import com.doan3.canthotour.R;
 import com.doan3.canthotour.View.Main.ActivitySearchHistory;
-import com.doan3.canthotour.View.Main.Content.ActivityService;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -96,7 +96,7 @@ public class ActivitySearch extends AppCompatActivity implements View.OnClickLis
         final ArrayList<Service> finalListService = services;
         try {
             finalArr = JsonHelper.parseJsonNoId(new JSONObject
-                    (new ModelService.Load().execute(url).get()), Config.GET_KEY_JSON_LOAD);
+                    (new httpGet().execute(url).get()), Config.GET_KEY_JSON_LOAD);
         } catch (JSONException | InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
@@ -126,7 +126,7 @@ public class ActivitySearch extends AppCompatActivity implements View.OnClickLis
                             }
                             try {
                                 finalArr = JsonHelper.parseJsonNoId(new JSONObject
-                                        (new ModelService.Load().execute(finalArr.get(1)).get()), Config.GET_KEY_JSON_LOAD);
+                                        (new httpGet().execute(finalArr.get(1)).get()), Config.GET_KEY_JSON_LOAD);
                             } catch (JSONException | InterruptedException | ExecutionException e) {
                                 e.printStackTrace();
                             }
@@ -142,7 +142,7 @@ public class ActivitySearch extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onClick(View view) { //Tạo sự kiện click cho TextView
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.textViewSearchHistory:
                 Intent iSearchHistory = new Intent(ActivitySearch.this, ActivitySearchHistory.class);
                 startActivity(iSearchHistory);

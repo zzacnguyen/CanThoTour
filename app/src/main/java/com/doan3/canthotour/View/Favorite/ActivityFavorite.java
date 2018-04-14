@@ -1,17 +1,12 @@
 package com.doan3.canthotour.View.Favorite;
 
-import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
-import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -24,9 +19,6 @@ import com.doan3.canthotour.Interface.OnLoadMoreListener;
 import com.doan3.canthotour.Model.ModelService;
 import com.doan3.canthotour.Model.ObjectClass.Service;
 import com.doan3.canthotour.R;
-import com.doan3.canthotour.View.Main.MainActivity;
-import com.doan3.canthotour.View.Notify.ActivityNotify;
-import com.doan3.canthotour.View.Personal.ActivityPersonal;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -36,8 +28,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
-import static com.doan3.canthotour.View.Personal.ActivityLogin.userId;
 import static com.doan3.canthotour.View.Main.MainActivity.menuBotNavBar;
+import static com.doan3.canthotour.View.Personal.ActivityPersonal.userId;
 
 public class ActivityFavorite extends AppCompatActivity {
     ArrayList<String> finalArr = new ArrayList<>();
@@ -56,7 +48,7 @@ public class ActivityFavorite extends AppCompatActivity {
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavView_Bar);
         BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
 
-        File path = new File(Environment.getExternalStorageDirectory() + Config.FOLDER_NAME);
+        File path = new File(Environment.getExternalStorageDirectory() + Config.FOLDER);
         if (!path.exists()) {
             path.mkdirs();
         }
@@ -70,7 +62,18 @@ public class ActivityFavorite extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
         load(file, userId);
         if (file.exists()) {
-            new PostJson(file).execute(Config.URL_HOST + Config.URL_GET_ALL_FAVORITE);
+            try {
+                JSONArray jsonFile = new JSONArray(JsonHelper.readJson(file));
+                for (int i = 0; i < jsonFile.length(); i++) {
+                    JSONObject jsonObject = new JSONObject("{" +
+                            Config.POST_KEY_JSON_LIKE.get(0) + ":\"" + jsonFile.getJSONObject(i).getString("id") + "\"," +
+                            Config.POST_KEY_JSON_LIKE.get(1) + ":\"" + userId + "\"}");
+                    new HttpRequestAdapter.httpPost(jsonObject).execute(Config.URL_HOST + Config.URL_GET_ALL_FAVORITE);
+                }
+                file.delete();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
         menuBotNavBar(this, 1);
     }
@@ -89,7 +92,7 @@ public class ActivityFavorite extends AppCompatActivity {
         //set load more listener for the RecyclerView adapter
         final ArrayList<Service> finalListService = favoriteList;
         try {
-            finalArr = JsonHelper.parseJsonNoId(new JSONObject(new ModelService.Load().execute(Config.URL_HOST +
+            finalArr = JsonHelper.parseJsonNoId(new JSONObject(new HttpRequestAdapter.httpGet().execute(Config.URL_HOST +
                     Config.URL_GET_ALL_FAVORITE + "/" + id).get()), Config.GET_KEY_JSON_LOAD);
         } catch (JSONException | InterruptedException | ExecutionException e) {
             e.printStackTrace();
@@ -119,7 +122,7 @@ public class ActivityFavorite extends AppCompatActivity {
                             }
                             try {
                                 finalArr = JsonHelper.parseJsonNoId(new JSONObject
-                                        (new ModelService.Load().execute(finalArr.get(1)).get()), Config.GET_KEY_JSON_LOAD);
+                                        (new HttpRequestAdapter.httpGet().execute(finalArr.get(1)).get()), Config.GET_KEY_JSON_LOAD);
                             } catch (JSONException | InterruptedException | ExecutionException e) {
                                 e.printStackTrace();
                             }
@@ -131,30 +134,5 @@ public class ActivityFavorite extends AppCompatActivity {
                 }
             }
         });
-    }
-
-    private class PostJson extends AsyncTask<String, Void, Void> {
-        File file;
-
-        private PostJson(File file) {
-            this.file = file;
-        }
-
-        @Override
-        protected Void doInBackground(String... strings) {
-            try {
-                JSONArray jsonFile = new JSONArray(JsonHelper.readJson(file));
-                for (int i = 0; i < jsonFile.length(); i++) {
-                    JSONObject jsonObject = new JSONObject("{\"dv_iddichvu\":\"" +
-                            jsonFile.getJSONObject(i).getString("id") + "\"" +
-                            ",\"nd_idnguoidung\":\"" + userId + "\"}");
-                    HttpRequestAdapter.httpPost(strings[0], jsonObject);
-                }
-                file.delete();
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
     }
 }

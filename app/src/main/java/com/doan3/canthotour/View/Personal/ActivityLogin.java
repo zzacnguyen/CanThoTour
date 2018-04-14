@@ -1,8 +1,6 @@
 package com.doan3.canthotour.View.Personal;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -11,13 +9,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.doan3.canthotour.Adapter.HttpRequestAdapter;
+import com.doan3.canthotour.Adapter.HttpRequestAdapter.httpPost;
 import com.doan3.canthotour.Config;
 import com.doan3.canthotour.Helper.JsonHelper;
-import com.doan3.canthotour.Model.ModelService;
+import com.doan3.canthotour.Model.SessionManager;
 import com.doan3.canthotour.R;
 import com.doan3.canthotour.View.Main.ActivityServiceInfo;
-import static com.doan3.canthotour.View.Main.MainActivity.menuBotNavBar;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -25,17 +22,22 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
+import static com.doan3.canthotour.Model.ModelService.setImage;
+import static com.doan3.canthotour.View.Main.MainActivity.menuBotNavBar;
+import static com.doan3.canthotour.View.Personal.ActivityPersonal.avatar;
+import static com.doan3.canthotour.View.Personal.ActivityPersonal.userId;
+import static com.doan3.canthotour.View.Personal.ActivityPersonal.userName;
+import static com.doan3.canthotour.View.Personal.ActivityPersonal.userType;
+
 /**
  * Created by zzacn on 12/7/2017.
  */
 
 public class ActivityLogin extends AppCompatActivity {
-    public static int userId = 0;
-    public static String userName, userType;
-    public static Bitmap avatar;
     EditText etUserId, etPassword;
     Button btnReg, btnLogin;
     int id;
+    SessionManager sessionManager;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -52,6 +54,8 @@ public class ActivityLogin extends AppCompatActivity {
             Toast.makeText(this, mess, Toast.LENGTH_SHORT).show();
         }
 
+        sessionManager = new SessionManager(getApplicationContext());
+
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -62,29 +66,31 @@ public class ActivityLogin extends AppCompatActivity {
                     etPassword.setError("Mật khẩu không được để trống");
                 } else {
                     try {
-                        String rs = new Post().execute(Config.URL_HOST + Config.URL_LOGIN,
-                                "{" + Config.POST_KEY_LOGIN.get(0) + ":\"" + etUserId.getText().toString() + "\"," +
-                                        Config.POST_KEY_LOGIN.get(0) + ":\"" + etPassword.getText().toString() + "\"}").get();
-                        JSONObject json = new JSONObject(rs);
-                        // status = error
-                        if (json.getString(Config.GET_KEY_JSON_LOGIN.get(2)).toString().equals(Config.GET_KEY_JSON_LOGIN.get(3))) {
+                        JSONObject jsonPost = new JSONObject("{" + Config.POST_KEY_LOGIN.get(0) + ":\""
+                                + etUserId.getText().toString() + "\"," + Config.POST_KEY_LOGIN.get(1) + ":\""
+                                + etPassword.getText().toString() + "\"}");
+                        String rs = new httpPost(jsonPost).execute(Config.URL_HOST + Config.URL_LOGIN).get();
+                        JSONObject jsonGet = new JSONObject(rs);
+                        // nếu status = error
+                        if (jsonGet.getString(Config.GET_KEY_JSON_LOGIN.get(2)).toString().equals(Config.GET_KEY_JSON_LOGIN.get(3))) {
                             Toast.makeText(ActivityLogin.this, "tài khoản hoặc mật khẩu không đúng",
                                     Toast.LENGTH_SHORT).show();
                         } else {
                             ArrayList<String> arrayUser =
-                                    JsonHelper.parseJson(new JSONObject(json.getString(Config.GET_KEY_JSON_LOGIN.get(0))),
+                                    JsonHelper.parseJson(new JSONObject(jsonGet.getString(Config.GET_KEY_JSON_LOGIN.get(0))),
                                             Config.GET_KEY_JSON_USER);
 
                             userId = Integer.parseInt(arrayUser.get(0));
                             userName = arrayUser.get(1);
-                            userType = getResources().getString(R.string.text_Personal);
-//                            userType = Integer.parseInt(arrayUser.get(2)) == 1 ?
-//                                    getResources().getString(R.string.text_Personal) : getResources().getString(R.string.text_Enterprise);
-                            try {
-                                avatar = new ModelService.GetImage().execute(arrayUser.get(2)).get();
-                            } catch (InterruptedException | ExecutionException e) {
-                                e.printStackTrace();
+                            userType = arrayUser.get(3);
+                            if (!arrayUser.get(2).equals(Config.NULL)) {
+                                avatar = setImage("", Config.FOLDER_AVATAR, arrayUser.get(2));
+                            } else {
+                                avatar = null;
                             }
+
+                            sessionManager.createLoginSession(userId + "", userName, userType, avatar);
+
                             if (id == 0) {
                                 startActivity(new Intent(ActivityLogin.this, ActivityPersonal.class));
                             } else {
@@ -110,19 +116,5 @@ public class ActivityLogin extends AppCompatActivity {
         });
 
         menuBotNavBar(this, 3);
-    }
-
-    public static class Post extends AsyncTask<String, Void, String> {
-        @Override
-        protected String doInBackground(String... strings) {
-            String rs = null;
-            try {
-                rs = HttpRequestAdapter.httpPost(strings[0],
-                        new JSONObject(strings[1]));
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            return rs;
-        }
     }
 }

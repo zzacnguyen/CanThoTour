@@ -48,7 +48,7 @@ public class ActivityNearLocation extends AppCompatActivity {
 
     private void load() {
 
-        File path = new File(Environment.getExternalStorageDirectory() + Config.FOLDER_NAME);
+        File path = new File(Environment.getExternalStorageDirectory() + Config.FOLDER);
         if (!path.exists()) {
             path.mkdirs();
         }
@@ -65,8 +65,8 @@ public class ActivityNearLocation extends AppCompatActivity {
             radius = Config.DEFAULT_DISTANCE;
         }
         ArrayList<NearLocation> favoriteList = new ModelService().getNearLocationList(Config.URL_HOST +
-                Config.URL_SEARCH_SERVICE_VICINITY.get(0) + latitude.trim() + "," + longitude.trim() + Config.URL_SEARCH_SERVICE_VICINITY.get(1) +
-                serviceType + Config.URL_SEARCH_SERVICE_VICINITY.get(2) + radius, serviceType, this);
+                Config.URL_SEARCH_SERVICE_NEAR.get(0) + latitude.trim() + "," + longitude.trim() + Config.URL_SEARCH_SERVICE_NEAR.get(1) +
+                serviceType + Config.URL_SEARCH_SERVICE_NEAR.get(2) + radius, serviceType, this);
         RecyclerView recyclerView = findViewById(R.id.RecyclerView_NearLocation);
         recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
         LinearLayoutManager linearLayoutManager =

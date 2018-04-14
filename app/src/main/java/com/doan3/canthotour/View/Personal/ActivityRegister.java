@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.doan3.canthotour.Adapter.HttpRequestAdapter.httpPost;
 import com.doan3.canthotour.Config;
 import com.doan3.canthotour.R;
 import static com.doan3.canthotour.View.Main.MainActivity.menuBotNavBar;
@@ -50,11 +51,14 @@ public class ActivityRegister extends AppCompatActivity {
                     etUserName.setError("Tài khoản không được chứa khoảng trắng");
                 }
                 try {
-                    json = new JSONObject(new ActivityLogin.Post().execute(Config.URL_HOST + Config.URL_REGISTER,
+                    JSONObject jsonPost = new JSONObject(
                             "{" + Config.POST_KEY_REGISTER.get(0) + ":\"" + etUserName.getText().toString() + "\"," +
-                                    Config.POST_KEY_REGISTER.get(0) + ":\"" + etPassword.getText().toString() + "\"," +
-                                    Config.POST_KEY_REGISTER.get(0) + ":\"" + etCountry.getText().toString() + "\"," +
-                                    Config.POST_KEY_REGISTER.get(0) + ":\"" + etLanguage.getText().toString() + "\"}").get());
+                            Config.POST_KEY_REGISTER.get(1) + ":\"" + etPassword.getText().toString() +
+//                                    "\"," +
+//                                    Config.POST_KEY_REGISTER.get(2) + ":\"" + etCountry.getText().toString() + "\"," +
+//                                    Config.POST_KEY_REGISTER.get(3) + ":\"" + etLanguage.getText().toString() +
+                            "\"}");
+                    json = new JSONObject(new httpPost(jsonPost).execute(Config.URL_HOST + Config.URL_REGISTER).get());
                     stt = json.getString(Config.GET_KEY_JSON_LOGIN.get(2));
                     error = json.getString(Config.GET_KEY_JSON_LOGIN.get(1));
                 } catch (InterruptedException | ExecutionException | JSONException e) {

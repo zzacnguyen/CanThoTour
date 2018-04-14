@@ -2,7 +2,6 @@ package com.doan3.canthotour.View.Personal;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -13,10 +12,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.doan3.canthotour.Adapter.HttpRequestAdapter;
+import com.doan3.canthotour.Adapter.HttpRequestAdapter.httpPost;
+import com.doan3.canthotour.Adapter.HttpRequestAdapter.httpPostImage;
 import com.doan3.canthotour.Config;
 import com.doan3.canthotour.R;
-import static com.doan3.canthotour.View.Main.MainActivity.menuBotNavBar;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.location.places.Place;
@@ -26,10 +25,13 @@ import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.ByteArrayBody;
 import org.apache.http.entity.mime.content.ContentBody;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.util.concurrent.ExecutionException;
 
+import static com.doan3.canthotour.View.Main.MainActivity.menuBotNavBar;
 import static com.doan3.canthotour.View.Personal.ActivityAddService.bitmapArrayList;
 import static com.doan3.canthotour.View.Personal.ActivityAddService.jsonServiceToString;
 
@@ -110,25 +112,25 @@ public class ActivityAddPlace extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if(etPlaceName.getText().toString().equals("")){
+                if (etPlaceName.getText().toString().equals("")) {
                     etPlaceName.setError("Tên địa điểm không được để trống");
-                }else if (etAddress.getText().toString().equals("")){
+                } else if (etAddress.getText().toString().equals("")) {
                     etAddress.setError("Địa chỉ không được để trống");
-                }else if (etPlacePhone.getText().toString().equals("")){
+                } else if (etPlacePhone.getText().toString().equals("")) {
                     etPlacePhone.setError("Số điện thoại không được để trống");
-                }else if (etPlaceAbout.getText().toString().equals("")){
+                } else if (etPlaceAbout.getText().toString().equals("")) {
                     etPlaceAbout.setError("Mô tả địa điểm không được để trống");
-                }else{
+                } else {
                     try {
-                        idPlace = new ActivityLogin.Post().execute(Config.URL_HOST + Config.URL_POST_PLACE,
-                                "{" + Config.POST_KEY_JSON_PLACE.get(0) + ":\"" + etPlaceName.getText().toString() + "\"," +
-                                        Config.POST_KEY_JSON_PLACE.get(1) + ":\"" + etPlaceAbout.getText().toString() + "\"," +
-                                        Config.POST_KEY_JSON_PLACE.get(2) + ":\"" + etAddress.getText().toString() + "\"," +
-                                        Config.POST_KEY_JSON_PLACE.get(3) + ":\"" + etPlacePhone.getText().toString() + "\"," +
-                                        Config.POST_KEY_JSON_PLACE.get(4) + ":\"" + txtLat.getText().toString() + "\"," +
-                                        Config.POST_KEY_JSON_PLACE.get(5) + ":\"" + txtLong.getText().toString() + "\"," +
-                                        Config.POST_KEY_JSON_PLACE.get(6) + ":\"" + "1" + "\"" + "}").get();
-                    } catch (InterruptedException | ExecutionException e) {
+                        JSONObject jsonPost = new JSONObject("{" + Config.POST_KEY_JSON_PLACE.get(0) + ":\"" + etPlaceName.getText().toString() + "\"," +
+                                Config.POST_KEY_JSON_PLACE.get(1) + ":\"" + etPlaceAbout.getText().toString() + "\"," +
+                                Config.POST_KEY_JSON_PLACE.get(2) + ":\"" + etAddress.getText().toString() + "\"," +
+                                Config.POST_KEY_JSON_PLACE.get(3) + ":\"" + etPlacePhone.getText().toString() + "\"," +
+                                Config.POST_KEY_JSON_PLACE.get(4) + ":\"" + txtLat.getText().toString() + "\"," +
+                                Config.POST_KEY_JSON_PLACE.get(5) + ":\"" + txtLong.getText().toString() + "\"," +
+                                Config.POST_KEY_JSON_PLACE.get(6) + ":\"" + "1" + "\"" + "}");
+                        idPlace = new httpPost(jsonPost).execute(Config.URL_HOST + Config.URL_POST_PLACE).get();
+                    } catch (InterruptedException | ExecutionException | JSONException e) {
                         e.printStackTrace();
                     }
                     try {
@@ -148,15 +150,16 @@ public class ActivityAddPlace extends AppCompatActivity {
                         }
                         String idP = idPlace.contains(":") ? idPlace.replaceAll("\"", "").split(":")[1] : "";
                         if (!idP.equals("")) {
-                            idService = new ActivityLogin.Post().execute(Config.URL_HOST + Config.URL_GET_ALL_SERVICES,
-                                    "{" + Config.POST_KEY_JSON_SERVICE.get(0) + ":\"" + jsonServiceToString.get(0) + "\"," +
-                                            Config.POST_KEY_JSON_SERVICE.get(1) + ":\"" + jsonServiceToString.get(1) + "\"," +
-                                            Config.POST_KEY_JSON_SERVICE.get(2) + ":\"" + jsonServiceToString.get(2) + "\"," +
-                                            Config.POST_KEY_JSON_SERVICE.get(3) + ":\"" + jsonServiceToString.get(3) + "\"," +
-                                            Config.POST_KEY_JSON_SERVICE.get(4) + ":\"" + jsonServiceToString.get(4) + "\"," +
-                                            Config.POST_KEY_JSON_SERVICE.get(5) + ":\"" + jsonServiceToString.get(5) + "\"," +
-                                            Config.POST_KEY_JSON_SERVICE.get(6) + ":\"" + jsonServiceToString.get(6) + "\"," +
-                                            Config.POST_KEY_JSON_SERVICE.get(7) + ":\"" + idP + "\"," + name + "}").get();
+                            JSONObject jsonPost = new JSONObject("{" +
+                                    Config.POST_KEY_JSON_SERVICE.get(0) + ":\"" + jsonServiceToString.get(0) + "\"," +
+                                    Config.POST_KEY_JSON_SERVICE.get(1) + ":\"" + jsonServiceToString.get(1) + "\"," +
+                                    Config.POST_KEY_JSON_SERVICE.get(2) + ":\"" + jsonServiceToString.get(2) + "\"," +
+                                    Config.POST_KEY_JSON_SERVICE.get(3) + ":\"" + jsonServiceToString.get(3) + "\"," +
+                                    Config.POST_KEY_JSON_SERVICE.get(4) + ":\"" + jsonServiceToString.get(4) + "\"," +
+                                    Config.POST_KEY_JSON_SERVICE.get(5) + ":\"" + jsonServiceToString.get(5) + "\"," +
+                                    Config.POST_KEY_JSON_SERVICE.get(6) + ":\"" + jsonServiceToString.get(6) + "\"," +
+                                    Config.POST_KEY_JSON_SERVICE.get(7) + ":\"" + idP + "\"," + name + "}");
+                            idService = new httpPost(jsonPost).execute(Config.URL_HOST + Config.URL_GET_ALL_SERVICES).get();
                             String idS = idService.contains(":") ? idService.replaceAll("\"", "").split(":")[1] : "";
                             if (!idS.equals("")) {
                                 ByteArrayOutputStream ban = new ByteArrayOutputStream();
@@ -175,8 +178,8 @@ public class ActivityAddPlace extends AppCompatActivity {
                                 reqEntity.addPart("details1", contentDetails1);
                                 reqEntity.addPart("details2", contentDetails2);
                                 try {
-                                    String response = new PostImage().execute(Config.URL_HOST + Config.URL_POST_IMAGE
-                                            + idService.replaceAll("\"", "").split(":")[1]).get();
+                                    String response = new httpPostImage(reqEntity).execute(Config.URL_HOST
+                                            + Config.URL_POST_IMAGE + idService.replaceAll("\"", "").split(":")[1]).get();
                                     if (response.equals("\"status:200\"")) {
                                         Toast.makeText(ActivityAddPlace.this, "Thành công", Toast.LENGTH_SHORT).show();
                                         bitmapArrayList.clear();
@@ -194,7 +197,7 @@ public class ActivityAddPlace extends AppCompatActivity {
                         } else {
                             Toast.makeText(ActivityAddPlace.this, "Thêm thất bại", Toast.LENGTH_SHORT).show();
                         }
-                    } catch (InterruptedException | ExecutionException e) {
+                    } catch (InterruptedException | ExecutionException | JSONException e) {
                         e.printStackTrace();
                     }
                 }
@@ -252,13 +255,6 @@ public class ActivityAddPlace extends AppCompatActivity {
         etAddress.setText(placeSelected.getAddress().toString());
         if (!placeName.contains("\'")) {
             etPlaceName.setText(placeSelected.getName().toString());
-        }
-    }
-
-    private class PostImage extends AsyncTask<String, Void, String> {
-        @Override
-        protected String doInBackground(String... strings) {
-            return HttpRequestAdapter.httpPostImage(strings[0], reqEntity);
         }
     }
 }

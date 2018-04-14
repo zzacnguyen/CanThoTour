@@ -1,14 +1,11 @@
 package com.doan3.canthotour.View.Main.Content;
 
-import android.app.Activity;
 import android.app.Fragment;
-import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -23,6 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.doan3.canthotour.Adapter.HttpRequestAdapter.httpGet;
 import com.doan3.canthotour.Adapter.ListOfServiceAdapter;
 import com.doan3.canthotour.Config;
 import com.doan3.canthotour.Helper.BottomNavigationViewHelper;
@@ -32,7 +30,6 @@ import com.doan3.canthotour.Model.ModelService;
 import com.doan3.canthotour.Model.ObjectClass.Service;
 import com.doan3.canthotour.R;
 import com.doan3.canthotour.View.Favorite.ActivityFavorite;
-import com.doan3.canthotour.View.Main.MainActivity;
 import com.doan3.canthotour.View.Notify.ActivityNotify;
 import com.doan3.canthotour.View.Personal.ActivityPersonal;
 
@@ -46,7 +43,6 @@ import q.rorbin.badgeview.QBadgeView;
 
 import static com.doan3.canthotour.View.Main.MainActivity.badgeNumber;
 import static com.doan3.canthotour.View.Main.MainActivity.fragment;
-import static com.doan3.canthotour.View.Main.MainActivity.menuBotNavBar;
 import static com.facebook.FacebookSdk.getApplicationContext;
 
 /**
@@ -122,7 +118,7 @@ public class FragmentService extends Fragment {
         final ArrayList<Service> finalListService = services;
         try {
             finalArr = JsonHelper.parseJsonNoId(new JSONObject
-                    (new ModelService.Load().execute(url).get()), Config.GET_KEY_JSON_LOAD);
+                    (new httpGet().execute(url).get()), Config.GET_KEY_JSON_LOAD);
         } catch (JSONException | InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
@@ -151,7 +147,7 @@ public class FragmentService extends Fragment {
                             }
                             try {
                                 finalArr = JsonHelper.parseJsonNoId(new JSONObject
-                                        (new ModelService.Load().execute(finalArr.get(1)).get()), Config.GET_KEY_JSON_LOAD);
+                                        (new httpGet().execute(finalArr.get(1)).get()), Config.GET_KEY_JSON_LOAD);
                             } catch (JSONException | InterruptedException | ExecutionException e) {
                                 e.printStackTrace();
                             }
@@ -178,7 +174,7 @@ public class FragmentService extends Fragment {
         View v = bottomNavigationMenuView.getChildAt(2); //Hiển thị dấu chấm đỏ khi có thông báo
 
         try {
-            String getBadgeNumber = new ModelService.Load().execute(Config.URL_HOST + Config.URL_GET_EVENT_NUMBER).get();
+            String getBadgeNumber = new httpGet().execute(Config.URL_HOST + Config.URL_GET_EVENT_NUMBER).get();
             badgeNumber = Integer.parseInt(getBadgeNumber);
             Log.d("badge number", getBadgeNumber);
         } catch (InterruptedException e) {
@@ -190,7 +186,7 @@ public class FragmentService extends Fragment {
         new QBadgeView(getActivity()).bindTarget(v)
                 .setBadgeNumber(badgeNumber)  //Set số thông báo hiển thị
                 .setBadgeGravity(Gravity.START | Gravity.TOP)
-                .setGravityOffset(26,0,true);
+                .setGravityOffset(26, 0, true);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override

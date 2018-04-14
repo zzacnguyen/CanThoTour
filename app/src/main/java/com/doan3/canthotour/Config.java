@@ -4,12 +4,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Config {
-    public static final String URL_HOST = "http://192.168.1.4/doan3_canthotour/public/";
+    public static final String URL_HOST = "http://192.168.1.3/doan3_canthotour/public/";
     public static final String URL_LOGIN = "login";
     public static final String URL_REGISTER = "register";
-    public static final String URL_SEARCH = "timkiem/dichvunangcao/idtype=";
+    public static final ArrayList<String> URL_SEARCH_TYPE =
+            new ArrayList<>(Arrays.asList("search/searchServicesTypeKeyword/type=", "&keyword="));
     public static final String URL_SEARCH_ALL = "search/services/keyword=";
-    public static final ArrayList<String> URL_SEARCH_SERVICE_VICINITY =
+    public static final ArrayList<String> URL_SEARCH_SERVICE_NEAR =
             new ArrayList<>(Arrays.asList("search/servicevicinity/location=", "&type=", "&radius="));
     public static final String URL_GET_ALL_EATS = "eating";
     public static final String URL_GET_ALL_REVIEWS = "visitor-ratings";
@@ -30,7 +31,8 @@ public class Config {
     public static final String URL_POST_IMAGE = "upload-image/";
     public static final String URL_GET_EVENT_NUMBER = "counter-events";
 
-    public static final String FOLDER_NAME = "/vietnamtour";
+    public static final String FOLDER = "/vietnamtour";
+    public static final String FOLDER_AVATAR = "avatar";
     public static final String FILE_LIKE = "dsyeuthich.json";
     public static final String FILE_DISTANCE = "khoangcach.json";
     public static final String NULL = "null";
@@ -47,7 +49,7 @@ public class Config {
             new ArrayList<>(Arrays.asList("eat_name", "image_id", "image_details_1"));
 
     public static final ArrayList<String> GET_KEY_JSON_USER =
-            new ArrayList<>(Arrays.asList("username", "user_avatar"));
+            new ArrayList<>(Arrays.asList("username", "avatar", "level"));
 
     public static final ArrayList<String> GET_KEY_JSON_PLACE =
             new ArrayList<>(Arrays.asList("sightseeing_name", "image_id", "image_details_1"));
@@ -93,7 +95,14 @@ public class Config {
             new ArrayList<>(Arrays.asList("\"username\"", "\"password\""));
 
     public static final ArrayList<String> POST_KEY_REGISTER =
-            new ArrayList<>(Arrays.asList("\"username\"", "\"password\"", "\"country\"", "\"language\""));
+            new ArrayList<>(Arrays.asList("\"username\"", "\"password\""));
+
+    public static final ArrayList<String> POST_KEY_JSON_REVIEW =
+            new ArrayList<>(Arrays.asList("\"service_id\"", "\"user_id\"", "\"vr_rating\"",
+                    "\"vr_title\"", "\"vr_ratings_details\""));
+
+    public static final ArrayList<String> POST_KEY_JSON_LIKE =
+            new ArrayList<>(Arrays.asList("\"service_id\"", "\"user_id\""));
 
     public static final ArrayList<String> POST_KEY_JSON_PLACE =
             new ArrayList<>(Arrays.asList("\"pl_name\"", "\"pl_details\"", "\"pl_address\"", "\"pl_phone_number\"",

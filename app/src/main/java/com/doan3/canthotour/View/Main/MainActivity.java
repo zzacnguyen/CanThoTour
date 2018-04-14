@@ -17,13 +17,12 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
+import com.doan3.canthotour.Adapter.HttpRequestAdapter.httpGet;
 import com.doan3.canthotour.Adapter.ServiceAdapter;
 import com.doan3.canthotour.Config;
 import com.doan3.canthotour.Helper.BottomNavigationViewHelper;
@@ -31,7 +30,6 @@ import com.doan3.canthotour.Model.ModelService;
 import com.doan3.canthotour.Model.ObjectClass.Service;
 import com.doan3.canthotour.R;
 import com.doan3.canthotour.View.Favorite.ActivityFavorite;
-import com.doan3.canthotour.View.Main.Content.ActivityService;
 import com.doan3.canthotour.View.Main.Content.FragmentService;
 import com.doan3.canthotour.View.Notify.ActivityNotify;
 import com.doan3.canthotour.View.Personal.ActivityAddPlace;
@@ -45,13 +43,66 @@ import q.rorbin.badgeview.QBadgeView;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static int badgeNumber;
+    public static Fragment fragment = null;
     Toolbar toolbar;
     Button btnPlace, btnEat, btnHoTel, btnEntertain, btnVehicle;
     FloatingActionButton fab, fabAddPlace;
     boolean enterprise = false;
-    public static int badgeNumber;
     FragmentManager fragmentManager = getFragmentManager();
-    public static Fragment fragment = null;
+
+    //Bottom navigation bar
+    public static void menuBotNavBar(final Activity activity, int i) {
+        BottomNavigationView bottomNavigationView = activity.findViewById(R.id.bottomNavView_Bar); //Bottom navigation view
+        BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
+
+        Menu menu = bottomNavigationView.getMenu();
+        MenuItem menuItem = menu.getItem(i);
+        menuItem.setChecked(true);
+
+        BottomNavigationMenuView bottomNavigationMenuView =
+                (BottomNavigationMenuView) bottomNavigationView.getChildAt(0); //Hiển thị ở trang chủ
+        View v = bottomNavigationMenuView.getChildAt(2); //Hiển thị dấu chấm đỏ khi có thông báo
+        BottomNavigationItemView itemView = (BottomNavigationItemView) v;
+
+        try {
+            String getBadgeNumber = new httpGet().execute(Config.URL_HOST + Config.URL_GET_EVENT_NUMBER).get();
+            badgeNumber = Integer.parseInt(getBadgeNumber);
+            Log.d("badge number", getBadgeNumber);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        new QBadgeView(activity).bindTarget(v)
+                .setBadgeNumber(badgeNumber)  //Set số thông báo hiển thị
+                .setBadgeGravity(Gravity.START | Gravity.TOP)
+                .setGravityOffset(26, 0, true);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.ic_trangchu:
+                        activity.startActivity(new Intent(activity, MainActivity.class));
+                        break;
+                    case R.id.ic_yeuthich:
+                        activity.startActivity(new Intent(activity, ActivityFavorite.class));
+                        break;
+                    case R.id.ic_thongbao:
+                        Intent iNotify = new Intent(activity, ActivityNotify.class);
+                        badgeNumber = 0; //Ẩn thông báo đi khi đã ấn vào
+                        activity.startActivity(iNotify);
+                        break;
+                    case R.id.ic_canhan:
+                        activity.startActivity(new Intent(activity, ActivityPersonal.class));
+                        break;
+                }
+                return false;
+            }
+        });
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,6 +154,7 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menutrangchu, menu);
         return true;
     }
+    // endregion
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -111,7 +163,6 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-    // endregion
 
     void fabOnClick() { //Floating bar
         fab.setOnClickListener(new View.OnClickListener() {
@@ -126,59 +177,6 @@ public class MainActivity extends AppCompatActivity {
         if (enterprise == false) {
             fabOnClick();
         }
-    }
-
-    //Bottom navigation bar
-    public static void menuBotNavBar(final Activity activity, int i) {
-        BottomNavigationView bottomNavigationView = activity.findViewById(R.id.bottomNavView_Bar); //Bottom navigation view
-        BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
-
-        Menu menu = bottomNavigationView.getMenu();
-        MenuItem menuItem = menu.getItem(i);
-        menuItem.setChecked(true);
-
-        BottomNavigationMenuView bottomNavigationMenuView =
-                (BottomNavigationMenuView) bottomNavigationView.getChildAt(0); //Hiển thị ở trang chủ
-        View v = bottomNavigationMenuView.getChildAt(2); //Hiển thị dấu chấm đỏ khi có thông báo
-        BottomNavigationItemView itemView = (BottomNavigationItemView) v;
-
-        try {
-            String getBadgeNumber = new ModelService.Load().execute(Config.URL_HOST + Config.URL_GET_EVENT_NUMBER).get();
-            badgeNumber = Integer.parseInt(getBadgeNumber);
-            Log.d("badge number", getBadgeNumber);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-
-        new QBadgeView(activity).bindTarget(v)
-                        .setBadgeNumber(badgeNumber)  //Set số thông báo hiển thị
-                        .setBadgeGravity(Gravity.START | Gravity.TOP)
-                        .setGravityOffset(26,0,true);
-
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.ic_trangchu:
-                        activity.startActivity(new Intent(activity, MainActivity.class));
-                        break;
-                    case R.id.ic_yeuthich:
-                        activity.startActivity(new Intent(activity, ActivityFavorite.class));
-                        break;
-                    case R.id.ic_thongbao:
-                        Intent iNotify = new Intent(activity, ActivityNotify.class);
-                        badgeNumber = 0; //Ẩn thông báo đi khi đã ấn vào
-                        activity.startActivity(iNotify);
-                        break;
-                    case R.id.ic_canhan:
-                        activity.startActivity(new Intent(activity, ActivityPersonal.class));
-                        break;
-                }
-                return false;
-            }
-        });
     }
 
     //Custom view service
@@ -197,12 +195,12 @@ public class MainActivity extends AppCompatActivity {
         serviceAdapter.notifyDataSetChanged();
     }
 
-    public void addFragment(View view){
+    public void addFragment(View view) {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragment = new FragmentService();
         Bundle bundle = new Bundle();
 
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.btnAllPlace:
                 bundle.putString("url", Config.URL_HOST + Config.URL_GET_ALL_PLACES);
                 fragment.setArguments(bundle);
@@ -236,9 +234,9 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if(getFragmentManager().getBackStackEntryCount() > 0){ //đếm số lượng trong ngăn xếp còn bao nhiêu số lượng fragment
+        if (getFragmentManager().getBackStackEntryCount() > 0) { //đếm số lượng trong ngăn xếp còn bao nhiêu số lượng fragment
             getFragmentManager().popBackStack();
-        }else{
+        } else {
             super.onBackPressed();
         }
     }

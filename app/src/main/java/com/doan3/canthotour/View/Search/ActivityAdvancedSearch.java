@@ -15,6 +15,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.doan3.canthotour.Adapter.HttpRequestAdapter.httpGet;
 import com.doan3.canthotour.Adapter.ListOfServiceAdapter;
 import com.doan3.canthotour.Config;
 import com.doan3.canthotour.Helper.JsonHelper;
@@ -39,6 +40,30 @@ public class ActivityAdvancedSearch extends AppCompatActivity {
     RadioButton rdbPlace, rdbEat, rdbHotel, rdbVehicle, rdbEntertain;
     RadioGroup radioGroup1, radioGroup2;
     Button btnCancel;
+    private RadioGroup.OnCheckedChangeListener listener2 = new RadioGroup.OnCheckedChangeListener() {
+
+        @Override
+        public void onCheckedChanged(RadioGroup group, int checkedId) {
+            if (checkedId != -1) {
+                radioGroup1.setOnCheckedChangeListener(null);
+                radioGroup1.clearCheck();
+                radioGroup1.setOnCheckedChangeListener(listener1);
+                Log.e("XXX2", "do the work");
+            }
+        }
+    };
+    private RadioGroup.OnCheckedChangeListener listener1 = new RadioGroup.OnCheckedChangeListener() {
+
+        @Override
+        public void onCheckedChanged(RadioGroup group, int checkedId) {
+            if (checkedId != -1) {
+                radioGroup2.setOnCheckedChangeListener(null); // remove the listener before clearing so we don't throw that stackoverflow exception(like Vladimir Volodin pointed out)
+                radioGroup2.clearCheck(); // clear the second RadioGroup!
+                radioGroup2.setOnCheckedChangeListener(listener2); //reset the listener
+                Log.e("XXX2", "do the work");
+            }
+        }
+    };
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -77,9 +102,10 @@ public class ActivityAdvancedSearch extends AppCompatActivity {
                     } else {
                         serviceType = 5;
                     }
-                    if (!etSearch.getText().toString().equals("")){
-                    load(Config.URL_HOST + Config.URL_SEARCH + serviceType + "&keyword=" +
-                            etSearch.getText().toString().replaceAll(" ", "\\+"), serviceType);} else {
+                    if (!etSearch.getText().toString().equals("")) {
+                        load(Config.URL_HOST + Config.URL_SEARCH_TYPE.get(0) + serviceType + Config.URL_SEARCH_TYPE.get(1) +
+                                etSearch.getText().toString().replaceAll(" ", "\\+"), serviceType);
+                    } else {
                         Toast.makeText(ActivityAdvancedSearch.this, "Chưa nhập", Toast.LENGTH_SHORT).show();
                     }
                     return true;
@@ -108,6 +134,9 @@ public class ActivityAdvancedSearch extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
 
         ArrayList<Service> services = new ModelService().getAdvancedSearchList(url, serviceType);
+        if (services.size() == 0){
+            Toast.makeText(this, "Không có kết quả", Toast.LENGTH_SHORT).show();
+        }
 
         listOfServiceAdapter = new ListOfServiceAdapter(recyclerView, services, getApplicationContext());
         recyclerView.setAdapter(listOfServiceAdapter);
@@ -116,7 +145,7 @@ public class ActivityAdvancedSearch extends AppCompatActivity {
         final ArrayList<Service> finalListService = services;
         try {
             finalArr = JsonHelper.parseJsonNoId(new JSONObject
-                    (new ModelService.Load().execute(url).get()), Config.GET_KEY_JSON_LOAD);
+                    (new httpGet().execute(url).get()), Config.GET_KEY_JSON_LOAD);
         } catch (JSONException | InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
@@ -146,7 +175,7 @@ public class ActivityAdvancedSearch extends AppCompatActivity {
                             }
                             try {
                                 finalArr = JsonHelper.parseJsonNoId(new JSONObject
-                                        (new ModelService.Load().execute(finalArr.get(1)).get()), Config.GET_KEY_JSON_LOAD);
+                                        (new httpGet().execute(finalArr.get(1)).get()), Config.GET_KEY_JSON_LOAD);
                             } catch (JSONException | InterruptedException | ExecutionException e) {
                                 e.printStackTrace();
                             }
@@ -159,30 +188,4 @@ public class ActivityAdvancedSearch extends AppCompatActivity {
             }
         });
     }
-
-    private RadioGroup.OnCheckedChangeListener listener1 = new RadioGroup.OnCheckedChangeListener() {
-
-        @Override
-        public void onCheckedChanged(RadioGroup group, int checkedId) {
-            if (checkedId != -1) {
-                radioGroup2.setOnCheckedChangeListener(null); // remove the listener before clearing so we don't throw that stackoverflow exception(like Vladimir Volodin pointed out)
-                radioGroup2.clearCheck(); // clear the second RadioGroup!
-                radioGroup2.setOnCheckedChangeListener(listener2); //reset the listener
-                Log.e("XXX2", "do the work");
-            }
-        }
-    };
-
-    private RadioGroup.OnCheckedChangeListener listener2 = new RadioGroup.OnCheckedChangeListener() {
-
-        @Override
-        public void onCheckedChanged(RadioGroup group, int checkedId) {
-            if (checkedId != -1) {
-                radioGroup1.setOnCheckedChangeListener(null);
-                radioGroup1.clearCheck();
-                radioGroup1.setOnCheckedChangeListener(listener1);
-                Log.e("XXX2", "do the work");
-            }
-        }
-    };
 }

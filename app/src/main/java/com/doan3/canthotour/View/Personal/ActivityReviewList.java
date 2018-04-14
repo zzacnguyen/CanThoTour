@@ -7,22 +7,22 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.doan3.canthotour.Adapter.HttpRequestAdapter.httpGet;
 import com.doan3.canthotour.Adapter.ListOfReviewAdapter;
 import com.doan3.canthotour.Config;
-import com.doan3.canthotour.Helper.JsonHelper;
 import com.doan3.canthotour.Interface.OnLoadMoreListener;
-import com.doan3.canthotour.Model.ModelReview;
 import com.doan3.canthotour.Model.ModelService;
 import com.doan3.canthotour.Model.ObjectClass.Review;
 import com.doan3.canthotour.R;
-import com.doan3.canthotour.View.Main.ActivityServiceInfo;
-import static com.doan3.canthotour.View.Main.MainActivity.menuBotNavBar;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
+
+import static com.doan3.canthotour.Helper.JsonHelper.parseJsonNoId;
+import static com.doan3.canthotour.View.Main.MainActivity.menuBotNavBar;
 
 /**
  * Created by zzacn on 12/7/2017.
@@ -37,9 +37,9 @@ public class ActivityReviewList extends AppCompatActivity {
         setContentView(R.layout.activity_reviewlist);
 
         int ma = getIntent().getIntExtra("id", 1);
-        load(Config.URL_HOST + Config.URL_GET_ALL_REVIEWS + "-dichvu/" + ma, Config.GET_KEY_JSON_REVIEW);
+        load(Config.URL_HOST + Config.URL_GET_ALL_REVIEWS + "/" + ma, Config.GET_KEY_JSON_REVIEW);
 
-        menuBotNavBar(this,0);
+        menuBotNavBar(this, 0);
     }
 
     private void load(String url, final ArrayList<String> formatJson) {
@@ -51,7 +51,7 @@ public class ActivityReviewList extends AppCompatActivity {
                 new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        ArrayList<Review> reviews = new ModelReview().getReviewList(url, formatJson);
+        ArrayList<Review> reviews = new ModelService().getReviewList(url, formatJson);
 
         final ListOfReviewAdapter listOfReviewAdapter =
                 new ListOfReviewAdapter(recyclerView, reviews, getApplicationContext());
@@ -61,8 +61,8 @@ public class ActivityReviewList extends AppCompatActivity {
         //set load more listener for the RecyclerView adapter
         final ArrayList<Review> finalListService = reviews;
         try {
-            finalArr = JsonHelper.parseJsonNoId(new JSONObject
-                    (new ModelService.Load().execute(url).get()), Config.GET_KEY_JSON_LOAD);
+            finalArr = parseJsonNoId(new JSONObject
+                    (new httpGet().execute(url).get()), Config.GET_KEY_JSON_LOAD);
         } catch (JSONException | InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
@@ -84,14 +84,13 @@ public class ActivityReviewList extends AppCompatActivity {
                             finalListService.remove(finalListService.size() - 1);
                             listOfReviewAdapter.notifyItemRemoved(finalListService.size());
 
-                            ArrayList<Review> reviewArrayList = new ModelReview().
-                                    getReviewList(finalArr.get(1), formatJson);
+                            ArrayList<Review> reviewArrayList = new ModelService().getReviewList(finalArr.get(1), formatJson);
                             for (int i = 0; i < reviewArrayList.size(); i++) {
                                 finalListService.add(reviewArrayList.get(i));
                             }
                             try {
-                                finalArr = JsonHelper.parseJsonNoId(new JSONObject
-                                        (new ModelService.Load().execute(finalArr.get(1)).get()), Config.GET_KEY_JSON_LOAD);
+                                finalArr = parseJsonNoId(new JSONObject
+                                        (new httpGet().execute(finalArr.get(1)).get()), Config.GET_KEY_JSON_LOAD);
                             } catch (JSONException | InterruptedException | ExecutionException e) {
                                 e.printStackTrace();
                             }

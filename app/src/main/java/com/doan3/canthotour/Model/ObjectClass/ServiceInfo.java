@@ -11,7 +11,7 @@ public class ServiceInfo {
     private float stars, reviewMark;
     private int id, idImage;
     private String eatName, hotelName, placeName, vehicleName, entertainName, serviceAbout, imageName, timeClose, timeOpen,
-            highestPrice, lowestPrice, address, phoneNumber, longitude, latitude, website, eventType, idYeuThich, reviewId;
+            highestPrice, lowestPrice, address, phoneNumber, longitude, latitude, website, eventType, idLike, idReview;
     private boolean reviewUserFav, reviewUserRev;
 
     public String getLongitude() {
@@ -62,20 +62,20 @@ public class ServiceInfo {
         this.reviewUserRev = reviewUserRev;
     }
 
-    public String getIdYeuThich() {
-        return idYeuThich;
+    public String getIdLike() {
+        return idLike;
     }
 
-    public void setIdYeuThich(String idYeuThich) {
-        this.idYeuThich = idYeuThich;
+    public void setIdLike(String idLike) {
+        this.idLike = idLike;
     }
 
-    public String getReviewId() {
-        return reviewId;
+    public String getIdReview() {
+        return idReview;
     }
 
-    public void setReviewId(String reviewId) {
-        this.reviewId = reviewId;
+    public void setIdReview(String idReview) {
+        this.idReview = idReview;
     }
 
     public int getIdImage() {
