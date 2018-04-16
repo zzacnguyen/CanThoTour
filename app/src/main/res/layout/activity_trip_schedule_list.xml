@@ -54,7 +54,7 @@
             android:id="@+id/RecyclerView_TripScheduleList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/colorWhite"/>
+            android:background="@color/colorWhite" />
 
     </LinearLayout>
 
@@ -75,6 +75,8 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@color/colorWhite"
+            app:itemIconTint="@drawable/nav_item_color_state"
+            app:itemTextColor="@drawable/nav_item_color_state"
             app:menu="@menu/bottom_navigation_menu">
 
         </android.support.design.widget.BottomNavigationView>

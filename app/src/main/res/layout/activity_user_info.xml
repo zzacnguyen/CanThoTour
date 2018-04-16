@@ -44,7 +44,7 @@
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorGrey"
+        android:background="@color/colorWhite"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
@@ -249,6 +249,7 @@
                 android:background="@color/tbPlace"
                 android:text="Đổi thông tin"
                 android:textAllCaps="false"
+                android:layout_marginTop="10dp"
                 android:textColor="@color/colorWhite"
                 android:textSize="18sp" />
 

@@ -116,6 +116,8 @@
             android:id="@+id/bottomNavView_Bar"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            app:itemIconTint="@drawable/nav_item_color_state"
+            app:itemTextColor="@drawable/nav_item_color_state"
             android:background="@color/colorWhite"
             app:menu="@menu/bottom_navigation_menu">
 

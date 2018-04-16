@@ -22,7 +22,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:layout_gravity="center"
-                android:background="@color/bgToolbar"
+                android:background="@color/tbPlace"
                 app:layout_collapseMode="pin">
 
                 <ImageView
@@ -339,6 +339,8 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@color/colorWhite"
+            app:itemIconTint="@drawable/nav_item_color_state"
+            app:itemTextColor="@drawable/nav_item_color_state"
             app:menu="@menu/bottom_navigation_menu">
 
         </android.support.design.widget.BottomNavigationView>

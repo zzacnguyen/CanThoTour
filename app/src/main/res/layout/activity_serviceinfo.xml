@@ -165,7 +165,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@color/colorWhite"
-                    android:drawableTop="@drawable/ic_place_blue_36dp"
+                    android:drawableTop="@drawable/ic_place_36dp"
                     android:text="@string/text_Near"
                     android:textColor="@color/bgToolbar"
                     android:textSize="14sp" />
@@ -176,7 +176,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@color/colorWhite"
-                    android:drawableTop="@drawable/ic_share_blue_36dp"
+                    android:drawableTop="@drawable/ic_share_36dp"
                     android:text="CHIA SẺ"
                     android:textColor="@color/bgToolbar"
                     android:textSize="14sp"/>
@@ -471,10 +471,11 @@
             android:id="@+id/bottomNavView_Bar"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            app:itemIconTint="@drawable/nav_item_color_state"
+            app:itemTextColor="@drawable/nav_item_color_state"
             app:itemBackground="@color/colorWhite"
-            app:menu="@menu/bottom_navigation_menu">
+            app:menu="@menu/bottom_navigation_menu"/>
 
-        </android.support.design.widget.BottomNavigationView>
 
     </LinearLayout>
 

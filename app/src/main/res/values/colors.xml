@@ -6,7 +6,7 @@
     <color name="colorWhite">#fff</color>
     <color name="colorGrey">#e1dede</color>
     <color name="seekBar">#004d40</color>
-    <color name="bgToolbar">#3F51B5</color>
+    <color name="bgToolbar">#00a680</color>
     <color name="colorGray">#868585</color>
     <color name="colorBlack">#000000</color>
     <color name="bgRed">#BC161D</color>
@@ -24,11 +24,11 @@
         <item name="colorControlActivated">@color/bgBlue</item>
     </style>
     <!--Toolbar color-->
-    <color name="tbPlace">#168DDB</color>
-    <color name="tbEat">#B33030</color>
+    <color name="tbPlace">#00a680</color>
+    <color name="tbEat">#BC161D</color>
     <color name="tbHotel">#FE6500</color>
-    <color name="tbEntertain">#56BBEF</color>
-    <color name="tbVehicle">#19AC5B</color>
+    <color name="tbEntertain">#4a6ea9</color>
+    <color name="tbVehicle">#4dadf7</color>
 
     <!--Layout đăng nhập-->
     <color name="colorbtnDangnhap2">#00eeff</color>
@@ -41,4 +41,5 @@
 
     <color name="colorFacebook">#4a6ea9</color>
     <color name="colorGoogle">#da4835</color>
+
 </resources>

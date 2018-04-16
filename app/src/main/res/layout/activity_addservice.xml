@@ -148,8 +148,8 @@
                     android:layout_height="150dp"
                     android:background="@null"
                     android:hint="@string/hint_Description"
-                    android:padding="5dp"
                     android:maxLength="300"
+                    android:padding="5dp"
                     android:text=""
                     android:textSize="16sp" />
 
@@ -408,6 +408,8 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@color/colorWhite"
+            app:itemIconTint="@drawable/nav_item_color_state"
+            app:itemTextColor="@drawable/nav_item_color_state"
             app:menu="@menu/bottom_navigation_menu">
 
         </android.support.design.widget.BottomNavigationView>

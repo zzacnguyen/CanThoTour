@@ -9,15 +9,15 @@
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fitsSystemWindows="true"
-        android:background="@color/colorWhite">
+        android:background="@color/colorWhite"
+        android:fitsSystemWindows="true">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:layout_collapseMode="pin"
-            android:background="@color/bgToolbar">
+            android:background="@color/bgToolbar"
+            app:layout_collapseMode="pin">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -26,31 +26,31 @@
                 android:weightSum="5">
 
                 <TextView
-                    android:layout_weight="1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:text="Hủy"
-                    android:textSize="18sp"
-                    android:textColor="@color/colorWhite"/>
+                    android:textColor="@color/colorWhite"
+                    android:textSize="18sp" />
 
                 <TextView
-                    android:layout_weight="3"
                     android:id="@+id/toolbarTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_weight="3"
                     android:gravity="center"
                     android:text="Đăng ký doanh nghiệp"
                     android:textColor="@color/colorWhite"
                     android:textSize="18sp" />
 
                 <TextView
-                    android:layout_weight="1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
                     android:text="Gửi"
                     android:textColor="@color/colorWhite"
-                    android:textSize="18sp"
-                    android:gravity="center"/>
+                    android:textSize="18sp" />
 
             </LinearLayout>
 
@@ -61,9 +61,9 @@
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layout_marginBottom="50dp"
         android:background="@color/colorGrey"
-        android:layout_marginBottom="50dp">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -73,10 +73,10 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="10dp"
+                android:layout_marginTop="10dp"
                 android:background="@color/colorWhite"
-                android:layout_marginTop="10dp">
+                android:orientation="vertical"
+                android:padding="10dp">
 
                 <EditText
                     android:layout_width="match_parent"
@@ -91,16 +91,15 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/colorGrey"
                 android:layout_marginTop="10dp"
-                />
+                android:background="@color/colorGrey" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/colorWhite"
                 android:orientation="vertical"
-                android:padding="10dp"
-                android:background="@color/colorWhite">
+                android:padding="10dp">
 
                 <EditText
                     android:layout_width="match_parent"
@@ -140,16 +139,15 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/colorGrey"
                 android:layout_marginTop="10dp"
-                />
+                android:background="@color/colorGrey" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/colorWhite"
                 android:orientation="vertical"
-                android:padding="10dp"
-                android:background="@color/colorWhite">
+                android:padding="10dp">
 
                 <EditText
                     android:layout_width="match_parent"
@@ -164,16 +162,15 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/colorGrey"
                 android:layout_marginTop="10dp"
-                />
+                android:background="@color/colorGrey" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/colorWhite"
                 android:orientation="vertical"
-                android:padding="10dp"
-                android:background="@color/colorWhite">
+                android:padding="10dp">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -186,19 +183,18 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="120dp"
-                    android:textSize="14sp"
+                    android:background="@drawable/white_grey_border_bottom"
                     android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus quis imperdiet sem, non sollicitudin elit. Quisque interdum, metus non imperdiet elementum, mauris est dapibus dui, vel facilisis elit dolor a lorem. Aenean ultricies tortor tincidunt odio fermentum vehicula. Mauris interdum turpis a quam volutpat aliquet. Sed sed libero non eros euismod tempus. Suspendisse potenti. Vestibulum et sollicitudin metus, ultricies egestas risus. Sed euismod dui massa, nec accumsan felis ullamcorper elementum. Nam gravida varius auctor. Phasellus sed cursus risus. Vivamus quis dolor vitae tortor convallis laoreet. Quisque quis convallis quam, at commodo sem. Cras dignissim in sem ac vulputate."
                     android:textColor="@color/colorBlack"
-                    android:background="@drawable/white_grey_border_bottom"/>
+                    android:textSize="14sp" />
 
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/colorGrey"
                 android:layout_marginTop="10dp"
-                />
+                android:background="@color/colorGrey" />
 
         </LinearLayout>
 
@@ -214,15 +210,16 @@
             android:layout_width="match_parent"
             android:layout_height="4dp"
             android:layout_gravity="top"
-            android:background="@drawable/shadow"
-            />
+            android:background="@drawable/shadow" />
 
         <android.support.design.widget.BottomNavigationView
             android:id="@+id/bottomNavView_Bar"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            app:menu="@menu/bottom_navigation_menu"
-            android:background="@color/colorWhite">
+            android:background="@color/colorWhite"
+            app:itemIconTint="@drawable/nav_item_color_state"
+            app:itemTextColor="@drawable/nav_item_color_state"
+            app:menu="@menu/bottom_navigation_menu">
 
         </android.support.design.widget.BottomNavigationView>
 

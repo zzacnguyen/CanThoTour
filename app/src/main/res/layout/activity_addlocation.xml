@@ -309,8 +309,9 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:padding="17dp"
+                            android:tint="@color/tbPlace"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/ic_thamquan_36dp" />
+                            android:src="@drawable/ic_sightseeing" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -385,7 +386,8 @@
                             android:layout_gravity="center"
                             android:padding="17dp"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/ic_vuichoi_36dp" />
+                            android:tint="@color/com_facebook_blue"
+                            android:src="@drawable/ic_entertainment" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -409,8 +411,9 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:padding="17dp"
+                            android:tint="@color/tbVehicle"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/ic_phuongtien_36dp" />
+                            android:src="@drawable/ic_vehicle" />
 
                         <TextView
                             android:layout_width="match_parent"

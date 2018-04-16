@@ -163,6 +163,8 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             app:itemBackground="@color/colorWhite"
+            app:itemIconTint="@drawable/nav_item_color_state"
+            app:itemTextColor="@drawable/nav_item_color_state"
             app:menu="@menu/bottom_navigation_menu">
 
         </android.support.design.widget.BottomNavigationView>

@@ -14,7 +14,7 @@
     <string name="text_Home">Home</string>
     <string name="text_Search">Search...</string>
     <string name="text_Cancel">Cancel</string>
-    <string name="text_PlacesToVisit">Cool places to visit in Can Tho</string>
+    <string name="text_PlacesToVisit">Cool places to visit in Vietnam</string>
     <string name="text_EatAndDrink">Eat and drink</string>
     <string name="text_Hotelsde">Hotels</string>
     <string name="text_ThingsToDo">Things to do</string>
@@ -23,7 +23,7 @@
     <string name="text_Like">Like</string>
     <string name="text_UnLike">UnLike</string>
     <string name="text_Near">Near</string>
-    <string name="text_Review">Review</string>
+    <string name="text_Review">Review this service</string>
     <string name="text_Reviewed">Reviewed</string>
     <string name="text_ShowAllReview">Show all review</string>
     <string name="text_About">About</string>
@@ -94,7 +94,7 @@
     <string name="hint_InputLanguage">What language do you speak?</string>
     <string name="hint_Title">Title</string>
     <string name="hint_YourComment">Comment...</string>
-    <string name="text_ListOfReview">List of review</string>
+    <string name="text_ListOfReview">All reviews</string>
     <string name="text_ListOfPlaceToVisit">List of place to visit</string>
     <string name="text_From">From</string>
     <string name="text_To">to</string>
