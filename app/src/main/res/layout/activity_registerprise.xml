@@ -29,7 +29,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Hủy"
+                    android:text="@string/text_Cancel"
                     android:textColor="@color/colorWhite"
                     android:textSize="18sp" />
 
@@ -39,7 +39,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:gravity="center"
-                    android:text="Đăng ký doanh nghiệp"
+                    android:text="@string/text_BusinessRegistration"
                     android:textColor="@color/colorWhite"
                     android:textSize="18sp" />
 
@@ -48,7 +48,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="Gửi"
+                    android:text="@string/text_Send"
                     android:textColor="@color/colorWhite"
                     android:textSize="18sp" />
 

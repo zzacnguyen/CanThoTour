@@ -44,7 +44,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="Tên chuyến đi"
+                    android:text="@string/text_TripName"
                     android:textColor="@color/colorWhite"
                     android:textSize="18sp" />
 
@@ -86,18 +86,20 @@
                 android:padding="10dp">
 
                 <TextView
+                    android:id="@+id/textViewStartDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="2dp"
-                    android:text="Ngày khởi hành"
+                    android:text="@string/text_StartDate"
                     android:textColor="@color/colorWhite"
                     android:textSize="18sp" />
 
                 <TextView
+                    android:id="@+id/textViewEndDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="2dp"
-                    android:text="Ngày kết thúc"
+                    android:text="@string/text_EndDate"
                     android:textColor="@color/colorWhite"
                     android:textSize="18sp" />
 
@@ -114,11 +116,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="2dp"
-                    android:text="Danh sách các địa điểm"
+                    android:text="@string/text_ListOfPlaceToVisit"
                     android:textSize="18sp" />
 
                 <android.support.v7.widget.RecyclerView
-                    android:id="@+id/RecyclerView_LocationList"
+                    android:id="@+id/RecyclerView_PlaceToVisit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 

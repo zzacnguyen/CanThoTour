@@ -109,4 +109,15 @@
     <string name="text_TripSchedule">Lịch trình</string>
     <string name="text_UserInfomation">Thông tin người dùng</string>
     <string name="text_PlaceInformation">Thông tin địa điểm</string>
+    <string name="text_TripName">Tên chuyến đi</string>
+    <string name="text_StartDate">Ngày khởi hành</string>
+    <string name="text_EndDate">Ngày kết thúc</string>
+    <string name="text_CreateTrip">Tạo chuyến đi</string>
+    <string name="text_Create">Tạo</string>
+    <string name="text_BusinessRegistration">Đăng ký doanh nghiệp</string>
+    <string name="text_ChangeProfilePhoto">Cập nhật ảnh đại diện</string>
+    <string name="text_Gender">Giới tính</string>
+    <string name="text_Birthdate">Ngày sinh</string>
+    <string name="text_FullName">Họ và tên</string>
+    <string name="text_UpdateProfile">Đổi thông tin</string>
 </resources>

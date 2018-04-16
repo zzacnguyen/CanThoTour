@@ -31,7 +31,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:gravity="center"
-                    android:text="Thông tin"
+                    android:text="@string/text_PlaceInformation"
                     android:textColor="@color/colorWhite"
                     android:textSize="19sp" />
 
@@ -99,7 +99,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:padding="4dp"
-                        android:text="Cập nhật ảnh đại diện"
+                        android:text="@string/text_ChangeProfilePhoto"
                         android:textColor="@color/colorFacebook"
                         android:textSize="12sp" />
 
@@ -124,7 +124,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="13"
                         android:gravity="fill"
-                        android:text="Tên người dùng" />
+                        android:text="@string/text_Username" />
 
                     <EditText
                         android:id="@+id/etFullName"
@@ -133,7 +133,7 @@
                         android:layout_margin="8dp"
                         android:layout_weight="7"
                         android:ems="10"
-                        android:hint="Họ và tên"
+                        android:hint="@string/text_FullName"
                         android:singleLine="true"
                         android:textSize="16sp" />
                 </LinearLayout>
@@ -148,7 +148,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="13"
                         android:gravity="fill"
-                        android:text="Giới tính" />
+                        android:text="@string/text_Gender" />
 
                     <EditText
                         android:id="@+id/etGender"
@@ -157,7 +157,7 @@
                         android:layout_margin="8dp"
                         android:layout_weight="7"
                         android:ems="10"
-                        android:hint="Giới tính"
+                        android:hint="@string/text_Gender"
                         android:singleLine="true"
                         android:textSize="16sp" />
                 </LinearLayout>
@@ -172,7 +172,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="13"
                         android:gravity="fill"
-                        android:text="Ngày sinh" />
+                        android:text="@string/text_Birthdate" />
 
                     <EditText
                         android:id="@+id/etBirthDate"
@@ -181,7 +181,7 @@
                         android:layout_margin="8dp"
                         android:layout_weight="7"
                         android:ems="10"
-                        android:hint="Ngày sinh"
+                        android:hint="@string/text_Birthdate"
                         android:singleLine="true"
                         android:textSize="16sp" />
                 </LinearLayout>
@@ -196,7 +196,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="13"
                         android:gravity="fill"
-                        android:text="Số điện thoại" />
+                        android:text="@string/hint_PhoneNumber" />
 
                     <EditText
                         android:id="@+id/etPhoneNumber"
@@ -205,7 +205,7 @@
                         android:layout_margin="8dp"
                         android:layout_weight="7"
                         android:ems="10"
-                        android:hint="Số điện thoại"
+                        android:hint="@string/hint_PhoneNumber"
                         android:singleLine="true"
                         android:textSize="16sp" />
                 </LinearLayout>
@@ -220,7 +220,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="13"
                         android:gravity="fill"
-                        android:text="Email" />
+                        android:text="@string/hint_Email" />
 
                     <EditText
                         android:id="@+id/etEmail"
@@ -229,7 +229,7 @@
                         android:layout_margin="8dp"
                         android:layout_weight="7"
                         android:ems="10"
-                        android:hint="Email"
+                        android:hint="@string/hint_Email"
                         android:singleLine="true"
                         android:textSize="16sp" />
                 </LinearLayout>
@@ -246,10 +246,10 @@
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:background="@color/tbPlace"
-                android:text="Đổi thông tin"
-                android:textAllCaps="false"
                 android:layout_marginTop="10dp"
+                android:background="@color/tbPlace"
+                android:text="@string/text_UpdateProfile"
+                android:textAllCaps="false"
                 android:textColor="@color/colorWhite"
                 android:textSize="18sp" />
 

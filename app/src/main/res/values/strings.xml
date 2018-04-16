@@ -125,4 +125,15 @@
     <string name="text_TripSchedule">Trip schedule</string>
     <string name="text_UserInfomation">Infomation</string>
     <string name="text_PlaceInformation">Information</string>
+    <string name="text_TripName">Trip name</string>
+    <string name="text_StartDate">Start date</string>
+    <string name="text_EndDate">End Date</string>
+    <string name="text_CreateTrip">Create trip</string>
+    <string name="text_Create">Create</string>
+    <string name="text_BusinessRegistration">Business registration</string>
+    <string name="text_ChangeProfilePhoto">Change profile photo</string>
+    <string name="text_Gender">Gender</string>
+    <string name="text_Birthdate">Birthdate</string>
+    <string name="text_FullName">Full name</string>
+    <string name="text_UpdateProfile">Change profile</string>
 </resources>

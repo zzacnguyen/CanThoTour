@@ -25,7 +25,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Tạo chuyến đi"
+                android:text="@string/text_CreateTrip"
                 android:textColor="@color/colorWhite"
                 android:textSize="18sp" />
 
@@ -42,23 +42,12 @@
         android:padding="10dp">
 
         <EditText
-            android:id="@+id/etStartPlace"
+            android:id="@+id/etTripName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/white_grey_border_bottom"
-            android:hint="Chọn điểm xuất phát"
+            android:hint="@string/text_TripName"
             android:maxLength="50"
-            android:padding="10dp"
-            android:textSize="16sp" />
-
-        <EditText
-            android:id="@+id/etEndPlace"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:background="@drawable/white_grey_border_bottom"
-            android:hint="Chọn điểm đến"
-            android:maxLength="100"
             android:padding="10dp"
             android:textSize="16sp" />
 
@@ -68,7 +57,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:background="@drawable/white_grey_border_bottom"
-            android:hint="Ngày bắt đầu"
+            android:hint="@string/text_StartDate"
             android:inputType="number"
             android:maxLength="1"
             android:padding="10dp"
@@ -80,7 +69,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:background="@color/colorWhite"
-            android:hint="Ngày kết thúc"
+            android:hint="@string/text_EndDate"
             android:inputType="number"
             android:maxLength="13"
             android:padding="10dp"
@@ -95,7 +84,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="50dp"
         android:background="@color/tbPlace"
-        android:text="Tạo"
+        android:text="@string/text_Create"
         android:textAllCaps="false"
         android:textColor="@color/colorWhite"
         android:textSize="18sp" />
