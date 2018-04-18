@@ -35,6 +35,7 @@ import com.doan3.canthotour.View.Notify.ActivityNotify;
 import com.doan3.canthotour.View.Personal.ActivityAddPlace;
 import com.doan3.canthotour.View.Personal.ActivityPersonal;
 import com.doan3.canthotour.View.Search.ActivitySearch;
+import com.doan3.canthotour.View.Search.FragmentSearch;
 
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
@@ -148,21 +149,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    //region Topbar button
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menutrangchu, menu);
-        return true;
-    }
-    // endregion
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        startActivityForResult(new Intent(MainActivity.this, ActivitySearch.class), 2);
-
-        return super.onOptionsItemSelected(item);
-    }
 
     void fabOnClick() { //Floating bar
         fab.setOnClickListener(new View.OnClickListener() {
@@ -224,6 +211,10 @@ public class MainActivity extends AppCompatActivity {
             case R.id.btnAllVehicle:
                 bundle.putString("url", Config.URL_HOST + Config.URL_GET_ALL_VEHICLES);
                 fragment.setArguments(bundle);
+                break;
+
+            case R.id.btnSearch:
+                fragment = new FragmentSearch();
                 break;
         }
 
