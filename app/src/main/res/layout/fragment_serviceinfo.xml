@@ -65,6 +65,7 @@
                 app:layout_collapseMode="pin">
 
                 <ImageButton
+                    android:id="@+id/btnLeft"
                     android:layout_width="30dp"
                     android:layout_height="15dp"
                     android:background="@null"
@@ -261,9 +262,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginLeft="5dp"
-                        android:text="@string/hint_Website"
-                        android:textColor="#000"
+                        android:layout_marginLeft="5dp" android:textColor="#000"
                         android:textSize="14sp" />
 
                 </LinearLayout>
