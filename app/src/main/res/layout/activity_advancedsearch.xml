@@ -70,62 +70,141 @@
             android:background="@drawable/white_grey_border_bottom"
             android:orientation="vertical">
 
-            <RadioGroup
-                android:id="@+id/radioGroup1"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:weightSum="5">
 
-                <RadioButton
-                    android:id="@+id/rdbPlace"
+                <LinearLayout
+                    android:id="@+id/checkPlace"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/text_SightSeeing" />
+                    android:orientation="vertical">
 
-                <RadioButton
-                    android:id="@+id/rdbEat"
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:padding="17dp"
+                        android:tint="@color/tbPlace"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_sightseeing" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:text="@string/text_SightSeeing"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="12sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/checkEat"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/text_Food" />
+                    android:orientation="vertical">
 
-                <RadioButton
-                    android:id="@+id/rdbHotel"
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:padding="17dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_anuong_36dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:text="@string/text_Food"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="12sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/checkHotel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/text_Hotel" />
-            </RadioGroup>
+                    android:orientation="vertical">
 
-            <RadioGroup
-                android:id="@+id/radioGroup2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:padding="17dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_khachsan_36dp" />
 
-                <RadioButton
-                    android:id="@+id/rdbVehicle"
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:text="@string/text_Hotel"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="12sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/checkEntertainment"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/text_Vehicle" />
+                    android:orientation="vertical">
 
-                <RadioButton
-                    android:id="@+id/rdbEntertain"
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:padding="17dp"
+                        android:scaleType="centerCrop"
+                        android:tint="@color/com_facebook_blue"
+                        android:src="@drawable/ic_entertainment" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:text="@string/text_Entertainment"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="12sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/checkVehicle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/text_Entertainment_AdvancedSearch" />
+                    android:orientation="vertical">
 
-                <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Vui chơi chơi"
-                    android:visibility="invisible" />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:padding="17dp"
+                        android:tint="@color/tbVehicle"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_vehicle" />
 
-            </RadioGroup>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:text="@string/text_Vehicle"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="12sp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -133,7 +212,7 @@
             android:id="@+id/RecyclerView_SearchList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/colorWhite"></android.support.v7.widget.RecyclerView>
+            android:background="@color/colorWhite"/>
 
     </LinearLayout>
 
