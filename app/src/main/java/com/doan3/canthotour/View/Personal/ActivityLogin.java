@@ -48,7 +48,9 @@ public class ActivityLogin extends AppCompatActivity {
         btnLogin = findViewById(R.id.btnLogin);
         btnReg = findViewById(R.id.btnRegister);
 
+        // id dịch vụ được truyền qua từ ActivityServiceInfo khi chưa đăng nhập mà bấm like
         id = getIntent().getIntExtra("id", 0);
+        // nhận thông báo từ form đăng ký
         String mess = getIntent().getStringExtra("mess");
         if (mess != null) {
             Toast.makeText(this, mess, Toast.LENGTH_SHORT).show();
@@ -95,6 +97,7 @@ public class ActivityLogin extends AppCompatActivity {
                                 startActivity(new Intent(ActivityLogin.this, ActivityPersonal.class));
                             } else {
                                 Intent intent = new Intent(ActivityLogin.this, ActivityServiceInfo.class);
+                                // trả id dịch vụ lại cho ActivityServiceInfo
                                 intent.putExtra("id", id);
                                 startActivity(intent);
                             }
@@ -110,6 +113,7 @@ public class ActivityLogin extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ActivityLogin.this, ActivityRegister.class);
+                // truyền id dịch vụ qua form đăng ký
                 intent.putExtra("id", id);
                 startActivity(intent);
             }

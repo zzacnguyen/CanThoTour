@@ -126,6 +126,7 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
             public void onClick(View view) {
                 if (userId == 0) {
                     Intent intent = new Intent(ActivityServiceInfo.this, ActivityLogin.class);
+                    // Nếu chưa đăng nhập mà bấm like sẽ mở form đăng nhập và truyền id dịch vụ qua form đăng nhập
                     intent.putExtra("id", id);
                     startActivity(intent);
                 } else {
@@ -193,6 +194,7 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ActivityServiceInfo.this, ActivityNearLocation.class);
+                // truyền kinh độ vĩ độ loại dịch vụ qua cho form tìm kiếm lân cận
                 intent.putExtra(Config.KEY_NEAR_LOCATION.get(0), longitude);
                 intent.putExtra(Config.KEY_NEAR_LOCATION.get(1), latitude);
                 intent.putExtra(Config.KEY_NEAR_LOCATION.get(2), serviceType);

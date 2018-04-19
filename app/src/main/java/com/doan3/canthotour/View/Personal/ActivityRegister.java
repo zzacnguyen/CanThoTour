@@ -35,6 +35,7 @@ public class ActivityRegister extends AppCompatActivity {
         etLanguage = findViewById(R.id.etLanguege);
         btnReg = findViewById(R.id.btnRegister);
 
+        // nhận id dịch vụ từ form đăng nhập
         id = getIntent().getIntExtra("id", 0);
         btnReg.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,7 +67,9 @@ public class ActivityRegister extends AppCompatActivity {
                 }
                 if (stt != null && stt.equals(Config.GET_KEY_JSON_LOGIN.get(4))) {
                     Intent intent = new Intent(ActivityRegister.this, ActivityLogin.class);
+                    // trả id dịch vụ lại cho form đăng nhập
                     intent.putExtra("id", id);
+                    // trả thông báo về cho form đăng nhập
                     intent.putExtra("mess", "Đăng ký thành công");
                     startActivity(intent);
                 } else {
