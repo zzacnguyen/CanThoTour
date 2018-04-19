@@ -120,4 +120,7 @@
     <string name="text_Birthdate">Ngày sinh</string>
     <string name="text_FullName">Họ và tên</string>
     <string name="text_UpdateProfile">Đổi thông tin</string>
+    <string name="text_Province">Tỉnh/Thành phố:</string>
+    <string name="text_District">Quận/huyện</string>
+    <string name="text_Ward">Phường/xã</string>
 </resources>

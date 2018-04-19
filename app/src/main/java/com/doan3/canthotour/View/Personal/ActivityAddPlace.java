@@ -6,15 +6,20 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.doan3.canthotour.Adapter.GeolocationAdapter;
 import com.doan3.canthotour.Adapter.HttpRequestAdapter.httpPost;
 import com.doan3.canthotour.Adapter.HttpRequestAdapter.httpPostImage;
 import com.doan3.canthotour.Config;
+import com.doan3.canthotour.Model.ObjectClass.Geolocation;
 import com.doan3.canthotour.R;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
@@ -29,7 +34,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
+
+import fr.ganfra.materialspinner.MaterialSpinner;
 
 import static com.doan3.canthotour.View.Main.MainActivity.menuBotNavBar;
 import static com.doan3.canthotour.View.Personal.ActivityAddService.bitmapArrayList;
@@ -45,6 +54,9 @@ public class ActivityAddPlace extends AppCompatActivity {
     LinearLayout linearPlace, linearEat, linearHotel, linearEntertaiment, linearVehicle;
     String idPlace, idService;
     MultipartEntity reqEntity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
+
+    Spinner spinnerDistrict, spinnerProvince, spinnerWard;
+    ArrayList<Geolocation> arrayListGeolocation; //Tạm thời gáng cứng số cho spinner
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -65,6 +77,42 @@ public class ActivityAddPlace extends AppCompatActivity {
         linearHotel = findViewById(R.id.linearHotel);
         linearEntertaiment = findViewById(R.id.linearEntertainment);
         linearVehicle = findViewById(R.id.linearVehicle);
+
+        //region SPINNER Province
+        spinnerProvince = findViewById(R.id.spinnerProvince);
+        spinnerDistrict = findViewById(R.id.spinnerDistrict);
+        spinnerWard = findViewById(R.id.spinnerWard);
+
+        arrayListGeolocation = new ArrayList<Geolocation>();  //Gáng cứng dữ liệu
+        arrayListGeolocation.add(new Geolocation("Cần Thơ"));
+        arrayListGeolocation.add(new Geolocation("Sóc Trăng"));
+        arrayListGeolocation.add(new Geolocation("Hậu Giang"));
+        arrayListGeolocation.add(new Geolocation("Bạc Liêu"));
+        arrayListGeolocation.add(new Geolocation("Cà Mau"));
+        arrayListGeolocation.add(new Geolocation("Đồng Tháp"));
+        arrayListGeolocation.add(new Geolocation("Tiền Giang"));
+        arrayListGeolocation.add(new Geolocation("Kiên Giang"));
+        arrayListGeolocation.add(new Geolocation("An Giang"));
+        arrayListGeolocation.add(new Geolocation("Mỹ Tho"));
+        arrayListGeolocation.add(new Geolocation("Tây Ninh"));
+        arrayListGeolocation.add(new Geolocation("Đồng Nai"));
+
+        GeolocationAdapter geolocationAdapter = new GeolocationAdapter(this, R.layout.spinneritem, arrayListGeolocation); //Set activity, custom spinner item layout, arraylist
+        spinnerProvince.setAdapter(geolocationAdapter);
+
+        spinnerProvince.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        //endregion P  Provice
 
         linearPlace.setOnClickListener(new View.OnClickListener() {
             @Override

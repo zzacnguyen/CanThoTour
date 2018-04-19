@@ -19,6 +19,8 @@ public class FragmentLogin extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragment_login, container, false);
 
+
+
         return v;
     }
 }

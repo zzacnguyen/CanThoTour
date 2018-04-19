@@ -224,6 +224,79 @@
                     android:padding="5dp"
                     android:textSize="16sp" />
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="5">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="3"
+                        android:padding="5dp"
+                        android:text="@string/text_Province"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="16sp" />
+
+                    <android.support.v7.widget.AppCompatSpinner
+                        android:id="@+id/spinnerProvince"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:spinnerMode="dropdown"
+                        style="@style/Widget.AppCompat.Spinner.Underlined"
+                        android:layout_weight="2" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="3"
+                        android:padding="5dp"
+                        android:text="@string/text_District"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="16sp" />
+
+                    <android.support.v7.widget.AppCompatSpinner
+                        android:id="@+id/spinnerDistrict"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        style="@style/Widget.AppCompat.Spinner.Underlined"
+                        android:layout_weight="2"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="3"
+                        android:padding="5dp"
+                        android:text="@string/text_Ward"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="16sp" />
+
+                    <android.support.v7.widget.AppCompatSpinner
+                        android:id="@+id/spinnerWard"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        style="@style/Widget.AppCompat.Spinner.Underlined"
+                        android:layout_weight="2" />
+
+                </LinearLayout>
+
                 <EditText
                     android:id="@+id/etAddress"
                     android:layout_width="match_parent"
@@ -309,9 +382,9 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:padding="17dp"
-                            android:tint="@color/tbPlace"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/ic_sightseeing" />
+                            android:src="@drawable/ic_sightseeing"
+                            android:tint="@color/tbPlace" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -386,8 +459,8 @@
                             android:layout_gravity="center"
                             android:padding="17dp"
                             android:scaleType="centerCrop"
-                            android:tint="@color/com_facebook_blue"
-                            android:src="@drawable/ic_entertainment" />
+                            android:src="@drawable/ic_entertainment"
+                            android:tint="@color/com_facebook_blue" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -411,9 +484,9 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:padding="17dp"
-                            android:tint="@color/tbVehicle"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/ic_vehicle" />
+                            android:src="@drawable/ic_vehicle"
+                            android:tint="@color/tbVehicle" />
 
                         <TextView
                             android:layout_width="match_parent"

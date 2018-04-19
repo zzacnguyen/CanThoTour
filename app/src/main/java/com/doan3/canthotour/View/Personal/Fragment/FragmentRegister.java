@@ -33,7 +33,7 @@ public class FragmentRegister extends Fragment {
         etLanguage = v.findViewById(R.id.etLanguege);
         btnReg = v.findViewById(R.id.btnRegister);
 
-        
+
 
         bottomFragNavBar(3, v, getActivity());
 
