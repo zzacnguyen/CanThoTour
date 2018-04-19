@@ -159,7 +159,7 @@ public class ActivityAddPlace extends AppCompatActivity {
                                     Config.POST_KEY_JSON_SERVICE.get(5) + ":\"" + jsonServiceToString.get(5) + "\"," +
                                     Config.POST_KEY_JSON_SERVICE.get(6) + ":\"" + jsonServiceToString.get(6) + "\"," +
                                     Config.POST_KEY_JSON_SERVICE.get(7) + ":\"" + idP + "\"," + name + "}");
-                            idService = new httpPost(jsonPost).execute(Config.URL_HOST + Config.URL_GET_ALL_SERVICES).get();
+                            idService = new httpPost(jsonPost).execute(Config.URL_HOST + Config.URL_GET_SERVICE_INFO).get();
                             String idS = idService.contains(":") ? idService.replaceAll("\"", "").split(":")[1] : "";
                             if (!idS.equals("")) {
                                 ByteArrayOutputStream ban = new ByteArrayOutputStream();

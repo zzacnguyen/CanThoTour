@@ -39,7 +39,9 @@ public class HttpRequestAdapter {
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
-                urlConnection.disconnect();
+                if (urlConnection != null) {
+                    urlConnection.disconnect();
+                }
             }
             return result.toString();
         }
@@ -50,15 +52,19 @@ public class HttpRequestAdapter {
         protected Bitmap doInBackground(String... strings) {
             try {
                 URL url = new URL(strings[0]);
-                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                connection.setDoInput(true);
-                connection.connect();
-                InputStream input = connection.getInputStream();
+                urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.setDoInput(true);
+                urlConnection.connect();
+                InputStream input = urlConnection.getInputStream();
                 Bitmap myBitmap = BitmapFactory.decodeStream(input);
                 return myBitmap;
             } catch (IOException e) {
                 e.printStackTrace();
                 return null;
+            } finally {
+                if (urlConnection != null) {
+                    urlConnection.disconnect();
+                }
             }
         }
     }
@@ -185,7 +191,9 @@ public class HttpRequestAdapter {
                 e.printStackTrace();
                 return "error";
             } finally {
-                urlConnection.disconnect();
+                if (urlConnection != null) {
+                    urlConnection.disconnect();
+                }
             }
         }
     }
@@ -208,7 +216,9 @@ public class HttpRequestAdapter {
                 e.printStackTrace();
                 return "error";
             } finally {
-                urlConnection.disconnect();
+                if (urlConnection != null) {
+                    urlConnection.disconnect();
+                }
             }
         }
     }

@@ -1,4 +1,4 @@
-package com.doan3.canthotour.View.Personal;
+package com.doan3.canthotour.View.Main;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -36,8 +36,8 @@ public class ActivityReviewList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reviewlist);
 
-        int ma = getIntent().getIntExtra("id", 1);
-        load(Config.URL_HOST + Config.URL_GET_ALL_REVIEWS + "/" + ma, Config.GET_KEY_JSON_REVIEW);
+        int id = getIntent().getIntExtra("id", 1);
+        load(Config.URL_HOST + Config.URL_GET_ALL_REVIEWS + id, Config.GET_KEY_JSON_REVIEW);
 
         menuBotNavBar(this, 0);
     }

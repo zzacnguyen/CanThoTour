@@ -51,9 +51,6 @@ public class ActivityPersonal extends AppCompatActivity {
         Logout = findViewById(R.id.Logout);
         Login = findViewById(R.id.Login);
 
-        sessionManager = new SessionManager(getApplicationContext());
-        sessionManager.checkLogin();
-
         txtUserName.setText(userName);
         txtUserType.setText(userType);
         Cavatar.setImageBitmap(avatar);

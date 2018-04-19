@@ -11,6 +11,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -37,33 +38,9 @@ import java.util.concurrent.ExecutionException;
 public class ActivityAdvancedSearch extends AppCompatActivity {
     ArrayList<String> finalArr = new ArrayList<>();
     EditText etSearch;
-    RadioButton rdbPlace, rdbEat, rdbHotel, rdbVehicle, rdbEntertain;
-    RadioGroup radioGroup1, radioGroup2;
+    LinearLayout linearPlace, linearEat, linearHotel, linearEntertaiment, linearVehicle;
     Button btnCancel;
-    private RadioGroup.OnCheckedChangeListener listener2 = new RadioGroup.OnCheckedChangeListener() {
-
-        @Override
-        public void onCheckedChanged(RadioGroup group, int checkedId) {
-            if (checkedId != -1) {
-                radioGroup1.setOnCheckedChangeListener(null);
-                radioGroup1.clearCheck();
-                radioGroup1.setOnCheckedChangeListener(listener1);
-                Log.e("XXX2", "do the work");
-            }
-        }
-    };
-    private RadioGroup.OnCheckedChangeListener listener1 = new RadioGroup.OnCheckedChangeListener() {
-
-        @Override
-        public void onCheckedChanged(RadioGroup group, int checkedId) {
-            if (checkedId != -1) {
-                radioGroup2.setOnCheckedChangeListener(null); // remove the listener before clearing so we don't throw that stackoverflow exception(like Vladimir Volodin pointed out)
-                radioGroup2.clearCheck(); // clear the second RadioGroup!
-                radioGroup2.setOnCheckedChangeListener(listener2); //reset the listener
-                Log.e("XXX2", "do the work");
-            }
-        }
-    };
+    int serviceType;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -71,42 +48,53 @@ public class ActivityAdvancedSearch extends AppCompatActivity {
         setContentView(R.layout.activity_advancedsearch);
 
         etSearch = findViewById(R.id.etSearch);
-        radioGroup1 = findViewById(R.id.radioGroup1);
-        radioGroup2 = findViewById(R.id.radioGroup2);
-        rdbEat = findViewById(R.id.rdbEat);
-        rdbPlace = findViewById(R.id.rdbPlace);
-        rdbHotel = findViewById(R.id.rdbHotel);
-        rdbVehicle = findViewById(R.id.rdbVehicle);
-        rdbEntertain = findViewById(R.id.rdbEntertain);
         btnCancel = findViewById(R.id.btnCancel);
+        linearPlace = findViewById(R.id.checkPlace);
+        linearEat = findViewById(R.id.checkEat);
+        linearHotel = findViewById(R.id.checkHotel);
+        linearEntertaiment = findViewById(R.id.checkEntertainment);
+        linearVehicle = findViewById(R.id.checkVehicle);
 
-        radioGroup1.clearCheck();
-        radioGroup2.clearCheck();
-        radioGroup1.setOnCheckedChangeListener(listener1);
-        radioGroup2.setOnCheckedChangeListener(listener2);
-
+        linearEat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                serviceType = 1;
+            }
+        });
+        linearHotel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                serviceType = 2;
+            }
+        });
+        linearVehicle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                serviceType = 3;
+            }
+        });
+        linearPlace.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                serviceType = 4;
+            }
+        });
+        linearEntertaiment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                serviceType = 5;
+            }
+        });
         etSearch.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View view, int i, KeyEvent keyEvent) {
                 if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) &&
                         (i == KeyEvent.KEYCODE_ENTER)) {
-                    int serviceType;
-                    if (rdbEat.isChecked()) {
-                        serviceType = 1;
-                    } else if (rdbHotel.isChecked()) {
-                        serviceType = 2;
-                    } else if (rdbVehicle.isChecked()) {
-                        serviceType = 3;
-                    } else if (rdbPlace.isChecked()) {
-                        serviceType = 4;
-                    } else {
-                        serviceType = 5;
-                    }
                     if (!etSearch.getText().toString().equals("")) {
                         load(Config.URL_HOST + Config.URL_SEARCH_TYPE.get(0) + serviceType + Config.URL_SEARCH_TYPE.get(1) +
                                 etSearch.getText().toString().replaceAll(" ", "\\+"), serviceType);
                     } else {
-                        Toast.makeText(ActivityAdvancedSearch.this, "Chưa nhập", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ActivityAdvancedSearch.this, "Chưa nhập thông tin tìm kiếm", Toast.LENGTH_SHORT).show();
                     }
                     return true;
                 }

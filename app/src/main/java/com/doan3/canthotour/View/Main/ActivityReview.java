@@ -1,4 +1,4 @@
-package com.doan3.canthotour.View.Personal;
+package com.doan3.canthotour.View.Main;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,7 +16,6 @@ import com.doan3.canthotour.Adapter.HttpRequestAdapter.httpPut;
 import com.doan3.canthotour.Config;
 import com.doan3.canthotour.Helper.JsonHelper;
 import com.doan3.canthotour.R;
-import com.doan3.canthotour.View.Main.ActivityServiceInfo;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -53,7 +52,7 @@ public class ActivityReview extends AppCompatActivity {
         if (idReview != 0) {
             try {
                 String rs =
-                        new httpGet().execute(Config.URL_HOST + Config.URL_GET_ALL_REVIEWS + "/" + idReview).get();
+                        new httpGet().execute(Config.URL_HOST + Config.URL_POST_REVIEW + "/" + idReview).get();
                 ArrayList<String> arr = JsonHelper.parseJsonNoId(new JSONArray(rs), Config.GET_KEY_JSON_RATE);
                 rbRating.setRating(Float.parseFloat(arr.get(0)));
                 txtTitle.setText(arr.get(1));
@@ -81,14 +80,14 @@ public class ActivityReview extends AppCompatActivity {
                         e.printStackTrace();
                     }
                     if (idReview == 0) {
-                        new httpPost(json).execute(Config.URL_HOST + Config.URL_GET_ALL_REVIEWS);
-                        System.out.println(json.toString());
+                        new httpPost(json).execute(Config.URL_HOST + Config.URL_POST_REVIEW);
+
                         Intent intent = new Intent(ActivityReview.this, ActivityServiceInfo.class);
                         intent.putExtra("id", id);
                         intent.putExtra("mess", "Đánh giá thành công");
                         startActivity(intent);
                     } else {
-                        new httpPut(json).execute(Config.URL_HOST + Config.URL_GET_ALL_REVIEWS + "/" + idReview);
+                        new httpPut(json).execute(Config.URL_HOST + Config.URL_POST_REVIEW + "/" + idReview);
 
                         Intent intent = new Intent(ActivityReview.this, ActivityServiceInfo.class);
                         intent.putExtra("id", id);

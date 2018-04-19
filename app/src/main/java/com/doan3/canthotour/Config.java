@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Config {
-    public static final String URL_HOST = "http://192.168.1.3/doan3_canthotour/public/";
+    public static final String URL_HOST = "http://192.168.1.6/doan3_canthotour/public/";
     public static final String URL_LOGIN = "login";
     public static final String URL_REGISTER = "register";
     public static final ArrayList<String> URL_SEARCH_TYPE =
@@ -13,10 +13,11 @@ public class Config {
     public static final ArrayList<String> URL_SEARCH_SERVICE_NEAR =
             new ArrayList<>(Arrays.asList("search/servicevicinity/location=", "&type=", "&radius="));
     public static final String URL_GET_ALL_EATS = "eating";
-    public static final String URL_GET_ALL_REVIEWS = "visitor-ratings";
+    public static final String URL_POST_REVIEW = "rating-post";
+    public static final String URL_GET_ALL_REVIEWS = "rating-service/";
     public static final String URL_GET_ALL_PLACES = "sightseeing";
     public static final String URL_GET_ALL_HOTELS = "hotels";
-    public static final String URL_GET_ALL_SERVICES = "service";
+    public static final String URL_GET_SERVICE_INFO = "service";
     public static final String URL_GET_ALL_VEHICLES = "transport";
     public static final String URL_GET_ALL_EVENTS = "events";
     public static final String URL_GET_ALL_ENTERTAINMENTS = "entertainments";
@@ -99,7 +100,7 @@ public class Config {
 
     public static final ArrayList<String> POST_KEY_JSON_REVIEW =
             new ArrayList<>(Arrays.asList("\"service_id\"", "\"user_id\"", "\"vr_rating\"",
-                    "\"vr_title\"", "\"vr_ratings_details\""));
+                    "\"vr_title\"", "\"details\""));
 
     public static final ArrayList<String> POST_KEY_JSON_LIKE =
             new ArrayList<>(Arrays.asList("\"service_id\"", "\"user_id\""));

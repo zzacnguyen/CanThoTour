@@ -33,8 +33,8 @@ import static com.doan3.canthotour.View.Personal.ActivityPersonal.userId;
 
 public class ActivityFavorite extends AppCompatActivity {
     ArrayList<String> finalArr = new ArrayList<>();
-    TextView txtTenDD;
-    ImageView imgHinhDD;
+    TextView txtServiceName;
+    ImageView imgServiceImage;
     RecyclerView recyclerView;
 
     @Override
@@ -42,8 +42,8 @@ public class ActivityFavorite extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorite);
 
-        txtTenDD = findViewById(R.id.textViewFavorite);
-        imgHinhDD = findViewById(R.id.imageViewFavorite);
+        txtServiceName = findViewById(R.id.textViewFavorite);
+        imgServiceImage = findViewById(R.id.imageViewFavorite);
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavView_Bar);
         BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);

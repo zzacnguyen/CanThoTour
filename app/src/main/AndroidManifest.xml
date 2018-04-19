@@ -47,8 +47,8 @@
         <activity android:name=".View.Search.ActivityNearLocation" />
         <activity android:name=".View.Personal.ActivityAddService" />
         <activity android:name=".View.Personal.ActivityLogin" />
-        <activity android:name=".View.Personal.ActivityReview" />
-        <activity android:name=".View.Personal.ActivityReviewList" />
+        <activity android:name=".View.Main.ActivityReview" />
+        <activity android:name=".View.Main.ActivityReviewList" />
         <activity android:name=".View.Personal.ActivityRegister" />
         <activity android:name=".View.Search.ActivityAdvancedSearch" />
         <activity android:name=".View.Main.FullImageActivity" />

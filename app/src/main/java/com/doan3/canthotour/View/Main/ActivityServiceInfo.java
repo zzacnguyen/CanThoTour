@@ -29,8 +29,6 @@ import com.doan3.canthotour.Model.ModelService;
 import com.doan3.canthotour.Model.ObjectClass.ServiceInfo;
 import com.doan3.canthotour.R;
 import com.doan3.canthotour.View.Personal.ActivityLogin;
-import com.doan3.canthotour.View.Personal.ActivityReview;
-import com.doan3.canthotour.View.Personal.ActivityReviewList;
 import com.doan3.canthotour.View.Search.ActivityNearLocation;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -258,7 +256,7 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
             }
         });
 
-        load(this, Config.URL_HOST + Config.URL_GET_ALL_SERVICES + "/" + id);
+        load(this, Config.URL_HOST + Config.URL_GET_SERVICE_INFO + "/" + id);
 
         menuBotNavBar(this, 0);
     }

@@ -5,12 +5,15 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -28,13 +31,13 @@ import com.doan3.canthotour.Config;
 import com.doan3.canthotour.Helper.BottomNavigationViewHelper;
 import com.doan3.canthotour.Model.ModelService;
 import com.doan3.canthotour.Model.ObjectClass.Service;
+import com.doan3.canthotour.Model.SessionManager;
 import com.doan3.canthotour.R;
 import com.doan3.canthotour.View.Favorite.ActivityFavorite;
 import com.doan3.canthotour.View.Main.Content.FragmentService;
 import com.doan3.canthotour.View.Notify.ActivityNotify;
 import com.doan3.canthotour.View.Personal.ActivityAddPlace;
 import com.doan3.canthotour.View.Personal.ActivityPersonal;
-import com.doan3.canthotour.View.Search.ActivitySearch;
 import com.doan3.canthotour.View.Search.FragmentSearch;
 
 import java.util.ArrayList;
@@ -51,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
     FloatingActionButton fab, fabAddPlace;
     boolean enterprise = false;
     FragmentManager fragmentManager = getFragmentManager();
+    SessionManager sessionManager;
 
     //Bottom navigation bar
     public static void menuBotNavBar(final Activity activity, int i) {
@@ -69,7 +73,6 @@ public class MainActivity extends AppCompatActivity {
         try {
             String getBadgeNumber = new httpGet().execute(Config.URL_HOST + Config.URL_GET_EVENT_NUMBER).get();
             badgeNumber = Integer.parseInt(getBadgeNumber);
-            Log.d("badge number", getBadgeNumber);
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -110,6 +113,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        sessionManager = new SessionManager(getApplicationContext());
+        sessionManager.checkLogin();
+
+        load();
+
+        if (!isStoragePermissionGranted()){
+            load();
+        }
+    }
+
+    void load(){
         toolbar = findViewById(R.id.toolbar);
         fab = findViewById(R.id.fab);
         fabAddPlace = findViewById(R.id.fab_addplace);
@@ -146,10 +160,7 @@ public class MainActivity extends AppCompatActivity {
         display_enterprise();
 
         menuBotNavBar(this, 0);
-
     }
-
-
 
     void fabOnClick() { //Floating bar
         fab.setOnClickListener(new View.OnClickListener() {
@@ -229,6 +240,20 @@ public class MainActivity extends AppCompatActivity {
             getFragmentManager().popBackStack();
         } else {
             super.onBackPressed();
+        }
+    }
+
+    public boolean isStoragePermissionGranted() {
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    == PackageManager.PERMISSION_GRANTED) {
+                return true;
+            } else {
+                ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+                return false;
+            }
+        } else { //permission is automatically granted on sdk<23 upon installation
+            return true;
         }
     }
 }
