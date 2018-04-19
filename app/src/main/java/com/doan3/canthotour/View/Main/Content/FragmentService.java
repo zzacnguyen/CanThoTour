@@ -1,5 +1,6 @@
 package com.doan3.canthotour.View.Main.Content;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
@@ -93,7 +94,7 @@ public class FragmentService extends Fragment {
 
         load(url, formatJson, view);
 
-        bottomNavBar(view);
+        bottomFragNavBar(0, view, getActivity());
         return view;
     }
 
@@ -161,12 +162,12 @@ public class FragmentService extends Fragment {
         });
     }
 
-    private void bottomNavBar(final View view) {
+    public static void bottomFragNavBar(int i, final View view, final Activity activity) {
         BottomNavigationView bottomNavigationView = view.findViewById(R.id.bottomNavView_Bar); //Bottom navigation view
         BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
 
         Menu menu = bottomNavigationView.getMenu();
-        MenuItem menuItem = menu.getItem(0);
+        MenuItem menuItem = menu.getItem(i);
         menuItem.setChecked(true);
 
         BottomNavigationMenuView bottomNavigationMenuView =
@@ -183,7 +184,7 @@ public class FragmentService extends Fragment {
             e.printStackTrace();
         }
 
-        new QBadgeView(getActivity()).bindTarget(v)
+        new QBadgeView(activity).bindTarget(v)
                 .setBadgeNumber(badgeNumber)  //Set số thông báo hiển thị
                 .setBadgeGravity(Gravity.START | Gravity.TOP)
                 .setGravityOffset(26, 0, true);
@@ -193,18 +194,18 @@ public class FragmentService extends Fragment {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.ic_trangchu:
-                        getActivity().getFragmentManager().beginTransaction().remove(fragment).commit();
+                        activity.getFragmentManager().beginTransaction().remove(fragment).commit();
                         break;
                     case R.id.ic_yeuthich:
-                        getActivity().startActivity(new Intent(getApplicationContext(), ActivityFavorite.class));
+                        activity.startActivity(new Intent(getApplicationContext(), ActivityFavorite.class));
                         break;
                     case R.id.ic_thongbao:
                         Intent iNotify = new Intent(getApplicationContext(), ActivityNotify.class);
                         badgeNumber = 0; //Ẩn thông báo đi khi đã ấn vào
-                        getActivity().startActivity(iNotify);
+                        activity.startActivity(iNotify);
                         break;
                     case R.id.ic_canhan:
-                        getActivity().startActivity(new Intent(getApplicationContext(), ActivityPersonal.class));
+                        activity.startActivity(new Intent(getApplicationContext(), ActivityPersonal.class));
                         break;
                 }
                 return false;
