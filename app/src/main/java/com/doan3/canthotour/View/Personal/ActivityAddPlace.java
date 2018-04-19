@@ -35,10 +35,9 @@ import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
-import java.util.List;
+
 import java.util.concurrent.ExecutionException;
 
-import fr.ganfra.materialspinner.MaterialSpinner;
 
 import static com.doan3.canthotour.View.Main.MainActivity.menuBotNavBar;
 import static com.doan3.canthotour.View.Personal.ActivityAddService.bitmapArrayList;
