@@ -1,5 +1,6 @@
 package com.doan3.canthotour.View.Main;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -8,6 +9,8 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.internal.BottomNavigationMenuView;
@@ -18,6 +21,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -47,6 +51,55 @@ import q.rorbin.badgeview.QBadgeView;
 public class MainActivity extends AppCompatActivity {
 
     public static int badgeNumber;
+    public static Handler UIHandler;
+
+    static {
+        try {
+            badgeNumber = Integer.parseInt(new httpGet().execute(Config.URL_HOST + Config.URL_GET_EVENT_NUMBER).get());
+            Log.d("BadgeTest", String.valueOf(badgeNumber));
+
+            UIHandler = new Handler(Looper.getMainLooper()); //Khai báo UIHandler để tạo gọi được phương thức runOnUI
+
+//region notifyRepeat
+            Thread notifyRepeat = new Thread(){
+                @Override
+                public void run() {
+                    while(!isInterrupted()){
+                        try {
+                            Thread.sleep(120000); //1000 ms = 1 sec
+                            runOnUI(new Runnable() {
+                                @Override
+                                public void run() {
+                                    try {
+                                        badgeNumber = Integer.parseInt(new httpGet().execute(Config.URL_HOST + Config.URL_GET_EVENT_NUMBER).get());
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
+                                    } catch (ExecutionException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            });
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            };
+            notifyRepeat.start();
+
+            //endregion
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void runOnUI(Runnable runnable) {
+        UIHandler.post(runnable);
+    }
+
+    @SuppressLint("StaticFieldLeak")
     public static Fragment fragment = null;
     Toolbar toolbar;
     Button btnPlace, btnEat, btnHoTel, btnEntertain, btnVehicle;
@@ -68,15 +121,6 @@ public class MainActivity extends AppCompatActivity {
                 (BottomNavigationMenuView) bottomNavigationView.getChildAt(0); //Hiển thị ở trang chủ
         View v = bottomNavigationMenuView.getChildAt(2); //Hiển thị dấu chấm đỏ khi có thông báo
         BottomNavigationItemView itemView = (BottomNavigationItemView) v;
-
-        try {
-            String getBadgeNumber = new httpGet().execute(Config.URL_HOST + Config.URL_GET_EVENT_NUMBER).get();
-            badgeNumber = Integer.parseInt(getBadgeNumber);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
 
         new QBadgeView(activity).bindTarget(v)
                 .setBadgeNumber(badgeNumber)  //Set số thông báo hiển thị
