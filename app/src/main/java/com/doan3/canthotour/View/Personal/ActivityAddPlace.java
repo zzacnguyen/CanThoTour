@@ -94,7 +94,8 @@ public class ActivityAddPlace extends AppCompatActivity {
         } catch (InterruptedException | ExecutionException | JSONException e) {
             e.printStackTrace();
         }
-        arrayListProvince = new ArrayAdapter<>(getApplicationContext(), R.layout.support_simple_spinner_dropdown_item, arrayProvince);
+        arrayListProvince = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1, arrayProvince);
+        arrayListProvince.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerProvince.setAdapter(arrayListProvince);
 
         spinnerProvince.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -110,7 +111,8 @@ public class ActivityAddPlace extends AppCompatActivity {
                 } catch (InterruptedException | ExecutionException | JSONException e) {
                     e.printStackTrace();
                 }
-                arrayListDistrict = new ArrayAdapter<>(getApplicationContext(), R.layout.support_simple_spinner_dropdown_item, arrayDistrict);
+                arrayListDistrict = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1, arrayDistrict);
+                arrayListDistrict.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 spinnerDistrict.setAdapter(arrayListDistrict);
             }
 
@@ -133,7 +135,8 @@ public class ActivityAddPlace extends AppCompatActivity {
                 } catch (InterruptedException | ExecutionException | JSONException e) {
                     e.printStackTrace();
                 }
-                arrayListWard = new ArrayAdapter<>(getApplicationContext(), R.layout.support_simple_spinner_dropdown_item, arrayWard);
+                arrayListWard = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1, arrayWard);
+                arrayListWard.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 spinnerWard.setAdapter(arrayListWard);
             }
 

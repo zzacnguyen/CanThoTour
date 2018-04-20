@@ -85,6 +85,15 @@
                         android:text=""
                         android:textSize="12sp" />
 
+                    <TextView
+                        android:id="@+id/txtUserMark"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:textColor="@color/tbEat"
+                        android:text="Điểm tích lũy: 1"
+                        android:textSize="12sp" />
+
                 </LinearLayout>
             </LinearLayout>
 
