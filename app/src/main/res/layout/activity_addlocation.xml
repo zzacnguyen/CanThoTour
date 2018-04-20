@@ -227,6 +227,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:padding="5dp"
                     android:weightSum="5">
 
                     <TextView
@@ -242,17 +243,18 @@
                     <android.support.v7.widget.AppCompatSpinner
                         android:id="@+id/spinnerProvince"
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:spinnerMode="dropdown"
-                        style="@style/Widget.AppCompat.Spinner.Underlined"
-                        android:layout_weight="2" />
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="2"
+                        android:spinnerMode="dropdown" />
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="5">
+                    android:layout_weight="5"
+                    android:padding="5dp">
 
                     <TextView
                         android:layout_width="match_parent"
@@ -267,16 +269,18 @@
                     <android.support.v7.widget.AppCompatSpinner
                         android:id="@+id/spinnerDistrict"
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        style="@style/Widget.AppCompat.Spinner.Underlined"
-                        android:layout_weight="2"/>
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="2"
+                        android:spinnerMode="dropdown" />
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="5">
+                    android:layout_weight="5"
+                    android:padding="5dp">
 
                     <TextView
                         android:layout_width="match_parent"
@@ -291,9 +295,10 @@
                     <android.support.v7.widget.AppCompatSpinner
                         android:id="@+id/spinnerWard"
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        style="@style/Widget.AppCompat.Spinner.Underlined"
-                        android:layout_weight="2" />
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="2"
+                        android:spinnerMode="dropdown" />
 
                 </LinearLayout>
 
