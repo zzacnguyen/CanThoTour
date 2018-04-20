@@ -103,6 +103,5 @@ public class ActivityReview extends AppCompatActivity {
                 finishActivity(1);
             }
         });
-        menuBotNavBar(this, 0);
     }
 }

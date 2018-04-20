@@ -1,6 +1,8 @@
 package com.doan3.canthotour.View.Main;
 
 import android.app.Activity;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -29,6 +31,7 @@ import com.doan3.canthotour.Model.ModelService;
 import com.doan3.canthotour.Model.ObjectClass.ServiceInfo;
 import com.doan3.canthotour.R;
 import com.doan3.canthotour.View.Personal.ActivityLogin;
+import com.doan3.canthotour.View.Personal.Fragment.FragmentReview;
 import com.doan3.canthotour.View.Search.ActivityNearLocation;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -62,6 +65,7 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
     CallbackManager callbackManager;
     ShareDialog shareDialog;
     public static String[] imgDetail = null;
+    FragmentManager fragmentManager = getFragmentManager();
 
     @Override
     public void onClick(View view) {
@@ -239,6 +243,14 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
                     intent.putExtra("id", id);
                     startActivity(intent);
                 } else {
+//                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//                    FragmentReview fragmentReview = new FragmentReview();
+//                    Bundle bundle = new Bundle();
+//                    bundle.putInt("id", id);
+//                    bundle.putInt("iddanhgia", reviewId);
+//                    fragmentTransaction.add(R.id.serviceInfoFragment, fragmentReview);
+//                    fragmentTransaction.commit();
+
                     Intent intent = new Intent(ActivityServiceInfo.this, ActivityReview.class);
                     intent.putExtra("id", id);
                     intent.putExtra("iddanhgia", reviewId);
@@ -411,6 +423,15 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
             e.printStackTrace();
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (getFragmentManager().getBackStackEntryCount() > 0) { //đếm số lượng trong ngăn xếp còn bao nhiêu số lượng fragment
+            getFragmentManager().popBackStack();
+        } else {
+            super.onBackPressed();
         }
     }
 }
