@@ -15,7 +15,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import com.doan3.canthotour.R;
 
@@ -29,20 +28,19 @@ import static com.doan3.canthotour.View.Main.MainActivity.menuBotNavBar;
 
 public class ActivityAddService extends AppCompatActivity implements View.OnClickListener {
 
+    public static ArrayList<Bitmap> bitmapArrayList = new ArrayList<>();
+    public static ArrayList<String> jsonServiceToString = new ArrayList<>();
     //REQUEST Code
     final int RESULT_BANNER = 111,
             RESULT_INFO1 = 112,
             RESULT_INFO2 = 113,
             REQUEST_CAMERA_CAPTURE = 110;
-
     TextView txtOpenTime, txtCloseTime, btnDone, btnCancel;
     EditText etServiceName, etWebsite, etServicePhone, etServiceAbout, etLowestPrice, etHighestPrice, etNumberStar;
     ImageView imgBanner, imgInfo1, imgInfo2;
     ImageButton ibCamera;
+    String mCurrentPhotoPath;
     private int mHour, mMinute;
-
-    public static ArrayList<Bitmap> bitmapArrayList = new ArrayList<>();
-    public static ArrayList<String> jsonServiceToString = new ArrayList<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -80,7 +78,6 @@ public class ActivityAddService extends AppCompatActivity implements View.OnClic
 
         final int type = getIntent().getIntExtra("type", 0);
         if (type != 2) {
-            etWebsite.setVisibility(View.GONE);
             etNumberStar.setVisibility(View.GONE);
         }
 
@@ -92,32 +89,42 @@ public class ActivityAddService extends AppCompatActivity implements View.OnClic
                 timeOpen = txtOpenTime.getText().toString().split(":");
                 timeClose = txtCloseTime.getText().toString().split(":");
 
-                if(Integer.parseInt(etLowestPrice.getText().toString()) > Integer.parseInt(etHighestPrice.getText().toString())) {
-                    Toast.makeText(ActivityAddService.this, "Giá thấp nhất không được lớn hơn giá cao nhất", Toast.LENGTH_SHORT).show();
-                }else if (Integer.parseInt(timeOpen[0]) > Integer.parseInt(timeClose[0])){
+                if (Integer.parseInt(etLowestPrice.getText().toString()) > Integer.parseInt(etHighestPrice.getText().toString())) {
+                    etLowestPrice.setError("Giá thấp nhất không được lớn hơn giá cao nhất");
+                } else if (Integer.parseInt(timeOpen[0]) > Integer.parseInt(timeClose[0])) {
                     etServiceAbout.setError("Giờ mở cửa phải sớm hơn giờ đóng cửa");
-                }else if(etServiceName.getText().toString().equals("")){
+                } else if (etServiceName.getText().toString().equals("")) {
                     etServiceName.setError("Tên dịch vụ không được để trống");
-                }else if (etWebsite.getText().toString().equals("")){
+                } else if (etWebsite.getText().toString().equals("")) {
                     etWebsite.setError("Website không được để trống");
-                }else if (etNumberStar.getText().toString().equals("")){
+                } else if (etNumberStar.getText().toString().equals("") && etNumberStar.getVisibility() != View.GONE) {
                     etNumberStar.setError("Số sao không được để trống");
-                }else if (etServiceAbout.getText().toString().equals("")){
+                } else if (etServiceAbout.getText().toString().equals("")) {
                     etServiceAbout.setError("Mô tả không được để trống");
-                }else{
+                } else {
                     jsonServiceToString = new ArrayList<>();
 
+                    // mô tả dịch vụ
                     jsonServiceToString.add(etServiceAbout.getText().toString());
+                    // giờ mở cửa
                     jsonServiceToString.add(txtOpenTime.getText().toString());
+                    // giờ đóng cửa
                     jsonServiceToString.add(txtCloseTime.getText().toString());
+                    // giá cao nhất
                     jsonServiceToString.add(etHighestPrice.getText().toString());
+                    // giá thấp nhát
                     jsonServiceToString.add(etLowestPrice.getText().toString());
+                    // số điện thoại
                     jsonServiceToString.add(etServicePhone.getText().toString());
+                    // loại hình
                     jsonServiceToString.add(type + "");
-
+                    // website
+                    jsonServiceToString.add(etWebsite.getText().toString());
+                    // tên dịch vụ
                     jsonServiceToString.add(etServiceName.getText().toString());
-                    if (etWebsite.getVisibility() != View.GONE) {
-                        jsonServiceToString.add(etWebsite.getText().toString());
+                    // nếu ô nhập số sao không bị ẩn = dịch vụ khách sạn
+                    if (etNumberStar.getVisibility() != View.GONE) {
+                        // số sao khách sạn
                         jsonServiceToString.add(etNumberStar.getText().toString());
                     }
                     finish();
@@ -241,8 +248,6 @@ public class ActivityAddService extends AppCompatActivity implements View.OnClic
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Chọn hình..."), requestCode);
     }
-
-    String mCurrentPhotoPath;
 
     private File createImageFile() throws IOException {
         File storageDir = Environment.getExternalStorageDirectory();

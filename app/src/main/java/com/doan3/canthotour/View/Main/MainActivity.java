@@ -18,7 +18,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -118,12 +117,12 @@ public class MainActivity extends AppCompatActivity {
 
         load();
 
-        if (!isStoragePermissionGranted()){
+        if (!isStoragePermissionGranted()) {
             load();
         }
     }
 
-    void load(){
+    void load() {
         toolbar = findViewById(R.id.toolbar);
         fab = findViewById(R.id.fab);
         fabAddPlace = findViewById(R.id.fab_addplace);

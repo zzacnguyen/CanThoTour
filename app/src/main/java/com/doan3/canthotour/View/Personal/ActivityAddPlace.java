@@ -15,11 +15,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.doan3.canthotour.Adapter.GeolocationAdapter;
+import com.doan3.canthotour.Adapter.HttpRequestAdapter.httpGet;
 import com.doan3.canthotour.Adapter.HttpRequestAdapter.httpPost;
 import com.doan3.canthotour.Adapter.HttpRequestAdapter.httpPostImage;
 import com.doan3.canthotour.Config;
-import com.doan3.canthotour.Model.ObjectClass.Geolocation;
 import com.doan3.canthotour.R;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
@@ -30,18 +29,20 @@ import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.ByteArrayBody;
 import org.apache.http.entity.mime.content.ContentBody;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
-
 import java.util.concurrent.ExecutionException;
 
-
+import static com.doan3.canthotour.Helper.JsonHelper.parseJson;
+import static com.doan3.canthotour.Helper.JsonHelper.parseJsonNoId;
 import static com.doan3.canthotour.View.Main.MainActivity.menuBotNavBar;
 import static com.doan3.canthotour.View.Personal.ActivityAddService.bitmapArrayList;
 import static com.doan3.canthotour.View.Personal.ActivityAddService.jsonServiceToString;
+import static com.doan3.canthotour.View.Personal.ActivityPersonal.userId;
 
 
 public class ActivityAddPlace extends AppCompatActivity {
@@ -51,11 +52,13 @@ public class ActivityAddPlace extends AppCompatActivity {
     EditText etAddress, etPlaceName, etPlacePhone, etPlaceAbout;
     Button btnPlacePicker;
     LinearLayout linearPlace, linearEat, linearHotel, linearEntertaiment, linearVehicle;
-    String idPlace, idService;
+    String stringIdPlace, idService;
     MultipartEntity reqEntity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
 
     Spinner spinnerDistrict, spinnerProvince, spinnerWard;
-    ArrayList<Geolocation> arrayListGeolocation; //Tạm thời gáng cứng số cho spinner
+    ArrayAdapter<String> arrayListProvince, arrayListDistrict, arrayListWard;
+    int ID = 0;
+    ArrayList<String> arrayIdProvince = new ArrayList<>(), arrayIdDistrict = new ArrayList<>(), arrayIdWard = new ArrayList<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -82,27 +85,33 @@ public class ActivityAddPlace extends AppCompatActivity {
         spinnerDistrict = findViewById(R.id.spinnerDistrict);
         spinnerWard = findViewById(R.id.spinnerWard);
 
-        arrayListGeolocation = new ArrayList<Geolocation>();  //Gáng cứng dữ liệu
-        arrayListGeolocation.add(new Geolocation("Cần Thơ"));
-        arrayListGeolocation.add(new Geolocation("Sóc Trăng"));
-        arrayListGeolocation.add(new Geolocation("Hậu Giang"));
-        arrayListGeolocation.add(new Geolocation("Bạc Liêu"));
-        arrayListGeolocation.add(new Geolocation("Cà Mau"));
-        arrayListGeolocation.add(new Geolocation("Đồng Tháp"));
-        arrayListGeolocation.add(new Geolocation("Tiền Giang"));
-        arrayListGeolocation.add(new Geolocation("Kiên Giang"));
-        arrayListGeolocation.add(new Geolocation("An Giang"));
-        arrayListGeolocation.add(new Geolocation("Mỹ Tho"));
-        arrayListGeolocation.add(new Geolocation("Tây Ninh"));
-        arrayListGeolocation.add(new Geolocation("Đồng Nai"));
-
-        GeolocationAdapter geolocationAdapter = new GeolocationAdapter(this, R.layout.spinneritem, arrayListGeolocation); //Set activity, custom spinner item layout, arraylist
-        spinnerProvince.setAdapter(geolocationAdapter);
+        // load tỉnh thành vào spinner
+        ArrayList<String> arrayProvince = new ArrayList<>();
+        try {
+            JSONArray jsonArrayProvince = new JSONArray(new httpGet().execute(Config.URL_HOST + Config.URL_GET_PROVINCE).get());
+            arrayProvince = parseJsonNoId(jsonArrayProvince, Config.GET_KEY_JSON_PROVINCE);
+            arrayIdProvince = parseJson(jsonArrayProvince, new ArrayList<String>());
+        } catch (InterruptedException | ExecutionException | JSONException e) {
+            e.printStackTrace();
+        }
+        arrayListProvince = new ArrayAdapter<>(getApplicationContext(), R.layout.support_simple_spinner_dropdown_item, arrayProvince);
+        spinnerProvince.setAdapter(arrayListProvince);
 
         spinnerProvince.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
+                // load quận huyện vào spinner
+                ArrayList<String> arrayDistrict = new ArrayList<>();
+                try {
+                    JSONArray jsonArrayDistrict =
+                            new JSONArray(new httpGet().execute(Config.URL_HOST + Config.URL_GET_DISTRICT + arrayIdProvince.get(i)).get());
+                    arrayDistrict = parseJsonNoId(jsonArrayDistrict, Config.GET_KEY_JSON_DISTRICT);
+                    arrayIdDistrict = parseJson(jsonArrayDistrict, new ArrayList<String>());
+                } catch (InterruptedException | ExecutionException | JSONException e) {
+                    e.printStackTrace();
+                }
+                arrayListDistrict = new ArrayAdapter<>(getApplicationContext(), R.layout.support_simple_spinner_dropdown_item, arrayDistrict);
+                spinnerDistrict.setAdapter(arrayListDistrict);
             }
 
             @Override
@@ -111,6 +120,39 @@ public class ActivityAddPlace extends AppCompatActivity {
             }
         });
 
+        spinnerDistrict.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                // load xã phường vào spinner
+                ArrayList<String> arrayWard = new ArrayList<>();
+                try {
+                    JSONArray jsonArrayWard =
+                            new JSONArray(new httpGet().execute(Config.URL_HOST + Config.URL_GET_WARD + arrayIdDistrict.get(i)).get());
+                    arrayWard = parseJsonNoId(jsonArrayWard, Config.GET_KEY_JSON_WARD);
+                    arrayIdWard = parseJson(jsonArrayWard, new ArrayList<String>());
+                } catch (InterruptedException | ExecutionException | JSONException e) {
+                    e.printStackTrace();
+                }
+                arrayListWard = new ArrayAdapter<>(getApplicationContext(), R.layout.support_simple_spinner_dropdown_item, arrayWard);
+                spinnerWard.setAdapter(arrayListWard);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+        spinnerWard.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                ID = Integer.parseInt(arrayIdWard.get(i));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
         //endregion P  Provice
 
         linearPlace.setOnClickListener(new View.OnClickListener() {
@@ -167,6 +209,8 @@ public class ActivityAddPlace extends AppCompatActivity {
                     etPlacePhone.setError("Số điện thoại không được để trống");
                 } else if (etPlaceAbout.getText().toString().equals("")) {
                     etPlaceAbout.setError("Mô tả địa điểm không được để trống");
+                } else if (ID == 0) {
+                    Toast.makeText(ActivityAddPlace.this, "Chưa chọn địa chỉ", Toast.LENGTH_SHORT).show();
                 } else {
                     try {
                         JSONObject jsonPost = new JSONObject("{" + Config.POST_KEY_JSON_PLACE.get(0) + ":\"" + etPlaceName.getText().toString() + "\"," +
@@ -175,28 +219,37 @@ public class ActivityAddPlace extends AppCompatActivity {
                                 Config.POST_KEY_JSON_PLACE.get(3) + ":\"" + etPlacePhone.getText().toString() + "\"," +
                                 Config.POST_KEY_JSON_PLACE.get(4) + ":\"" + txtLat.getText().toString() + "\"," +
                                 Config.POST_KEY_JSON_PLACE.get(5) + ":\"" + txtLong.getText().toString() + "\"," +
-                                Config.POST_KEY_JSON_PLACE.get(6) + ":\"" + "1" + "\"" + "}");
-                        idPlace = new httpPost(jsonPost).execute(Config.URL_HOST + Config.URL_POST_PLACE).get();
+                                Config.POST_KEY_JSON_PLACE.get(6) + ":\"" + ID + "\"" +
+                                Config.POST_KEY_JSON_PLACE.get(7) + ":\"" + userId + "\"" +
+                                Config.POST_KEY_JSON_PLACE.get(8) + ":\"" + "" + "\"" + "}");
+                        stringIdPlace = new httpPost(jsonPost).execute(Config.URL_HOST + Config.URL_POST_PLACE).get();
                     } catch (InterruptedException | ExecutionException | JSONException e) {
                         e.printStackTrace();
                     }
                     try {
-                        String name;
-                        if (jsonServiceToString.get(6).equals("1")) {
-                            name = Config.POST_KEY_JSON_SERVICE_EAT.get(0) + ":\"" + jsonServiceToString.get(7) + "\"";
-                        } else if (jsonServiceToString.get(6).equals("2")) {
-                            name = Config.POST_KEY_JSON_SERVICE_HOTEL.get(0) + ":\"" + jsonServiceToString.get(7) + "\"," +
-                                    Config.POST_KEY_JSON_SERVICE_HOTEL.get(1) + ":\"" + jsonServiceToString.get(8) + "\"," +
-                                    Config.POST_KEY_JSON_SERVICE_HOTEL.get(2) + ":\"" + jsonServiceToString.get(9) + "\"";
-                        } else if (jsonServiceToString.get(6).equals("3")) {
-                            name = Config.POST_KEY_JSON_SERVICE_TRANSPORT.get(0) + ":\"" + jsonServiceToString.get(7) + "\"";
-                        } else if (jsonServiceToString.get(6).equals("4")) {
-                            name = Config.POST_KEY_JSON_SERVICE_SIGHTSEEING.get(0) + ":\"" + jsonServiceToString.get(7) + "\"";
-                        } else {
-                            name = Config.POST_KEY_JSON_SERVICE_ENTERTAINMENTS.get(0) + ":\"" + jsonServiceToString.get(7) + "\"";
+                        String name = "";
+                        switch (jsonServiceToString.get(6)) {
+                            case "1":
+                                name = Config.POST_KEY_JSON_SERVICE_EAT.get(0) + ":\"" + jsonServiceToString.get(8) + "\"";
+                                break;
+                            case "2":
+                                name = Config.POST_KEY_JSON_SERVICE_HOTEL.get(0) + ":\"" + jsonServiceToString.get(8) + "\"," +
+                                        Config.POST_KEY_JSON_SERVICE_HOTEL.get(1) + ":\"" + jsonServiceToString.get(9) + "\"";
+                                break;
+                            case "3":
+                                name = Config.POST_KEY_JSON_SERVICE_TRANSPORT.get(0) + ":\"" + jsonServiceToString.get(8) + "\"";
+                                break;
+                            case "4":
+                                name = Config.POST_KEY_JSON_SERVICE_SIGHTSEEING.get(0) + ":\"" + jsonServiceToString.get(8) + "\"";
+                                break;
+                            case "5":
+                                name = Config.POST_KEY_JSON_SERVICE_ENTERTAINMENTS.get(0) + ":\"" + jsonServiceToString.get(8) + "\"";
+                                break;
+                            default:
+                                break;
                         }
-                        String idP = idPlace.contains(":") ? idPlace.replaceAll("\"", "").split(":")[1] : "";
-                        if (!idP.equals("")) {
+                        String idPlace = stringIdPlace.contains(":") ? stringIdPlace.replaceAll("\"", "").split(":")[1] : "";
+                        if (!idPlace.equals("")) {
                             JSONObject jsonPost = new JSONObject("{" +
                                     Config.POST_KEY_JSON_SERVICE.get(0) + ":\"" + jsonServiceToString.get(0) + "\"," +
                                     Config.POST_KEY_JSON_SERVICE.get(1) + ":\"" + jsonServiceToString.get(1) + "\"," +
@@ -205,20 +258,23 @@ public class ActivityAddPlace extends AppCompatActivity {
                                     Config.POST_KEY_JSON_SERVICE.get(4) + ":\"" + jsonServiceToString.get(4) + "\"," +
                                     Config.POST_KEY_JSON_SERVICE.get(5) + ":\"" + jsonServiceToString.get(5) + "\"," +
                                     Config.POST_KEY_JSON_SERVICE.get(6) + ":\"" + jsonServiceToString.get(6) + "\"," +
-                                    Config.POST_KEY_JSON_SERVICE.get(7) + ":\"" + idP + "\"," + name + "}");
+                                    Config.POST_KEY_JSON_SERVICE.get(7) + ":\"" + "" +
+                                    Config.POST_KEY_JSON_SERVICE.get(8) + ":\"" + userId + "\"," +
+                                    Config.POST_KEY_JSON_SERVICE.get(9) + ":\"" + jsonServiceToString.get(7) + "\"," +
+                                    "\"," + name + "}");
                             idService = new httpPost(jsonPost).execute(Config.URL_HOST + Config.URL_GET_SERVICE_INFO).get();
                             String idS = idService.contains(":") ? idService.replaceAll("\"", "").split(":")[1] : "";
                             if (!idS.equals("")) {
                                 ByteArrayOutputStream ban = new ByteArrayOutputStream();
-                                bitmapArrayList.get(0).compress(Bitmap.CompressFormat.JPEG, 100, ban);
+                                bitmapArrayList.get(0).compress(Bitmap.CompressFormat.JPEG, 80, ban);
                                 ContentBody contentBanner = new ByteArrayBody(ban.toByteArray(), "a.jpg");
 
                                 ByteArrayOutputStream de1 = new ByteArrayOutputStream();
-                                bitmapArrayList.get(1).compress(Bitmap.CompressFormat.JPEG, 100, de1);
+                                bitmapArrayList.get(1).compress(Bitmap.CompressFormat.JPEG, 80, de1);
                                 ContentBody contentDetails1 = new ByteArrayBody(de1.toByteArray(), "b.jpg");
 
                                 ByteArrayOutputStream de2 = new ByteArrayOutputStream();
-                                bitmapArrayList.get(2).compress(Bitmap.CompressFormat.JPEG, 100, de2);
+                                bitmapArrayList.get(2).compress(Bitmap.CompressFormat.JPEG, 80, de2);
                                 ContentBody contentDetails2 = new ByteArrayBody(de2.toByteArray(), "c.jpg");
 
                                 reqEntity.addPart("banner", contentBanner);
@@ -273,9 +329,7 @@ public class ActivityAddPlace extends AppCompatActivity {
         try {
             Intent intent = intentBuilder.build(this);
             startActivityForResult(intent, REQUEST_CODE_PLACEPICKER);
-        } catch (GooglePlayServicesRepairableException e) {
-            e.printStackTrace();
-        } catch (GooglePlayServicesNotAvailableException e) {
+        } catch (GooglePlayServicesRepairableException | GooglePlayServicesNotAvailableException e) {
             e.printStackTrace();
         }
     }

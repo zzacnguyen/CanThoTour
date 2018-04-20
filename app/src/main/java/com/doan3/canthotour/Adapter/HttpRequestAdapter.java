@@ -71,9 +71,11 @@ public class HttpRequestAdapter {
 
     public static class httpPostImage extends AsyncTask<String, Void, String> {
         MultipartEntity reqEntity;
-        public httpPostImage(MultipartEntity reqEntity){
+
+        public httpPostImage(MultipartEntity reqEntity) {
             this.reqEntity = reqEntity;
         }
+
         @Override
         protected String doInBackground(String... strings) {
             try {
@@ -121,9 +123,11 @@ public class HttpRequestAdapter {
 
     public static class httpPost extends AsyncTask<String, Void, String> {
         JSONObject json;
-        public httpPost(JSONObject json){
+
+        public httpPost(JSONObject json) {
             this.json = json;
         }
+
         @Override
         protected String doInBackground(String... strings) {
             try {
@@ -165,9 +169,11 @@ public class HttpRequestAdapter {
 
     public static class httpPut extends AsyncTask<String, Void, String> {
         JSONObject json;
-        public httpPut(JSONObject json){
+
+        public httpPut(JSONObject json) {
             this.json = json;
         }
+
         @Override
         protected String doInBackground(String... strings) {
             try {

@@ -2,10 +2,14 @@ package com.doan3.canthotour;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
 public class Config {
-    public static final String URL_HOST = "http://192.168.1.6/doan3_canthotour/public/";
+    public static final String URL_HOST = "http://192.168.1.8/doan3_canthotour/public/";
     public static final String URL_LOGIN = "login";
+    public static final String URL_GET_PROVINCE = "province";
+    public static final String URL_GET_DISTRICT = "district/";
+    public static final String URL_GET_WARD = "ward/";
     public static final String URL_REGISTER = "register";
     public static final ArrayList<String> URL_SEARCH_TYPE =
             new ArrayList<>(Arrays.asList("search/searchServicesTypeKeyword/type=", "&keyword="));
@@ -80,6 +84,13 @@ public class Config {
     public static final ArrayList<String> GET_KEY_JSON_LOAD =
             new ArrayList<>(Arrays.asList("data", "next_page_url", "total"));
 
+    public static final ArrayList<String> GET_KEY_JSON_PROVINCE =
+            new ArrayList<>(Collections.singletonList("province_city_name"));
+    public static final ArrayList<String> GET_KEY_JSON_DISTRICT =
+            new ArrayList<>(Collections.singletonList("district_name"));
+    public static final ArrayList<String> GET_KEY_JSON_WARD =
+            new ArrayList<>(Collections.singletonList("ward_name"));
+
     public static final ArrayList<String> GET_KEY_JSON_REVIEW =
             new ArrayList<>(Arrays.asList("username", "vr_rating", "vr_title", "vr_ratings_details", "date_rating"));
 
@@ -107,21 +118,26 @@ public class Config {
 
     public static final ArrayList<String> POST_KEY_JSON_PLACE =
             new ArrayList<>(Arrays.asList("\"pl_name\"", "\"pl_details\"", "\"pl_address\"", "\"pl_phone_number\"",
-                    "\"pl_latitude\"", "\"pl_longitude\"", "\"user_id\""));
+                    "\"pl_latitude\"", "\"pl_longitude\"", "\"id_ward\"", "\"partner_user\"", "\"tourguide_user\""));
 
     public static final ArrayList<String> POST_KEY_JSON_SERVICE_INFO =
             new ArrayList<>(Arrays.asList("\"id\"", "\"hotel_name\"", "\"entertainments_name\"", "\"transport_name\"",
                     "\"sightseeing_name\"", "\"eat_name\"", "\"image_id\"", "\"image_details_1\""));
 
     public static final ArrayList<String> POST_KEY_JSON_SERVICE =
-            new ArrayList<>(Arrays.asList("\"sv_description\"", "\"sv_open\"", "\"sv_close\"", "\"sv_highest_price\"",
-                    "\"sv_lowest_price\"", "\"sv_phone_number\"", "\"sv_types\"", "\"tourist_places_id\""));
+            new ArrayList<>(Arrays.asList("\"sv_description\"", "\"sv_open\"", "\"sv_close\"",
+                    "\"sv_highest_price\"", "\"sv_lowest_price\"", "\"sv_phone_number\"", "\"sv_types\"",
+                    "\"tourguide_user\"", "\"partner_user\"", "\"sv_website\"", "\"id_place\""));
 
-    public static final ArrayList<String> POST_KEY_JSON_SERVICE_EAT = new ArrayList<>(Arrays.asList("\"eat_name\""));
-    public static final ArrayList<String> POST_KEY_JSON_SERVICE_HOTEL = new ArrayList<>(Arrays.asList("\"hotel_name\"",
-            "\"hotel_website\"", "\"hotel_number_star\""));
-    public static final ArrayList<String> POST_KEY_JSON_SERVICE_SIGHTSEEING = new ArrayList<>(Arrays.asList("\"sightseeing_name\""));
-    public static final ArrayList<String> POST_KEY_JSON_SERVICE_ENTERTAINMENTS = new ArrayList<>(Arrays.asList("\"entertainments_name\""));
-    public static final ArrayList<String> POST_KEY_JSON_SERVICE_TRANSPORT = new ArrayList<>(Arrays.asList("\"transport_name\""));
+    public static final ArrayList<String> POST_KEY_JSON_SERVICE_EAT =
+            new ArrayList<>(Collections.singletonList("\"eat_name\""));
+    public static final ArrayList<String> POST_KEY_JSON_SERVICE_HOTEL =
+            new ArrayList<>(Arrays.asList("\"hotel_name\"", "\"hotel_number_star\""));
+    public static final ArrayList<String> POST_KEY_JSON_SERVICE_SIGHTSEEING =
+            new ArrayList<>(Collections.singletonList("\"sightseeing_name\""));
+    public static final ArrayList<String> POST_KEY_JSON_SERVICE_ENTERTAINMENTS =
+            new ArrayList<>(Collections.singletonList("\"entertainments_name\""));
+    public static final ArrayList<String> POST_KEY_JSON_SERVICE_TRANSPORT =
+            new ArrayList<>(Collections.singletonList("\"transport_name\""));
 
 }

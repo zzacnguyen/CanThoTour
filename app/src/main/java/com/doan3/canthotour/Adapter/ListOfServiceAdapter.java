@@ -76,17 +76,17 @@ public class ListOfServiceAdapter extends RecyclerView.Adapter<RecyclerView.View
         if (holder instanceof ViewHolder) {
             Service service = services.get(position);
             ViewHolder viewHolder = (ViewHolder) holder;
-            viewHolder.txtTen.setText(service.getName());
-            viewHolder.imgHinh.setImageBitmap(service.getImage());
+            viewHolder.txtName.setText(service.getName());
+            viewHolder.imgImage.setImageBitmap(service.getImage());
             viewHolder.cardView.setTag(service.getId());
 
             viewHolder.cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent iEatInfo = new Intent(context, ActivityServiceInfo.class);
-                    iEatInfo.putExtra("id", (int) view.getTag());
-                    iEatInfo.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    context.startActivity(iEatInfo);
+                    Intent iServiceInfo = new Intent(context, ActivityServiceInfo.class);
+                    iServiceInfo.putExtra("id", (int) view.getTag());
+                    iServiceInfo.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(iServiceInfo);
                 }
             });
         } else if (holder instanceof LoadingViewHolder) {
@@ -115,16 +115,17 @@ public class ListOfServiceAdapter extends RecyclerView.Adapter<RecyclerView.View
     }
 
     //"Normal item" Viewholder
-    private class ViewHolder extends RecyclerView.ViewHolder { //ViewHolder chạy thứ 2, phần này giúp cho recycler view ko bị load lại dữ liệu khi thực hiện thao tác vuốt màn hình
-        TextView txtTen;
-        ImageView imgHinh;
+    private class ViewHolder extends RecyclerView.ViewHolder {
+        //ViewHolder chạy thứ 2, phần này giúp cho recycler view ko bị load lại dữ liệu khi thực hiện thao tác vuốt màn hình
+        TextView txtName;
+        ImageView imgImage;
         CardView cardView;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
-            txtTen = itemView.findViewById(R.id.txtPlaceName);
-            imgHinh = itemView.findViewById(R.id.imgPlacePhoto);
+            txtName = itemView.findViewById(R.id.txtPlaceName);
+            imgImage = itemView.findViewById(R.id.imgPlacePhoto);
             cardView = itemView.findViewById(R.id.cardViewDanhSach);
 
         }
