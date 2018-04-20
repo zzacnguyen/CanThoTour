@@ -63,9 +63,9 @@ public class ActivityLogin extends AppCompatActivity {
             public void onClick(View view) {
 
                 if (etUserId.getText().toString().equals("")) {
-                    etUserId.setError("Tài khoản không được để trống");
+                    etUserId.setError(getResources().getString(R.string.text_UsernameIsNotAllowedToBeEmpty));
                 } else if (etPassword.getText().toString().equals("")) {
-                    etPassword.setError("Mật khẩu không được để trống");
+                    etPassword.setError(getResources().getString(R.string.text_PasswordIsNotAllowedToBeEmpty));
                 } else {
                     try {
                         JSONObject jsonPost = new JSONObject("{" + Config.POST_KEY_LOGIN.get(0) + ":\""
@@ -75,7 +75,7 @@ public class ActivityLogin extends AppCompatActivity {
                         JSONObject jsonGet = new JSONObject(rs);
                         // nếu status = error
                         if (jsonGet.getString(Config.GET_KEY_JSON_LOGIN.get(2)).toString().equals(Config.GET_KEY_JSON_LOGIN.get(3))) {
-                            Toast.makeText(ActivityLogin.this, "tài khoản hoặc mật khẩu không đúng",
+                            Toast.makeText(ActivityLogin.this, getResources().getString(R.string.text_TheUsernameOrPasswordIsIncorrect),
                                     Toast.LENGTH_SHORT).show();
                         } else {
                             ArrayList<String> arrayUser =

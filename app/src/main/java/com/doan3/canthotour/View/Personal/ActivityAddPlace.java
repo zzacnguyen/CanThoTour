@@ -205,15 +205,15 @@ public class ActivityAddPlace extends AppCompatActivity {
             public void onClick(View view) {
 
                 if (etPlaceName.getText().toString().equals("")) {
-                    etPlaceName.setError("Tên địa điểm không được để trống");
+                    etPlaceName.setError(getResources().getString(R.string.text_WhatIsYourPlaceName));
                 } else if (etAddress.getText().toString().equals("")) {
-                    etAddress.setError("Địa chỉ không được để trống");
+                    etAddress.setError(getResources().getString(R.string.text_EnterYourAddress));
                 } else if (etPlacePhone.getText().toString().equals("")) {
-                    etPlacePhone.setError("Số điện thoại không được để trống");
+                    etPlacePhone.setError(getResources().getString(R.string.text_EnterYourNumber));
                 } else if (etPlaceAbout.getText().toString().equals("")) {
-                    etPlaceAbout.setError("Mô tả địa điểm không được để trống");
+                    etPlaceAbout.setError(getResources().getString(R.string.text_TypeYouDescription));
                 } else if (ID == 0) {
-                    Toast.makeText(ActivityAddPlace.this, "Chưa chọn địa chỉ", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ActivityAddPlace.this, getResources().getString(R.string.text_ChooseAddress), Toast.LENGTH_SHORT).show();
                 } else {
                     try {
                         JSONObject jsonPost = new JSONObject("{" + Config.POST_KEY_JSON_PLACE.get(0) + ":\"" + etPlaceName.getText().toString() + "\"," +
@@ -287,21 +287,21 @@ public class ActivityAddPlace extends AppCompatActivity {
                                     String response = new httpPostImage(reqEntity).execute(Config.URL_HOST
                                             + Config.URL_POST_IMAGE + idService.replaceAll("\"", "").split(":")[1]).get();
                                     if (response.equals("\"status:200\"")) {
-                                        Toast.makeText(ActivityAddPlace.this, "Thành công", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(ActivityAddPlace.this, getResources().getString(R.string.text_Success), Toast.LENGTH_SHORT).show();
                                         bitmapArrayList.clear();
                                         finish();
                                         finishActivity(1);
                                     } else {
-                                        Toast.makeText(ActivityAddPlace.this, "Lỗi", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(ActivityAddPlace.this, getResources().getString(R.string.text_Error), Toast.LENGTH_SHORT).show();
                                     }
                                 } catch (InterruptedException | ExecutionException e) {
                                     e.printStackTrace();
                                 }
                             } else {
-                                Toast.makeText(ActivityAddPlace.this, "Thêm thất bại", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ActivityAddPlace.this, getResources().getString(R.string.text_SuccessfullyAdded), Toast.LENGTH_SHORT).show();
                             }
                         } else {
-                            Toast.makeText(ActivityAddPlace.this, "Thêm thất bại", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ActivityAddPlace.this, getResources().getString(R.string.text_AddFailed), Toast.LENGTH_SHORT).show();
                         }
                     } catch (InterruptedException | ExecutionException | JSONException e) {
                         e.printStackTrace();

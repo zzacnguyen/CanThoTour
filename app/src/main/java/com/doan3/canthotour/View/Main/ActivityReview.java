@@ -67,7 +67,7 @@ public class ActivityReview extends AppCompatActivity {
                 if (txtTitle.getText().toString().equals("")
                         && txtReview.getText().toString().equals("")
                         && (int) rbRating.getRating() == 0) {
-                    Toast.makeText(ActivityReview.this, "Chưa đánh giá không thể gửi", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ActivityReview.this, getResources().getString(R.string.text_PleaseReviewBeforeSend), Toast.LENGTH_SHORT).show();
                 } else {
                     JSONObject json = null;
                     try {
@@ -84,7 +84,7 @@ public class ActivityReview extends AppCompatActivity {
 
                         Intent intent = new Intent(ActivityReview.this, ActivityServiceInfo.class);
                         intent.putExtra("id", id);
-                        intent.putExtra("mess", "Đánh giá thành công");
+                        intent.putExtra("mess", getResources().getString(R.string.text_ReviewsCompleted));
                         startActivity(intent);
                     } else {
                         new httpPut(json).execute(Config.URL_HOST + Config.URL_POST_REVIEW + "/" + idReview);

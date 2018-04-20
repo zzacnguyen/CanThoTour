@@ -94,7 +94,7 @@ public class ActivityAdvancedSearch extends AppCompatActivity {
                         load(Config.URL_HOST + Config.URL_SEARCH_TYPE.get(0) + serviceType + Config.URL_SEARCH_TYPE.get(1) +
                                 etSearch.getText().toString().replaceAll(" ", "\\+"), serviceType);
                     } else {
-                        Toast.makeText(ActivityAdvancedSearch.this, "Chưa nhập thông tin tìm kiếm", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ActivityAdvancedSearch.this, getResources().getString(R.string.text_PleaseEnterASearchKey), Toast.LENGTH_SHORT).show();
                     }
                     return true;
                 }
@@ -123,7 +123,7 @@ public class ActivityAdvancedSearch extends AppCompatActivity {
 
         ArrayList<Service> services = new ModelService().getAdvancedSearchList(url, serviceType);
         if (services.size() == 0){
-            Toast.makeText(this, "Không có kết quả", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getResources().getString(R.string.text_NoResults), Toast.LENGTH_SHORT).show();
         }
 
         listOfServiceAdapter = new ListOfServiceAdapter(recyclerView, services, getApplicationContext());

@@ -90,17 +90,17 @@ public class ActivityAddService extends AppCompatActivity implements View.OnClic
                 timeClose = txtCloseTime.getText().toString().split(":");
 
                 if (Integer.parseInt(etLowestPrice.getText().toString()) > Integer.parseInt(etHighestPrice.getText().toString())) {
-                    etLowestPrice.setError("Giá thấp nhất không được lớn hơn giá cao nhất");
+                    etLowestPrice.setError(getResources().getString(R.string.text_LowestPriceIsNotHigherThanHighestPrice));
                 } else if (Integer.parseInt(timeOpen[0]) > Integer.parseInt(timeClose[0])) {
-                    etServiceAbout.setError("Giờ mở cửa phải sớm hơn giờ đóng cửa");
+                    etServiceAbout.setError(getResources().getString(R.string.text_TimeOpenMustBeEarlierThanTimeClose));
                 } else if (etServiceName.getText().toString().equals("")) {
-                    etServiceName.setError("Tên dịch vụ không được để trống");
+                    etServiceName.setError(getResources().getString(R.string.text_ServiceNameIsNotAllowedToBeEmpty));
                 } else if (etWebsite.getText().toString().equals("")) {
-                    etWebsite.setError("Website không được để trống");
+                    etWebsite.setError(getResources().getString(R.string.text_WebsiteIsNotAllowedToBeEmpty));
                 } else if (etNumberStar.getText().toString().equals("") && etNumberStar.getVisibility() != View.GONE) {
-                    etNumberStar.setError("Số sao không được để trống");
+                    etNumberStar.setError(getResources().getString(R.string.text_NumberStarIsNotAllowedToBeEmpty));
                 } else if (etServiceAbout.getText().toString().equals("")) {
-                    etServiceAbout.setError("Mô tả không được để trống");
+                    etServiceAbout.setError(getResources().getString(R.string.text_DescriptionIsNotAllowedToBeEmpty));
                 } else {
                     jsonServiceToString = new ArrayList<>();
 

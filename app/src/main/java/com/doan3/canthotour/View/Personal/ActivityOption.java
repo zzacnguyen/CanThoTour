@@ -51,7 +51,7 @@ public class ActivityOption extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 final Dialog dialog = new Dialog(ActivityOption.this);
-                dialog.setTitle("Đặt lại khoảng cách");
+                dialog.setTitle(getResources().getString(R.string.text_SetDistance));
                 dialog.setCancelable(false); //Khóa màn hình ngoài sau khi ấn vàodialog
                 dialog.setContentView(R.layout.custom_radius);
 

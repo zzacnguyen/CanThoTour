@@ -211,17 +211,17 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
                 shareDialog.registerCallback(callbackManager, new FacebookCallback<Sharer.Result>() {
                     @Override
                     public void onSuccess(Sharer.Result result) {
-                        Toast.makeText(ActivityServiceInfo.this, "Share successful", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ActivityServiceInfo.this, getResources().getString(R.string.toast_ShareSuccessful), Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onCancel() {
-                        Toast.makeText(ActivityServiceInfo.this, "Share cancel", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ActivityServiceInfo.this, getResources().getString(R.string.toast_ShareCancel), Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onError(FacebookException error) {
-                        Toast.makeText(ActivityServiceInfo.this, "Share error", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ActivityServiceInfo.this, getResources().getString(R.string.toast_ShareError), Toast.LENGTH_SHORT).show();
                     }
                 });
 

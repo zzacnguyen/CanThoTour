@@ -43,13 +43,13 @@ public class ActivityRegister extends AppCompatActivity {
                 JSONObject json;
                 String stt = null, error = null;
                 if (etUserName.getText().toString().length() < 5 || etUserName.getText().toString().length() > 25) {
-                    etUserName.setError("Tài khoản có độ dài từ 5-25 ký tự");
+                    etUserName.setError(getResources().getString(R.string.text_YourUsernameMustBeBetween5And25));
                 } else if (etPassword.getText().toString().length() < 6 || etPassword.getText().toString().length() > 26) {
-                    etPassword.setError("Mật khẩu phải có độ dài từ 6-20 ký tự");
+                    etPassword.setError(getResources().getString(R.string.text_YourPasswordMustBeBetween6And20));
                 } else if (!etPassword.getText().toString().equals(etConfirmPassword.getText().toString())) {
-                    etConfirmPassword.setError("Mật khẩu vừa nhập không khớp");
+                    etConfirmPassword.setError(getResources().getString(R.string.text_ThisDoesNotMatchThePasswordEnteredAbove));
                 } else if (etUserName.getText().toString().contains(" ")) {
-                    etUserName.setError("Tài khoản không được chứa khoảng trắng");
+                    etUserName.setError(getResources().getString(R.string.text_TheUsernameCannotContainSpaces));
                 }
                 try {
                     JSONObject jsonPost = new JSONObject(
@@ -70,11 +70,11 @@ public class ActivityRegister extends AppCompatActivity {
                     // trả id dịch vụ lại cho form đăng nhập
                     intent.putExtra("id", id);
                     // trả thông báo về cho form đăng nhập
-                    intent.putExtra("mess", "Đăng ký thành công");
+                    intent.putExtra("mess", getResources().getString(R.string.text_RegisterSuccess));
                     startActivity(intent);
                 } else {
                     if (error != null && error.equals("3")) {
-                        etUserName.setError("Tên tài khoản đã tồn tại");
+                        etUserName.setError(getResources().getString(R.string.text_ThatUsernameIsAlreadyInUse));
                     }
                 }
             }

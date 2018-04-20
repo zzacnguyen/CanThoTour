@@ -58,7 +58,7 @@ public class ActivitySearch extends AppCompatActivity implements View.OnClickLis
                         load(Config.URL_HOST + Config.URL_SEARCH_ALL +
                                 etSearch.getText().toString().replaceAll(" ", "\\+"));
                     } else {
-                        Toast.makeText(ActivitySearch.this, "Chưa nhập", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ActivitySearch.this, getResources().getString(R.string.text_PleaseEnterSearchKey), Toast.LENGTH_SHORT).show();
                     }
                     return true;
                 }
