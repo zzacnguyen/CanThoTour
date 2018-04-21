@@ -21,7 +21,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -52,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
 
     public static int badgeNumber;
     public static Handler UIHandler;
+    @SuppressLint("StaticFieldLeak")
+    public static Fragment fragment = null;
 
     static {
         try {
@@ -60,10 +61,10 @@ public class MainActivity extends AppCompatActivity {
             UIHandler = new Handler(Looper.getMainLooper()); //Khai báo UIHandler để tạo gọi được phương thức runOnUI
 
 //region notifyRepeat
-            Thread notifyRepeat = new Thread(){
+            Thread notifyRepeat = new Thread() {
                 @Override
                 public void run() {
-                    while(!isInterrupted()){
+                    while (!isInterrupted()) {
                         try {
                             Thread.sleep(120000); //1000 ms = 1 sec
                             runOnUI(new Runnable() {
@@ -94,18 +95,16 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public static void runOnUI(Runnable runnable) {
-        UIHandler.post(runnable);
-    }
-
-    @SuppressLint("StaticFieldLeak")
-    public static Fragment fragment = null;
     Toolbar toolbar;
     Button btnPlace, btnEat, btnHoTel, btnEntertain, btnVehicle;
     FloatingActionButton fab, fabAddPlace;
     boolean enterprise = false;
     FragmentManager fragmentManager = getFragmentManager();
     SessionManager sessionManager;
+
+    public static void runOnUI(Runnable runnable) {
+        UIHandler.post(runnable);
+    }
 
     //Bottom navigation bar
     public static void menuBotNavBar(final Activity activity, int i) {
@@ -158,9 +157,9 @@ public class MainActivity extends AppCompatActivity {
         sessionManager = new SessionManager(getApplicationContext());
         sessionManager.checkLogin();
 
-        load();
-
         if (!isStoragePermissionGranted()) {
+            load();
+        } else {
             load();
         }
     }

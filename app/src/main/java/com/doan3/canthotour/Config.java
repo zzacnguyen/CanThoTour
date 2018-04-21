@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.Collections;
 
 public class Config {
-    public static final String URL_HOST = "http://192.168.1.8/doan3_canthotour/public/";
+    public static final String URL_HOST = "http://192.168.1.63/doan3_canthotour/public/";
     public static final String URL_LOGIN = "login";
     public static final String URL_GET_PROVINCE = "province";
     public static final String URL_GET_DISTRICT = "district/";
@@ -91,10 +91,10 @@ public class Config {
     public static final ArrayList<String> GET_KEY_JSON_WARD =
             new ArrayList<>(Collections.singletonList("ward_name"));
 
-    public static final ArrayList<String> GET_KEY_JSON_REVIEW =
+    public static final ArrayList<String> GET_KEY_JSON_ALL_REVIEW =
             new ArrayList<>(Arrays.asList("username", "vr_rating", "vr_title", "vr_ratings_details", "date_rating"));
 
-    public static final ArrayList<String> GET_KEY_JSON_RATE =
+    public static final ArrayList<String> GET_KEY_JSON_REVIEW =
             new ArrayList<>(Arrays.asList("vr_rating", "vr_title", "vr_ratings_details"));
 
     public static final ArrayList<String> GET_KEY_JSON_LOGIN =

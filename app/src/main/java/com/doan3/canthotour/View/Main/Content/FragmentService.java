@@ -12,7 +12,6 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -57,6 +56,56 @@ public class FragmentService extends Fragment {
     Toolbar toolbar;
     TextView toolbarTitle;
 
+    public static void bottomFragNavBar(int i, final View view, final Activity activity) {
+        BottomNavigationView bottomNavigationView = view.findViewById(R.id.bottomNavView_Bar); //Bottom navigation view
+        BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
+
+        Menu menu = bottomNavigationView.getMenu();
+        MenuItem menuItem = menu.getItem(i);
+        menuItem.setChecked(true);
+
+        BottomNavigationMenuView bottomNavigationMenuView =
+                (BottomNavigationMenuView) bottomNavigationView.getChildAt(0); //Hiển thị ở trang chủ
+        View v = bottomNavigationMenuView.getChildAt(2); //Hiển thị dấu chấm đỏ khi có thông báo
+
+        try {
+            String getBadgeNumber = new httpGet().execute(Config.URL_HOST + Config.URL_GET_EVENT_NUMBER).get();
+            badgeNumber = Integer.parseInt(getBadgeNumber);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        new QBadgeView(activity).bindTarget(v)
+                .setBadgeNumber(badgeNumber)  //Set số thông báo hiển thị
+                .setBadgeGravity(Gravity.START | Gravity.TOP)
+                .setGravityOffset(26, 0, true);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.ic_trangchu:
+                        activity.getFragmentManager().beginTransaction().remove(fragment).commit();
+                        break;
+                    case R.id.ic_yeuthich:
+                        activity.startActivity(new Intent(getApplicationContext(), ActivityFavorite.class));
+                        break;
+                    case R.id.ic_thongbao:
+                        Intent iNotify = new Intent(getApplicationContext(), ActivityNotify.class);
+                        badgeNumber = 0; //Ẩn thông báo đi khi đã ấn vào
+                        activity.startActivity(iNotify);
+                        break;
+                    case R.id.ic_canhan:
+                        activity.startActivity(new Intent(getApplicationContext(), ActivityPersonal.class));
+                        break;
+                }
+                return false;
+            }
+        });
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -68,7 +117,6 @@ public class FragmentService extends Fragment {
         Bundle bundle = getArguments();
 
         String url = bundle.getString("url");
-        Log.d("URL", url);
 
         if (url.equals(Config.URL_HOST + Config.URL_GET_ALL_EATS)) { //Kiểm tra từng đường dẫn url
             formatJson = Config.GET_KEY_JSON_EAT;
@@ -158,57 +206,6 @@ public class FragmentService extends Fragment {
                         }
                     }, 1000);
                 }
-            }
-        });
-    }
-
-    public static void bottomFragNavBar(int i, final View view, final Activity activity) {
-        BottomNavigationView bottomNavigationView = view.findViewById(R.id.bottomNavView_Bar); //Bottom navigation view
-        BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
-
-        Menu menu = bottomNavigationView.getMenu();
-        MenuItem menuItem = menu.getItem(i);
-        menuItem.setChecked(true);
-
-        BottomNavigationMenuView bottomNavigationMenuView =
-                (BottomNavigationMenuView) bottomNavigationView.getChildAt(0); //Hiển thị ở trang chủ
-        View v = bottomNavigationMenuView.getChildAt(2); //Hiển thị dấu chấm đỏ khi có thông báo
-
-        try {
-            String getBadgeNumber = new httpGet().execute(Config.URL_HOST + Config.URL_GET_EVENT_NUMBER).get();
-            badgeNumber = Integer.parseInt(getBadgeNumber);
-            Log.d("badge number", getBadgeNumber);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-
-        new QBadgeView(activity).bindTarget(v)
-                .setBadgeNumber(badgeNumber)  //Set số thông báo hiển thị
-                .setBadgeGravity(Gravity.START | Gravity.TOP)
-                .setGravityOffset(26, 0, true);
-
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.ic_trangchu:
-                        activity.getFragmentManager().beginTransaction().remove(fragment).commit();
-                        break;
-                    case R.id.ic_yeuthich:
-                        activity.startActivity(new Intent(getApplicationContext(), ActivityFavorite.class));
-                        break;
-                    case R.id.ic_thongbao:
-                        Intent iNotify = new Intent(getApplicationContext(), ActivityNotify.class);
-                        badgeNumber = 0; //Ẩn thông báo đi khi đã ấn vào
-                        activity.startActivity(iNotify);
-                        break;
-                    case R.id.ic_canhan:
-                        activity.startActivity(new Intent(getApplicationContext(), ActivityPersonal.class));
-                        break;
-                }
-                return false;
             }
         });
     }

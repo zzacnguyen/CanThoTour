@@ -24,7 +24,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
-import static com.doan3.canthotour.View.Main.MainActivity.menuBotNavBar;
 import static com.doan3.canthotour.View.Personal.ActivityPersonal.userId;
 
 /**
@@ -53,7 +52,7 @@ public class ActivityReview extends AppCompatActivity {
             try {
                 String rs =
                         new httpGet().execute(Config.URL_HOST + Config.URL_POST_REVIEW + "/" + idReview).get();
-                ArrayList<String> arr = JsonHelper.parseJsonNoId(new JSONArray(rs), Config.GET_KEY_JSON_RATE);
+                ArrayList<String> arr = JsonHelper.parseJsonNoId(new JSONArray(rs), Config.GET_KEY_JSON_REVIEW);
                 rbRating.setRating(Float.parseFloat(arr.get(0)));
                 txtTitle.setText(arr.get(1));
                 txtReview.setText(arr.get(2));
