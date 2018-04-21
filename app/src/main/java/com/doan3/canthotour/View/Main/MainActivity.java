@@ -56,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
     static {
         try {
             badgeNumber = Integer.parseInt(new httpGet().execute(Config.URL_HOST + Config.URL_GET_EVENT_NUMBER).get());
-            Log.d("BadgeTest", String.valueOf(badgeNumber));
 
             UIHandler = new Handler(Looper.getMainLooper()); //Khai báo UIHandler để tạo gọi được phương thức runOnUI
 

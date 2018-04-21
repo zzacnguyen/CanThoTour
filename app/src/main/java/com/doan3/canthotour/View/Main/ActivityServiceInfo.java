@@ -154,6 +154,7 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
                                 JsonHelper.writeJson(file, saveJson);
                                 Toast.makeText(ActivityServiceInfo.this, getResources().getString(R.string.text_Liked),
                                         Toast.LENGTH_SHORT).show();
+//                                btnLike.setCompoundDrawables(null, getResources().getDrawable(R.drawable.ic_favorite_36dp) , null, null);
                                 btnLike.setText(getResources().getString(R.string.text_UnLike));
                             }
                         } catch (JSONException ex) {
@@ -186,6 +187,7 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
                             ex.printStackTrace();
                         }
                         btnLike.setText(getResources().getString(R.string.text_Like));
+//                        btnLike.setCompoundDrawables(null, getResources().getDrawable(R.drawable.ic_favorite_border_36dp) , null, null);
                     }
                 }
             }
@@ -367,8 +369,10 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
 
         if (serviceInfo.getReviewUserFav()) {
             btnLike.setText(getResources().getString(R.string.text_UnLike));
+//            btnLike.setCompoundDrawables(null, getResources().getDrawable(R.drawable.ic_favorite_36dp) , null, null);
         } else {
             btnLike.setText(getResources().getString(R.string.text_Like));
+//            btnLike.setCompoundDrawables(null, getResources().getDrawable(R.drawable.ic_favorite_border_36dp) , null, null);
         }
 
         if (serviceInfo.getReviewUserRev()) {

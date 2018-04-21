@@ -146,6 +146,30 @@
 
                 </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="3dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_thumb_up_white_24dp" />
+
+                    <TextView
+                        android:id="@+id/textViewLikeCount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="10"
+                        android:layout_marginLeft="5dp"
+                        android:textColor="#fff"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
             </LinearLayout>
 
             <!--Phím chức năng-->
@@ -162,7 +186,6 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@color/colorWhite"
-                    android:drawableTop="@drawable/ic_favorite_36dp"
                     android:text=""
                     android:textColor="@color/bgToolbar"
                     android:textSize="14sp" />
