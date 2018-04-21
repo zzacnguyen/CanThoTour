@@ -43,10 +43,10 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ViewHold
         holder.cardView.setOnClickListener(new View.OnClickListener() {  //Bắt sự kiện click vào 1 item cardview
             @Override
             public void onClick(View view) {
-                Intent iPlaceInfo = new Intent(context, ActivityServiceInfo.class);
-                iPlaceInfo.putExtra("id", (int) view.getTag());
-                iPlaceInfo.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(iPlaceInfo);
+                Intent iServiceInfo = new Intent(context, ActivityServiceInfo.class);
+                iServiceInfo.putExtra("id", (int) view.getTag());
+                iServiceInfo.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(iServiceInfo);
             }
         });
     }

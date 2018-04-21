@@ -120,7 +120,7 @@ public class Config {
             new ArrayList<>(Arrays.asList("\"pl_name\"", "\"pl_details\"", "\"pl_address\"", "\"pl_phone_number\"",
                     "\"pl_latitude\"", "\"pl_longitude\"", "\"id_ward\"", "\"partner_user\"", "\"tourguide_user\""));
 
-    public static final ArrayList<String> POST_KEY_JSON_SERVICE_INFO =
+    public static final ArrayList<String> POST_KEY_JSON_LIKE_SERVICE =
             new ArrayList<>(Arrays.asList("\"id\"", "\"hotel_name\"", "\"entertainments_name\"", "\"transport_name\"",
                     "\"sightseeing_name\"", "\"eat_name\"", "\"image_id\"", "\"image_details_1\""));
 

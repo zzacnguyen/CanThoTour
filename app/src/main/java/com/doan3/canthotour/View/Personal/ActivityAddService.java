@@ -3,11 +3,14 @@ package com.doan3.canthotour.View.Personal;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.icu.text.SimpleDateFormat;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
@@ -20,8 +23,10 @@ import com.doan3.canthotour.R;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 import static com.doan3.canthotour.View.Main.MainActivity.menuBotNavBar;
 
@@ -82,16 +87,22 @@ public class ActivityAddService extends AppCompatActivity implements View.OnClic
         }
 
         btnDone.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View view) {
 
-                String[] timeOpen = null, timeClose = null;
-                timeOpen = txtOpenTime.getText().toString().split(":");
-                timeClose = txtCloseTime.getText().toString().split(":");
+                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+                Date timeOpen = null, timeClose = null;
+                try {
+                    timeOpen = sdf.parse(txtOpenTime.getText().toString());
+                    timeClose = sdf.parse(txtCloseTime.getText().toString());
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
 
                 if (Integer.parseInt(etLowestPrice.getText().toString()) > Integer.parseInt(etHighestPrice.getText().toString())) {
                     etLowestPrice.setError(getResources().getString(R.string.text_LowestPriceIsNotHigherThanHighestPrice));
-                } else if (Integer.parseInt(timeOpen[0]) > Integer.parseInt(timeClose[0])) {
+                } else if (timeClose != null && timeClose.before(timeOpen)) {
                     etServiceAbout.setError(getResources().getString(R.string.text_TimeOpenMustBeEarlierThanTimeClose));
                 } else if (etServiceName.getText().toString().equals("")) {
                     etServiceName.setError(getResources().getString(R.string.text_ServiceNameIsNotAllowedToBeEmpty));

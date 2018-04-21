@@ -2,7 +2,6 @@ package com.doan3.canthotour.View.Main;
 
 import android.app.Activity;
 import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -31,7 +30,6 @@ import com.doan3.canthotour.Model.ModelService;
 import com.doan3.canthotour.Model.ObjectClass.ServiceInfo;
 import com.doan3.canthotour.R;
 import com.doan3.canthotour.View.Personal.ActivityLogin;
-import com.doan3.canthotour.View.Personal.Fragment.FragmentReview;
 import com.doan3.canthotour.View.Search.ActivityNearLocation;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -399,14 +397,14 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
         rbStar.setRating(serviceInfo.getStars());
 
         try {
-            saveJson = new JSONObject("{" + Config.POST_KEY_JSON_SERVICE_INFO.get(0) + ":\"" + serviceInfo.getId() + "\"," +
-                    Config.POST_KEY_JSON_SERVICE_INFO.get(1) + ":\"" + serviceInfo.getHotelName() + "\"," +
-                    Config.POST_KEY_JSON_SERVICE_INFO.get(2) + ":\"" + serviceInfo.getEntertainName() + "\"," +
-                    Config.POST_KEY_JSON_SERVICE_INFO.get(3) + ":\"" + serviceInfo.getVehicleName() + "\"," +
-                    Config.POST_KEY_JSON_SERVICE_INFO.get(4) + ":\"" + serviceInfo.getPlaceName() + "\"," +
-                    Config.POST_KEY_JSON_SERVICE_INFO.get(5) + ":\"" + serviceInfo.getEatName() + "\"," +
-                    Config.POST_KEY_JSON_SERVICE_INFO.get(6) + ":\"" + serviceInfo.getIdImage() + "\"," +
-                    Config.POST_KEY_JSON_SERVICE_INFO.get(7) + ":\"" + serviceInfo.getImageName() + "\"}");
+            saveJson = new JSONObject("{" + Config.POST_KEY_JSON_LIKE_SERVICE.get(0) + ":\"" + serviceInfo.getId() + "\"," +
+                    Config.POST_KEY_JSON_LIKE_SERVICE.get(1) + ":\"" + serviceInfo.getHotelName() + "\"," +
+                    Config.POST_KEY_JSON_LIKE_SERVICE.get(2) + ":\"" + serviceInfo.getEntertainName() + "\"," +
+                    Config.POST_KEY_JSON_LIKE_SERVICE.get(3) + ":\"" + serviceInfo.getVehicleName() + "\"," +
+                    Config.POST_KEY_JSON_LIKE_SERVICE.get(4) + ":\"" + serviceInfo.getPlaceName() + "\"," +
+                    Config.POST_KEY_JSON_LIKE_SERVICE.get(5) + ":\"" + serviceInfo.getEatName() + "\"," +
+                    Config.POST_KEY_JSON_LIKE_SERVICE.get(6) + ":\"" + serviceInfo.getIdImage() + "\"," +
+                    Config.POST_KEY_JSON_LIKE_SERVICE.get(7) + ":\"" + serviceInfo.getImageName() + "\"}");
         } catch (JSONException e) {
             e.printStackTrace();
         }
