@@ -172,4 +172,5 @@
     <string name="text_RegisterSuccess">Register success</string>
     <string name="text_ThatUsernameIsAlreadyInUse">That username is already in use</string>
     <string name="text_YourPasswordMustBeBetween6And20">Your password must be between 6 and 20 characters long</string>
+    <string name="text_Mark">Mark:</string>
 </resources>

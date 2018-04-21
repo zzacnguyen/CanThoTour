@@ -91,7 +91,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:textColor="@color/tbEat"
-                        android:text="Điểm tích lũy: 1"
+                        android:text=""
                         android:textSize="12sp" />
 
                 </LinearLayout>

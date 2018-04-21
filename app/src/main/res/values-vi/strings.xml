@@ -156,4 +156,5 @@
     <string name="text_RegisterSuccess">Đăng ký thành công</string>
     <string name="text_ThatUsernameIsAlreadyInUse">Tài khoản đã tồn tại</string>
     <string name="text_YourPasswordMustBeBetween6And20">Mật khẩu có độ dài từ 6-20 ký tự</string>
+    <string name="text_Mark">Điểm tích lũy:</string>
 </resources>
