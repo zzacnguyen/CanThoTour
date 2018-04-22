@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.Collections;
 
 public class Config {
-    public static final String URL_HOST = "http://192.168.1.63/doan3_canthotour/public/";
+    public static final String URL_HOST = "http://192.168.31.141/doan3_canthotour/public/";
     public static final String URL_LOGIN = "login";
     public static final String URL_GET_PROVINCE = "province";
     public static final String URL_GET_DISTRICT = "district/";
@@ -18,10 +18,12 @@ public class Config {
             new ArrayList<>(Arrays.asList("search/servicevicinity/location=", "&type=", "&radius="));
     public static final String URL_GET_ALL_EATS = "eating";
     public static final String URL_POST_REVIEW = "rating-post";
+    public static final String URL_GET_REVIEW = "rating-view";
     public static final String URL_GET_ALL_REVIEWS = "rating-service/";
     public static final String URL_GET_ALL_PLACES = "sightseeing";
     public static final String URL_GET_ALL_HOTELS = "hotels";
-    public static final String URL_GET_SERVICE_INFO = "service";
+    public static final ArrayList<String> URL_GET_SERVICE_INFO =
+            new ArrayList<>(Arrays.asList("service/service-id=", "&user-id="));
     public static final String URL_GET_ALL_VEHICLES = "transport";
     public static final String URL_GET_ALL_EVENTS = "events";
     public static final String URL_GET_ALL_ENTERTAINMENTS = "entertainments";
@@ -48,7 +50,8 @@ public class Config {
             new ArrayList<>(Arrays.asList("longitude", "latitude", "serviceType"));
 
     public static final ArrayList<String> KEY_SERVICE_INFO =
-            new ArrayList<>(Arrays.asList("like", "like_id", "user_id", "rating", "id_rating", "service", "type_event", "type_name"));
+            new ArrayList<>(Arrays.asList("isLike", "idLike", "like_id", "isRating", "idRating",
+                    "rating_id", "service", "type_event", "type_name", "count_like"));
 
     public static final ArrayList<String> GET_KEY_JSON_EAT =
             new ArrayList<>(Arrays.asList("eat_name", "image_id", "image_details_1"));

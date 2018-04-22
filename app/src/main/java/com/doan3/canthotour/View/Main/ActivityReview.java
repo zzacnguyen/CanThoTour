@@ -34,7 +34,8 @@ public class ActivityReview extends AppCompatActivity {
     Button btnSend, btnCancel;
     TextView txtTitle, txtReview;
     RatingBar rbRating;
-    int id, idReview;
+    int id;
+    String idReview;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,11 +48,11 @@ public class ActivityReview extends AppCompatActivity {
         txtReview = findViewById(R.id.txtComment);
 
         id = getIntent().getIntExtra("id", 1);
-        idReview = getIntent().getIntExtra("iddanhgia", 1);
-        if (idReview != 0) {
+        idReview = getIntent().getStringExtra("iddanhgia");
+        if (!idReview.equals("0")) {
             try {
                 String rs =
-                        new httpGet().execute(Config.URL_HOST + Config.URL_POST_REVIEW + "/" + idReview).get();
+                        new httpGet().execute(Config.URL_HOST + Config.URL_GET_REVIEW + "/" + idReview).get();
                 ArrayList<String> arr = JsonHelper.parseJsonNoId(new JSONArray(rs), Config.GET_KEY_JSON_REVIEW);
                 rbRating.setRating(Float.parseFloat(arr.get(0)));
                 txtTitle.setText(arr.get(1));
@@ -78,7 +79,7 @@ public class ActivityReview extends AppCompatActivity {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    if (idReview == 0) {
+                    if (idReview.equals("0")) {
                         new httpPost(json).execute(Config.URL_HOST + Config.URL_POST_REVIEW);
 
                         Intent intent = new Intent(ActivityReview.this, ActivityServiceInfo.class);

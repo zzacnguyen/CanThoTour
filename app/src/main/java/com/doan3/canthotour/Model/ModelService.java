@@ -65,43 +65,33 @@ public class ModelService {
 
     public ServiceInfo getServiceInfo(String url) {
 
-        ArrayList<String> arrayService,
-                arrayIdLike = new ArrayList<>(),
-                arrayIdReview = new ArrayList<>(),
-                arrayIdUserLike = new ArrayList<>(),
-                arrayIdUserReview = new ArrayList<>();
+        ArrayList<String> arrayService;
         String stringNameOfTheEventType;
         ServiceInfo serviceInfo = new ServiceInfo();
+        Boolean isLike, isRating;
 
         try {
             // get thông tin dịch vụ chuyển về dạng jsonarray
             String data = new httpGet().execute(url).get();
             JSONArray jsonArray = new JSONArray(data);
+            JSONObject jsonResult = jsonArray.getJSONObject(0);
 
-            // lấy thông tin yêu thích của dịch vụ chuyển vào array
-            JSONArray jsonIdLike = new JSONArray(jsonArray.getJSONObject(0).get(Config.KEY_SERVICE_INFO.get(0)).toString());
-            for (int i = 0; i < jsonIdLike.length(); i++) {
-                arrayIdLike.add(jsonIdLike.getJSONObject(i).getString(Config.KEY_SERVICE_INFO.get(1)));
-                arrayIdUserLike.add(jsonIdLike.getJSONObject(i).getString(Config.KEY_SERVICE_INFO.get(2)));
-            }
+            // lây thông tin người dùng đã thích dịch vụ hay chưa
+            isLike = jsonResult.getString(Config.KEY_SERVICE_INFO.get(0)).equals("1");
 
-            // lấy thông tin đánh giá của dịch vụ chuyển vào array
-            JSONArray jsonIdReview = new JSONArray(jsonArray.getJSONObject(1).get(Config.KEY_SERVICE_INFO.get(3)).toString());
-            for (int i = 0; i < jsonIdReview.length(); i++) {
-                arrayIdReview.add(jsonIdReview.getJSONObject(i).getString(Config.KEY_SERVICE_INFO.get(4)));
-                arrayIdUserReview.add(jsonIdReview.getJSONObject(i).getString(Config.KEY_SERVICE_INFO.get(2)));
-            }
+            // lây thông tin người dùng đã đánh giá dịch vụ hay chưa
+            isRating = jsonResult.getString(Config.KEY_SERVICE_INFO.get(3)).equals("1");
 
             // lấy thông tin chi tiết dịch vụ chuyển vào array
-            JSONArray jsonService = new JSONArray(jsonArray.getJSONObject(2).get(Config.KEY_SERVICE_INFO.get(5)).toString());
+            JSONArray jsonService = new JSONArray(jsonResult.getString(Config.KEY_SERVICE_INFO.get(6)));
             arrayService = parseJson(jsonService.getJSONObject(0), Config.GET_KEY_JSON_SERVICE_INFO);
 
             // nếu type_event != null thì lấy tên loại hình sự kiện ngược lại cho = null
-            if (!jsonArray.getJSONObject(3).get(Config.KEY_SERVICE_INFO.get(6)).toString().equals(Config.NULL)) {
-                stringNameOfTheEventType = new JSONObject(jsonArray.getJSONObject(3).get(Config.KEY_SERVICE_INFO.get(6)).toString())
-                        .getString(Config.KEY_SERVICE_INFO.get(7));
-            } else {
+            if (jsonResult.getString(Config.KEY_SERVICE_INFO.get(7)).equals(Config.NULL)) {
                 stringNameOfTheEventType = Config.NULL;
+            } else {
+                stringNameOfTheEventType = new JSONObject(jsonResult.get(Config.KEY_SERVICE_INFO.get(7)).toString())
+                        .getString(Config.KEY_SERVICE_INFO.get(8));
             }
 
             // set id dịch vụ
@@ -135,7 +125,7 @@ public class ModelService {
             // set số điện thoại
             serviceInfo.setPhoneNumber(arrayService.get(13));
             // set đánh giá
-            // nếu rating == null người lại set số rating
+            // nếu rating == null thì set số sao = 0;
             if (arrayService.get(14).equals(Config.NULL)) {
                 serviceInfo.setReviewMark((float) 0);
                 serviceInfo.setStars(0);
@@ -164,35 +154,30 @@ public class ModelService {
                 for (int i = 0; i < jsonFile.length(); i++) {
                     // nếu id dịch vụ == id dịch vụ trong file yêu thích => người dùng đã thích
                     if (serviceInfo.getId() == Integer.parseInt(jsonFile.getJSONObject(i).getString("id"))) {
-                        serviceInfo.setReviewUserFav(true);
+                        serviceInfo.setIsLike(true);
                         isLiked = true;
                     }
                 }
             }
             // nếu người dùng chưa thích
-            if (!isLiked && arrayIdUserLike.size() > 0) {
-                serviceInfo.setReviewUserFav(false);
-                for (int i = 0; i < arrayIdUserLike.size(); i++) {
-                    if (Integer.parseInt(arrayIdUserLike.get(i)) == userId) {
-                        serviceInfo.setReviewUserFav(true);
-                        serviceInfo.setIdLike(arrayIdLike.get(i));
-                    }
+            if (!isLiked) {
+                serviceInfo.setIsLike(false);
+                if (isLike){
+                    JSONObject jsonIdLike = new JSONObject(jsonResult.getString(Config.KEY_SERVICE_INFO.get(1)));
+                    serviceInfo.setIdLike(jsonIdLike.getString(Config.KEY_SERVICE_INFO.get(2)));
                 }
             } else {
-                serviceInfo.setReviewUserFav(false);
+                serviceInfo.setIsLike(false);
+                serviceInfo.setIdLike("0");
             }
 
-            serviceInfo.setIdReview("0");
-            serviceInfo.setReviewUserRev(false);
-            //nếu có người dùng đánh giá
-            if (arrayIdUserReview.size() > 0) {
-                for (int i = 0; i < arrayIdUserReview.size(); i++) {
-                    // nếu người dùng hiện tại có id = 1 id người dùng đã đánh giá trong mảng id người dùng đã đánh giá
-                    if (userId == Integer.parseInt(arrayIdUserReview.get(i))) {
-                        serviceInfo.setReviewUserRev(true);
-                        serviceInfo.setIdReview(arrayIdReview.get(i));
-                    }
-                }
+            if (isRating){
+                serviceInfo.setIsRating(true);
+                JSONObject jsonIdRating = new JSONObject(jsonResult.getString(Config.KEY_SERVICE_INFO.get(4)));
+                serviceInfo.setIdRating(jsonIdRating.getString(Config.KEY_SERVICE_INFO.get(5)));
+            } else {
+                serviceInfo.setIdRating("0");
+                serviceInfo.setIsRating(false);
             }
 
             // lấy thông tin hình gồm : "url + id + tên hình"

@@ -19,8 +19,8 @@ import static com.doan3.canthotour.View.Main.MainActivity.menuBotNavBar;
 
 public class ActivityPersonal extends AppCompatActivity {
 
-    public static int userId = 0;
-    public static String userName, userType;
+    public static int userId = 6;
+    public static String userName = "thaingochuy", userType = "personal";
     public static Bitmap avatar;
     Button btnAddPlace, btnAddService, btnRegEnterprise, btnOption, btnLogin, btnAdvancedSearch, btnLogout, btnTripSchedule;
     TextView txtUserName, txtUserType;

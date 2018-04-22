@@ -10,7 +10,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.Nullable;
-
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Base64;
@@ -56,13 +55,13 @@ import static com.doan3.canthotour.View.Personal.ActivityPersonal.userId;
  */
 
 public class ActivityServiceInfo extends AppCompatActivity implements View.OnClickListener {
+    public static String[] imgDetail = null;
     Button btnShare, btnLike, btnNear, btnReview, btnShowReview;
-    int id, serviceType, reviewId;
-    String favoriteId, longitude, latitude;
+    int id, serviceType;
+    String idLike, idRating, longitude, latitude;
     JSONObject saveJson;
     CallbackManager callbackManager;
     ShareDialog shareDialog;
-    public static String[] imgDetail = null;
     FragmentManager fragmentManager = getFragmentManager();
 
     @Override
@@ -70,7 +69,7 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
 
         Intent iDetail = new Intent(ActivityServiceInfo.this, FullImageActivity.class);
 
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.imgInfo1:
                 try {
                     imgDetail = new HttpRequestAdapter.httpGet().execute(Config.URL_HOST + Config.URL_GET_LINK_DETAIL_1 + id).get()
@@ -179,7 +178,7 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
                                 }
                             }
                             if (isExists) {
-                                new HttpRequestAdapter.httpDelete().execute(Config.URL_HOST + Config.URL_GET_ALL_FAVORITE + "/" + favoriteId);
+                                new HttpRequestAdapter.httpDelete().execute(Config.URL_HOST + Config.URL_GET_ALL_FAVORITE + "/" + idLike);
                             }
                         } catch (JSONException ex) {
                             ex.printStackTrace();
@@ -247,13 +246,13 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
 //                    FragmentReview fragmentReview = new FragmentReview();
 //                    Bundle bundle = new Bundle();
 //                    bundle.putInt("id", id);
-//                    bundle.putInt("iddanhgia", reviewId);
+//                    bundle.putInt("iddanhgia", idRating);
 //                    fragmentTransaction.add(R.id.serviceInfoFragment, fragmentReview);
 //                    fragmentTransaction.commit();
 
                     Intent intent = new Intent(ActivityServiceInfo.this, ActivityReview.class);
                     intent.putExtra("id", id);
-                    intent.putExtra("iddanhgia", reviewId);
+                    intent.putExtra("iddanhgia", idRating);
                     startActivity(intent);
                 }
             }
@@ -268,7 +267,7 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
             }
         });
 
-        load(this, Config.URL_HOST + Config.URL_GET_SERVICE_INFO + "/" + id);
+        load(this, Config.URL_HOST + Config.URL_GET_SERVICE_INFO.get(0) + id + Config.URL_GET_SERVICE_INFO.get(1) + userId);
 
         menuBotNavBar(this, 0);
     }
@@ -297,8 +296,8 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
 
         final ServiceInfo serviceInfo = new ModelService().getServiceInfo(url);
 
-        favoriteId = serviceInfo.getIdLike();
-        reviewId = Integer.parseInt(serviceInfo.getIdReview());
+        idLike = serviceInfo.getIdLike();
+        idRating = serviceInfo.getIdRating();
         longitude = serviceInfo.getLongitude();
         latitude = serviceInfo.getLatitude();
 
@@ -365,7 +364,7 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
             fbEvent.setText(serviceInfo.getEventType());
         }
 
-        if (serviceInfo.getReviewUserFav()) {
+        if (serviceInfo.getIsLike()) {
             btnLike.setText(getResources().getString(R.string.text_UnLike));
 //            btnLike.setCompoundDrawables(null, getResources().getDrawable(R.drawable.ic_favorite_36dp) , null, null);
         } else {
@@ -373,7 +372,7 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
 //            btnLike.setCompoundDrawables(null, getResources().getDrawable(R.drawable.ic_favorite_border_36dp) , null, null);
         }
 
-        if (serviceInfo.getReviewUserRev()) {
+        if (serviceInfo.getIsRating()) {
             btnReview.setText(getResources().getString(R.string.text_Reviewed));
         } else {
             btnReview.setText(getResources().getString(R.string.text_Review));
