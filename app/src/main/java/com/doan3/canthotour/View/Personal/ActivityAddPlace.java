@@ -222,8 +222,8 @@ public class ActivityAddPlace extends AppCompatActivity {
                                 Config.POST_KEY_JSON_PLACE.get(3) + ":\"" + etPlacePhone.getText().toString() + "\"," +
                                 Config.POST_KEY_JSON_PLACE.get(4) + ":\"" + txtLat.getText().toString() + "\"," +
                                 Config.POST_KEY_JSON_PLACE.get(5) + ":\"" + txtLong.getText().toString() + "\"," +
-                                Config.POST_KEY_JSON_PLACE.get(6) + ":\"" + ID + "\"" +
-                                Config.POST_KEY_JSON_PLACE.get(7) + ":\"" + userId + "\"" +
+                                Config.POST_KEY_JSON_PLACE.get(6) + ":\"" + ID + "\"," +
+                                Config.POST_KEY_JSON_PLACE.get(7) + ":\"" + userId + "\"," +
                                 Config.POST_KEY_JSON_PLACE.get(8) + ":\"" + "" + "\"" + "}");
                         stringIdPlace = new httpPost(jsonPost).execute(Config.URL_HOST + Config.URL_POST_PLACE).get();
                     } catch (InterruptedException | ExecutionException | JSONException e) {
@@ -261,10 +261,9 @@ public class ActivityAddPlace extends AppCompatActivity {
                                     Config.POST_KEY_JSON_SERVICE.get(4) + ":\"" + jsonServiceToString.get(4) + "\"," +
                                     Config.POST_KEY_JSON_SERVICE.get(5) + ":\"" + jsonServiceToString.get(5) + "\"," +
                                     Config.POST_KEY_JSON_SERVICE.get(6) + ":\"" + jsonServiceToString.get(6) + "\"," +
-                                    Config.POST_KEY_JSON_SERVICE.get(7) + ":\"" + "" +
+                                    Config.POST_KEY_JSON_SERVICE.get(7) + ":\"" + "" + "\"," +
                                     Config.POST_KEY_JSON_SERVICE.get(8) + ":\"" + userId + "\"," +
-                                    Config.POST_KEY_JSON_SERVICE.get(9) + ":\"" + jsonServiceToString.get(7) + "\"," +
-                                    "\"," + name + "}");
+                                    Config.POST_KEY_JSON_SERVICE.get(9) + ":\"" + jsonServiceToString.get(7) + "\"," + name + "}");
                             idService = new httpPost(jsonPost).execute(Config.URL_HOST + Config.URL_GET_SERVICE_INFO).get();
                             String idS = idService.contains(":") ? idService.replaceAll("\"", "").split(":")[1] : "";
                             if (!idS.equals("")) {
@@ -298,7 +297,7 @@ public class ActivityAddPlace extends AppCompatActivity {
                                     e.printStackTrace();
                                 }
                             } else {
-                                Toast.makeText(ActivityAddPlace.this, getResources().getString(R.string.text_SuccessfullyAdded), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ActivityAddPlace.this, getResources().getString(R.string.text_AddFailed), Toast.LENGTH_SHORT).show();
                             }
                         } else {
                             Toast.makeText(ActivityAddPlace.this, getResources().getString(R.string.text_AddFailed), Toast.LENGTH_SHORT).show();

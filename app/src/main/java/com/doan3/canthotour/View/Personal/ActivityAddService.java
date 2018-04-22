@@ -3,7 +3,6 @@ package com.doan3.canthotour.View.Personal;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.icu.text.SimpleDateFormat;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -24,6 +23,7 @@ import com.doan3.canthotour.R;
 import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -103,7 +103,7 @@ public class ActivityAddService extends AppCompatActivity implements View.OnClic
                 if (Integer.parseInt(etLowestPrice.getText().toString()) > Integer.parseInt(etHighestPrice.getText().toString())) {
                     etLowestPrice.setError(getResources().getString(R.string.text_LowestPriceIsNotHigherThanHighestPrice));
                 } else if (timeClose != null && timeClose.before(timeOpen)) {
-                    etServiceAbout.setError(getResources().getString(R.string.text_TimeOpenMustBeEarlierThanTimeClose));
+                    txtCloseTime.setError(getResources().getString(R.string.text_TimeOpenMustBeEarlierThanTimeClose));
                 } else if (etServiceName.getText().toString().equals("")) {
                     etServiceName.setError(getResources().getString(R.string.text_ServiceNameIsNotAllowedToBeEmpty));
                 } else if (etWebsite.getText().toString().equals("")) {
