@@ -151,7 +151,7 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
                                 JsonHelper.writeJson(file, saveJson);
                                 Toast.makeText(ActivityServiceInfo.this, getResources().getString(R.string.text_Liked),
                                         Toast.LENGTH_SHORT).show();
-//                                btnLike.setCompoundDrawables(null, getResources().getDrawable(R.drawable.ic_favorite_36dp) , null, null);
+                                btnLike.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_favorite_36dp, 0, 0 );
                                 btnLike.setText(getResources().getString(R.string.text_UnLike));
                             }
                         } catch (JSONException ex) {
@@ -184,8 +184,8 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
                             ex.printStackTrace();
                         }
                         btnLike.setText(getResources().getString(R.string.text_Like));
-//                        btnLike.setCompoundDrawables(null, getResources().getDrawable(R.drawable.ic_favorite_border_36dp) , null, null);
-                    }
+                        btnLike.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_favorite_border_36dp, 0, 0 )
+                        ;}
                 }
             }
         });
@@ -366,10 +366,10 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
 
         if (serviceInfo.getIsLike()) {
             btnLike.setText(getResources().getString(R.string.text_UnLike));
-//            btnLike.setCompoundDrawables(null, getResources().getDrawable(R.drawable.ic_favorite_36dp) , null, null);
+            btnLike.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_favorite_36dp, 0, 0 );
         } else {
             btnLike.setText(getResources().getString(R.string.text_Like));
-//            btnLike.setCompoundDrawables(null, getResources().getDrawable(R.drawable.ic_favorite_border_36dp) , null, null);
+            btnLike.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_favorite_border_36dp, 0, 0 );
         }
 
         if (serviceInfo.getIsRating()) {
