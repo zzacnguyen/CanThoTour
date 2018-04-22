@@ -5,10 +5,10 @@
     <string name="text_Search">"     Nhập địa điểm tìm kiếm"</string>
     <string name="text_Cancel">Hủy</string>
     <string name="text_PlacesToVisit">Địa điểm tham quan ở Việt Nam</string>
-    <string name="text_EatAndDrink">Quán ngon ở Cần Thơ</string>
-    <string name="text_Hotelsde">Khách sạn ở Cần Thơ</string>
-    <string name="text_ThingsToDo">Vui chơi ở Cần Thơ</string>
-    <string name="text_Transport">Phương tiện ở Cần Thơ</string>
+    <string name="text_EatAndDrink">Ẩm thực</string>
+    <string name="text_Hotelsde">Nơi nghỉ ngơi tại Việt Nam</string>
+    <string name="text_ThingsToDo">Vui chơi giải trí</string>
+    <string name="text_Transport">Phương tiện di chuyển</string>
     <string name="text_All">Tất cả</string>
     <string name="text_Like">Thích</string>
     <string name="text_UnLike">Bỏ thích</string>
