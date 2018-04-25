@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.doan3.canthotour.Config;
 import com.doan3.canthotour.Helper.JsonHelper;
 import com.doan3.canthotour.R;
 
@@ -35,14 +36,14 @@ public class ActivityOption extends AppCompatActivity {
         btnNearRadius = findViewById(R.id.btnNearLocation);
         txtNearRadius = findViewById(R.id.textViewNearLocation);
 
-        File path = new File(Environment.getExternalStorageDirectory() + "/canthotour");
+        File path = new File(Environment.getExternalStorageDirectory() + Config.FOLDER);
         if (!path.exists()) {
             path.mkdirs();
         }
-        final File file = new File(path, "khoangcach.json");
+        final File file = new File(path, Config.FILE_DISTANCE);
         try {
             txtNearRadius.setText(new JSONArray(JsonHelper.readJson(file)).getJSONObject(0).
-                    getString("khoangcach")+"m");
+                    getString(Config.KEY_DISTANCE)+"m");
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -66,7 +67,7 @@ public class ActivityOption extends AppCompatActivity {
                         radius = etKhoangCach.getText().toString().trim();
                         try {
                             file.delete();
-                            JsonHelper.writeJson(file, new JSONObject("{\"khoangcach\":\"" + radius + "\"}"));
+                            JsonHelper.writeJson(file, new JSONObject("{\""+Config.KEY_DISTANCE+"\":\"" + radius + "\"}"));
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

@@ -19,8 +19,8 @@ import static com.doan3.canthotour.View.Main.MainActivity.menuBotNavBar;
 
 public class ActivityPersonal extends AppCompatActivity {
 
-    public static int userId = 6;
-    public static String userName = "thaingochuy", userType = "personal";
+    public static int userId;
+    public static String userName, userType;
     public static Bitmap avatar;
     Button btnAddPlace, btnAddService, btnRegEnterprise, btnOption, btnLogin, btnAdvancedSearch, btnLogout, btnTripSchedule;
     TextView txtUserName, txtUserType;
@@ -124,6 +124,7 @@ public class ActivityPersonal extends AppCompatActivity {
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                sessionManager = new SessionManager(getApplicationContext());
                 userId = 0;
                 userName = null;
                 userType = null;

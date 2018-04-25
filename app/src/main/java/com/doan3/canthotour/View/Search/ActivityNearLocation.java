@@ -38,8 +38,8 @@ public class ActivityNearLocation extends AppCompatActivity {
         txtRadius = findViewById(R.id.textViewRadius);
         imgPlacePhoto = findViewById(R.id.imageViewNear);
 
-        longitude = getIntent().getStringExtra(Config.KEY_NEAR_LOCATION.get(0));
-        latitude = getIntent().getStringExtra(Config.KEY_NEAR_LOCATION.get(1));
+        latitude = getIntent().getStringExtra(Config.KEY_NEAR_LOCATION.get(0));
+        longitude = getIntent().getStringExtra(Config.KEY_NEAR_LOCATION.get(1));
         serviceType = getIntent().getIntExtra(Config.KEY_NEAR_LOCATION.get(2), 1);
         load();
 
