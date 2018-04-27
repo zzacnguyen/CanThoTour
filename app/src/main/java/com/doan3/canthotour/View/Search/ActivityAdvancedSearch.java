@@ -6,14 +6,10 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.doan3.canthotour.Adapter.HttpRequestAdapter.httpGet;
@@ -21,7 +17,7 @@ import com.doan3.canthotour.Adapter.ListOfServiceAdapter;
 import com.doan3.canthotour.Config;
 import com.doan3.canthotour.Helper.JsonHelper;
 import com.doan3.canthotour.Interface.OnLoadMoreListener;
-import com.doan3.canthotour.Model.ModelService;
+import com.doan3.canthotour.Model.ModelSearch;
 import com.doan3.canthotour.Model.ObjectClass.Service;
 import com.doan3.canthotour.R;
 
@@ -58,47 +54,31 @@ public class ActivityAdvancedSearch extends AppCompatActivity {
         linearEat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                serviceType = 1;
+                search(1);
             }
         });
         linearHotel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                serviceType = 2;
+                search(2);
             }
         });
         linearVehicle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                serviceType = 3;
+                search(3);
             }
         });
         linearPlace.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                serviceType = 4;
+                search(4);
             }
         });
         linearEntertaiment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                serviceType = 5;
-            }
-        });
-        etSearch.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View view, int i, KeyEvent keyEvent) {
-                if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) &&
-                        (i == KeyEvent.KEYCODE_ENTER)) {
-                    if (!etSearch.getText().toString().equals("")) {
-                        load(Config.URL_HOST + Config.URL_SEARCH_TYPE.get(0) + serviceType + Config.URL_SEARCH_TYPE.get(1) +
-                                etSearch.getText().toString().replaceAll(" ", "\\+"), serviceType);
-                    } else {
-                        Toast.makeText(ActivityAdvancedSearch.this, getResources().getString(R.string.text_PleaseEnterASearchKey), Toast.LENGTH_SHORT).show();
-                    }
-                    return true;
-                }
-                return false;
+                search(5);
             }
         });
         btnCancel.setOnClickListener(new View.OnClickListener() {
@@ -110,7 +90,15 @@ public class ActivityAdvancedSearch extends AppCompatActivity {
         });
     }
 
-    private void load(String url, final int serviceType) {
+    void search(int type) {
+        if (!etSearch.getText().toString().equals("")) {
+            searchByType(etSearch.getText().toString(), type);
+        } else {
+            Toast.makeText(ActivityAdvancedSearch.this, getResources().getString(R.string.text_PleaseEnterASearchKey), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void searchByType(String keyword, final int serviceType) {
 
         final ListOfServiceAdapter listOfServiceAdapter;
         final RecyclerView recyclerView;
@@ -121,8 +109,9 @@ public class ActivityAdvancedSearch extends AppCompatActivity {
                 new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        ArrayList<Service> services = new ModelService().getAdvancedSearchList(url, serviceType);
-        if (services.size() == 0){
+        ArrayList<Service> services = new ModelSearch().getAdvancedSearchList(Config.URL_HOST + Config.URL_SEARCH_TYPE.get(0) +
+                serviceType + Config.URL_SEARCH_TYPE.get(1) + keyword.replaceAll(" ", "\\+"), serviceType);
+        if (services.size() == 0) {
             Toast.makeText(this, getResources().getString(R.string.text_NoResults), Toast.LENGTH_SHORT).show();
         }
 
@@ -133,7 +122,9 @@ public class ActivityAdvancedSearch extends AppCompatActivity {
         final ArrayList<Service> finalListService = services;
         try {
             finalArr = JsonHelper.parseJsonNoId(new JSONObject
-                    (new httpGet().execute(url).get()), Config.GET_KEY_JSON_LOAD);
+                    (new httpGet().execute(Config.URL_HOST + Config.URL_SEARCH_TYPE.get(0) +
+                            serviceType +
+                            Config.URL_SEARCH_TYPE.get(1) + keyword.replaceAll(" ", "\\+")).get()), Config.GET_KEY_JSON_LOAD);
         } catch (JSONException | InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
@@ -156,11 +147,8 @@ public class ActivityAdvancedSearch extends AppCompatActivity {
                             finalListService.remove(finalListService.size() - 1);
                             listOfServiceAdapter.notifyItemRemoved(finalListService.size());
 
-                            ArrayList<Service> serviceArrayList = new ModelService().
-                                    getAdvancedSearchList(finalArr.get(1), serviceType);
-                            for (int i = 0; i < serviceArrayList.size(); i++) {
-                                finalListService.add(serviceArrayList.get(i));
-                            }
+                            ArrayList<Service> serviceArrayList = new ModelSearch().getAdvancedSearchList(finalArr.get(1), serviceType);
+                            finalListService.addAll(serviceArrayList);
                             try {
                                 finalArr = JsonHelper.parseJsonNoId(new JSONObject
                                         (new httpGet().execute(finalArr.get(1)).get()), Config.GET_KEY_JSON_LOAD);

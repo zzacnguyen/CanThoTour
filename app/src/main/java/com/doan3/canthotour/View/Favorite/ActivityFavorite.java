@@ -16,7 +16,7 @@ import com.doan3.canthotour.Config;
 import com.doan3.canthotour.Helper.BottomNavigationViewHelper;
 import com.doan3.canthotour.Helper.JsonHelper;
 import com.doan3.canthotour.Interface.OnLoadMoreListener;
-import com.doan3.canthotour.Model.ModelService;
+import com.doan3.canthotour.Model.ModelFavorite;
 import com.doan3.canthotour.Model.ObjectClass.Service;
 import com.doan3.canthotour.R;
 
@@ -36,6 +36,7 @@ public class ActivityFavorite extends AppCompatActivity {
     TextView txtServiceName;
     ImageView imgServiceImage;
     RecyclerView recyclerView;
+    ListOfServiceAdapter listOfServiceAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +61,7 @@ public class ActivityFavorite extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager =
                 new LinearLayoutManager(ActivityFavorite.this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
-        load(file, userId);
+        getFavoriteList(file, userId);
         if (file.exists()) {
             try {
                 JSONArray jsonFile = new JSONArray(JsonHelper.readJson(file));
@@ -79,12 +80,12 @@ public class ActivityFavorite extends AppCompatActivity {
     }
 
 
-    private void load(final File file, int id) {
+    private void getFavoriteList(final File file, int id) {
 
-        ArrayList<Service> favoriteList = new ModelService().getFavoriteList(file, Config.URL_HOST +
+        ArrayList<Service> favoriteList = new ModelFavorite().getFavoriteList(file, Config.URL_HOST +
                 Config.URL_GET_ALL_FAVORITE + "/" + id);
 
-        final ListOfServiceAdapter listOfServiceAdapter =
+        listOfServiceAdapter =
                 new ListOfServiceAdapter(recyclerView, favoriteList, getApplicationContext());
         recyclerView.setAdapter(listOfServiceAdapter);
         listOfServiceAdapter.notifyDataSetChanged();
@@ -115,11 +116,9 @@ public class ActivityFavorite extends AppCompatActivity {
                             finalListService.remove(finalListService.size() - 1);
                             listOfServiceAdapter.notifyItemRemoved(finalListService.size());
 
-                            ArrayList<Service> serviceArrayList = new ModelService().
+                            ArrayList<Service> serviceArrayList = new ModelFavorite().
                                     getFavoriteList(file, finalArr.get(1));
-                            for (int i = 0; i < serviceArrayList.size(); i++) {
-                                finalListService.add(serviceArrayList.get(i));
-                            }
+                            finalListService.addAll(serviceArrayList);
                             try {
                                 finalArr = JsonHelper.parseJsonNoId(new JSONObject
                                         (new HttpRequestAdapter.httpGet().execute(finalArr.get(1)).get()), Config.GET_KEY_JSON_LOAD);
@@ -134,5 +133,11 @@ public class ActivityFavorite extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        listOfServiceAdapter.setOnLoadMoreListener(null);
     }
 }

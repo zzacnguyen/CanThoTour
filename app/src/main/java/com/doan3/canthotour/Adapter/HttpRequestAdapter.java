@@ -30,12 +30,14 @@ public class HttpRequestAdapter {
                 urlConnection = (HttpURLConnection) obj.openConnection();
                 urlConnection.setDoInput(true);
                 urlConnection.setRequestMethod("GET");
-                InputStream in = new BufferedInputStream(urlConnection.getInputStream());
-                BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+                urlConnection.connect();
+                BufferedReader in = new BufferedReader(new InputStreamReader(
+                        urlConnection.getInputStream()));
                 String line;
-                while ((line = reader.readLine()) != null) {
+                while ((line = in.readLine()) != null) {
                     result.append(line);
                 }
+                in.close();
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
@@ -57,6 +59,7 @@ public class HttpRequestAdapter {
                 urlConnection.connect();
                 InputStream input = urlConnection.getInputStream();
                 Bitmap myBitmap = BitmapFactory.decodeStream(input);
+                input.close();
                 return myBitmap;
             } catch (IOException e) {
                 e.printStackTrace();
@@ -90,11 +93,12 @@ public class HttpRequestAdapter {
                 urlConnection.setRequestProperty("Connection", "Keep-Alive");
                 urlConnection.addRequestProperty("Content-length", reqEntity.getContentLength() + "");
                 urlConnection.addRequestProperty(reqEntity.getContentType().getName(), reqEntity.getContentType().getValue());
+                urlConnection.connect();
 
                 OutputStream os = urlConnection.getOutputStream();
                 reqEntity.writeTo(urlConnection.getOutputStream());
+                os.flush();
                 os.close();
-                urlConnection.connect();
 
                 if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
                     BufferedReader in = new BufferedReader(new InputStreamReader(
@@ -138,6 +142,7 @@ public class HttpRequestAdapter {
                 urlConnection.setRequestProperty("Content-Type", "application/json");
                 urlConnection.setRequestProperty("Accept", "application/json");
                 urlConnection.setRequestMethod("POST");
+                urlConnection.connect();
                 DataOutputStream dataOutputStream = new DataOutputStream(urlConnection.getOutputStream());
                 dataOutputStream.writeBytes(json.toString());
                 dataOutputStream.flush();

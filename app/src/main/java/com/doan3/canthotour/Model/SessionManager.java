@@ -22,31 +22,26 @@ import static com.doan3.canthotour.View.Personal.ActivityPersonal.userType;
 
 public class SessionManager {
     // Id (make variable public to access from outside)
-    public static final String KEY_ID = "id";
+    private static final String KEY_ID = "id";
     // User name (make variable public to access from outside)
-    public static final String KEY_NAME = "username";
+    private static final String KEY_NAME = "username";
     // Email type (make variable public to access from outside)
-    public static final String KEY_TYPE = "level";
+    private static final String KEY_TYPE = "level";
     // Email avatar (make variable public to access from outside)
-    public static final String KEY_AVATAR = "avatar";
+    private static final String KEY_AVATAR = "avatar";
     // Sharedpref file name
     private static final String PREF_NAME = "Session";
     // All Shared Preferences Keys
     private static final String IS_LOGIN = "IsLoggedIn";
     // Shared Preferences
-    SharedPreferences pref;
+    private SharedPreferences pref;
     // Editor for Shared preferences
-    Editor editor;
-    // Context
-    Context _context;
-    // Shared pref mode
-    int PRIVATE_MODE = 0;
+    private Editor editor;
 
     // Constructor
     @SuppressLint("CommitPrefEdits")
     public SessionManager(Context context) {
-        this._context = context;
-        pref = _context.getSharedPreferences(PREF_NAME, PRIVATE_MODE);
+        pref = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         editor = pref.edit();
     }
 
@@ -69,7 +64,7 @@ public class SessionManager {
         // Storing avatar in pref
         if (bitmap != null) {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos); //bm is the bitmap object
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
             byte[] b = baos.toByteArray();
             String encoded = Base64.encodeToString(b, Base64.DEFAULT);
             editor.putString(KEY_AVATAR, encoded);
@@ -105,7 +100,7 @@ public class SessionManager {
     /**
      * Get stored session data
      */
-    public HashMap<String, String> getUserDetails() {
+    private HashMap<String, String> getUserDetails() {
         HashMap<String, String> user = new HashMap<>();
         // user id
         user.put(KEY_ID, pref.getString(KEY_ID, null));
@@ -136,7 +131,7 @@ public class SessionManager {
      * Quick check for login
      **/
     // Get Login State
-    public boolean isLoggedIn() {
+    private boolean isLoggedIn() {
         return pref.getBoolean(IS_LOGIN, false);
     }
 }

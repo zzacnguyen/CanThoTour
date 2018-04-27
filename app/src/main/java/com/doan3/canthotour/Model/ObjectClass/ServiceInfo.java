@@ -9,10 +9,18 @@ import android.graphics.Bitmap;
 public class ServiceInfo {
     Bitmap banner, thumbInfo1, thumbInfo2;
     private float stars, reviewMark;
-    private int id, idImage;
+    private int id, idImage, countLike;
     private String eatName, hotelName, placeName, vehicleName, entertainName, serviceAbout, imageName, timeClose, timeOpen,
             highestPrice, lowestPrice, address, phoneNumber, longitude, latitude, website, eventType, idLike, idRating;
     private boolean isLike, isRating;
+
+    public int getCountLike() {
+        return countLike;
+    }
+
+    public void setCountLike(int countLike) {
+        this.countLike = countLike;
+    }
 
     public String getLongitude() {
         return longitude;

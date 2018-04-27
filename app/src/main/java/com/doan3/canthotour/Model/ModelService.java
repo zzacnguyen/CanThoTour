@@ -1,16 +1,13 @@
 package com.doan3.canthotour.Model;
 
-import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Environment;
-import android.widget.Toast;
 
 import com.doan3.canthotour.Adapter.HttpRequestAdapter.httpGet;
 import com.doan3.canthotour.Adapter.HttpRequestAdapter.httpGetImage;
 import com.doan3.canthotour.Config;
 import com.doan3.canthotour.Model.ObjectClass.Event;
-import com.doan3.canthotour.Model.ObjectClass.NearLocation;
 import com.doan3.canthotour.Model.ObjectClass.Review;
 import com.doan3.canthotour.Model.ObjectClass.Service;
 import com.doan3.canthotour.Model.ObjectClass.ServiceInfo;
@@ -28,7 +25,6 @@ import static com.doan3.canthotour.Helper.JsonHelper.mergeJson;
 import static com.doan3.canthotour.Helper.JsonHelper.parseJson;
 import static com.doan3.canthotour.Helper.JsonHelper.parseJsonNoId;
 import static com.doan3.canthotour.Helper.JsonHelper.readJson;
-import static com.doan3.canthotour.View.Personal.ActivityPersonal.userId;
 
 /**
  * Created by sieut on 12/20/2017.
@@ -159,26 +155,30 @@ public class ModelService {
                     }
                 }
             }
-            // nếu người dùng chưa thích
+            // nếu trong file yêu thích chưa có thì xem trong csdl đã thích hay chưa
             if (!isLiked) {
-                serviceInfo.setIsLike(false);
-                if (isLike){
+                if (isLike) {
+                    serviceInfo.setIsLike(true);
                     JSONObject jsonIdLike = new JSONObject(jsonResult.getString(Config.KEY_SERVICE_INFO.get(1)));
                     serviceInfo.setIdLike(jsonIdLike.getString(Config.KEY_SERVICE_INFO.get(2)));
+                } else {
+                    serviceInfo.setIsLike(false);
+                    serviceInfo.setIdLike("0");
                 }
-            } else {
-                serviceInfo.setIsLike(false);
-                serviceInfo.setIdLike("0");
             }
 
-            if (isRating){
+            if (isRating) {
                 serviceInfo.setIsRating(true);
                 JSONObject jsonIdRating = new JSONObject(jsonResult.getString(Config.KEY_SERVICE_INFO.get(4)));
                 serviceInfo.setIdRating(jsonIdRating.getString(Config.KEY_SERVICE_INFO.get(5)));
             } else {
-                serviceInfo.setIdRating("0");
                 serviceInfo.setIsRating(false);
+                serviceInfo.setIdRating("0");
             }
+
+            // set số lượt like
+            serviceInfo.setCountLike(Integer.parseInt(jsonResult.getString(Config.KEY_SERVICE_INFO.get(9))));
+            System.out.println(Integer.parseInt(jsonResult.getString(Config.KEY_SERVICE_INFO.get(9))));
 
             // lấy thông tin hình gồm : "url + id + tên hình"
             // xóa dấu " bằng replaceAll
@@ -196,15 +196,25 @@ public class ModelService {
             }
 
             // set id hình
-            serviceInfo.setIdImage(Integer.parseInt(urlImageThumb1[1]));
-            // set tên hình
-            serviceInfo.setImageName(urlImageThumb1[2]);
-            // set hình
-            serviceInfo.setThumbInfo1(setImage(Config.URL_HOST + urlImageThumb1[0],
-                    urlImageThumb1[1], urlImageThumb1[2]));
-            serviceInfo.setThumbInfo2(setImage(Config.URL_HOST + urlImageThumb2[0],
-                    urlImageThumb2[1], urlImageThumb2[2]));
-            serviceInfo.setBanner(setImage(Config.URL_HOST + urlImageBanner[0], urlImageBanner[1], urlImageBanner[2]));
+            if (urlImageThumb1 != null) {
+                serviceInfo.setIdImage(Integer.parseInt(urlImageThumb1[1]));
+
+                // set tên hình
+                serviceInfo.setImageName(urlImageThumb1[2]);
+
+                // set hình 1
+                serviceInfo.setThumbInfo1(setImage(Config.URL_HOST + urlImageThumb1[0],
+                        urlImageThumb1[1], urlImageThumb1[2]));
+            }
+            // set hình 2
+            if (urlImageThumb2 != null) {
+                serviceInfo.setThumbInfo2(setImage(Config.URL_HOST + urlImageThumb2[0],
+                        urlImageThumb2[1], urlImageThumb2[2]));
+            }
+            // set hình banner
+            if (urlImageBanner != null) {
+                serviceInfo.setBanner(setImage(Config.URL_HOST + urlImageBanner[0], urlImageBanner[1], urlImageBanner[2]));
+            }
 
         } catch (InterruptedException | ExecutionException | JSONException e) {
             e.printStackTrace();
@@ -212,7 +222,7 @@ public class ModelService {
         return serviceInfo;
     }
 
-    public ArrayList<Service> getServiceList(String url, ArrayList<String> formatJson) {
+    public ArrayList<Service> getServiceInMain(String url, ArrayList<String> formatJson) {
 
         ArrayList<String> arr, arrayList;
         ArrayList<Service> services = new ArrayList<>();
@@ -243,7 +253,7 @@ public class ModelService {
         return services;
     }
 
-    public ArrayList<Service> getServiceFullList(String url, ArrayList<String> formatJson) {
+    public ArrayList<Service> getFullServiceList(String url, ArrayList<String> formatJson) {
 
         ArrayList<String> arr, arrayList;
         ArrayList<Service> services = new ArrayList<>();
@@ -268,182 +278,6 @@ public class ModelService {
             e.printStackTrace();
         }
         return services;
-    }
-
-    public ArrayList<Service> getFavoriteList(File file, String url) {
-
-        ArrayList<String> arr, arrayList;
-        ArrayList<Service> services = new ArrayList<>();
-
-        try {
-            arr = parseJsonNoId(new JSONObject(new httpGet().
-                    execute(url).get()), Config.GET_KEY_JSON_LOAD);
-            JSONArray jsonArray;
-            if (file.exists()) {
-                jsonArray = mergeJson(new JSONArray(arr.get(0)), new JSONArray(readJson(file)));
-            } else {
-                jsonArray = new JSONArray(arr.get(0));
-            }
-
-            for (int i = 0; i < jsonArray.length(); i++) {
-
-                Service service = new Service();
-                JSONObject jsonObject = jsonArray.getJSONObject(i);
-                arrayList = parseJson(jsonObject, Config.GET_KEY_JSON_FAVORITE);
-
-                //Set hình ảnh
-                service.setImage(setImage(Config.URL_HOST + Config.URL_GET_THUMB + arrayList.get(7),
-                        arrayList.get(6), arrayList.get(7)));
-                //Set mã dịch vụ
-                service.setId(Integer.parseInt(arrayList.get(0)));
-                //Set tên dịch vụ yêu thích
-                service.setName(!arrayList.get(1).equals(Config.NULL) ? arrayList.get(1) :
-                        !arrayList.get(2).equals(Config.NULL) ? arrayList.get(2) :
-                                !arrayList.get(3).equals(Config.NULL) ? arrayList.get(3) :
-                                        !arrayList.get(4).equals(Config.NULL) ? arrayList.get(4) : arrayList.get(5));
-
-                services.add(service);
-            }
-        } catch (JSONException | InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
-
-        return services;
-    }
-
-    public ArrayList<NearLocation> getNearLocationList(String url, int type, Activity activity) {
-
-        ArrayList<String> arrayList, keyJson;
-        ArrayList<NearLocation> services = new ArrayList<>();
-
-        try {
-            JSONObject jsonObject = new JSONObject(new httpGet().execute(url).get());
-            // nếu status = not found thì hiển thị không tìm thấy
-            if (jsonObject.getString(Config.GET_KEY_SEARCH_NEAR.get(1)).equals(Config.GET_KEY_SEARCH_NEAR.get(2))) {
-                Toast.makeText(activity, "Không tìm thấy dịch vụ lân cận", Toast.LENGTH_SHORT).show();
-            } else {
-                // nếu tìm thấy thì thêm vào model nearlocation
-                JSONArray jsonArray = jsonObject.getJSONArray(Config.GET_KEY_SEARCH_NEAR.get(0));
-                for (int i = 0; i < jsonArray.length(); i += 2) {
-
-                    NearLocation service = new NearLocation();
-                    JSONObject jsonObjectData = jsonArray.getJSONObject(i);
-
-                    /* nếu loại hình = 1 lấy key json ăn uống
-                     nếu = 2 lấy key json khách sạn
-                     nếu = 3 lấy key json phương tiện
-                     nếu = 4 lấy key json tham quan
-                     nếu = 5 lấy key json vui chơi*/
-                    if (type == 1) {
-                        keyJson = Config.GET_KEY_JSON_EAT;
-                        keyJson.add(Config.KEY_DISTANCE);
-                    } else if (type == 2) {
-                        keyJson = Config.GET_KEY_JSON_HOTEL;
-                        keyJson.add(Config.KEY_DISTANCE);
-                    } else if (type == 3) {
-                        keyJson = Config.GET_KEY_JSON_VEHICLE;
-                        keyJson.add(Config.KEY_DISTANCE);
-                    } else if (type == 4) {
-                        keyJson = Config.GET_KEY_JSON_PLACE;
-                        keyJson.add(Config.KEY_DISTANCE);
-                    } else {
-                        keyJson = Config.GET_KEY_JSON_ENTERTAINMENT;
-                        keyJson.add(Config.KEY_DISTANCE);
-                    }
-
-                    arrayList = parseJson(jsonObjectData, keyJson);
-
-                    //Set hình ảnh
-                    service.setNearLocationImage(setImage(Config.URL_HOST + Config.URL_GET_THUMB + arrayList.get(3),
-                            arrayList.get(2), arrayList.get(3)));
-                    //Set mã dịch vụ
-                    service.setNearLocationId(Integer.parseInt(arrayList.get(0)));
-                    //Set tên dịch vụ
-                    service.setNearLocationName(arrayList.get(1));
-                    // set khoảng cách
-                    service.setNearLocationDistance(arrayList.get(4));
-
-                    services.add(service);
-                }
-            }
-        } catch (JSONException | InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
-
-        return services;
-    }
-
-    public ArrayList<Service> getAdvancedSearchList(String url, int type) {
-
-        ArrayList<String> arr, arrayList;
-        ArrayList<Service> services = new ArrayList<>();
-
-        try {
-            arr = parseJsonNoId(new JSONObject(new httpGet().
-                    execute(url).get()), Config.GET_KEY_JSON_LOAD);
-            JSONArray jsonArray = new JSONArray(arr.get(0));
-
-            for (int i = 0; i < jsonArray.length(); i++) {
-
-                Service service = new Service();
-                JSONObject jsonObject = jsonArray.getJSONObject(i);
-                if (type == 1) {
-                    arrayList = parseJson(jsonObject, Config.GET_KEY_JSON_EAT);
-                } else if (type == 2) {
-                    arrayList = parseJson(jsonObject, Config.GET_KEY_JSON_HOTEL);
-                } else if (type == 3) {
-                    arrayList = parseJson(jsonObject, Config.GET_KEY_JSON_VEHICLE);
-                } else if (type == 4) {
-                    arrayList = parseJson(jsonObject, Config.GET_KEY_JSON_PLACE);
-                } else {
-                    arrayList = parseJson(jsonObject, Config.GET_KEY_JSON_ENTERTAINMENT);
-                }
-
-                //Set hình ảnh
-                service.setImage(setImage(Config.URL_HOST + Config.URL_GET_THUMB + arrayList.get(3),
-                        arrayList.get(2), arrayList.get(3)));
-                //Set mã dịch vụ
-                service.setId(Integer.parseInt(arrayList.get(0)));
-                //Set tên dịch vụ yêu thích
-                service.setName(arrayList.get(1));
-
-                services.add(service);
-            }
-        } catch (JSONException | InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
-
-        return services;
-    }
-
-    public ArrayList<Event> getEventList(String url) { //Get danh sách thông báo sự kiện
-
-        ArrayList<String> arr, arrayList;
-        ArrayList<Event> events = new ArrayList<>();
-
-        try {
-            //Sử dụng parseJsonNoId vì KEY_JSON_LOAD ko có id
-            arr = parseJsonNoId(new JSONObject(new httpGet().execute(url).get()), Config.GET_KEY_JSON_LOAD);
-            JSONArray jsonArray = new JSONArray(arr.get(0));
-
-            for (int i = 0; i < jsonArray.length(); i++) {
-
-                Event event = new Event();
-                JSONObject jsonObject = jsonArray.getJSONObject(i);
-                arrayList = parseJson(jsonObject, Config.GET_KEY_JSON_EVENT); //Parse json event
-                event.setEventId(Integer.parseInt(arrayList.get(0))); //Set mã sự kiện
-                event.setEventName(arrayList.get(1)); //Set tên
-
-                //Set ngày bắt đầu và ngày kết thúc sự kiện
-                event.setEventDate("Từ " + arrayList.get(2) + " đến " + arrayList.get(3));
-                event.setEventImage(setImage(Config.URL_HOST + Config.URL_GET_THUMB + arrayList.get(5),
-                        arrayList.get(4), arrayList.get(5)));
-                events.add(event);
-            }
-        } catch (JSONException | InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
-        return events;
     }
 
     public ArrayList<Review> getReviewList(String url, ArrayList<String> formatJson) {

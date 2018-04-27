@@ -71,9 +71,7 @@ public class FragmentService extends Fragment {
         try {
             String getBadgeNumber = new httpGet().execute(Config.URL_HOST + Config.URL_GET_EVENT_NUMBER).get();
             badgeNumber = Integer.parseInt(getBadgeNumber);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
+        } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
 
@@ -118,35 +116,43 @@ public class FragmentService extends Fragment {
 
         String url = bundle.getString("url");
 
-        if (url.equals(Config.URL_HOST + Config.URL_GET_ALL_EATS)) { //Kiểm tra từng đường dẫn url
-            formatJson = Config.GET_KEY_JSON_EAT;
-            toolbar.setBackgroundColor(getResources().getColor(R.color.tbEat));
-            toolbarTitle.setText(getResources().getString(R.string.title_ListOfRestaurant));
-        } else if (url.equals(Config.URL_HOST + Config.URL_GET_ALL_PLACES)) {
-            formatJson = Config.GET_KEY_JSON_PLACE;
-            toolbar.setBackgroundColor(getResources().getColor(R.color.tbPlace));
-            toolbarTitle.setText(getResources().getString(R.string.title_ListOfPlaceToVisit));
-        } else if (url.equals(Config.URL_HOST + Config.URL_GET_ALL_HOTELS)) {
-            formatJson = Config.GET_KEY_JSON_HOTEL;
-            toolbar.setBackgroundColor(getResources().getColor(R.color.tbHotel));
-            toolbarTitle.setText(getResources().getString(R.string.title_ListOfHotel));
-        } else if (url.equals(Config.URL_HOST + Config.URL_GET_ALL_VEHICLES)) {
-            formatJson = Config.GET_KEY_JSON_VEHICLE;
-            toolbar.setBackgroundColor(getResources().getColor(R.color.tbVehicle));
-            toolbarTitle.setText(getResources().getString(R.string.title_ListOfTransport));
-        } else {
-            formatJson = Config.GET_KEY_JSON_ENTERTAINMENT;
-            toolbar.setBackgroundColor(getResources().getColor(R.color.tbEntertain));
-            toolbarTitle.setText(getResources().getString(R.string.title_ListOfEntertainment));
+        if (url != null) {
+            switch (url) { //Kiểm tra từng đường dẫn url
+                case Config.URL_HOST + Config.URL_GET_ALL_EATS:
+                    formatJson = Config.GET_KEY_JSON_EAT;
+                    toolbar.setBackgroundColor(getResources().getColor(R.color.tbEat));
+                    toolbarTitle.setText(getResources().getString(R.string.title_ListOfRestaurant));
+                    break;
+                case Config.URL_HOST + Config.URL_GET_ALL_PLACES:
+                    formatJson = Config.GET_KEY_JSON_PLACE;
+                    toolbar.setBackgroundColor(getResources().getColor(R.color.tbPlace));
+                    toolbarTitle.setText(getResources().getString(R.string.title_ListOfPlaceToVisit));
+                    break;
+                case Config.URL_HOST + Config.URL_GET_ALL_HOTELS:
+                    formatJson = Config.GET_KEY_JSON_HOTEL;
+                    toolbar.setBackgroundColor(getResources().getColor(R.color.tbHotel));
+                    toolbarTitle.setText(getResources().getString(R.string.title_ListOfHotel));
+                    break;
+                case Config.URL_HOST + Config.URL_GET_ALL_VEHICLES:
+                    formatJson = Config.GET_KEY_JSON_VEHICLE;
+                    toolbar.setBackgroundColor(getResources().getColor(R.color.tbVehicle));
+                    toolbarTitle.setText(getResources().getString(R.string.title_ListOfTransport));
+                    break;
+                default:
+                    formatJson = Config.GET_KEY_JSON_ENTERTAINMENT;
+                    toolbar.setBackgroundColor(getResources().getColor(R.color.tbEntertain));
+                    toolbarTitle.setText(getResources().getString(R.string.title_ListOfEntertainment));
+                    break;
+            }
         }
 
-        load(url, formatJson, view);
+        getFullServiceList(url, formatJson, view);
 
         bottomFragNavBar(0, view, getActivity());
         return view;
     }
 
-    private void load(String url, final ArrayList<String> formatJson, View view) { //Khai báo view
+    private void getFullServiceList(String url, final ArrayList<String> formatJson, View view) { //Khai báo view
 
         final ListOfServiceAdapter listOfServiceAdapter;
         final RecyclerView recyclerView;
@@ -157,7 +163,7 @@ public class FragmentService extends Fragment {
                 new LinearLayoutManager(view.getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        ArrayList<Service> services = new ModelService().getServiceFullList(url, formatJson);
+        ArrayList<Service> services = new ModelService().getFullServiceList(url, formatJson);
 
         listOfServiceAdapter = new ListOfServiceAdapter(recyclerView, services, getApplicationContext());
         recyclerView.setAdapter(listOfServiceAdapter);
@@ -190,7 +196,7 @@ public class FragmentService extends Fragment {
                             listOfServiceAdapter.notifyItemRemoved(finalListService.size());
 
                             ArrayList<Service> serviceArrayList = new ModelService().
-                                    getServiceFullList(finalArr.get(1), formatJson);
+                                    getFullServiceList(finalArr.get(1), formatJson);
                             for (int i = 0; i < serviceArrayList.size(); i++) {
                                 finalListService.add(serviceArrayList.get(i));
                             }

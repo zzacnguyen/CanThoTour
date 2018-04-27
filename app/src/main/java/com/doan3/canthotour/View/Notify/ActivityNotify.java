@@ -8,11 +8,10 @@ import android.support.v7.widget.RecyclerView;
 
 import com.doan3.canthotour.Adapter.EventAdapter;
 import com.doan3.canthotour.Adapter.HttpRequestAdapter.httpGet;
-import com.doan3.canthotour.Adapter.ListOfServiceAdapter;
 import com.doan3.canthotour.Config;
 import com.doan3.canthotour.Helper.JsonHelper;
 import com.doan3.canthotour.Interface.OnLoadMoreListener;
-import com.doan3.canthotour.Model.ModelService;
+import com.doan3.canthotour.Model.ModelEvent;
 import com.doan3.canthotour.Model.ObjectClass.Event;
 import com.doan3.canthotour.R;
 
@@ -27,20 +26,20 @@ import static com.doan3.canthotour.View.Main.MainActivity.menuBotNavBar;
 public class ActivityNotify extends AppCompatActivity {
 
     ArrayList<String> finalArr = new ArrayList<>();
+    EventAdapter eventAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notify);
 
-        loadInfo(Config.URL_HOST + Config.URL_GET_ALL_EVENTS);
+        getNotify(Config.URL_HOST + Config.URL_GET_ALL_EVENTS);
 
         menuBotNavBar(this, 2);
     }
 
-    private void loadInfo(String url) {
+    private void getNotify(String url) {
 
-        final ListOfServiceAdapter listOfServiceAdapter;
         final RecyclerView recyclerView;
         recyclerView = findViewById(R.id.RecyclerView_EventList);
         recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
@@ -49,9 +48,9 @@ public class ActivityNotify extends AppCompatActivity {
                 new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        ArrayList<Event> services = new ModelService().getEventList(url);
+        ArrayList<Event> services = new ModelEvent().getEventList(url);
 
-        final EventAdapter eventAdapter = new EventAdapter(recyclerView, services, getApplicationContext());
+        eventAdapter = new EventAdapter(recyclerView, services, getApplicationContext());
         recyclerView.setAdapter(eventAdapter);
         eventAdapter.notifyDataSetChanged();
 
@@ -81,11 +80,9 @@ public class ActivityNotify extends AppCompatActivity {
                             finalListService.remove(finalListService.size() - 1);
                             eventAdapter.notifyItemRemoved(finalListService.size());
 
-                            ArrayList<Event> serviceArrayList = new ModelService().
+                            ArrayList<Event> serviceArrayList = new ModelEvent().
                                     getEventList(finalArr.get(1));
-                            for (int i = 0; i < serviceArrayList.size(); i++) {
-                                finalListService.add(serviceArrayList.get(i));
-                            }
+                            finalListService.addAll(serviceArrayList);
                             try {
                                 finalArr = JsonHelper.parseJsonNoId(new JSONObject
                                         (new httpGet().execute(finalArr.get(1)).get()), Config.GET_KEY_JSON_LOAD);
@@ -100,5 +97,11 @@ public class ActivityNotify extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        eventAdapter.setOnLoadMoreListener(null);
     }
 }

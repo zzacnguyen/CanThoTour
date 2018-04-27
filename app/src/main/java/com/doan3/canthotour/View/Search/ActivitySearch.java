@@ -27,7 +27,6 @@ import com.doan3.canthotour.View.Main.ActivitySearchHistory;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
@@ -55,7 +54,7 @@ public class ActivitySearch extends AppCompatActivity implements View.OnClickLis
                 if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) &&
                         (i == KeyEvent.KEYCODE_ENTER)) {
                     if (!etSearch.getText().toString().equals("")) {
-                        load(Config.URL_HOST + Config.URL_SEARCH_ALL +
+                        searchAll(Config.URL_HOST + Config.URL_SEARCH_ALL +
                                 etSearch.getText().toString().replaceAll(" ", "\\+"));
                     } else {
                         Toast.makeText(ActivitySearch.this, getResources().getString(R.string.text_PleaseEnterSearchKey), Toast.LENGTH_SHORT).show();
@@ -76,7 +75,7 @@ public class ActivitySearch extends AppCompatActivity implements View.OnClickLis
         txtSearchHistory.setOnClickListener(this);
     }
 
-    private void load(String url) {
+    private void searchAll(String url) {
 
         final ListOfServiceAdapter listOfServiceAdapter;
         final RecyclerView recyclerView;
@@ -87,7 +86,7 @@ public class ActivitySearch extends AppCompatActivity implements View.OnClickLis
                 new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        ArrayList<Service> services = new ModelService().getFavoriteList(new File(""), url);
+        ArrayList<Service> services = new ModelService().getFullServiceList(url,Config.GET_KEY_JSON_SERVICE_LIST);
 
         listOfServiceAdapter = new ListOfServiceAdapter(recyclerView, services, getApplicationContext());
         recyclerView.setAdapter(listOfServiceAdapter);
@@ -120,10 +119,8 @@ public class ActivitySearch extends AppCompatActivity implements View.OnClickLis
                             listOfServiceAdapter.notifyItemRemoved(finalListService.size());
 
                             ArrayList<Service> serviceArrayList = new ModelService().
-                                    getFavoriteList(new File(""), finalArr.get(1));
-                            for (int i = 0; i < serviceArrayList.size(); i++) {
-                                finalListService.add(serviceArrayList.get(i));
-                            }
+                                    getFullServiceList(finalArr.get(1),Config.GET_KEY_JSON_SERVICE_LIST);
+                            finalListService.addAll(serviceArrayList);
                             try {
                                 finalArr = JsonHelper.parseJsonNoId(new JSONObject
                                         (new httpGet().execute(finalArr.get(1)).get()), Config.GET_KEY_JSON_LOAD);

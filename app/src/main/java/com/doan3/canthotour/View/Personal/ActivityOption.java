@@ -1,8 +1,9 @@
 package com.doan3.canthotour.View.Personal;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -12,22 +13,18 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.doan3.canthotour.Config;
-import com.doan3.canthotour.Helper.JsonHelper;
 import com.doan3.canthotour.R;
 
 import static com.doan3.canthotour.View.Main.MainActivity.menuBotNavBar;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.File;
 
 
 public class ActivityOption extends AppCompatActivity {
     LinearLayout btnNearRadius;
     TextView txtNearRadius;
     String radius;
+    SharedPreferences.Editor editor;
 
+    @SuppressLint("CommitPrefEdits")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,18 +32,10 @@ public class ActivityOption extends AppCompatActivity {
 
         btnNearRadius = findViewById(R.id.btnNearLocation);
         txtNearRadius = findViewById(R.id.textViewNearLocation);
+        SharedPreferences sharedPreferences = getSharedPreferences(Config.KEY_DISTANCE, MODE_PRIVATE);
+        editor = sharedPreferences.edit();
 
-        File path = new File(Environment.getExternalStorageDirectory() + Config.FOLDER);
-        if (!path.exists()) {
-            path.mkdirs();
-        }
-        final File file = new File(path, Config.FILE_DISTANCE);
-        try {
-            txtNearRadius.setText(new JSONArray(JsonHelper.readJson(file)).getJSONObject(0).
-                    getString(Config.KEY_DISTANCE)+"m");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        txtNearRadius.setText(sharedPreferences.getString(Config.KEY_DISTANCE, Config.DEFAULT_DISTANCE + "m"));
 
         btnNearRadius.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,27 +46,23 @@ public class ActivityOption extends AppCompatActivity {
                 dialog.setContentView(R.layout.custom_radius);
 
                 //Ánh xạ các palette trong dialog
-                final EditText etKhoangCach = dialog.findViewById(R.id.etRadius);
-                Button btnDongY = dialog.findViewById(R.id.btnConfirmRadius);
-                Button btnHuy = dialog.findViewById(R.id.btnCancelRadius);
+                final EditText etDistance = dialog.findViewById(R.id.etRadius);
+                Button btnAgree = dialog.findViewById(R.id.btnConfirmRadius);
+                Button btnCancel = dialog.findViewById(R.id.btnCancelRadius);
 
-                btnDongY.setOnClickListener(new View.OnClickListener() {
+                btnAgree.setOnClickListener(new View.OnClickListener() {
+                    @SuppressLint("SetTextI18n")
                     @Override
                     public void onClick(View view) {
-                        radius = etKhoangCach.getText().toString().trim();
-                        try {
-                            file.delete();
-                            JsonHelper.writeJson(file, new JSONObject("{\""+Config.KEY_DISTANCE+"\":\"" + radius + "\"}"));
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                        radius = etDistance.getText().toString().trim();
+                        editor.putString(Config.KEY_DISTANCE, radius);
                         txtNearRadius.setText(radius + "m");
 
                         dialog.cancel();
                     }
                 });
 
-                btnHuy.setOnClickListener(new View.OnClickListener() {
+                btnCancel.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         dialog.cancel();
@@ -88,6 +73,12 @@ public class ActivityOption extends AppCompatActivity {
             }
         });
 
-        menuBotNavBar(this,3);
+        menuBotNavBar(this, 3);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        btnNearRadius.setOnClickListener(null);
     }
 }

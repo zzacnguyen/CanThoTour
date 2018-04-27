@@ -12,7 +12,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
-import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
@@ -72,9 +71,7 @@ public class MainActivity extends AppCompatActivity {
                                 public void run() {
                                     try {
                                         badgeNumber = Integer.parseInt(new httpGet().execute(Config.URL_HOST + Config.URL_GET_EVENT_NUMBER).get());
-                                    } catch (InterruptedException e) {
-                                        e.printStackTrace();
-                                    } catch (ExecutionException e) {
+                                    } catch (InterruptedException | ExecutionException e) {
                                         e.printStackTrace();
                                     }
                                 }
@@ -88,9 +85,7 @@ public class MainActivity extends AppCompatActivity {
             notifyRepeat.start();
 
             //endregion
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
+        } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
     }
@@ -101,6 +96,8 @@ public class MainActivity extends AppCompatActivity {
     boolean enterprise = false;
     FragmentManager fragmentManager = getFragmentManager();
     SessionManager sessionManager;
+    @SuppressLint("StaticFieldLeak")
+    static BottomNavigationView bottomNavigationView;
 
     public static void runOnUI(Runnable runnable) {
         UIHandler.post(runnable);
@@ -108,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
 
     //Bottom navigation bar
     public static void menuBotNavBar(final Activity activity, int i) {
-        BottomNavigationView bottomNavigationView = activity.findViewById(R.id.bottomNavView_Bar); //Bottom navigation view
+        bottomNavigationView = activity.findViewById(R.id.bottomNavView_Bar); //Bottom navigation view
         BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
 
         Menu menu = bottomNavigationView.getMenu();
@@ -118,7 +115,6 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationMenuView bottomNavigationMenuView =
                 (BottomNavigationMenuView) bottomNavigationView.getChildAt(0); //Hiển thị ở trang chủ
         View v = bottomNavigationMenuView.getChildAt(2); //Hiển thị dấu chấm đỏ khi có thông báo
-        BottomNavigationItemView itemView = (BottomNavigationItemView) v;
 
         new QBadgeView(activity).bindTarget(v)
                 .setBadgeNumber(badgeNumber)  //Set số thông báo hiển thị
@@ -207,13 +203,13 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivityForResult(new Intent(MainActivity.this, ActivityAddPlace.class), 1);
+                startActivityForResult(new Intent(getApplicationContext(), ActivityAddPlace.class), 1);
             }
         });
     }
 
     void display_enterprise() {
-        if (enterprise == false) {
+        if (!enterprise) {
             fabOnClick();
         }
     }
@@ -226,7 +222,7 @@ public class MainActivity extends AppCompatActivity {
                 new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        ArrayList<Service> services = new ModelService().getServiceList(url, formatJson);
+        ArrayList<Service> services = new ModelService().getServiceInMain(url, formatJson);
 
         ServiceAdapter serviceAdapter =
                 new ServiceAdapter(services, getApplicationContext());

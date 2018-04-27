@@ -1,5 +1,6 @@
 package com.doan3.canthotour.View.Main;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.Intent;
@@ -272,12 +273,12 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
         menuBotNavBar(this, 0);
     }
 
+    @SuppressLint({"SetTextI18n", "DefaultLocale"})
     public void load(final Activity activity, String url) {
         TextView txtServiceName = activity.findViewById(R.id.textViewServiceName);
         TextView txtServiceAbout = activity.findViewById(R.id.textViewServiceAbout);
         TextView txtPrice = activity.findViewById(R.id.textViewCost);
-        TextView txtTimeOpen = activity.findViewById(R.id.textViewTimeOpen);
-        TextView txtTimeClose = activity.findViewById(R.id.textViewTimeClose);
+        TextView txtTime = activity.findViewById(R.id.textViewTime);
         TextView txtAddress = activity.findViewById(R.id.textViewServiceAddress);
         TextView txtPhoneNumber = activity.findViewById(R.id.textViewServicePhone);
         TextView txtWebsite = activity.findViewById(R.id.textViewWebsite);
@@ -289,6 +290,7 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
         TextView fbEvent = findViewById(R.id.fb_event);
         LinearLayout info = findViewById(R.id.info);
         TextView txtMark = findViewById(R.id.textViewRatingMark);
+        TextView textViewLikeCount = findViewById(R.id.textViewLikeCount);
         RatingBar rbStar = findViewById(R.id.ratingBarStars);
 
         imgThumbInfo1.setOnClickListener(this);
@@ -310,53 +312,34 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
             info.setBackgroundColor(getResources().getColor(R.color.tbEat));
             serviceType = 1;
             toolbarTitle.setText(getResources().getString(R.string.title_RestaurantDetails));
-            serviceInfo.setVehicleName(Config.NULL);
-            serviceInfo.setPlaceName(Config.NULL);
-            serviceInfo.setHotelName(Config.NULL);
-            serviceInfo.setEntertainName(Config.NULL);
         } else if (serviceInfo.getHotelName() != null) {
             txtServiceName.setText(serviceInfo.getHotelName());
             toolbar.setBackgroundColor(getResources().getColor(R.color.tbHotel));
             info.setBackgroundColor(getResources().getColor(R.color.tbHotel));
             serviceType = 2;
             toolbarTitle.setText(getResources().getString(R.string.title_HotelDetails));
-            serviceInfo.setVehicleName(Config.NULL);
-            serviceInfo.setPlaceName(Config.NULL);
-            serviceInfo.setEatName(Config.NULL);
-            serviceInfo.setEntertainName(Config.NULL);
         } else if (serviceInfo.getPlaceName() != null) {
             txtServiceName.setText(serviceInfo.getPlaceName());
             toolbar.setBackgroundColor(getResources().getColor(R.color.tbPlace));
             info.setBackgroundColor(getResources().getColor(R.color.tbPlace));
             serviceType = 4;
             toolbarTitle.setText(getResources().getString(R.string.title_PlaceDetails));
-            serviceInfo.setVehicleName(Config.NULL);
-            serviceInfo.setEatName(Config.NULL);
-            serviceInfo.setHotelName(Config.NULL);
-            serviceInfo.setEntertainName(Config.NULL);
         } else if (serviceInfo.getVehicleName() != null) {
             txtServiceName.setText(serviceInfo.getVehicleName());
             toolbar.setBackgroundColor(getResources().getColor(R.color.tbVehicle));
             info.setBackgroundColor(getResources().getColor(R.color.tbVehicle));
             serviceType = 3;
             toolbarTitle.setText(getResources().getString(R.string.title_TransportDetails));
-            serviceInfo.setEatName(Config.NULL);
-            serviceInfo.setPlaceName(Config.NULL);
-            serviceInfo.setHotelName(Config.NULL);
-            serviceInfo.setEntertainName(Config.NULL);
         } else {
             txtServiceName.setText(serviceInfo.getEntertainName());
             toolbar.setBackgroundColor(getResources().getColor(R.color.tbEntertain));
             info.setBackgroundColor(getResources().getColor(R.color.tbEntertain));
             serviceType = 5;
             toolbarTitle.setText(getResources().getString(R.string.title_EntertainmentDetails));
-            serviceInfo.setVehicleName(Config.NULL);
-            serviceInfo.setPlaceName(Config.NULL);
-            serviceInfo.setHotelName(Config.NULL);
-            serviceInfo.setEatName(Config.NULL);
         }
         // endregion
 
+        // nếu không có sự kiện thì ẩn thẻ sự kiện
         if (serviceInfo.getEventType().equals(Config.NULL)) {
             fbEvent.setVisibility(TextView.GONE);
         } else {
@@ -364,6 +347,7 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
             fbEvent.setText(serviceInfo.getEventType());
         }
 
+        // nếu đã thích thì đổi text thành unlike và đổi icon
         if (serviceInfo.getIsLike()) {
             btnLike.setText(getResources().getString(R.string.text_UnLike));
             btnLike.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_favorite_36dp, 0, 0 );
@@ -372,29 +356,48 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
             btnLike.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_favorite_border_36dp, 0, 0 );
         }
 
+        // nếu đã đánh giá thì đổi text thành reviewed
         if (serviceInfo.getIsRating()) {
             btnReview.setText(getResources().getString(R.string.text_Reviewed));
         } else {
             btnReview.setText(getResources().getString(R.string.text_Review));
         }
 
+        // set text mô tả dịch vụ
         txtServiceAbout.setText(serviceInfo.getServiceAbout());
+
+        // nếu giá thấp nhất và giá cao nhất = 0 thì settext updating
         if (serviceInfo.getLowestPrice().equals("0") && serviceInfo.getHighestPrice().equals("0")) {
             txtPrice.setText(getResources().getString(R.string.text_Updating));
         } else {
             txtPrice.setText(getResources().getString(R.string.text_From) + " " + serviceInfo.getLowestPrice() + " " + getResources().getString(R.string.text_To) + " " + serviceInfo.getHighestPrice());
         }
-        txtTimeOpen.setText(serviceInfo.getTimeOpen());
-        txtTimeClose.setText(serviceInfo.getTimeClose());
+
+        // nếu giờ mở cửa và giờ đóng cửa = đang cập nhật thì settext updating
+        if (serviceInfo.getLowestPrice().equals("Đang cập nhật") && serviceInfo.getHighestPrice().equals("Đang cập nhật")) {
+            txtPrice.setText(getResources().getString(R.string.text_Updating));
+        } else {
+            txtPrice.setText(getResources().getString(R.string.text_From) + " " + serviceInfo.getTimeOpen()
+                    + " " + getResources().getString(R.string.text_To) + " " + serviceInfo.getTimeClose());
+        }
+        // set số lượt like
+        textViewLikeCount.setText(serviceInfo.getCountLike()+"");
+        // set địa chỉ
         txtAddress.setText(serviceInfo.getAddress());
+        // set số điện thoại
         txtPhoneNumber.setText(serviceInfo.getPhoneNumber());
+        // set website
         txtWebsite.setText(serviceInfo.getWebsite());
+        // set hình
         imgBanner.setImageBitmap(serviceInfo.getBanner());
         imgThumbInfo1.setImageBitmap(serviceInfo.getThumbInfo1());
         imgThumbInfo2.setImageBitmap(serviceInfo.getThumbInfo2());
+        // set số sao
         txtMark.setText(String.format("%.1f", serviceInfo.getReviewMark()));
+        // set số ngôi sao
         rbStar.setRating(serviceInfo.getStars());
 
+        // json yêu thích lưu vào thẻ nhớ
         try {
             saveJson = new JSONObject("{" + Config.POST_KEY_JSON_LIKE_SERVICE.get(0) + ":\"" + serviceInfo.getId() + "\"," +
                     Config.POST_KEY_JSON_LIKE_SERVICE.get(1) + ":\"" + serviceInfo.getHotelName() + "\"," +
@@ -420,9 +423,7 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
                 md.update(signature.toByteArray());
                 Log.d("KeyHash", Base64.encodeToString(md.digest(), Base64.DEFAULT));
             }
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        } catch (NoSuchAlgorithmException e) {
+        } catch (PackageManager.NameNotFoundException | NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
     }
@@ -434,5 +435,15 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
         } else {
             super.onBackPressed();
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        btnLike.setOnClickListener(null);
+        btnNear.setOnClickListener(null);
+        btnShare.setOnClickListener(null);
+        btnReview.setOnClickListener(null);
+        btnShowReview.setOnClickListener(null);
     }
 }

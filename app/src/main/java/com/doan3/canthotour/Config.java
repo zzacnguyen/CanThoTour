@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.Collections;
 
 public class Config {
-    public static final String URL_HOST = "http://192.168.10.40/doan3_canthotour/";
+    public static final String URL_HOST = "http://192.168.1.11/doan3_canthotour/";
     public static final String URL_LOGIN = "login-mobile";
     public static final String URL_GET_PROVINCE = "province";
     public static final String URL_GET_DISTRICT = "district/";
@@ -41,7 +41,6 @@ public class Config {
     public static final String FOLDER = "/vietnamtour";
     public static final String FOLDER_AVATAR = "avatar";
     public static final String FILE_LIKE = "dsyeuthich.json";
-    public static final String FILE_DISTANCE = "khoangcach.json";
     public static final String NULL = "null";
     public static final String KEY_DISTANCE = "distance";
     public static final String DEFAULT_DISTANCE = "500";
@@ -80,7 +79,7 @@ public class Config {
     public static final ArrayList<String> GET_KEY_JSON_ENTERTAINMENT =
             new ArrayList<>(Arrays.asList("entertainments_name", "image_id", "image_details_1"));
 
-    public static final ArrayList<String> GET_KEY_JSON_FAVORITE =
+    public static final ArrayList<String> GET_KEY_JSON_SERVICE_LIST =
             new ArrayList<>(Arrays.asList("hotel_name", "entertainments_name", "transport_name",
                     "sightseeing_name", "eat_name", "image_id", "image_details_1"));
 

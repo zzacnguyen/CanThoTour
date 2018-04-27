@@ -139,4 +139,18 @@ public class ActivityPersonal extends AppCompatActivity {
 
         menuBotNavBar(this, 3);
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        btnAddPlace.setOnClickListener(null);
+        btnAddService.setOnClickListener(null);
+        btnAdvancedSearch.setOnClickListener(null);
+        btnLogin.setOnClickListener(null);
+        btnLogout.setOnClickListener(null);
+        btnOption.setOnClickListener(null);
+        btnRegEnterprise.setOnClickListener(null);
+        btnTripSchedule.setOnClickListener(null);
+
+    }
 }

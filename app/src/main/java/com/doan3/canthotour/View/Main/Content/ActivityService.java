@@ -78,7 +78,7 @@ public class ActivityService extends AppCompatActivity {
                 new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        ArrayList<Service> services = new ModelService().getServiceFullList(url, formatJson);
+        ArrayList<Service> services = new ModelService().getFullServiceList(url, formatJson);
 
         listOfServiceAdapter = new ListOfServiceAdapter(recyclerView, services, getApplicationContext());
         recyclerView.setAdapter(listOfServiceAdapter);
@@ -111,7 +111,7 @@ public class ActivityService extends AppCompatActivity {
                             listOfServiceAdapter.notifyItemRemoved(finalListService.size());
 
                             ArrayList<Service> serviceArrayList = new ModelService().
-                                    getServiceFullList(finalArr.get(1), formatJson);
+                                    getFullServiceList(finalArr.get(1), formatJson);
                             for (int i = 0; i < serviceArrayList.size(); i++) {
                                 finalListService.add(serviceArrayList.get(i));
                             }

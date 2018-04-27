@@ -20,7 +20,7 @@ import com.doan3.canthotour.Adapter.ListOfServiceAdapter;
 import com.doan3.canthotour.Config;
 import com.doan3.canthotour.Helper.JsonHelper;
 import com.doan3.canthotour.Interface.OnLoadMoreListener;
-import com.doan3.canthotour.Model.ModelService;
+import com.doan3.canthotour.Model.ModelFavorite;
 import com.doan3.canthotour.Model.ObjectClass.Service;
 import com.doan3.canthotour.R;
 
@@ -48,7 +48,7 @@ public class FragmentSearch extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        View view =  inflater.inflate(R.layout.fragment_search, container, false);
+        View view = inflater.inflate(R.layout.fragment_search, container, false);
 
         etSearch = view.findViewById(R.id.etSearch);
         btnCancel = view.findViewById(R.id.btnCancel);
@@ -92,7 +92,7 @@ public class FragmentSearch extends Fragment {
                 new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        ArrayList<Service> services = new ModelService().getFavoriteList(new File(""), url);
+        ArrayList<Service> services = new ModelFavorite().getFavoriteList(new File(""), url);
 
         listOfServiceAdapter = new ListOfServiceAdapter(recyclerView, services, getApplicationContext());
         recyclerView.setAdapter(listOfServiceAdapter);
@@ -124,11 +124,9 @@ public class FragmentSearch extends Fragment {
                             finalListService.remove(finalListService.size() - 1);
                             listOfServiceAdapter.notifyItemRemoved(finalListService.size());
 
-                            ArrayList<Service> serviceArrayList = new ModelService().
+                            ArrayList<Service> serviceArrayList = new ModelFavorite().
                                     getFavoriteList(new File(""), finalArr.get(1));
-                            for (int i = 0; i < serviceArrayList.size(); i++) {
-                                finalListService.add(serviceArrayList.get(i));
-                            }
+                            finalListService.addAll(serviceArrayList);
                             try {
                                 finalArr = JsonHelper.parseJsonNoId(new JSONObject
                                         (new HttpRequestAdapter.httpGet().execute(finalArr.get(1)).get()), Config.GET_KEY_JSON_LOAD);
