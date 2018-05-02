@@ -26,13 +26,6 @@
                 android:orientation="horizontal"
                 android:weightSum="6">
 
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ic_timdiadiem"
-                    android:tint="@color/colorWhite" />
-
                 <EditText
                     android:id="@+id/etSearch"
                     android:layout_width="match_parent"

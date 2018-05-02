@@ -17,6 +17,7 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
@@ -58,6 +59,7 @@ import static com.doan3.canthotour.View.Personal.ActivityPersonal.userId;
 public class ActivityServiceInfo extends AppCompatActivity implements View.OnClickListener {
     public static String[] imgDetail = null;
     Button btnShare, btnLike, btnNear, btnReview, btnShowReview;
+    ImageButton btnBack;
     int id, serviceType;
     String idLike, idRating, longitude, latitude;
     JSONObject saveJson;
@@ -110,6 +112,7 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
         btnNear = findViewById(R.id.btnNearLocation);
         btnReview = findViewById(R.id.btnReview);
         btnShowReview = findViewById(R.id.btnOpenListReview);
+        btnBack = findViewById(R.id.buttonBack);
 
         //Init FB share content
         callbackManager = CallbackManager.Factory.create();
@@ -265,6 +268,14 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
                 Intent intent = new Intent(ActivityServiceInfo.this, ActivityReviewList.class);
                 intent.putExtra("id", id);
                 startActivity(intent);
+            }
+        });
+
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+                finishActivity(1);
             }
         });
 
