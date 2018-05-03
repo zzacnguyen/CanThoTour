@@ -124,61 +124,11 @@
                         android:textSize="16sp" />
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:weightSum="20">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="13"
-                        android:gravity="fill"
-                        android:text="@string/text_resCountry" />
-
-                    <EditText
-                        android:id="@+id/etCountry"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
-                        android:layout_weight="7"
-                        android:ems="10"
-                        android:hint="@string/hint_InputCountry"
-                        android:maxLength="100"
-                        android:singleLine="true"
-                        android:textSize="16sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:weightSum="20">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="13"
-                        android:gravity="fill"
-                        android:text="@string/text_resLanguage" />
-
-                    <EditText
-                        android:id="@+id/etLanguege"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
-                        android:layout_weight="7"
-                        android:ems="10"
-                        android:hint="@string/hint_InputLanguage"
-                        android:maxLength="100"
-                        android:singleLine="true"
-                        android:textSize="16sp" />
-                </LinearLayout>
-
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
 
                 <TextView

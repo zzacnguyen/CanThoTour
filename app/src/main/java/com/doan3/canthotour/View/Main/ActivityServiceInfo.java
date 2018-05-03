@@ -1,7 +1,6 @@
 package com.doan3.canthotour.View.Main;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -60,6 +59,12 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
     public static String[] imgDetail = null;
     Button btnShare, btnLike, btnNear, btnReview, btnShowReview;
     ImageButton btnBack;
+    TextView txtServiceName, txtServiceAbout, txtPrice, txtTime, txtAddress, txtPhoneNumber, txtWebsite,
+            toolbarTitle, fbEvent, txtMark, txtCountLike;
+    ImageView imgThumbInfo1, imgThumbInfo2, imgBanner;
+    Toolbar toolbar;
+    LinearLayout info;
+    RatingBar rbStar;
     int id, serviceType;
     String idLike, idRating, longitude, latitude;
     JSONObject saveJson;
@@ -79,9 +84,7 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
                             .replaceAll("\"", "")
                             .split("\\+");
                     startActivity(iDetail);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
+                } catch (InterruptedException | ExecutionException e) {
                     e.printStackTrace();
                 }
                 break;
@@ -92,9 +95,7 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
                             .replaceAll("\"", "")
                             .split("\\+");
                     startActivity(iDetail);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
+                } catch (InterruptedException | ExecutionException e) {
                     e.printStackTrace();
                 }
                 break;
@@ -112,7 +113,7 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
         btnNear = findViewById(R.id.btnNearLocation);
         btnReview = findViewById(R.id.btnReview);
         btnShowReview = findViewById(R.id.btnOpenListReview);
-        btnBack = findViewById(R.id.buttonBack);
+        btnBack = findViewById(R.id.btnBsck);
 
         //Init FB share content
         callbackManager = CallbackManager.Factory.create();
@@ -123,8 +124,18 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
         if (mess != null) {
             Toast.makeText(this, mess, Toast.LENGTH_SHORT).show();
         }
+
+        // click trở lại
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+                finishActivity(1);
+            }
+        });
         // region button luu
         btnLike.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View view) {
                 if (userId == 0) {
@@ -138,41 +149,31 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
                         path.mkdirs();
                     }
                     File file = new File(path, Config.FILE_LIKE);
-                    JSONArray getJsonInFile;
 
                     if (btnLike.getText().equals(getResources().getString(R.string.text_Like))) {
-                        try {
-                            boolean isExists = true;
-                            if (file.exists()) {
-                                getJsonInFile = new JSONArray(JsonHelper.readJson(file));
-                                for (int i = 0; i < getJsonInFile.length(); i++) {
-                                    if (saveJson.toString().equals(getJsonInFile.getJSONObject(i).toString())) {
-                                        isExists = false;
-                                    }
-                                }
-                            }
-                            if (isExists) {
-                                JsonHelper.writeJson(file, saveJson);
-                                Toast.makeText(ActivityServiceInfo.this, getResources().getString(R.string.text_Liked),
-                                        Toast.LENGTH_SHORT).show();
-                                btnLike.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_favorite_36dp, 0, 0 );
-                                btnLike.setText(getResources().getString(R.string.text_UnLike));
-                            }
-                        } catch (JSONException ex) {
-                            ex.printStackTrace();
-                        }
+                        JsonHelper.writeJson(file, saveJson);
+                        Toast.makeText(ActivityServiceInfo.this, getResources().getString(R.string.text_Liked),
+                                Toast.LENGTH_SHORT).show();
+                        btnLike.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_favorite_36dp, 0, 0);
+                        btnLike.setText(getResources().getString(R.string.text_UnLike));
+                        txtCountLike.setText(Integer.parseInt(txtCountLike.getText().toString()) + 1 + "");
                     } else {
                         try {
                             boolean isExists = true;
+                            // nếu file yêu thích tồn tại
                             if (file.exists()) {
-                                JSONArray jsonArray = new JSONArray();
-                                getJsonInFile = new JSONArray(JsonHelper.readJson(file));
-                                for (int i = 0; i < getJsonInFile.length(); i++) {
-                                    if (Integer.parseInt(getJsonInFile.getJSONObject(i).getString("id")) != (id)) {
-                                        jsonArray.put(getJsonInFile.getJSONObject(i));
+                                // đọc file json đó lên
+                                JSONArray jsonArray = new JSONArray(), jsonArrayInFile = new JSONArray(JsonHelper.readJson(file));
+
+                                // duyệt mảng json
+                                for (int i = 0; i < jsonArrayInFile.length(); i++) {
+                                    // nếu id dịch vụ trong mảng json mới đọc lên != với id dịch vụ hiện tại
+                                    if (Integer.parseInt(jsonArrayInFile.getJSONObject(i).getString("id")) != (id)) {
+                                        // add json object đó vào jsonArray
+                                        jsonArray.put(jsonArrayInFile.getJSONObject(i));
                                     }
                                 }
-                                if (jsonArray.length() != getJsonInFile.length()) {
+                                if (jsonArray.length() != jsonArrayInFile.length()) {
                                     file.delete();
                                     if (jsonArray.length() > 0) {
                                         JsonHelper.writeJson(file, jsonArray);
@@ -187,9 +188,12 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
                         } catch (JSONException ex) {
                             ex.printStackTrace();
                         }
+
+                        txtCountLike.setText(Integer.parseInt(txtCountLike.getText().toString()) - 1 + "");
                         btnLike.setText(getResources().getString(R.string.text_Like));
-                        btnLike.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_favorite_border_36dp, 0, 0 )
-                        ;}
+                        btnLike.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_favorite_border_36dp, 0, 0)
+                        ;
+                    }
                 }
             }
         });
@@ -271,43 +275,35 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
             }
         });
 
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-                finishActivity(1);
-            }
-        });
-
-        load(this, Config.URL_HOST + Config.URL_GET_SERVICE_INFO.get(0) + id + Config.URL_GET_SERVICE_INFO.get(1) + userId);
+        getServiceInfo(Config.URL_GET_SERVICE_INFO.get(0) + id + Config.URL_GET_SERVICE_INFO.get(1) + userId);
 
         menuBotNavBar(this, 0);
     }
 
     @SuppressLint({"SetTextI18n", "DefaultLocale"})
-    public void load(final Activity activity, String url) {
-        TextView txtServiceName = activity.findViewById(R.id.textViewServiceName);
-        TextView txtServiceAbout = activity.findViewById(R.id.textViewServiceAbout);
-        TextView txtPrice = activity.findViewById(R.id.textViewCost);
-        TextView txtTime = activity.findViewById(R.id.textViewTime);
-        TextView txtAddress = activity.findViewById(R.id.textViewServiceAddress);
-        TextView txtPhoneNumber = activity.findViewById(R.id.textViewServicePhone);
-        TextView txtWebsite = activity.findViewById(R.id.textViewWebsite);
-        ImageView imgThumbInfo1 = activity.findViewById(R.id.imgInfo1);
-        ImageView imgThumbInfo2 = activity.findViewById(R.id.imgInfo2);
-        ImageView imgBanner = activity.findViewById(R.id.imgBanner);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        TextView toolbarTitle = findViewById(R.id.toolbarTitle);
-        TextView fbEvent = findViewById(R.id.fb_event);
-        LinearLayout info = findViewById(R.id.info);
-        TextView txtMark = findViewById(R.id.textViewRatingMark);
-        TextView textViewLikeCount = findViewById(R.id.textViewLikeCount);
-        RatingBar rbStar = findViewById(R.id.ratingBarStars);
+    public void getServiceInfo(String url) {
+        txtServiceName = findViewById(R.id.textViewServiceName);
+        txtServiceAbout = findViewById(R.id.textViewServiceAbout);
+        txtPrice = findViewById(R.id.textViewCost);
+        txtTime = findViewById(R.id.textViewTime);
+        txtAddress = findViewById(R.id.textViewServiceAddress);
+        txtPhoneNumber = findViewById(R.id.textViewServicePhone);
+        txtWebsite = findViewById(R.id.textViewWebsite);
+        imgThumbInfo1 = findViewById(R.id.imgInfo1);
+        imgThumbInfo2 = findViewById(R.id.imgInfo2);
+        imgBanner = findViewById(R.id.imgBanner);
+        toolbar = findViewById(R.id.toolbar);
+        toolbarTitle = findViewById(R.id.toolbarTitle);
+        fbEvent = findViewById(R.id.fb_event);
+        info = findViewById(R.id.info);
+        txtMark = findViewById(R.id.textViewRatingMark);
+        txtCountLike = findViewById(R.id.textViewLikeCount);
+        rbStar = findViewById(R.id.ratingBarStars);
 
         imgThumbInfo1.setOnClickListener(this);
         imgThumbInfo2.setOnClickListener(this);
 
-        final ServiceInfo serviceInfo = new ModelService().getServiceInfo(url);
+        ServiceInfo serviceInfo = new ModelService().getServiceInfo(Config.URL_HOST + url);
 
         idLike = serviceInfo.getIdLike();
         idRating = serviceInfo.getIdRating();
@@ -361,10 +357,10 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
         // nếu đã thích thì đổi text thành unlike và đổi icon
         if (serviceInfo.getIsLike()) {
             btnLike.setText(getResources().getString(R.string.text_UnLike));
-            btnLike.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_favorite_36dp, 0, 0 );
+            btnLike.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_favorite_36dp, 0, 0);
         } else {
             btnLike.setText(getResources().getString(R.string.text_Like));
-            btnLike.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_favorite_border_36dp, 0, 0 );
+            btnLike.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_favorite_border_36dp, 0, 0);
         }
 
         // nếu đã đánh giá thì đổi text thành reviewed
@@ -385,14 +381,14 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
         }
 
         // nếu giờ mở cửa và giờ đóng cửa = đang cập nhật thì settext updating
-        if (serviceInfo.getLowestPrice().equals("Đang cập nhật") && serviceInfo.getHighestPrice().equals("Đang cập nhật")) {
-            txtPrice.setText(getResources().getString(R.string.text_Updating));
+        if (serviceInfo.getTimeOpen().equals("Đang cập nhật") && serviceInfo.getTimeClose().equals("Đang cập nhật")) {
+            txtTime.setText(getResources().getString(R.string.text_Updating));
         } else {
-            txtPrice.setText(getResources().getString(R.string.text_From) + " " + serviceInfo.getTimeOpen()
+            txtTime.setText(getResources().getString(R.string.text_From) + " " + serviceInfo.getTimeOpen()
                     + " " + getResources().getString(R.string.text_To) + " " + serviceInfo.getTimeClose());
         }
         // set số lượt like
-        textViewLikeCount.setText(serviceInfo.getCountLike()+"");
+        txtCountLike.setText(serviceInfo.getCountLike() + "");
         // set địa chỉ
         txtAddress.setText(serviceInfo.getAddress());
         // set số điện thoại

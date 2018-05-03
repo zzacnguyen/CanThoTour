@@ -1,8 +1,11 @@
 package com.doan3.canthotour.Model;
 
+import android.content.Context;
+
 import com.doan3.canthotour.Adapter.HttpRequestAdapter;
 import com.doan3.canthotour.Config;
 import com.doan3.canthotour.Model.ObjectClass.Event;
+import com.doan3.canthotour.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -20,7 +23,7 @@ import static com.doan3.canthotour.Model.ModelService.setImage;
  */
 
 public class ModelEvent {
-    public ArrayList<Event> getEventList(String url) { //Get danh sách thông báo sự kiện
+    public ArrayList<Event> getEventList(Context context, String url) { //Get danh sách thông báo sự kiện
 
         ArrayList<String> arr, arrayList;
         ArrayList<Event> events = new ArrayList<>();
@@ -39,7 +42,8 @@ public class ModelEvent {
                 event.setEventName(arrayList.get(1)); //Set tên
 
                 //Set ngày bắt đầu và ngày kết thúc sự kiện
-                event.setEventDate("Từ " + arrayList.get(2) + " đến " + arrayList.get(3));
+                event.setEventDate(context.getResources().getString(R.string.text_From) + " " + arrayList.get(2) +
+                        " " + context.getResources().getString(R.string.text_To) + " " + arrayList.get(3));
                 event.setEventImage(setImage(Config.URL_HOST + Config.URL_GET_THUMB + arrayList.get(5),
                         arrayList.get(4), arrayList.get(5)));
                 events.add(event);

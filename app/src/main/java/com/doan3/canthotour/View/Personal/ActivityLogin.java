@@ -74,7 +74,7 @@ public class ActivityLogin extends AppCompatActivity {
                         String rs = new httpPost(jsonPost).execute(Config.URL_HOST + Config.URL_LOGIN).get();
                         JSONObject jsonGet = new JSONObject(rs);
                         // nếu status = error
-                        if (jsonGet.getString(Config.GET_KEY_JSON_LOGIN.get(2)).toString().equals(Config.GET_KEY_JSON_LOGIN.get(3))) {
+                        if (jsonGet.getString(Config.GET_KEY_JSON_LOGIN.get(2)).equals(Config.GET_KEY_JSON_LOGIN.get(3))) {
                             Toast.makeText(ActivityLogin.this, getResources().getString(R.string.text_TheUsernameOrPasswordIsIncorrect),
                                     Toast.LENGTH_SHORT).show();
                         } else {

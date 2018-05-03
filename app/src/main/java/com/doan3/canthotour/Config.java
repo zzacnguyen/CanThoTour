@@ -5,18 +5,19 @@ import java.util.Arrays;
 import java.util.Collections;
 
 public class Config {
-    public static final String URL_HOST = "http://192.168.1.11/doan3_canthotour/";
+    public static final String URL_HOST = "http://192.168.1.4/doan3_canthotour/";
     public static final String URL_LOGIN = "login-mobile";
     public static final String URL_GET_PROVINCE = "province";
     public static final String URL_GET_DISTRICT = "district/";
     public static final String URL_GET_WARD = "ward/";
-    public static final String URL_REGISTER = "register";
+    public static final String URL_REGISTER = "register-mobile";
     public static final ArrayList<String> URL_SEARCH_TYPE =
             new ArrayList<>(Arrays.asList("search/searchServicesTypeKeyword/type=", "&keyword="));
     public static final String URL_SEARCH_ALL = "search/services/keyword=";
     public static final ArrayList<String> URL_SEARCH_SERVICE_NEAR =
             new ArrayList<>(Arrays.asList("search/servicevicinity/location=", "&type=", "&radius="));
     public static final String URL_GET_ALL_EATS = "eating";
+    public static final String URL_GET_HISTORY_SEARCH = "usersearch/";
     public static final String URL_POST_REVIEW = "rating-post";
     public static final String URL_GET_REVIEW = "rating-view";
     public static final String URL_GET_ALL_REVIEWS = "rating-service/";

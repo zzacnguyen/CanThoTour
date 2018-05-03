@@ -55,9 +55,6 @@ public class ActivityRegister extends AppCompatActivity {
                     JSONObject jsonPost = new JSONObject(
                             "{" + Config.POST_KEY_REGISTER.get(0) + ":\"" + etUserName.getText().toString() + "\"," +
                             Config.POST_KEY_REGISTER.get(1) + ":\"" + etPassword.getText().toString() +
-//                                    "\"," +
-//                                    Config.POST_KEY_REGISTER.get(2) + ":\"" + etCountry.getText().toString() + "\"," +
-//                                    Config.POST_KEY_REGISTER.get(3) + ":\"" + etLanguage.getText().toString() +
                             "\"}");
                     json = new JSONObject(new httpPost(jsonPost).execute(Config.URL_HOST + Config.URL_REGISTER).get());
                     stt = json.getString(Config.GET_KEY_JSON_LOGIN.get(2));

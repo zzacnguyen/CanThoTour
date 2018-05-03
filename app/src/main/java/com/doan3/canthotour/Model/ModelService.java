@@ -7,7 +7,6 @@ import android.os.Environment;
 import com.doan3.canthotour.Adapter.HttpRequestAdapter.httpGet;
 import com.doan3.canthotour.Adapter.HttpRequestAdapter.httpGetImage;
 import com.doan3.canthotour.Config;
-import com.doan3.canthotour.Model.ObjectClass.Event;
 import com.doan3.canthotour.Model.ObjectClass.Review;
 import com.doan3.canthotour.Model.ObjectClass.Service;
 import com.doan3.canthotour.Model.ObjectClass.ServiceInfo;
@@ -19,9 +18,10 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.Locale;
+import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
-import static com.doan3.canthotour.Helper.JsonHelper.mergeJson;
 import static com.doan3.canthotour.Helper.JsonHelper.parseJson;
 import static com.doan3.canthotour.Helper.JsonHelper.parseJsonNoId;
 import static com.doan3.canthotour.Helper.JsonHelper.readJson;
@@ -62,7 +62,7 @@ public class ModelService {
     public ServiceInfo getServiceInfo(String url) {
 
         ArrayList<String> arrayService;
-        String stringNameOfTheEventType;
+        String stringNameOfTheEventType, lang = Locale.getDefault().getLanguage();
         ServiceInfo serviceInfo = new ServiceInfo();
         Boolean isLike, isRating;
 
@@ -81,6 +81,9 @@ public class ModelService {
             // lấy thông tin chi tiết dịch vụ chuyển vào array
             JSONArray jsonService = new JSONArray(jsonResult.getString(Config.KEY_SERVICE_INFO.get(6)));
             arrayService = parseJson(jsonService.getJSONObject(0), Config.GET_KEY_JSON_SERVICE_INFO);
+            if (!lang.equals("vi")) {
+                arrayService = translate(arrayService, lang);
+            }
 
             // nếu type_event != null thì lấy tên loại hình sự kiện ngược lại cho = null
             if (jsonResult.getString(Config.KEY_SERVICE_INFO.get(7)).equals(Config.NULL)) {
@@ -178,7 +181,6 @@ public class ModelService {
 
             // set số lượt like
             serviceInfo.setCountLike(Integer.parseInt(jsonResult.getString(Config.KEY_SERVICE_INFO.get(9))));
-            System.out.println(Integer.parseInt(jsonResult.getString(Config.KEY_SERVICE_INFO.get(9))));
 
             // lấy thông tin hình gồm : "url + id + tên hình"
             // xóa dấu " bằng replaceAll
@@ -307,5 +309,31 @@ public class ModelService {
             e.printStackTrace();
         }
         return reviews;
+    }
+
+    private ArrayList<String> translate(ArrayList<String> arrayList, String lang) {
+        for (int i = 0; i < arrayList.size(); i++) {
+            arrayList.set(i, yandexApiTranslate(arrayList.get(i), lang));
+        }
+        return arrayList;
+    }
+
+    private String yandexApiTranslate(String key, String lang) {
+        String stringTranslated = null;
+        if (Objects.equals(key, "")) {
+            return null;
+        } else {
+            try {
+                stringTranslated = new httpGet().execute("https://translate.yandex.net/api/v1.5/tr.json/translate?text=" + key + "&lang="
+                        + lang + "&key=trnsl.1.1.20170313T183850Z.f990548f90f1dae0.2f5d740510b7b7d9942413100d30b61aa74dfbfa").get();
+                JSONObject obj = new JSONObject(stringTranslated);
+                JSONArray result = (JSONArray) obj.get("text");
+
+                stringTranslated = result.get(0).toString();
+            } catch (InterruptedException | ExecutionException | JSONException e) {
+                e.printStackTrace();
+            }
+            return stringTranslated;
+        }
     }
 }

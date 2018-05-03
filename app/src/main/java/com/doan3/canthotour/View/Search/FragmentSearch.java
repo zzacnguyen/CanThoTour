@@ -32,6 +32,7 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 import static com.doan3.canthotour.View.Main.MainActivity.fragment;
+import static com.doan3.canthotour.View.Personal.ActivityPersonal.userId;
 import static com.facebook.FacebookSdk.getApplicationContext;
 
 /**
@@ -44,6 +45,7 @@ public class FragmentSearch extends Fragment {
     EditText etSearch;
     Button btnCancel;
     TextView txtSearchHistory;
+    ListOfServiceAdapter listOfServiceAdapter;
 
     @Nullable
     @Override
@@ -60,7 +62,7 @@ public class FragmentSearch extends Fragment {
                 if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) &&
                         (i == KeyEvent.KEYCODE_ENTER)) {
                     if (!etSearch.getText().toString().equals("")) {
-                        load(Config.URL_HOST + Config.URL_SEARCH_ALL +
+                        searchAll(Config.URL_SEARCH_ALL,
                                 etSearch.getText().toString().replaceAll(" ", "\\+"));
                     } else {
                         Toast.makeText(getApplicationContext(), "Chưa nhập", Toast.LENGTH_SHORT).show();
@@ -78,12 +80,18 @@ public class FragmentSearch extends Fragment {
             }
         });
 
+        txtSearchHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                searchAll(Config.URL_GET_HISTORY_SEARCH, String.valueOf(userId));
+            }
+        });
         return view;
     }
 
-    private void load(String url) {
+    private void searchAll(String link, String key) {
 
-        final ListOfServiceAdapter listOfServiceAdapter;
+        String url = Config.URL_HOST + link + key;
         final RecyclerView recyclerView;
         recyclerView = getView().findViewById(R.id.RecyclerView_SearchList);
         recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
@@ -141,5 +149,13 @@ public class FragmentSearch extends Fragment {
                 }
             }
         });
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        listOfServiceAdapter.setOnLoadMoreListener(null);
+        btnCancel.setOnClickListener(null);
+        txtSearchHistory.setOnClickListener(null);
     }
 }

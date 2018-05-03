@@ -48,7 +48,7 @@ public class ActivityNotify extends AppCompatActivity {
                 new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        ArrayList<Event> services = new ModelEvent().getEventList(url);
+        ArrayList<Event> services = new ModelEvent().getEventList(this, url);
 
         eventAdapter = new EventAdapter(recyclerView, services, getApplicationContext());
         recyclerView.setAdapter(eventAdapter);
@@ -81,7 +81,7 @@ public class ActivityNotify extends AppCompatActivity {
                             eventAdapter.notifyItemRemoved(finalListService.size());
 
                             ArrayList<Event> serviceArrayList = new ModelEvent().
-                                    getEventList(finalArr.get(1));
+                                    getEventList(getApplicationContext(), finalArr.get(1));
                             finalListService.addAll(serviceArrayList);
                             try {
                                 finalArr = JsonHelper.parseJsonNoId(new JSONObject
