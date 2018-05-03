@@ -19,6 +19,15 @@
             android:background="@color/bgToolbar"
             app:layout_collapseMode="pin">
 
+            <ImageButton
+                android:id="@+id/btnBackToSearch"
+                android:layout_width="30dp"
+                android:layout_height="15dp"
+                android:background="@null"
+                android:tint="@color/colorWhite"
+                android:layout_marginLeft="-50dp"
+                android:src="@drawable/ic_arrow_left_36dp"/>
+
             <TextView
                 android:id="@+id/toolbarTitle"
                 android:layout_width="match_parent"

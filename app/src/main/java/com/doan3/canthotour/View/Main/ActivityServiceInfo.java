@@ -113,7 +113,7 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
         btnNear = findViewById(R.id.btnNearLocation);
         btnReview = findViewById(R.id.btnReview);
         btnShowReview = findViewById(R.id.btnOpenListReview);
-        btnBack = findViewById(R.id.btnBsck);
+        btnBack = findViewById(R.id.btnBack);
 
         //Init FB share content
         callbackManager = CallbackManager.Factory.create();
