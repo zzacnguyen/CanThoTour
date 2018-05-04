@@ -173,4 +173,8 @@
     <string name="text_ThatUsernameIsAlreadyInUse">That username is already in use</string>
     <string name="text_YourPasswordMustBeBetween6And20">Your password must be between 6 and 20 characters long</string>
     <string name="text_Mark">Mark:</string>
+    <string name="text_AddEvent">Add event</string>
+    <string name="text_EventName">Create your event name</string>
+    <string name="text_EventType">Event type:</string>
+    <string name="text_ServiceVenue">Service venue:</string>
 </resources>

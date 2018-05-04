@@ -33,7 +33,7 @@
                 android:id="@+id/toolbarTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/text_CreateTrip"
+                android:text="@string/text_AddEvent"
                 android:textColor="@color/colorWhite"
                 android:textSize="18sp" />
 
@@ -50,17 +50,17 @@
         android:padding="10dp">
 
         <EditText
-            android:id="@+id/etTripName"
+            android:id="@+id/etEventName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/white_grey_border_bottom"
-            android:hint="@string/text_TripName"
+            android:hint="@string/text_EventName"
             android:maxLength="50"
             android:padding="10dp"
             android:textSize="16sp" />
 
         <EditText
-            android:id="@+id/etStartDate"
+            android:id="@+id/etEventStart"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
@@ -72,7 +72,7 @@
             android:textSize="16sp" />
 
         <EditText
-            android:id="@+id/etEndDate"
+            android:id="@+id/etEventEnd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
@@ -83,6 +83,58 @@
             android:padding="10dp"
             android:textSize="16sp" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:weightSum="5">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="3"
+                android:padding="5dp"
+                android:text="@string/text_EventType"
+                android:textColor="@color/colorGray"
+                android:textSize="16sp" />
+
+            <android.support.v7.widget.AppCompatSpinner
+                android:id="@+id/spinnerEventType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="2"
+                android:spinnerMode="dropdown" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:weightSum="5">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="3"
+                android:padding="5dp"
+                android:text="@string/text_ServiceVenue"
+                android:textColor="@color/colorGray"
+                android:textSize="16sp" />
+
+            <android.support.v7.widget.AppCompatSpinner
+                android:id="@+id/spinnerServiceVenue"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:layout_gravity="center"
+                android:layout_weight="2"
+                android:spinnerMode="dropdown" />
+
+        </LinearLayout>
+
     </LinearLayout>
 
     <Button
@@ -90,36 +142,12 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="160dp"
         android:background="@color/tbPlace"
         android:text="@string/text_Create"
         android:textAllCaps="false"
         android:textColor="@color/colorWhite"
         android:textSize="18sp" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:orientation="vertical">
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="4dp"
-            android:layout_gravity="top"
-            android:background="@drawable/shadow" />
-
-        <android.support.design.widget.BottomNavigationView
-            android:id="@+id/bottomNavView_Bar"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            app:itemIconTint="@drawable/nav_item_color_state"
-            app:itemTextColor="@drawable/nav_item_color_state"
-            android:background="@color/colorWhite"
-            app:menu="@menu/bottom_navigation_menu">
-
-        </android.support.design.widget.BottomNavigationView>
-
-    </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>

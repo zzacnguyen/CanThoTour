@@ -186,6 +186,33 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/AddEvent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/white_grey_border_bottom"
+                android:orientation="horizontal"
+                android:padding="5dp">
+
+                <Button
+                    android:id="@+id/buttonAddEvent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:drawableLeft="@drawable/ic_event_24dp"
+                    android:text="@string/text_AddEvent"
+                    android:textAlignment="textStart"
+                    android:textAllCaps="false" />
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_arrow" />
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:id="@+id/Search"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
