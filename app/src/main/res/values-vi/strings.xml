@@ -154,7 +154,7 @@
     <string name="text_TheUsernameCannotContainSpaces">Tài khoản không được chứa khoảng trắng</string>
     <string name="text_RegisterSuccess">Đăng ký thành công</string>
     <string name="text_ThatUsernameIsAlreadyInUse">Tài khoản đã tồn tại</string>
-    <string name="text_YourPasswordMustBeBetween6And20">Mật khẩu có độ dài từ 6-20 ký tự</string>
+    <string name="text_YourPasswordMustBeBetween6And26">Mật khẩu có độ dài từ 6-20 ký tự</string>
     <string name="text_Mark">Điểm tích lũy:</string>
     <string name="text_AddEvent">Thêm sự  kiện</string>
     <string name="text_EventName">Nhập tên sự kiện</string>

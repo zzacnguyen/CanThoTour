@@ -170,7 +170,7 @@
     <string name="text_TheUsernameCannotContainSpaces">The username cannot contain spaces</string>
     <string name="text_RegisterSuccess">Register success</string>
     <string name="text_ThatUsernameIsAlreadyInUse">That username is already in use</string>
-    <string name="text_YourPasswordMustBeBetween6And20">Your password must be between 6 and 20 characters long</string>
+    <string name="text_YourPasswordMustBeBetween6And26">Your password must be between 6 and 20 characters long</string>
     <string name="text_Mark">Mark:</string>
     <string name="text_AddEvent">Add event</string>
     <string name="text_EventName">Create your event name</string>

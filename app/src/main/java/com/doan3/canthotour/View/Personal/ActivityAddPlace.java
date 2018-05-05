@@ -1,7 +1,6 @@
 package com.doan3.canthotour.View.Personal;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -17,7 +16,6 @@ import android.widget.Toast;
 
 import com.doan3.canthotour.Adapter.HttpRequestAdapter.httpGet;
 import com.doan3.canthotour.Adapter.HttpRequestAdapter.httpPost;
-import com.doan3.canthotour.Adapter.HttpRequestAdapter.httpPostImage;
 import com.doan3.canthotour.Config;
 import com.doan3.canthotour.R;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
@@ -25,23 +23,16 @@ import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 
-import org.apache.http.entity.mime.HttpMultipartMode;
-import org.apache.http.entity.mime.MultipartEntity;
-import org.apache.http.entity.mime.content.ByteArrayBody;
-import org.apache.http.entity.mime.content.ContentBody;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 import static com.doan3.canthotour.Helper.JsonHelper.parseJson;
 import static com.doan3.canthotour.Helper.JsonHelper.parseJsonNoId;
 import static com.doan3.canthotour.View.Main.MainActivity.menuBotNavBar;
-import static com.doan3.canthotour.View.Personal.ActivityAddService.bitmapArrayList;
-import static com.doan3.canthotour.View.Personal.ActivityAddService.jsonServiceToString;
 import static com.doan3.canthotour.View.Personal.ActivityPersonal.userId;
 
 
@@ -52,13 +43,14 @@ public class ActivityAddPlace extends AppCompatActivity {
     EditText etAddress, etPlaceName, etPlacePhone, etPlaceAbout;
     Button btnPlacePicker;
     LinearLayout linearPlace, linearEat, linearHotel, linearEntertaiment, linearVehicle;
-    String stringIdPlace, idService;
-    MultipartEntity reqEntity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
+    String stringIdPlace;
 
     Spinner spinnerDistrict, spinnerProvince, spinnerWard;
     ArrayAdapter<String> arrayListProvince, arrayListDistrict, arrayListWard;
     int ID = 0;
-    ArrayList<String> arrayIdProvince = new ArrayList<>(), arrayIdDistrict = new ArrayList<>(), arrayIdWard = new ArrayList<>();
+    ArrayList<String> arrayIdProvince = new ArrayList<>(),
+            arrayIdDistrict = new ArrayList<>(),
+            arrayIdWard = new ArrayList<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -158,41 +150,6 @@ public class ActivityAddPlace extends AppCompatActivity {
         });
         //endregion P  Provice
 
-        linearPlace.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openActivityAddService(4);
-            }
-        });
-
-        linearEat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openActivityAddService(1);
-            }
-        });
-
-        linearHotel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openActivityAddService(2);
-            }
-        });
-
-        linearEntertaiment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openActivityAddService(5);
-            }
-        });
-
-        linearVehicle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openActivityAddService(3);
-            }
-        });
-
         btnPlacePicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -200,112 +157,43 @@ public class ActivityAddPlace extends AppCompatActivity {
             }
         });
 
-        btnSend.setOnClickListener(new View.OnClickListener() {
+        linearPlace.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                postPlace();
+                openActivityAddService(4);
+            }
+        });
 
-                if (etPlaceName.getText().toString().equals("")) {
-                    etPlaceName.setError(getResources().getString(R.string.text_WhatIsYourPlaceName));
-                } else if (etAddress.getText().toString().equals("")) {
-                    etAddress.setError(getResources().getString(R.string.text_EnterYourAddress));
-                } else if (etPlacePhone.getText().toString().equals("")) {
-                    etPlacePhone.setError(getResources().getString(R.string.text_EnterYourNumber));
-                } else if (etPlaceAbout.getText().toString().equals("")) {
-                    etPlaceAbout.setError(getResources().getString(R.string.text_TypeYouDescription));
-                } else if (ID == 0) {
-                    Toast.makeText(ActivityAddPlace.this, getResources().getString(R.string.text_ChooseAddress), Toast.LENGTH_SHORT).show();
-                } else {
-                    try {
-                        JSONObject jsonPost = new JSONObject("{" + Config.POST_KEY_JSON_PLACE.get(0) + ":\"" + etPlaceName.getText().toString() + "\"," +
-                                Config.POST_KEY_JSON_PLACE.get(1) + ":\"" + etPlaceAbout.getText().toString() + "\"," +
-                                Config.POST_KEY_JSON_PLACE.get(2) + ":\"" + etAddress.getText().toString() + "\"," +
-                                Config.POST_KEY_JSON_PLACE.get(3) + ":\"" + etPlacePhone.getText().toString() + "\"," +
-                                Config.POST_KEY_JSON_PLACE.get(4) + ":\"" + txtLat.getText().toString() + "\"," +
-                                Config.POST_KEY_JSON_PLACE.get(5) + ":\"" + txtLong.getText().toString() + "\"," +
-                                Config.POST_KEY_JSON_PLACE.get(6) + ":\"" + ID + "\"," +
-                                Config.POST_KEY_JSON_PLACE.get(7) + ":\"" + userId + "\"," +
-                                Config.POST_KEY_JSON_PLACE.get(8) + ":\"" + "" + "\"" + "}");
-                        stringIdPlace = new httpPost(jsonPost).execute(Config.URL_HOST + Config.URL_POST_PLACE).get();
-                    } catch (InterruptedException | ExecutionException | JSONException e) {
-                        e.printStackTrace();
-                    }
-                    try {
-                        String name = "";
-                        switch (jsonServiceToString.get(6)) {
-                            case "1":
-                                name = Config.POST_KEY_JSON_SERVICE_EAT.get(0) + ":\"" + jsonServiceToString.get(8) + "\"";
-                                break;
-                            case "2":
-                                name = Config.POST_KEY_JSON_SERVICE_HOTEL.get(0) + ":\"" + jsonServiceToString.get(8) + "\"," +
-                                        Config.POST_KEY_JSON_SERVICE_HOTEL.get(1) + ":\"" + jsonServiceToString.get(9) + "\"";
-                                break;
-                            case "3":
-                                name = Config.POST_KEY_JSON_SERVICE_TRANSPORT.get(0) + ":\"" + jsonServiceToString.get(8) + "\"";
-                                break;
-                            case "4":
-                                name = Config.POST_KEY_JSON_SERVICE_SIGHTSEEING.get(0) + ":\"" + jsonServiceToString.get(8) + "\"";
-                                break;
-                            case "5":
-                                name = Config.POST_KEY_JSON_SERVICE_ENTERTAINMENTS.get(0) + ":\"" + jsonServiceToString.get(8) + "\"";
-                                break;
-                            default:
-                                break;
-                        }
-                        String idPlace = stringIdPlace.contains(":") ? stringIdPlace.replaceAll("\"", "").split(":")[1] : "";
-                        if (!idPlace.equals("")) {
-                            JSONObject jsonPost = new JSONObject("{" +
-                                    Config.POST_KEY_JSON_SERVICE.get(0) + ":\"" + jsonServiceToString.get(0) + "\"," +
-                                    Config.POST_KEY_JSON_SERVICE.get(1) + ":\"" + jsonServiceToString.get(1) + "\"," +
-                                    Config.POST_KEY_JSON_SERVICE.get(2) + ":\"" + jsonServiceToString.get(2) + "\"," +
-                                    Config.POST_KEY_JSON_SERVICE.get(3) + ":\"" + jsonServiceToString.get(3) + "\"," +
-                                    Config.POST_KEY_JSON_SERVICE.get(4) + ":\"" + jsonServiceToString.get(4) + "\"," +
-                                    Config.POST_KEY_JSON_SERVICE.get(5) + ":\"" + jsonServiceToString.get(5) + "\"," +
-                                    Config.POST_KEY_JSON_SERVICE.get(6) + ":\"" + jsonServiceToString.get(6) + "\"," +
-                                    Config.POST_KEY_JSON_SERVICE.get(7) + ":\"" + "" + "\"," +
-                                    Config.POST_KEY_JSON_SERVICE.get(8) + ":\"" + userId + "\"," +
-                                    Config.POST_KEY_JSON_SERVICE.get(9) + ":\"" + jsonServiceToString.get(7) + "\"," + name + "}");
-                            idService = new httpPost(jsonPost).execute(Config.URL_HOST + Config.URL_GET_SERVICE_INFO).get();
-                            String idS = idService.contains(":") ? idService.replaceAll("\"", "").split(":")[1] : "";
-                            if (!idS.equals("")) {
-                                ByteArrayOutputStream ban = new ByteArrayOutputStream();
-                                bitmapArrayList.get(0).compress(Bitmap.CompressFormat.JPEG, 80, ban);
-                                ContentBody contentBanner = new ByteArrayBody(ban.toByteArray(), "a.jpg");
+        linearEat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                postPlace();
+                openActivityAddService(1);
+            }
+        });
 
-                                ByteArrayOutputStream de1 = new ByteArrayOutputStream();
-                                bitmapArrayList.get(1).compress(Bitmap.CompressFormat.JPEG, 80, de1);
-                                ContentBody contentDetails1 = new ByteArrayBody(de1.toByteArray(), "b.jpg");
+        linearHotel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                postPlace();
+                openActivityAddService(2);
+            }
+        });
 
-                                ByteArrayOutputStream de2 = new ByteArrayOutputStream();
-                                bitmapArrayList.get(2).compress(Bitmap.CompressFormat.JPEG, 80, de2);
-                                ContentBody contentDetails2 = new ByteArrayBody(de2.toByteArray(), "c.jpg");
+        linearEntertaiment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                postPlace();
+                openActivityAddService(5);
+            }
+        });
 
-                                reqEntity.addPart("banner", contentBanner);
-                                reqEntity.addPart("details1", contentDetails1);
-                                reqEntity.addPart("details2", contentDetails2);
-                                try {
-                                    String response = new httpPostImage(reqEntity).execute(Config.URL_HOST
-                                            + Config.URL_POST_IMAGE + idService.replaceAll("\"", "").split(":")[1]).get();
-                                    if (response.equals("\"status:200\"")) {
-                                        Toast.makeText(ActivityAddPlace.this, getResources().getString(R.string.text_Success), Toast.LENGTH_SHORT).show();
-                                        bitmapArrayList.clear();
-                                        finish();
-                                        finishActivity(1);
-                                    } else {
-                                        Toast.makeText(ActivityAddPlace.this, getResources().getString(R.string.text_Error), Toast.LENGTH_SHORT).show();
-                                    }
-                                } catch (InterruptedException | ExecutionException e) {
-                                    e.printStackTrace();
-                                }
-                            } else {
-                                Toast.makeText(ActivityAddPlace.this, getResources().getString(R.string.text_AddFailed), Toast.LENGTH_SHORT).show();
-                            }
-                        } else {
-                            Toast.makeText(ActivityAddPlace.this, getResources().getString(R.string.text_AddFailed), Toast.LENGTH_SHORT).show();
-                        }
-                    } catch (InterruptedException | ExecutionException | JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
+        linearVehicle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                postPlace();
+                openActivityAddService(3);
             }
         });
 
@@ -313,16 +201,55 @@ public class ActivityAddPlace extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 finish();
-                finishActivity(1);
             }
         });
         menuBotNavBar(this, 3);
     }
 
-    private void openActivityAddService(int i) {
+    private void postPlace() {
+        if (etPlaceName.getText().toString().equals("")) {
+            etPlaceName.setError(getResources().getString(R.string.text_WhatIsYourPlaceName));
+        } else if (etAddress.getText().toString().equals("")) {
+            etAddress.setError(getResources().getString(R.string.text_EnterYourAddress));
+        } else if (etPlacePhone.getText().toString().equals("")) {
+            etPlacePhone.setError(getResources().getString(R.string.text_EnterYourPhoneNumber));
+        } else if (etPlaceAbout.getText().toString().equals("")) {
+            etPlaceAbout.setError(getResources().getString(R.string.text_TypeYouDescription));
+        } else if (ID == 0) {
+            Toast.makeText(ActivityAddPlace.this, getResources().getString(R.string.text_ChooseAddress), Toast.LENGTH_SHORT).show();
+        } else {
+            try {
+                JSONObject jsonPost = new JSONObject("{" + Config.POST_KEY_JSON_PLACE.get(0) + ":\""
+                        + etPlaceName.getText().toString() + "\","
+                        + Config.POST_KEY_JSON_PLACE.get(1) + ":\"" + etPlaceAbout.getText().toString() + "\","
+                        + Config.POST_KEY_JSON_PLACE.get(2) + ":\"" + etAddress.getText().toString() + "\","
+                        + Config.POST_KEY_JSON_PLACE.get(3) + ":\"" + etPlacePhone.getText().toString() + "\","
+                        + Config.POST_KEY_JSON_PLACE.get(4) + ":\"" + txtLat.getText().toString() + "\","
+                        + Config.POST_KEY_JSON_PLACE.get(5) + ":\"" + txtLong.getText().toString() + "\","
+                        + Config.POST_KEY_JSON_PLACE.get(6) + ":\"" + ID + "\","
+                        + Config.POST_KEY_JSON_PLACE.get(7) + ":\"" + userId + "\","
+                        + Config.POST_KEY_JSON_PLACE.get(8) + ":\"" + "" + "\"" + "}");
+                stringIdPlace = new httpPost(jsonPost).execute(Config.URL_HOST + Config.URL_POST_PLACE).get();
+            } catch (InterruptedException | ExecutionException | JSONException e) {
+                e.printStackTrace();
+            }
+
+            if (stringIdPlace.equals("\"status: 500\"")) {
+                Toast.makeText(ActivityAddPlace.this, getResources()
+                        .getString(R.string.text_Error), Toast.LENGTH_SHORT).show();
+            } else {
+                stringIdPlace = stringIdPlace.contains(":")
+                        ? stringIdPlace.replaceAll("\"", "").split(":")[1] : "0";
+            }
+        }
+    }
+
+    private void openActivityAddService(int type) {
         Intent intent = new Intent(ActivityAddPlace.this, ActivityAddService.class);
-        intent.putExtra("type", i);
-        startActivityForResult(intent, 2);
+        intent.putExtra("type", type);
+        intent.putExtra("id", Integer.parseInt(stringIdPlace));
+        startActivity(intent);
+        finish();
     }
 
     private void startPlacePickerActivity() {
