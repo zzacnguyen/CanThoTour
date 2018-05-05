@@ -26,7 +26,7 @@ import static com.doan3.canthotour.Model.ModelService.setImage;
 public class ModelSearch {
     public ArrayList<NearLocation> getNearLocationList(String url, int type, Activity activity) {
 
-        ArrayList<String> arrayList, keyJson;
+        ArrayList<String> arrayList = new ArrayList<>(), keyJson;
         ArrayList<NearLocation> services = new ArrayList<>();
 
         try {
@@ -36,34 +36,36 @@ public class ModelSearch {
                 Toast.makeText(activity, "Không tìm thấy dịch vụ lân cận", Toast.LENGTH_SHORT).show();
             } else {
                 // nếu tìm thấy thì thêm vào model nearlocation
+
+                /* nếu loại hình = 1 lấy key json ăn uống
+                     nếu = 2 lấy key json khách sạn
+                     nếu = 3 lấy key json phương tiện
+                     nếu = 4 lấy key json tham quan
+                     nếu = 5 lấy key json vui chơi*/
+                if (type == 1) {
+                    keyJson = Config.GET_KEY_JSON_EAT;
+                    keyJson.add(Config.KEY_DISTANCE);
+                } else if (type == 2) {
+                    keyJson = Config.GET_KEY_JSON_HOTEL;
+                    keyJson.add(Config.KEY_DISTANCE);
+                } else if (type == 3) {
+                    keyJson = Config.GET_KEY_JSON_VEHICLE;
+                    keyJson.add(Config.KEY_DISTANCE);
+                } else if (type == 4) {
+                    keyJson = Config.GET_KEY_JSON_PLACE;
+                    keyJson.add(Config.KEY_DISTANCE);
+                } else {
+                    keyJson = Config.GET_KEY_JSON_ENTERTAINMENT;
+                    keyJson.add(Config.KEY_DISTANCE);
+                }
+
                 JSONArray jsonArray = jsonObject.getJSONArray(Config.GET_KEY_SEARCH_NEAR.get(0));
                 for (int i = 0; i < jsonArray.length(); i += 2) {
 
                     NearLocation service = new NearLocation();
                     JSONObject jsonObjectData = jsonArray.getJSONObject(i);
 
-                    /* nếu loại hình = 1 lấy key json ăn uống
-                     nếu = 2 lấy key json khách sạn
-                     nếu = 3 lấy key json phương tiện
-                     nếu = 4 lấy key json tham quan
-                     nếu = 5 lấy key json vui chơi*/
-                    if (type == 1) {
-                        keyJson = Config.GET_KEY_JSON_EAT;
-                        keyJson.add(Config.KEY_DISTANCE);
-                    } else if (type == 2) {
-                        keyJson = Config.GET_KEY_JSON_HOTEL;
-                        keyJson.add(Config.KEY_DISTANCE);
-                    } else if (type == 3) {
-                        keyJson = Config.GET_KEY_JSON_VEHICLE;
-                        keyJson.add(Config.KEY_DISTANCE);
-                    } else if (type == 4) {
-                        keyJson = Config.GET_KEY_JSON_PLACE;
-                        keyJson.add(Config.KEY_DISTANCE);
-                    } else {
-                        keyJson = Config.GET_KEY_JSON_ENTERTAINMENT;
-                        keyJson.add(Config.KEY_DISTANCE);
-                    }
-
+                    arrayList.clear();
                     arrayList = parseJson(jsonObjectData, keyJson);
 
                     //Set hình ảnh
@@ -88,18 +90,19 @@ public class ModelSearch {
 
     public ArrayList<Service> getAdvancedSearchList(String url, int type) {
 
-        ArrayList<String> arr, arrayList;
+        ArrayList<String> arrayList;
         ArrayList<Service> services = new ArrayList<>();
 
         try {
-            arr = parseJsonNoId(new JSONObject(new HttpRequestAdapter.httpGet().
+            arrayList = parseJsonNoId(new JSONObject(new HttpRequestAdapter.httpGet().
                     execute(url).get()), Config.GET_KEY_JSON_LOAD);
-            JSONArray jsonArray = new JSONArray(arr.get(0));
+            JSONArray jsonArray = new JSONArray(arrayList.get(0));
 
             for (int i = 0; i < jsonArray.length(); i++) {
 
                 Service service = new Service();
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
+                arrayList.clear();
                 if (type == 1) {
                     arrayList = parseJson(jsonObject, Config.GET_KEY_JSON_EAT);
                 } else if (type == 2) {

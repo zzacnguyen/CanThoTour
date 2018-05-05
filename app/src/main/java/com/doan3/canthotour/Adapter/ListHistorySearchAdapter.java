@@ -95,8 +95,9 @@ public class ListHistorySearchAdapter extends RecyclerView.Adapter<RecyclerView.
                     if (userId != 0) {
                         try {
                             new HttpRequestAdapter.httpPost(new JSONObject("{"
-                                    + Config.POST_KEY_HISTORY_SEARCH.get(0) + ":\"" + view.getTag() + "\""
-                                    + Config.POST_KEY_HISTORY_SEARCH.get(1) + ":\"" + userId + "\"" + "}")).execute();
+                                    + Config.POST_KEY_HISTORY_SEARCH.get(0) + ":\"" + view.getTag() + "\","
+                                    + Config.POST_KEY_HISTORY_SEARCH.get(1) + ":\"" + userId + "\"" + "}"))
+                                    .execute(Config.URL_HOST + Config.URL_GET_HISTORY_SEARCH);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

@@ -1,6 +1,5 @@
 package com.doan3.canthotour.View.Search;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -23,7 +22,6 @@ import com.doan3.canthotour.Model.ModelFavorite;
 import com.doan3.canthotour.Model.ModelSearch;
 import com.doan3.canthotour.Model.ObjectClass.Service;
 import com.doan3.canthotour.R;
-import com.doan3.canthotour.View.Main.ActivitySearchHistory;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -75,14 +73,13 @@ public class ActivitySearch extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 finish();
-                finishActivity(888);
             }
         });
 
         txtSearchHistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                searchAll(Config.URL_GET_HISTORY_SEARCH, String.valueOf(userId));
+                searchAll(Config.URL_GET_HISTORY_SEARCH + "/", String.valueOf(userId));
             }
         });
 
@@ -91,69 +88,71 @@ public class ActivitySearch extends AppCompatActivity {
     private void searchAll(String link, String key) {
 
         String url = Config.URL_HOST + link + key;
-        final RecyclerView recyclerView;
-        recyclerView = findViewById(R.id.RecyclerView_SearchList);
-        recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
-
-        LinearLayoutManager linearLayoutManager =
-                new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
-        recyclerView.setLayoutManager(linearLayoutManager);
-
         ArrayList<Service> services = new ModelSearch().getSearchList(url);
 
-        listHistorySearchAdapter = new ListHistorySearchAdapter(recyclerView, services, getApplicationContext());
-        recyclerView.setAdapter(listHistorySearchAdapter);
-        listHistorySearchAdapter.notifyDataSetChanged();
+        if (services.size() == 0) {
+            Toast.makeText(this, getResources().getString(R.string.text_NoResults), Toast.LENGTH_SHORT).show();
+        } else {
+            final RecyclerView recyclerView;
+            recyclerView = findViewById(R.id.RecyclerView_SearchList);
+            recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
 
-        final ArrayList<Service> finalListService = services;
-        try {
-            finalArr = JsonHelper.parseJsonNoId(new JSONObject
-                    (new HttpRequestAdapter.httpGet().execute(url).get()), Config.GET_KEY_JSON_LOAD);
-        } catch (JSONException | InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
+            LinearLayoutManager linearLayoutManager =
+                    new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
+            recyclerView.setLayoutManager(linearLayoutManager);
+            listHistorySearchAdapter = new ListHistorySearchAdapter(recyclerView, services, getApplicationContext());
+            recyclerView.setAdapter(listHistorySearchAdapter);
+            listHistorySearchAdapter.notifyDataSetChanged();
 
-        //set load more listener for the RecyclerView adapter
-        listHistorySearchAdapter.setOnLoadMoreListener(new OnLoadMoreListener() {
-
-            @Override
-            public void onLoadMore() {
-                if (finalListService.size() < Integer.parseInt(finalArr.get(2))) {
-                    finalListService.add(null);
-                    recyclerView.post(new Runnable() {
-                        public void run() {
-                            listHistorySearchAdapter.notifyItemInserted(finalListService.size() - 1);
-                        }
-                    });
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            finalListService.remove(finalListService.size() - 1);
-                            listHistorySearchAdapter.notifyItemRemoved(finalListService.size());
-
-                            ArrayList<Service> serviceArrayList = new ModelFavorite().
-                                    getFavoriteList(new File(""), finalArr.get(1));
-                            finalListService.addAll(serviceArrayList);
-                            try {
-                                finalArr = JsonHelper.parseJsonNoId(new JSONObject
-                                        (new HttpRequestAdapter.httpGet().execute(finalArr.get(1)).get()), Config.GET_KEY_JSON_LOAD);
-                            } catch (JSONException | InterruptedException | ExecutionException e) {
-                                e.printStackTrace();
-                            }
-
-                            listHistorySearchAdapter.notifyDataSetChanged();
-                            listHistorySearchAdapter.setLoaded();
-                        }
-                    }, 1000);
-                }
+            final ArrayList<Service> finalListService = services;
+            try {
+                finalArr = JsonHelper.parseJsonNoId(new JSONObject
+                        (new HttpRequestAdapter.httpGet().execute(url).get()), Config.GET_KEY_JSON_LOAD);
+            } catch (JSONException | InterruptedException | ExecutionException e) {
+                e.printStackTrace();
             }
-        });
+
+            //set load more listener for the RecyclerView adapter
+            listHistorySearchAdapter.setOnLoadMoreListener(new OnLoadMoreListener() {
+
+                @Override
+                public void onLoadMore() {
+                    if (finalListService.size() < Integer.parseInt(finalArr.get(2))) {
+                        finalListService.add(null);
+                        recyclerView.post(new Runnable() {
+                            public void run() {
+                                listHistorySearchAdapter.notifyItemInserted(finalListService.size() - 1);
+                            }
+                        });
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                finalListService.remove(finalListService.size() - 1);
+                                listHistorySearchAdapter.notifyItemRemoved(finalListService.size());
+
+                                ArrayList<Service> serviceArrayList = new ModelFavorite().
+                                        getFavoriteList(new File(""), finalArr.get(1));
+                                finalListService.addAll(serviceArrayList);
+                                try {
+                                    finalArr = JsonHelper.parseJsonNoId(new JSONObject
+                                            (new HttpRequestAdapter.httpGet().execute(finalArr.get(1)).get()), Config.GET_KEY_JSON_LOAD);
+                                } catch (JSONException | InterruptedException | ExecutionException e) {
+                                    e.printStackTrace();
+                                }
+
+                                listHistorySearchAdapter.notifyDataSetChanged();
+                                listHistorySearchAdapter.setLoaded();
+                            }
+                        }, 1000);
+                    }
+                }
+            });
+        }
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        listHistorySearchAdapter.setOnLoadMoreListener(null);
         btnCancel.setOnClickListener(null);
         txtSearchHistory.setOnClickListener(null);
     }

@@ -17,7 +17,7 @@ public class Config {
     public static final ArrayList<String> URL_SEARCH_SERVICE_NEAR =
             new ArrayList<>(Arrays.asList("search/servicevicinity/location=", "&type=", "&radius="));
     public static final String URL_GET_ALL_EATS = "eating";
-    public static final String URL_GET_HISTORY_SEARCH = "usersearch/";
+    public static final String URL_GET_HISTORY_SEARCH = "usersearch";
     public static final String URL_POST_REVIEW = "rating-post";
     public static final String URL_GET_REVIEW = "rating-view";
     public static final String URL_GET_ALL_REVIEWS = "rating-service/";
