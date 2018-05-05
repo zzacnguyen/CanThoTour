@@ -65,7 +65,7 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
     Toolbar toolbar;
     LinearLayout info;
     RatingBar rbStar;
-    int id, serviceType;
+    int idService, serviceType, REQUEST_CODE = 2;
     String idLike, idRating, longitude, latitude;
     JSONObject saveJson;
     CallbackManager callbackManager;
@@ -80,7 +80,7 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
         switch (view.getId()) {
             case R.id.imgInfo1:
                 try {
-                    imgDetail = new HttpRequestAdapter.httpGet().execute(Config.URL_HOST + Config.URL_GET_LINK_DETAIL_1 + id).get()
+                    imgDetail = new HttpRequestAdapter.httpGet().execute(Config.URL_HOST + Config.URL_GET_LINK_DETAIL_1 + idService).get()
                             .replaceAll("\"", "")
                             .split("\\+");
                     startActivity(iDetail);
@@ -91,7 +91,7 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
 
             case R.id.imgInfo2:
                 try {
-                    imgDetail = new HttpRequestAdapter.httpGet().execute(Config.URL_HOST + Config.URL_GET_LINK_DETAIL_2 + id).get()
+                    imgDetail = new HttpRequestAdapter.httpGet().execute(Config.URL_HOST + Config.URL_GET_LINK_DETAIL_2 + idService).get()
                             .replaceAll("\"", "")
                             .split("\\+");
                     startActivity(iDetail);
@@ -119,11 +119,7 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
         callbackManager = CallbackManager.Factory.create();
         shareDialog = new ShareDialog(this);
 
-        id = getIntent().getIntExtra("id", 1);
-        String mess = getIntent().getStringExtra("mess");
-        if (mess != null) {
-            Toast.makeText(this, mess, Toast.LENGTH_SHORT).show();
-        }
+        idService = getIntent().getIntExtra("id", 0);
 
         // click trở lại
         btnBack.setOnClickListener(new View.OnClickListener() {
@@ -140,9 +136,7 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
             public void onClick(View view) {
                 if (userId == 0) {
                     Intent intent = new Intent(ActivityServiceInfo.this, ActivityLogin.class);
-                    // Nếu chưa đăng nhập mà bấm like sẽ mở form đăng nhập và truyền id dịch vụ qua form đăng nhập
-                    intent.putExtra("id", id);
-                    startActivity(intent);
+                    startActivityForResult(intent, REQUEST_CODE);
                 } else {
                     File path = new File(Environment.getExternalStorageDirectory() + Config.FOLDER);
                     if (!path.exists()) {
@@ -168,7 +162,7 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
                                 // duyệt mảng json
                                 for (int i = 0; i < jsonArrayInFile.length(); i++) {
                                     // nếu id dịch vụ trong mảng json mới đọc lên != với id dịch vụ hiện tại
-                                    if (Integer.parseInt(jsonArrayInFile.getJSONObject(i).getString("id")) != (id)) {
+                                    if (Integer.parseInt(jsonArrayInFile.getJSONObject(i).getString("id")) != (idService)) {
                                         // add json object đó vào jsonArray
                                         jsonArray.put(jsonArrayInFile.getJSONObject(i));
                                     }
@@ -247,8 +241,7 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
             public void onClick(View view) {
                 if (userId == 0) {
                     Intent intent = new Intent(ActivityServiceInfo.this, ActivityLogin.class);
-                    intent.putExtra("id", id);
-                    startActivity(intent);
+                    startActivityForResult(intent, REQUEST_CODE);
                 } else {
 //                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 //                    FragmentReview fragmentReview = new FragmentReview();
@@ -259,9 +252,9 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
 //                    fragmentTransaction.commit();
 
                     Intent intent = new Intent(ActivityServiceInfo.this, ActivityReview.class);
-                    intent.putExtra("id", id);
-                    intent.putExtra("iddanhgia", idRating);
-                    startActivity(intent);
+                    intent.putExtra("id", idService);
+                    intent.putExtra("idRating", idRating);
+                    startActivityForResult(intent, REQUEST_CODE);
                 }
             }
         });
@@ -270,12 +263,12 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ActivityServiceInfo.this, ActivityReviewList.class);
-                intent.putExtra("id", id);
+                intent.putExtra("id", idService);
                 startActivity(intent);
             }
         });
 
-        getServiceInfo(Config.URL_GET_SERVICE_INFO.get(0) + id + Config.URL_GET_SERVICE_INFO.get(1) + userId);
+        getServiceInfo(Config.URL_GET_SERVICE_INFO.get(0) + idService + Config.URL_GET_SERVICE_INFO.get(1) + userId);
 
         menuBotNavBar(this, 0);
     }
@@ -406,7 +399,7 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
 
         // json yêu thích lưu vào thẻ nhớ
         try {
-            saveJson = new JSONObject("{" + Config.POST_KEY_JSON_LIKE_SERVICE.get(0) + ":\"" + serviceInfo.getId() + "\"," +
+            saveJson = new JSONObject("{" + Config.POST_KEY_JSON_LIKE_SERVICE.get(0) + ":\"" + idService + "\"," +
                     Config.POST_KEY_JSON_LIKE_SERVICE.get(1) + ":\"" + serviceInfo.getHotelName() + "\"," +
                     Config.POST_KEY_JSON_LIKE_SERVICE.get(2) + ":\"" + serviceInfo.getEntertainName() + "\"," +
                     Config.POST_KEY_JSON_LIKE_SERVICE.get(3) + ":\"" + serviceInfo.getVehicleName() + "\"," +
@@ -417,7 +410,6 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
     }
 
     private void printKeyHash() {
@@ -441,6 +433,15 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
             getFragmentManager().popBackStack();
         } else {
             super.onBackPressed();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
+            startActivity(getIntent());
+            if (data.hasExtra("mess"))
+                Toast.makeText(this, data.getStringExtra("mess"), Toast.LENGTH_SHORT).show();
         }
     }
 

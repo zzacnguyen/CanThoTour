@@ -14,7 +14,6 @@ import com.doan3.canthotour.Config;
 import com.doan3.canthotour.Helper.JsonHelper;
 import com.doan3.canthotour.Model.SessionManager;
 import com.doan3.canthotour.R;
-import com.doan3.canthotour.View.Main.ActivityServiceInfo;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -36,7 +35,7 @@ import static com.doan3.canthotour.View.Personal.ActivityPersonal.userType;
 public class ActivityLogin extends AppCompatActivity {
     EditText etUserId, etPassword;
     Button btnReg, btnLogin;
-    int id;
+    int REQUEST_CODE_REGISTER = 1;
     SessionManager sessionManager;
 
     @Override
@@ -47,14 +46,6 @@ public class ActivityLogin extends AppCompatActivity {
         etPassword = findViewById(R.id.etPassword);
         btnLogin = findViewById(R.id.btnLogin);
         btnReg = findViewById(R.id.btnRegister);
-
-        // id dịch vụ được truyền qua từ ActivityServiceInfo khi chưa đăng nhập mà bấm like
-        id = getIntent().getIntExtra("id", 0);
-        // nhận thông báo từ form đăng ký
-        String mess = getIntent().getStringExtra("mess");
-        if (mess != null) {
-            Toast.makeText(this, mess, Toast.LENGTH_SHORT).show();
-        }
 
         sessionManager = new SessionManager(getApplicationContext());
 
@@ -92,14 +83,13 @@ public class ActivityLogin extends AppCompatActivity {
                             }
 
                             sessionManager.createLoginSession(userId + "", userName, userType, avatar);
-
-                            if (id == 0) {
-                                startActivity(new Intent(ActivityLogin.this, ActivityPersonal.class));
-                            } else {
-                                Intent intent = new Intent(ActivityLogin.this, ActivityServiceInfo.class);
-                                // trả id dịch vụ lại cho ActivityServiceInfo
-                                intent.putExtra("id", id);
-                                startActivity(intent);
+                            if (getCallingActivity() != null) {
+                                if (getCallingActivity().getClassName().equals("com.doan3.canthotour.View.Personal.ActivityPersonal")) {
+                                    startActivity(new Intent(ActivityLogin.this, ActivityPersonal.class));
+                                } else {
+                                    finishActivity(1);
+                                    finish();
+                                }
                             }
                         }
                     } catch (JSONException | ExecutionException | InterruptedException e) {
@@ -113,12 +103,26 @@ public class ActivityLogin extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ActivityLogin.this, ActivityRegister.class);
-                // truyền id dịch vụ qua form đăng ký
-                intent.putExtra("id", id);
-                startActivity(intent);
+                startActivityForResult(intent, REQUEST_CODE_REGISTER);
             }
         });
 
         menuBotNavBar(this, 3);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK && requestCode == REQUEST_CODE_REGISTER) {
+            if (data.hasExtra("mess"))
+                Toast.makeText(this, data.getStringExtra("mess"), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void finishActivity(int requestCode) {
+        Intent data = new Intent();
+        data.putExtra("mess", getResources().getString(R.string.text_LoginSuccess));
+        setResult(RESULT_OK, data);
+        super.finishActivity(requestCode);
     }
 }

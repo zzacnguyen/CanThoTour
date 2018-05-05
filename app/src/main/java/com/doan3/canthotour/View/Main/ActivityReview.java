@@ -48,7 +48,7 @@ public class ActivityReview extends AppCompatActivity {
         txtReview = findViewById(R.id.txtComment);
 
         id = getIntent().getIntExtra("id", 1);
-        idReview = getIntent().getStringExtra("iddanhgia");
+        idReview = getIntent().getStringExtra("idRating");
         if (!idReview.equals("0")) {
             try {
                 String rs =
@@ -82,16 +82,11 @@ public class ActivityReview extends AppCompatActivity {
                     if (idReview.equals("0")) {
                         new httpPost(json).execute(Config.URL_HOST + Config.URL_POST_REVIEW);
 
-                        Intent intent = new Intent(ActivityReview.this, ActivityServiceInfo.class);
-                        intent.putExtra("id", id);
-                        intent.putExtra("mess", getResources().getString(R.string.text_ReviewsCompleted));
-                        startActivity(intent);
+                        intend(getResources().getString(R.string.text_ReviewCompleted));
                     } else {
                         new httpPut(json).execute(Config.URL_HOST + Config.URL_POST_REVIEW + "/" + idReview);
 
-                        Intent intent = new Intent(ActivityReview.this, ActivityServiceInfo.class);
-                        intent.putExtra("id", id);
-                        startActivity(intent);
+                        intend(getResources().getString(R.string.text_ReviewCompleted));
                     }
                 }
             }
@@ -100,8 +95,14 @@ public class ActivityReview extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 finish();
-                finishActivity(1);
             }
         });
+    }
+
+    void intend(String mess) {
+        Intent intent = new Intent();
+        intent.putExtra("mess", mess);
+        setResult(RESULT_OK, intent);
+        finish();
     }
 }

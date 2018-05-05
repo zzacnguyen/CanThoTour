@@ -31,6 +31,7 @@ import static com.doan3.canthotour.Helper.JsonHelper.readJson;
  */
 
 public class ModelService {
+
     public static Bitmap setImage(String url, String folderName, String fileName) {
         Bitmap bitmap = null;
         // nếu có trả về tên hình + id hình để đặt tên cho file + folder
@@ -61,7 +62,7 @@ public class ModelService {
 
     public ServiceInfo getServiceInfo(String url) {
 
-        ArrayList<String> arrayService;
+        ArrayList<String> arrayServiceInfo;
         String stringNameOfTheEventType, lang = Locale.getDefault().getLanguage();
         ServiceInfo serviceInfo = new ServiceInfo();
         Boolean isLike, isRating;
@@ -80,9 +81,9 @@ public class ModelService {
 
             // lấy thông tin chi tiết dịch vụ chuyển vào array
             JSONArray jsonService = new JSONArray(jsonResult.getString(Config.KEY_SERVICE_INFO.get(6)));
-            arrayService = parseJson(jsonService.getJSONObject(0), Config.GET_KEY_JSON_SERVICE_INFO);
+            arrayServiceInfo = parseJson(jsonService.getJSONObject(0), Config.GET_KEY_JSON_SERVICE_INFO);
             if (!lang.equals("vi")) {
-                arrayService = translate(arrayService, lang);
+                arrayServiceInfo = translate(arrayServiceInfo, lang);
             }
 
             // nếu type_event != null thì lấy tên loại hình sự kiện ngược lại cho = null
@@ -94,48 +95,48 @@ public class ModelService {
             }
 
             // set id dịch vụ
-            serviceInfo.setId(Integer.parseInt(arrayService.get(0)));
+            serviceInfo.setId(Integer.parseInt(arrayServiceInfo.get(0)));
             // set tên dịch vụ
-            if (!arrayService.get(1).equals(Config.NULL)) {
-                serviceInfo.setHotelName(arrayService.get(1));
-            } else if (!arrayService.get(2).equals(Config.NULL)) {
-                serviceInfo.setEntertainName(arrayService.get(2));
-            } else if (!arrayService.get(3).equals(Config.NULL)) {
-                serviceInfo.setVehicleName(arrayService.get(3));
-            } else if (!arrayService.get(4).equals(Config.NULL)) {
-                serviceInfo.setPlaceName(arrayService.get(4));
-            } else if (!arrayService.get(5).equals(Config.NULL)) {
-                serviceInfo.setEatName(arrayService.get(5));
+            if (!arrayServiceInfo.get(1).equals(Config.NULL)) {
+                serviceInfo.setHotelName(arrayServiceInfo.get(1));
+            } else if (!arrayServiceInfo.get(2).equals(Config.NULL)) {
+                serviceInfo.setEntertainName(arrayServiceInfo.get(2));
+            } else if (!arrayServiceInfo.get(3).equals(Config.NULL)) {
+                serviceInfo.setVehicleName(arrayServiceInfo.get(3));
+            } else if (!arrayServiceInfo.get(4).equals(Config.NULL)) {
+                serviceInfo.setPlaceName(arrayServiceInfo.get(4));
+            } else if (!arrayServiceInfo.get(5).equals(Config.NULL)) {
+                serviceInfo.setEatName(arrayServiceInfo.get(5));
             }
             // set website
-            serviceInfo.setWebsite(arrayService.get(6));
+            serviceInfo.setWebsite(arrayServiceInfo.get(6));
             // set giới thiệu
-            serviceInfo.setServiceAbout(arrayService.get(7));
+            serviceInfo.setServiceAbout(arrayServiceInfo.get(7));
             // set giờ mở cửa
-            serviceInfo.setTimeOpen(arrayService.get(8));
+            serviceInfo.setTimeOpen(arrayServiceInfo.get(8));
             // set giờ đóng cửa
-            serviceInfo.setTimeClose(arrayService.get(9));
+            serviceInfo.setTimeClose(arrayServiceInfo.get(9));
             // set giá thấp nhất
-            serviceInfo.setLowestPrice(arrayService.get(10));
+            serviceInfo.setLowestPrice(arrayServiceInfo.get(10));
             // set giá cao nhất
-            serviceInfo.setHighestPrice(arrayService.get(11));
+            serviceInfo.setHighestPrice(arrayServiceInfo.get(11));
             // set địa chỉ
-            serviceInfo.setAddress(arrayService.get(12));
+            serviceInfo.setAddress(arrayServiceInfo.get(12));
             // set số điện thoại
-            serviceInfo.setPhoneNumber(arrayService.get(13));
+            serviceInfo.setPhoneNumber(arrayServiceInfo.get(13));
             // set đánh giá
             // nếu rating == null thì set số sao = 0;
-            if (arrayService.get(14).equals(Config.NULL)) {
+            if (arrayServiceInfo.get(14).equals(Config.NULL)) {
                 serviceInfo.setReviewMark((float) 0);
                 serviceInfo.setStars(0);
             } else {
-                serviceInfo.setReviewMark(Float.parseFloat(arrayService.get(14)));
-                serviceInfo.setStars(Float.parseFloat(arrayService.get(14)));
+                serviceInfo.setReviewMark(Float.parseFloat(arrayServiceInfo.get(14)));
+                serviceInfo.setStars(Float.parseFloat(arrayServiceInfo.get(14)));
             }
             // set kinh độ
-            serviceInfo.setLongitude(arrayService.get(15));
+            serviceInfo.setLongitude(arrayServiceInfo.get(15));
             // set vĩ độ
-            serviceInfo.setLatitude(arrayService.get(16));
+            serviceInfo.setLatitude(arrayServiceInfo.get(16));
             // set loại hình sự kiện
             serviceInfo.setEventType(stringNameOfTheEventType);
 
@@ -257,17 +258,18 @@ public class ModelService {
 
     public ArrayList<Service> getFullServiceList(String url, ArrayList<String> formatJson) {
 
-        ArrayList<String> arr, arrayList;
+        ArrayList<String> arrayList;
         ArrayList<Service> services = new ArrayList<>();
 
         try {
-            arr = parseJsonNoId(new JSONObject(new httpGet().execute(url).get()), Config.GET_KEY_JSON_LOAD);
-            JSONArray jsonArray = new JSONArray(arr.get(0));
+            arrayList = parseJsonNoId(new JSONObject(new httpGet().execute(url).get()), Config.GET_KEY_JSON_LOAD);
+            JSONArray jsonArray = new JSONArray(arrayList.get(0));
 
             for (int i = 0; i < jsonArray.length(); i++) {
 
                 Service service = new Service();
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
+                arrayList.clear();
                 arrayList = parseJson(jsonObject, formatJson);
                 service.setImage(setImage(Config.URL_HOST + Config.URL_GET_THUMB + arrayList.get(3),
                         arrayList.get(2), arrayList.get(3)));
