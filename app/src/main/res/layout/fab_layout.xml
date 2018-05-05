@@ -8,13 +8,12 @@
         android:id="@+id/fab_addplace"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_place_24dp"
+        android:src="@drawable/ic_add_24dp"
         android:tint="#fff"
         app:backgroundTint="#c47373"
         android:layout_gravity="bottom|end"
         android:layout_marginRight="5dp"
         android:layout_marginBottom="120dp"
-        android:visibility="invisible"
         />
 
 </FrameLayout>

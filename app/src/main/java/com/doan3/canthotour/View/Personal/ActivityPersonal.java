@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.doan3.canthotour.Model.SessionManager;
 import com.doan3.canthotour.R;
@@ -22,11 +23,12 @@ public class ActivityPersonal extends AppCompatActivity {
     public static int userId;
     public static String userName, userType;
     public static Bitmap avatar;
-    Button btnAddPlace, btnAddService, btnRegEnterprise, btnOption, btnLogin, btnAdvancedSearch, btnLogout, btnTripSchedule;
+    Button btnAddPlace, btnRegEnterprise, btnOption, btnLogin, btnAdvancedSearch, btnLogout, btnTripSchedule, btnAddEvent;
     TextView txtUserName, txtUserType;
     CircleImageView Cavatar;
-    LinearLayout addPlace, addService, regEnterprise, Logout, Login, tripSchedule;
+    LinearLayout addPlace, regEnterprise, Logout, Login, tripSchedule, addEvent;
     SessionManager sessionManager;
+    int REQUEST_CODE_LOGIN = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,36 +38,68 @@ public class ActivityPersonal extends AppCompatActivity {
         btnTripSchedule = findViewById(R.id.buttonTripSchedule);
         btnAdvancedSearch = findViewById(R.id.buttonAdvancedSearch);
         btnAddPlace = findViewById(R.id.buttonAddPlace);
-        btnAddService = findViewById(R.id.buttonAddService);
         btnRegEnterprise = findViewById(R.id.buttonRegEnterprise);
         btnOption = findViewById(R.id.buttonOption);
         btnLogin = findViewById(R.id.buttonLogin);
         btnLogout = findViewById(R.id.buttonLogout);
+        btnAddEvent = findViewById(R.id.buttonAddEvent);
         txtUserName = findViewById(R.id.txtUserName);
         txtUserType = findViewById(R.id.txtUserType);
         Cavatar = findViewById(R.id.avatar);
         addPlace = findViewById(R.id.AddPlace);
-        addService = findViewById(R.id.AddService);
         regEnterprise = findViewById(R.id.RegEnterprise);
         tripSchedule = findViewById(R.id.TripSchedule);
         Logout = findViewById(R.id.Logout);
         Login = findViewById(R.id.Login);
-
-        txtUserName.setText(userName);
-        txtUserType.setText(userType);
-        Cavatar.setImageBitmap(avatar);
+        addEvent = findViewById(R.id.AddEvent);
 
         if (userId == 0) {
             addPlace.setVisibility(View.GONE);
-            addService.setVisibility(View.GONE);
             tripSchedule.setVisibility(View.GONE);
             regEnterprise.setVisibility(View.GONE);
             Logout.setVisibility(View.GONE);
+            addEvent.setVisibility(View.GONE);
         } else {
-            addPlace.setVisibility(View.VISIBLE);
-            addService.setVisibility(View.VISIBLE);
-            regEnterprise.setVisibility(View.VISIBLE);
-            tripSchedule.setVisibility(View.VISIBLE);
+            Cavatar.setImageBitmap(avatar);
+            txtUserName.setText(userName);
+            switch (userType) {
+                case "1": // cá nhân
+                    txtUserType.setText(getResources().getString(R.string.text_Personal));
+                    regEnterprise.setVisibility(View.VISIBLE);
+                    break;
+                case "2": // doanh nghiệp
+                    txtUserType.setText(getResources().getString(R.string.text_Enterprise));
+                    addPlace.setVisibility(View.VISIBLE);
+                    addEvent.setVisibility(View.VISIBLE);
+                    break;
+                case "3": // hướng dẫn viên
+                    txtUserType.setText(getResources().getString(R.string.text_TourGuide));
+                    tripSchedule.setVisibility(View.VISIBLE);
+                    break;
+                case "4": // cộng tác viên
+                    txtUserType.setText(getResources().getString(R.string.text_Partner));
+                    addPlace.setVisibility(View.VISIBLE);
+                    addEvent.setVisibility(View.VISIBLE);
+                    regEnterprise.setVisibility(View.VISIBLE);
+                    break;
+                case "5": // mod
+                    txtUserType.setText(getResources().getString(R.string.text_Moderator));
+                    tripSchedule.setVisibility(View.VISIBLE);
+                    addPlace.setVisibility(View.VISIBLE);
+                    addEvent.setVisibility(View.VISIBLE);
+                    break;
+                case "6": // admin
+                    txtUserType.setText(getResources().getString(R.string.text_Admin));
+                    tripSchedule.setVisibility(View.VISIBLE);
+                    addPlace.setVisibility(View.VISIBLE);
+                    addEvent.setVisibility(View.VISIBLE);
+                    break;
+                default: // mặc định cá nhân
+                    txtUserType.setText(getResources().getString(R.string.text_Personal));
+                    regEnterprise.setVisibility(View.VISIBLE);
+                    break;
+            }
+
             Logout.setVisibility(View.VISIBLE);
             Login.setVisibility(View.GONE);
         }
@@ -87,7 +121,7 @@ public class ActivityPersonal extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivityForResult(new Intent(ActivityPersonal.this, ActivityLogin.class), 1);
+                startActivityForResult(new Intent(ActivityPersonal.this, ActivityLogin.class), REQUEST_CODE_LOGIN);
             }
         });
         btnAddPlace.setOnClickListener(new View.OnClickListener() {
@@ -95,14 +129,6 @@ public class ActivityPersonal extends AppCompatActivity {
             public void onClick(View view) {
                 Intent iThemDiaDiem = new Intent(ActivityPersonal.this, ActivityAddPlace.class);
                 startActivity(iThemDiaDiem);
-            }
-        });
-
-        btnAddService.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent iThemDichVu = new Intent(ActivityPersonal.this, ActivityAddService.class);
-                startActivity(iThemDichVu);
             }
         });
 
@@ -129,9 +155,7 @@ public class ActivityPersonal extends AppCompatActivity {
                 userName = null;
                 userType = null;
                 avatar = null;
-                txtUserName.setText(userName);
-                txtUserType.setText(userType);
-                Cavatar.setImageBitmap(avatar);
+                startActivity(getIntent());
                 sessionManager.logoutUser();
                 startActivity(new Intent(ActivityPersonal.this, ActivityPersonal.class));
             }
@@ -141,10 +165,18 @@ public class ActivityPersonal extends AppCompatActivity {
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_CODE_LOGIN && resultCode == RESULT_OK) {
+            if (data.hasExtra("mess")) {
+                Toast.makeText(this, data.getStringExtra("mess"), Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         btnAddPlace.setOnClickListener(null);
-        btnAddService.setOnClickListener(null);
         btnAdvancedSearch.setOnClickListener(null);
         btnLogin.setOnClickListener(null);
         btnLogout.setOnClickListener(null);

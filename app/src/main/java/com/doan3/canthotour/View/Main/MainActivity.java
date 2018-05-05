@@ -41,12 +41,13 @@ import com.doan3.canthotour.View.Notify.ActivityNotify;
 import com.doan3.canthotour.View.Personal.ActivityAddPlace;
 import com.doan3.canthotour.View.Personal.ActivityPersonal;
 import com.doan3.canthotour.View.Search.ActivitySearch;
-import com.doan3.canthotour.View.Search.FragmentSearch;
 
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 import q.rorbin.badgeview.QBadgeView;
+
+import static com.doan3.canthotour.View.Personal.ActivityPersonal.userType;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -54,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
     public static Handler UIHandler;
     @SuppressLint("StaticFieldLeak")
     public static Fragment fragment = null;
+    @SuppressLint("StaticFieldLeak")
+    static BottomNavigationView bottomNavigationView;
 
     static {
         try {
@@ -95,12 +98,9 @@ public class MainActivity extends AppCompatActivity {
     Toolbar toolbar;
     Button btnPlace, btnEat, btnHoTel, btnEntertain, btnVehicle;
     ImageView btnSearch;
-    FloatingActionButton fab, fabAddPlace;
-    boolean enterprise = false;
+    FloatingActionButton fabAddPlace;
     FragmentManager fragmentManager = getFragmentManager();
     SessionManager sessionManager;
-    @SuppressLint("StaticFieldLeak")
-    static BottomNavigationView bottomNavigationView;
 
     public static void runOnUI(Runnable runnable) {
         UIHandler.post(runnable);
@@ -159,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent iSearch = new Intent(MainActivity.this, ActivitySearch.class);
-                startActivityForResult(iSearch, 888);
+                startActivity(iSearch);
             }
         });
 
@@ -175,8 +175,7 @@ public class MainActivity extends AppCompatActivity {
 
     void load() {
         toolbar = findViewById(R.id.toolbar);
-        fab = findViewById(R.id.fab);
-        fabAddPlace = findViewById(R.id.fab_addplace);
+        fabAddPlace = findViewById(R.id.fab);
         btnPlace = findViewById(R.id.btnAllPlace);
         btnEat = findViewById(R.id.btnAllEat);
         btnHoTel = findViewById(R.id.btnAllHotel);
@@ -213,18 +212,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void fabOnClick() { //Floating bar
-        fab.setOnClickListener(new View.OnClickListener() {
+        fabAddPlace.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivityForResult(new Intent(getApplicationContext(), ActivityAddPlace.class), 1);
+                startActivity(new Intent(getApplicationContext(), ActivityAddPlace.class));
             }
         });
     }
 
     void display_enterprise() {
-        if (!enterprise) {
+        // nếu người dùng không phải người dùng cá nhân thì cho thêm
+        if (userType != null && !userType.equals("1")) {
+            fabAddPlace.setVisibility(View.VISIBLE);
             fabOnClick();
-        }
+        } else
+            fabAddPlace.setVisibility(View.GONE);
     }
 
     //Custom view service
