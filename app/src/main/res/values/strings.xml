@@ -182,4 +182,5 @@
     <string name="text_Partner">Partner</string>
     <string name="text_Moderator">Moderator</string>
     <string name="text_Admin">Admin</string>
+    <string name="text_FieldIsEmpty">The field is empty</string>
 </resources>

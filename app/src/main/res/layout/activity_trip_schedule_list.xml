@@ -19,11 +19,19 @@
             android:background="@color/bgToolbar"
             app:layout_collapseMode="pin">
 
+            <ImageButton
+                android:id="@+id/btnBack"
+                android:layout_width="23dp"
+                android:layout_height="13dp"
+                android:background="@null"
+                android:tint="@color/colorWhite"
+                android:layout_marginLeft="-50dp"
+                android:src="@drawable/ic_arrow_left_36dp"/>
+
             <TextView
                 android:id="@+id/toolbarTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
                 android:text="@string/text_TripSchedule"
                 android:textColor="@color/colorWhite"
                 android:textSize="18sp" />

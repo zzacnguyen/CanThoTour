@@ -104,6 +104,9 @@ public class Config {
     public static final ArrayList<String> GET_KEY_JSON_LOGIN =
             new ArrayList<>(Arrays.asList("result", "error", "status", "ERROR", "OK"));
 
+    public static final ArrayList<String> GET_KEY_JSON_TRIP_SCHEDULE =
+            new ArrayList<>(Arrays.asList("result", "error", "status", "ERROR", "OK"));
+
     public static final ArrayList<String> GET_KEY_SEARCH_NEAR =
             new ArrayList<>(Arrays.asList("data", "status", "NOT FOUND", "OK"));
 
@@ -115,6 +118,9 @@ public class Config {
 
     public static final ArrayList<String> POST_KEY_REGISTER =
             new ArrayList<>(Arrays.asList("\"username\"", "\"password\""));
+
+    public static final ArrayList<String> POST_KEY_TRIP_SCHEDULE =
+            new ArrayList<>(Arrays.asList("\"tripname\"", "\"trip_startdate\"", "\"trip_enddate\""));
 
     public static final ArrayList<String> POST_KEY_JSON_REVIEW =
             new ArrayList<>(Arrays.asList("\"service_id\"", "\"user_id\"", "\"vr_rating\"",

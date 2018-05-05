@@ -8,15 +8,13 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageButton;
 
 import com.doan3.canthotour.Adapter.HttpRequestAdapter;
-import com.doan3.canthotour.Adapter.ListOfReviewAdapter;
 import com.doan3.canthotour.Adapter.ListOfTripScheduleAdapter;
 import com.doan3.canthotour.Config;
 import com.doan3.canthotour.Interface.OnLoadMoreListener;
-import com.doan3.canthotour.Model.ModelService;
 import com.doan3.canthotour.Model.ModelTripSchedule;
-import com.doan3.canthotour.Model.ObjectClass.Review;
 import com.doan3.canthotour.Model.ObjectClass.TripSchedule;
 import com.doan3.canthotour.R;
 
@@ -33,6 +31,7 @@ public class ActivityTripSchedule extends AppCompatActivity {
 
     FloatingActionButton fabAddTripSchedule;
     ArrayList<String> finalArr = new ArrayList<>();
+    ImageButton btnBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +39,14 @@ public class ActivityTripSchedule extends AppCompatActivity {
         setContentView(R.layout.activity_trip_schedule_list);
 
         fabAddTripSchedule = findViewById(R.id.fabAddTripSchedule);
+        btnBack = findViewById(R.id.btnBack);
+
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         fabAddTripSchedule.setOnClickListener(new View.OnClickListener() {
             @Override

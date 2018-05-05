@@ -60,28 +60,29 @@
             android:textSize="16sp" />
 
         <EditText
-            android:id="@+id/etStartDate"
+            android:id="@+id/etStartDatePicker"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:background="@drawable/white_grey_border_bottom"
             android:hint="@string/text_StartDate"
-            android:inputType="number"
-            android:maxLength="1"
+            android:inputType="date"
+            android:maxLength="13"
             android:padding="10dp"
             android:textSize="16sp" />
 
         <EditText
-            android:id="@+id/etEndDate"
+            android:id="@+id/etEndDatePicker"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:background="@color/colorWhite"
             android:hint="@string/text_EndDate"
-            android:inputType="number"
+            android:inputType="date"
             android:maxLength="13"
             android:padding="10dp"
             android:textSize="16sp" />
+
 
     </LinearLayout>
 

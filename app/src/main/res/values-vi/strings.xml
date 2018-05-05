@@ -166,4 +166,5 @@
     <string name="text_Partner">Cộng tác viên</string>
     <string name="text_Moderator">Mod</string>
     <string name="text_Admin">Quản trị viên</string>
+    <string name="text_FieldIsEmpty">Không được để trống</string>
 </resources>
