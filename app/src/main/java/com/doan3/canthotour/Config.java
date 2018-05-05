@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.Collections;
 
 public class Config {
-    public static final String URL_HOST = "http://192.168.1.4/doan3_canthotour/";
+    public static final String URL_HOST = "http://192.168.1.28/doan3_canthotour/";
     public static final String URL_LOGIN = "login-mobile";
     public static final String URL_GET_PROVINCE = "province";
     public static final String URL_GET_DISTRICT = "district/";
@@ -36,6 +36,7 @@ public class Config {
     public static final String URL_GET_LINK_BANNER = "get-banner/";
     public static final String URL_GET_THUMB = "thumbnails/";
     public static final String URL_POST_PLACE = "add-places";
+    public static final String URL_POST_SERVICE = "add-services/";
     public static final String URL_POST_IMAGE = "upload-image/";
     public static final String URL_GET_EVENT_NUMBER = "counter-events";
 
@@ -105,6 +106,9 @@ public class Config {
 
     public static final ArrayList<String> GET_KEY_SEARCH_NEAR =
             new ArrayList<>(Arrays.asList("data", "status", "NOT FOUND", "OK"));
+
+    public static final ArrayList<String> POST_KEY_HISTORY_SEARCH =
+            new ArrayList<>(Arrays.asList("\"id_service\"", "\"id_user\""));
 
     public static final ArrayList<String> POST_KEY_LOGIN =
             new ArrayList<>(Arrays.asList("\"username\"", "\"password\""));

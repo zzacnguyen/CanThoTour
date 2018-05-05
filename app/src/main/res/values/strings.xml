@@ -74,7 +74,6 @@
     <string name="text_Hotel">Hotel</string>
     <string name="text_Vehicle">Vehicle</string>
     <string name="text_Send">Send</string>
-    <string name="text_Add">Add</string>
     <string name="text_Entertainment_AdvancedSearch">Entertainment</string>
     <string name="text_ForgetYourPassword">Forget your password ?</string>
     <string name="text_Username">Username</string>
@@ -140,7 +139,7 @@
     <string name="text_District">District:</string>
     <string name="text_Ward">Ward:</string>
     <string name="text_PleaseReviewBeforeSend">Please review before send</string>
-    <string name="text_ReviewsCompleted">Reviews completed</string>
+    <string name="text_ReviewCompleted">Review completed</string>
     <string name="toast_ShareSuccessful">Share successful</string>
     <string name="toast_ShareCancel">Share cancel</string>
     <string name="toast_ShareError">Share error</string>
@@ -149,7 +148,7 @@
     <string name="text_PleaseEnterSearchKey">Please enter search key</string>
     <string name="text_WhatIsYourPlaceName">What\'s your place name ?</string>
     <string name="text_EnterYourAddress">Enter your address</string>
-    <string name="text_EnterYourNumber">Enter your number</string>
+    <string name="text_EnterYourPhoneNumber">Enter your phone number</string>
     <string name="text_TypeYouDescription">Please type a brief description of your place</string>
     <string name="text_ChooseAddress">Choose address</string>
     <string name="text_Success">Success</string>
@@ -177,4 +176,10 @@
     <string name="text_EventName">Create your event name</string>
     <string name="text_EventType">Event type:</string>
     <string name="text_ServiceVenue">Service venue:</string>
+    <string name="text_LoginSuccess">Login success</string>
+    <string name="text_ChangeReviewCompleted">Change review completed</string>
+    <string name="text_TourGuide">Tour guide</string>
+    <string name="text_Partner">Partner</string>
+    <string name="text_Moderator">Moderator</string>
+    <string name="text_Admin">Admin</string>
 </resources>

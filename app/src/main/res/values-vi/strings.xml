@@ -57,7 +57,6 @@
     <string name="text_Hotel">Khách sạn</string>
     <string name="text_Vehicle">Phương tiện</string>
     <string name="text_Send">Gửi</string>
-    <string name="text_Add">Xong</string>
     <string name="text_Entertainment_AdvancedSearch">Vui chơi</string>
     <string name="text_ForgetYourPassword">Quên mật khẩu ?</string>
     <string name="text_Password">Mật khẩu</string>
@@ -124,7 +123,7 @@
     <string name="text_District">Quận/huyện</string>
     <string name="text_Ward">Phường/xã</string>
     <string name="text_PleaseReviewBeforeSend">Chưa đánh giá không thể gửi</string>
-    <string name="text_ReviewsCompleted">Đánh giá thành công</string>
+    <string name="text_ReviewCompleted">Đánh giá thành công</string>
     <string name="toast_ShareSuccessful">Chia sẽ thành công</string>
     <string name="toast_ShareCancel">Chia sẽ đã bị hủy</string>
     <string name="toast_ShareError">Chia sẽ thất bại</string>
@@ -133,7 +132,7 @@
     <string name="text_PleaseEnterSearchKey">Chưa nhập</string>
     <string name="text_WhatIsYourPlaceName">Tên địa điểm không được để trống</string>
     <string name="text_EnterYourAddress">Địa chỉ không được để trống</string>
-    <string name="text_EnterYourNumber">Số điện thoại không được để trống</string>
+    <string name="text_EnterYourPhoneNumber">Số điện thoại không được để trống</string>
     <string name="text_TypeYouDescription">Mô tả địa điểm không được để trống</string>
     <string name="text_ChooseAddress">Chưa chọn địa điểm</string>
     <string name="text_Success">Thành công</string>
@@ -161,4 +160,10 @@
     <string name="text_EventName">Nhập tên sự kiện</string>
     <string name="text_EventType">Loại sự kiện:</string>
     <string name="text_ServiceVenue">Nơi diễn ra:</string>
+    <string name="text_LoginSuccess">Đăng nhập thành công</string>
+    <string name="text_ChangeReviewCompleted">Thay đổi đánh giá thành công</string>
+    <string name="text_TourGuide">Hướng dẫn viên</string>
+    <string name="text_Partner">Cộng tác viên</string>
+    <string name="text_Moderator">Mod</string>
+    <string name="text_Admin">Quản trị viên</string>
 </resources>
