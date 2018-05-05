@@ -25,6 +25,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import com.doan3.canthotour.Adapter.HttpRequestAdapter.httpGet;
 import com.doan3.canthotour.Adapter.ServiceAdapter;
@@ -39,6 +40,7 @@ import com.doan3.canthotour.View.Main.Content.FragmentService;
 import com.doan3.canthotour.View.Notify.ActivityNotify;
 import com.doan3.canthotour.View.Personal.ActivityAddPlace;
 import com.doan3.canthotour.View.Personal.ActivityPersonal;
+import com.doan3.canthotour.View.Search.ActivitySearch;
 import com.doan3.canthotour.View.Search.FragmentSearch;
 
 import java.util.ArrayList;
@@ -92,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
 
     Toolbar toolbar;
     Button btnPlace, btnEat, btnHoTel, btnEntertain, btnVehicle;
+    ImageView btnSearch;
     FloatingActionButton fab, fabAddPlace;
     boolean enterprise = false;
     FragmentManager fragmentManager = getFragmentManager();
@@ -149,6 +152,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        btnSearch = findViewById(R.id.btnSearch);
+
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent iSearch = new Intent(MainActivity.this, ActivitySearch.class);
+                startActivityForResult(iSearch, 888);
+            }
+        });
 
         sessionManager = new SessionManager(getApplicationContext());
         sessionManager.checkLogin();
@@ -261,9 +274,9 @@ public class MainActivity extends AppCompatActivity {
                 fragment.setArguments(bundle);
                 break;
 
-            case R.id.btnSearch:
-                fragment = new FragmentSearch();
-                break;
+//            case R.id.btnSearch:
+//                fragment = new FragmentSearch();
+//                break;
         }
 
         fragmentTransaction.add(R.id.mainFragContent, fragment, "frag");

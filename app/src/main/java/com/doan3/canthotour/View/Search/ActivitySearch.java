@@ -75,14 +75,13 @@ public class ActivitySearch extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 finish();
-                finishActivity(2);
+                finishActivity(888);
             }
         });
 
         txtSearchHistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(ActivitySearch.this, "clgt", Toast.LENGTH_SHORT).show();
                 searchAll(Config.URL_GET_HISTORY_SEARCH, String.valueOf(userId));
             }
         });

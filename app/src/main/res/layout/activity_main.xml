@@ -52,7 +52,6 @@
                         android:textSize="20sp" />
 
                     <ImageView
-                        android:onClick="addFragment"
                         android:id="@+id/btnSearch"
                         android:layout_width="80dp"
                         android:layout_height="30dp"
