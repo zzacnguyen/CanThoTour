@@ -71,22 +71,37 @@ public class ActivityReview extends AppCompatActivity {
                 } else {
                     JSONObject json = null;
                     try {
-                        json = new JSONObject("{" + Config.POST_KEY_JSON_REVIEW.get(0) + ":\"" + id +
-                                "\"," + Config.POST_KEY_JSON_REVIEW.get(1) + ":\"" + userId +
-                                "\"," + Config.POST_KEY_JSON_REVIEW.get(2) + ":\"" + (int) rbRating.getRating() +
-                                "\"," + Config.POST_KEY_JSON_REVIEW.get(3) + ":\"" + txtTitle.getText() +
-                                "\"," + Config.POST_KEY_JSON_REVIEW.get(4) + ":\"" + txtReview.getText() + "\"}");
+                        json = new JSONObject("{"
+                                + Config.POST_KEY_JSON_REVIEW.get(0) + ":\"" + id + "\","
+                                + Config.POST_KEY_JSON_REVIEW.get(1) + ":\"" + userId + "\","
+                                + Config.POST_KEY_JSON_REVIEW.get(2) + ":\"" + (int) rbRating.getRating() + "\","
+                                + Config.POST_KEY_JSON_REVIEW.get(3) + ":\"" + txtTitle.getText() + "\","
+                                + Config.POST_KEY_JSON_REVIEW.get(4) + ":\"" + txtReview.getText() + "\"}");
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                     if (idReview.equals("0")) {
-                        new httpPost(json).execute(Config.URL_HOST + Config.URL_POST_REVIEW);
-
-                        intend(getResources().getString(R.string.text_ReviewCompleted));
+                        try {
+                            String stt = new httpPost(json).execute(Config.URL_HOST + Config.URL_POST_REVIEW).get();
+                            if (stt.equals("\"status: 200\""))
+                                intend(getResources().getString(R.string.text_ReviewCompleted));
+                            else
+                                Toast.makeText(ActivityReview.this,
+                                        getResources().getString(R.string.text_ReviewFailure), Toast.LENGTH_SHORT).show();
+                        } catch (InterruptedException | ExecutionException e) {
+                            e.printStackTrace();
+                        }
                     } else {
-                        new httpPut(json).execute(Config.URL_HOST + Config.URL_POST_REVIEW + "/" + idReview);
-
-                        intend(getResources().getString(R.string.text_ReviewCompleted));
+                        try {
+                            String stt = new httpPut(json).execute(Config.URL_HOST + Config.URL_POST_REVIEW + "/" + idReview).get();
+                            if (stt.equals("\"status: 200\""))
+                                intend(getResources().getString(R.string.text_ReviewCompleted));
+                            else
+                                Toast.makeText(ActivityReview.this,
+                                        getResources().getString(R.string.text_ReviewFailure), Toast.LENGTH_SHORT).show();
+                        } catch (InterruptedException | ExecutionException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
             }

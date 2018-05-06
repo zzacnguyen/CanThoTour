@@ -1,10 +1,10 @@
 package com.doan3.canthotour.View.Personal;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -26,6 +26,7 @@ import java.util.concurrent.ExecutionException;
 
 import static com.doan3.canthotour.Helper.JsonHelper.parseJsonNoId;
 import static com.doan3.canthotour.View.Main.MainActivity.menuBotNavBar;
+import static com.doan3.canthotour.View.Personal.ActivityPersonal.userId;
 
 public class ActivityTripSchedule extends AppCompatActivity {
 
@@ -54,11 +55,11 @@ public class ActivityTripSchedule extends AppCompatActivity {
                 startActivityForResult(new Intent(ActivityTripSchedule.this, ActivityAddTripSchedule.class), 1);
             }
         });
-
+//        loadTripList(Config.URL_HOST + Config.URL_GET_TRIP_SCHEDULE);
         menuBotNavBar(this, 3);
     }
 
-    private void loadTripList(String url, int userId, final ArrayList<String> keyJson){
+    private void loadTripList(String url) {
         final RecyclerView recyclerView = findViewById(R.id.RecyclerView_TripScheduleList);
         recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
 
@@ -66,7 +67,7 @@ public class ActivityTripSchedule extends AppCompatActivity {
                 new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        ArrayList<TripSchedule> tripScheduleList = new ModelTripSchedule().getTripScheduleList(url + "/" + userId, keyJson);
+        ArrayList<TripSchedule> tripScheduleList = new ModelTripSchedule().getTripScheduleList(url + "/" + userId);
 
         final ListOfTripScheduleAdapter listOfTripScheduleAdapter =
                 new ListOfTripScheduleAdapter(recyclerView, getApplicationContext(), tripScheduleList);
@@ -98,10 +99,8 @@ public class ActivityTripSchedule extends AppCompatActivity {
                             finalListService.remove(finalListService.size() - 1);
                             listOfTripScheduleAdapter.notifyItemRemoved(finalListService.size());
 
-                            ArrayList<TripSchedule> tripscheduleArrayList = new ModelTripSchedule().getTripScheduleList(finalArr.get(1), keyJson);
-                            for (int i = 0; i < tripscheduleArrayList.size(); i++) {
-                                finalListService.add(tripscheduleArrayList.get(i));
-                            }
+                            ArrayList<TripSchedule> tripscheduleArrayList = new ModelTripSchedule().getTripScheduleList(finalArr.get(1));
+                            finalListService.addAll(tripscheduleArrayList);
                             try {
                                 finalArr = parseJsonNoId(new JSONObject
                                         (new HttpRequestAdapter.httpGet().execute(finalArr.get(1)).get()), Config.GET_KEY_JSON_LOAD);

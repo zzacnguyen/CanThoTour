@@ -11,9 +11,18 @@ public class Event {
     private String eventName;
     private String eventDate;
     private Bitmap eventImage;
+    private boolean seen;
 
     public Event(){
 
+    }
+
+    public boolean isSeen() {
+        return seen;
+    }
+
+    public void setSeen(boolean seen) {
+        this.seen = seen;
     }
 
     public int getEventId() {

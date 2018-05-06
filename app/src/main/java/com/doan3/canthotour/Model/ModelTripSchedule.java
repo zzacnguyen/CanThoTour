@@ -10,28 +10,29 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
+
 import static com.doan3.canthotour.Helper.JsonHelper.parseJson;
 import static com.doan3.canthotour.Helper.JsonHelper.parseJsonNoId;
 
 
-
 public class ModelTripSchedule {
 
-    public ArrayList<TripSchedule> getTripScheduleList (String url, ArrayList<String> formatJSON){
+    public ArrayList<TripSchedule> getTripScheduleList(String url) {
 
-        ArrayList<String> arr, dataJson;
+        ArrayList<String> dataJson;
         ArrayList<TripSchedule> tripSchedules = new ArrayList<>();
 
         try {
             String result = new HttpRequestAdapter.httpGet().execute(url).get();
-            arr = parseJsonNoId(new JSONObject(result), Config.GET_KEY_JSON_LOAD);
-            JSONArray jsonArray = new JSONArray(arr.get(0));
+            dataJson = parseJsonNoId(new JSONObject(result), Config.GET_KEY_JSON_LOAD);
+            JSONArray jsonArray = new JSONArray(dataJson.get(0));
 
-            for (int i = 0; i < jsonArray.length(); i++){
+            for (int i = 0; i < jsonArray.length(); i++) {
 
                 TripSchedule tripSchedule = new TripSchedule();
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-                dataJson = parseJson(jsonObject, formatJSON);
+                dataJson.clear();
+                dataJson = parseJson(jsonObject, Config.GET_KEY_JSON_TRIP_SCHEDULE);
 
                 tripSchedule.setTripID(Integer.parseInt(dataJson.get(0)));
                 tripSchedule.setTripName(dataJson.get(1));
@@ -41,11 +42,7 @@ public class ModelTripSchedule {
                 tripSchedules.add(tripSchedule);
             }
 
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
+        } catch (InterruptedException | ExecutionException | JSONException e) {
             e.printStackTrace();
         }
 

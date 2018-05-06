@@ -25,22 +25,24 @@ import static com.doan3.canthotour.Model.ModelService.setImage;
 public class ModelFavorite {
     public ArrayList<Service> getFavoriteList(File file, String url) {
 
-        ArrayList<String> arr, arrayList;
+        ArrayList<String> arrayList;
         ArrayList<Service> services = new ArrayList<>();
 
         try {
-            arr = parseJsonNoId(new JSONObject(new HttpRequestAdapter.httpGet().execute(url).get()), Config.GET_KEY_JSON_LOAD);
+            arrayList = parseJsonNoId(new JSONObject(new HttpRequestAdapter.httpGet().execute(url).get()), Config.GET_KEY_JSON_LOAD);
             JSONArray jsonArray;
+
             if (file.exists()) {
-                jsonArray = mergeJson(new JSONArray(arr.get(0)), new JSONArray(readJson(file)));
+                jsonArray = mergeJson(new JSONArray(arrayList.get(0)), new JSONArray(readJson(file)));
             } else {
-                jsonArray = new JSONArray(arr.get(0));
+                jsonArray = new JSONArray(arrayList.get(0));
             }
 
             for (int i = 0; i < jsonArray.length(); i++) {
 
                 Service service = new Service();
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
+                arrayList.clear();
                 arrayList = parseJson(jsonObject, Config.GET_KEY_JSON_SERVICE_LIST);
 
                 //Set hình ảnh

@@ -1,14 +1,17 @@
 package com.doan3.canthotour.View.Personal;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
+import com.doan3.canthotour.Adapter.HttpRequestAdapter;
 import com.doan3.canthotour.Config;
 import com.doan3.canthotour.R;
 
@@ -19,9 +22,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.concurrent.ExecutionException;
 
-import com.doan3.canthotour.Adapter.HttpRequestAdapter.httpPost;
-
 import static com.doan3.canthotour.View.Main.MainActivity.menuBotNavBar;
+import static com.doan3.canthotour.View.Personal.ActivityPersonal.userId;
 
 public class ActivityAddTripSchedule extends AppCompatActivity implements View.OnFocusChangeListener {
 
@@ -71,30 +73,28 @@ public class ActivityAddTripSchedule extends AppCompatActivity implements View.O
         btnCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                JSONObject json;
-//                String stt = null, error = null;
+//                String stt = null;
 //
-//                if(checkInfo){
+//                if (checkInfo) {
 //                    try {
 //                        JSONObject jsonPost = new JSONObject("{"
 //                                + Config.POST_KEY_TRIP_SCHEDULE.get(0) + ":\"" + etTripName.getText().toString() + "\","
 //                                + Config.POST_KEY_TRIP_SCHEDULE.get(1) + ":\"" + etStartDate.getText().toString() + "\","
-//                                + Config.POST_KEY_TRIP_SCHEDULE.get(2) + ":\"" + etEndDate.getText().toString() + "\"}");
-//                        json = new JSONObject(new httpPost(jsonPost).execute(Config.URL_HOST + "URL_ADD_TRIP_SCHEDULE").get());
-//                        // lấy status trả về
-//                        stt = json.getString(Config.GET_KEY_JSON_TRIP_SCHEDULE.get(2));
-//                    } catch (JSONException e) {
-//                        e.printStackTrace();
-//                    } catch (InterruptedException e) {
-//                        e.printStackTrace();
-//                    } catch (ExecutionException e) {
+//                                + Config.POST_KEY_TRIP_SCHEDULE.get(2) + ":\"" + etEndDate.getText().toString() + "\","
+//                                + Config.POST_KEY_TRIP_SCHEDULE.get(3) + ":\"" + 1 + "\","
+//                                + Config.POST_KEY_TRIP_SCHEDULE.get(4) + ":\"" + userId + "\"}");
+//                        stt = new HttpRequestAdapter.httpPost(jsonPost)
+//                                .execute(Config.URL_HOST + Config.URL_POST_TRIP_SCHEDULE).get();
+//                    } catch (JSONException | InterruptedException | ExecutionException e) {
 //                        e.printStackTrace();
 //                    }
 //                }
 //
 //                // nếu status != null và = OK
-//                if (stt != null && stt.equals(Config.GET_KEY_JSON_LOGIN.get(4))) {
+//                if (stt.equals("\'status:200\"")) {
 //                    finish();
+//                } else {
+//                    Toast.makeText(ActivityAddTripSchedule.this, getResources().getString(R.string.text_AddFailed), Toast.LENGTH_SHORT).show();
 //                }
             }
         });
@@ -103,7 +103,7 @@ public class ActivityAddTripSchedule extends AppCompatActivity implements View.O
 
     }
 
-    private void datePicker(final EditText editText){
+    private void datePicker(final EditText editText) {
         final Calendar calendar = Calendar.getInstance();
         int date = calendar.get(Calendar.DATE);
         int month = calendar.get(Calendar.MONTH);
@@ -114,7 +114,7 @@ public class ActivityAddTripSchedule extends AppCompatActivity implements View.O
             public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
                 //i: năm, i1: tháng, i2: ngày
                 calendar.set(i, i1, i2);
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                @SuppressLint("SimpleDateFormat") SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
                 editText.setText(simpleDateFormat.format(calendar.getTime()));
             }
         }, year, month, date);
@@ -123,38 +123,38 @@ public class ActivityAddTripSchedule extends AppCompatActivity implements View.O
 
     @Override
     public void onFocusChange(View view, boolean b) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.etTripName:
-                if(!b){
-                    String str =((EditText)view).getText().toString();
-                    if(str.trim().equals("") || str.equals(null)){
+                if (!b) {
+                    String str = ((EditText) view).getText().toString();
+                    if (str.trim().equals("")) {
                         etTripName.setError(getResources().getString(R.string.text_FieldIsEmpty));
                         checkInfo = false;
-                    }else{
+                    } else {
                         checkInfo = true;
                     }
                 }
                 break;
 
             case R.id.etStartDatePicker:
-                if(!b){
-                    String str =((EditText)view).getText().toString();
-                    if(str.trim().equals("") || str.equals(null)){
+                if (!b) {
+                    String str = ((EditText) view).getText().toString();
+                    if (str.trim().equals("")) {
                         etStartDate.setError(getResources().getString(R.string.text_FieldIsEmpty));
                         checkInfo = false;
-                    }else{
+                    } else {
                         checkInfo = true;
                     }
                 }
                 break;
 
             case R.id.etEndDatePicker:
-                if(!b){
-                    String str =((EditText)view).getText().toString();
-                    if(str.trim().equals("") || str.equals(null)){
+                if (!b) {
+                    String str = ((EditText) view).getText().toString();
+                    if (str.trim().equals("")) {
                         etEndDate.setError(getResources().getString(R.string.text_FieldIsEmpty));
                         checkInfo = false;
-                    }else{
+                    } else {
 
                         checkInfo = true;
                     }

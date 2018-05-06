@@ -39,7 +39,7 @@ import static com.doan3.canthotour.View.Personal.ActivityPersonal.userId;
 public class ActivityAddPlace extends AppCompatActivity {
 
     private final int REQUEST_CODE_PLACEPICKER = 1;
-    TextView txtLat, txtLong, btnSend, btnCancel;
+    TextView txtLat, txtLong, btnCancel;
     EditText etAddress, etPlaceName, etPlacePhone, etPlaceAbout;
     Button btnPlacePicker;
     LinearLayout linearPlace, linearEat, linearHotel, linearEntertaiment, linearVehicle;
@@ -64,7 +64,6 @@ public class ActivityAddPlace extends AppCompatActivity {
         etPlacePhone = findViewById(R.id.etPlacePhone);
         etPlaceAbout = findViewById(R.id.etPlaceAbout);
         btnPlacePicker = findViewById(R.id.btnPlacePicker);
-        btnSend = findViewById(R.id.btnSendLocation);
         btnCancel = findViewById(R.id.btnCancelLocation);
         linearPlace = findViewById(R.id.linearPlace);
         linearEat = findViewById(R.id.linearEat);
@@ -219,15 +218,24 @@ public class ActivityAddPlace extends AppCompatActivity {
             Toast.makeText(ActivityAddPlace.this, getResources().getString(R.string.text_ChooseAddress), Toast.LENGTH_SHORT).show();
         } else {
             try {
-                JSONObject jsonPost = new JSONObject("{" + Config.POST_KEY_JSON_PLACE.get(0) + ":\""
-                        + etPlaceName.getText().toString() + "\","
+                JSONObject jsonPost = new JSONObject("{"
+                        // tên địa điểm
+                        + Config.POST_KEY_JSON_PLACE.get(0) + ":\"" + etPlaceName.getText().toString() + "\","
+                        // giới thiệu địa điểm
                         + Config.POST_KEY_JSON_PLACE.get(1) + ":\"" + etPlaceAbout.getText().toString() + "\","
+                        // địa chỉ
                         + Config.POST_KEY_JSON_PLACE.get(2) + ":\"" + etAddress.getText().toString() + "\","
+                        // sdt
                         + Config.POST_KEY_JSON_PLACE.get(3) + ":\"" + etPlacePhone.getText().toString() + "\","
+                        // vĩ độ
                         + Config.POST_KEY_JSON_PLACE.get(4) + ":\"" + txtLat.getText().toString() + "\","
+                        // kinh độ
                         + Config.POST_KEY_JSON_PLACE.get(5) + ":\"" + txtLong.getText().toString() + "\","
+                        // mã xã phường
                         + Config.POST_KEY_JSON_PLACE.get(6) + ":\"" + ID + "\","
+                        // id người dùng ctv
                         + Config.POST_KEY_JSON_PLACE.get(7) + ":\"" + userId + "\","
+                        // id người dùng hdv
                         + Config.POST_KEY_JSON_PLACE.get(8) + ":\"" + "" + "\"" + "}");
                 stringIdPlace = new httpPost(jsonPost).execute(Config.URL_HOST + Config.URL_POST_PLACE).get();
             } catch (InterruptedException | ExecutionException | JSONException e) {
