@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.Collections;
 
 public class Config {
-    public static final String URL_HOST = "http://192.168.1.28/doan3_canthotour/";
+    public static final String URL_HOST = "http://192.168.1.9/doan3_canthotour/";
     public static final String URL_LOGIN = "login-mobile";
     public static final String URL_GET_PROVINCE = "province";
     public static final String URL_GET_DISTRICT = "district/";
@@ -39,10 +39,13 @@ public class Config {
     public static final String URL_POST_SERVICE = "add-services/";
     public static final String URL_POST_IMAGE = "upload-image/";
     public static final String URL_GET_EVENT_NUMBER = "counter-events";
+    public static final String URL_GET_TRIP_SCHEDULE = "list-schedule/";
+    public static final String URL_POST_TRIP_SCHEDULE = "post-schedule";
 
     public static final String FOLDER = "/vietnamtour";
     public static final String FOLDER_AVATAR = "avatar";
-    public static final String FILE_LIKE = "dsyeuthich.json";
+    public static final String FILE_EVENT = "listOfEvent.json";
+    public static final String FILE_LIKE = "listOfFavorite.json";
     public static final String NULL = "null";
     public static final String KEY_DISTANCE = "distance";
     public static final String DEFAULT_DISTANCE = "500";
@@ -105,7 +108,7 @@ public class Config {
             new ArrayList<>(Arrays.asList("result", "error", "status", "ERROR", "OK"));
 
     public static final ArrayList<String> GET_KEY_JSON_TRIP_SCHEDULE =
-            new ArrayList<>(Arrays.asList("result", "error", "status", "ERROR", "OK"));
+            new ArrayList<>(Arrays.asList("trip_name", "trip_startdate", "trip_enddate"));
 
     public static final ArrayList<String> GET_KEY_SEARCH_NEAR =
             new ArrayList<>(Arrays.asList("data", "status", "NOT FOUND", "OK"));
@@ -120,7 +123,8 @@ public class Config {
             new ArrayList<>(Arrays.asList("\"username\"", "\"password\""));
 
     public static final ArrayList<String> POST_KEY_TRIP_SCHEDULE =
-            new ArrayList<>(Arrays.asList("\"tripname\"", "\"trip_startdate\"", "\"trip_enddate\""));
+            new ArrayList<>(Arrays.asList("\"tripname\"", "\"trip_startdate\"", "\"trip_enddate\"",
+                    "\"service_id\"", "\"user_id\""));
 
     public static final ArrayList<String> POST_KEY_JSON_REVIEW =
             new ArrayList<>(Arrays.asList("\"service_id\"", "\"user_id\"", "\"vr_rating\"",

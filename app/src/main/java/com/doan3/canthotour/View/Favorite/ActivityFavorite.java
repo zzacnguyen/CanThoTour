@@ -36,7 +36,6 @@ public class ActivityFavorite extends AppCompatActivity {
     TextView txtServiceName;
     ImageView imgServiceImage;
     RecyclerView recyclerView;
-    ListOfServiceAdapter listOfServiceAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +84,7 @@ public class ActivityFavorite extends AppCompatActivity {
         ArrayList<Service> favoriteList = new ModelFavorite().getFavoriteList(file, Config.URL_HOST +
                 Config.URL_GET_ALL_FAVORITE + "/" + id);
 
-        listOfServiceAdapter =
+        final ListOfServiceAdapter listOfServiceAdapter =
                 new ListOfServiceAdapter(recyclerView, favoriteList, getApplicationContext());
         recyclerView.setAdapter(listOfServiceAdapter);
         listOfServiceAdapter.notifyDataSetChanged();
@@ -133,11 +132,5 @@ public class ActivityFavorite extends AppCompatActivity {
                 }
             }
         });
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        listOfServiceAdapter.setOnLoadMoreListener(null);
     }
 }

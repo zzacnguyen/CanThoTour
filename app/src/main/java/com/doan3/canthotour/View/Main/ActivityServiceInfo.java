@@ -80,7 +80,8 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
         switch (view.getId()) {
             case R.id.imgInfo1:
                 try {
-                    imgDetail = new HttpRequestAdapter.httpGet().execute(Config.URL_HOST + Config.URL_GET_LINK_DETAIL_1 + idService).get()
+                    imgDetail = new HttpRequestAdapter.httpGet()
+                            .execute(Config.URL_HOST + Config.URL_GET_LINK_DETAIL_1 + idService).get()
                             .replaceAll("\"", "")
                             .split("\\+");
                     startActivity(iDetail);
@@ -162,7 +163,7 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
                                 // duyệt mảng json
                                 for (int i = 0; i < jsonArrayInFile.length(); i++) {
                                     // nếu id dịch vụ trong mảng json mới đọc lên != với id dịch vụ hiện tại
-                                    if (Integer.parseInt(jsonArrayInFile.getJSONObject(i).getString("id")) != (idService)) {
+                                    if (Integer.parseInt(jsonArrayInFile.getJSONObject(i).getString("id")) != idService) {
                                         // add json object đó vào jsonArray
                                         jsonArray.put(jsonArrayInFile.getJSONObject(i));
                                     }
@@ -399,14 +400,14 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
 
         // json yêu thích lưu vào thẻ nhớ
         try {
-            saveJson = new JSONObject("{" + Config.POST_KEY_JSON_LIKE_SERVICE.get(0) + ":\"" + idService + "\"," +
-                    Config.POST_KEY_JSON_LIKE_SERVICE.get(1) + ":\"" + serviceInfo.getHotelName() + "\"," +
-                    Config.POST_KEY_JSON_LIKE_SERVICE.get(2) + ":\"" + serviceInfo.getEntertainName() + "\"," +
-                    Config.POST_KEY_JSON_LIKE_SERVICE.get(3) + ":\"" + serviceInfo.getVehicleName() + "\"," +
-                    Config.POST_KEY_JSON_LIKE_SERVICE.get(4) + ":\"" + serviceInfo.getPlaceName() + "\"," +
-                    Config.POST_KEY_JSON_LIKE_SERVICE.get(5) + ":\"" + serviceInfo.getEatName() + "\"," +
-                    Config.POST_KEY_JSON_LIKE_SERVICE.get(6) + ":\"" + serviceInfo.getIdImage() + "\"," +
-                    Config.POST_KEY_JSON_LIKE_SERVICE.get(7) + ":\"" + serviceInfo.getImageName() + "\"}");
+            saveJson = new JSONObject("{" + Config.POST_KEY_JSON_LIKE_SERVICE.get(0) + ":\"" + idService + "\","
+                    + Config.POST_KEY_JSON_LIKE_SERVICE.get(1) + ":\"" + serviceInfo.getHotelName() + "\","
+                    + Config.POST_KEY_JSON_LIKE_SERVICE.get(2) + ":\"" + serviceInfo.getEntertainName() + "\","
+                    + Config.POST_KEY_JSON_LIKE_SERVICE.get(3) + ":\"" + serviceInfo.getVehicleName() + "\","
+                    + Config.POST_KEY_JSON_LIKE_SERVICE.get(4) + ":\"" + serviceInfo.getPlaceName() + "\","
+                    + Config.POST_KEY_JSON_LIKE_SERVICE.get(5) + ":\"" + serviceInfo.getEatName() + "\","
+                    + Config.POST_KEY_JSON_LIKE_SERVICE.get(6) + ":\"" + serviceInfo.getIdImage() + "\","
+                    + Config.POST_KEY_JSON_LIKE_SERVICE.get(7) + ":\"" + serviceInfo.getImageName() + "\"}");
         } catch (JSONException e) {
             e.printStackTrace();
         }

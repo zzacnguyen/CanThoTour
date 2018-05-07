@@ -2,7 +2,7 @@ package com.doan3.canthotour.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.widget.CardView;
+import android.os.Environment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,12 +12,22 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.doan3.canthotour.Config;
 import com.doan3.canthotour.Interface.OnLoadMoreListener;
 import com.doan3.canthotour.Model.ObjectClass.Event;
 import com.doan3.canthotour.R;
 import com.doan3.canthotour.View.Main.ActivityServiceInfo;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.File;
 import java.util.ArrayList;
+
+import static com.doan3.canthotour.Helper.JsonHelper.readJson;
+import static com.doan3.canthotour.Helper.JsonHelper.writeJson;
+import static com.doan3.canthotour.View.Main.MainActivity.badgeNumber;
 
 
 public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -80,12 +90,15 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             viewHolder.txtNgaySk.setText(event.getEventDate());
             viewHolder.imgHinhSk.setImageBitmap(event.getEventImage());
             viewHolder.cardView.setTag(event.getEventId());
+            if (event.isSeen())
+                viewHolder.cardView.setBackgroundColor(context.getResources().getColor(R.color.colorWhite));
 
             viewHolder.cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent iEventInfo = new Intent(context, ActivityServiceInfo.class);
                     iEventInfo.putExtra("id", (int) view.getTag());
+                    addEventSeen(view);
                     iEventInfo.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(iEventInfo);
                 }
@@ -105,6 +118,44 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         isLoading = false;
     }
 
+    private void addEventSeen(View view) {
+        File path = new File(Environment.getExternalStorageDirectory() + Config.FOLDER);
+        if (!path.exists()) {
+            path.mkdirs();
+        }
+        File file = new File(path, Config.FILE_EVENT);
+        JSONArray jsonArray;
+
+        if (file.exists()) {
+            boolean exists = false;
+            try {
+                jsonArray = new JSONArray(readJson(file));
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    if (view.getTag().toString().equals(jsonArray.getJSONObject(i).getString("id"))) {
+                        exists = true;
+                        break;
+                    }
+                }
+                if (!exists) {
+                    jsonArray.put(new JSONObject().put("id", view.getTag().toString()));
+                    if (file.delete()) {
+                        writeJson(file, jsonArray);
+                    }
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        } else {
+            try {
+                jsonArray = new JSONArray().put(new JSONObject()
+                        .put("id", view.getTag().toString()));
+                writeJson(file, jsonArray);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     // "Loading item" ViewHolder
     private class LoadingViewHolder extends RecyclerView.ViewHolder {
         public ProgressBar progressBar;
@@ -120,7 +171,7 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         //ViewHolder chạy thứ 2, phần này giúp cho recycler view ko bị load lại dữ liệu khi thực hiện thao tác vuốt màn hình
         TextView txtTenSk, txtNgaySk;
         ImageView imgHinhSk;
-        CardView cardView;
+        View cardView;
 
         public ViewHolder(View itemView) {
             super(itemView);

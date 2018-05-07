@@ -147,7 +147,7 @@ public class ModelService {
             }
             File file = new File(path, Config.FILE_LIKE);
 
-            boolean isLiked = false;
+            boolean checkIsLike = false;
             // nếu file tồn tại thì đọc file lên
             if (file.exists()) {
                 JSONArray jsonFile = new JSONArray(readJson(file));
@@ -155,12 +155,12 @@ public class ModelService {
                     // nếu id dịch vụ == id dịch vụ trong file yêu thích => người dùng đã thích
                     if (serviceInfo.getId() == Integer.parseInt(jsonFile.getJSONObject(i).getString("id"))) {
                         serviceInfo.setIsLike(true);
-                        isLiked = true;
+                        checkIsLike = true;
                     }
                 }
             }
             // nếu trong file yêu thích chưa có thì xem trong csdl đã thích hay chưa
-            if (!isLiked) {
+            if (!checkIsLike) {
                 if (isLike) {
                     serviceInfo.setIsLike(true);
                     JSONObject jsonIdLike = new JSONObject(jsonResult.getString(Config.KEY_SERVICE_INFO.get(1)));

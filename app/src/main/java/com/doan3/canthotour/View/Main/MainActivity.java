@@ -31,6 +31,7 @@ import com.doan3.canthotour.Adapter.HttpRequestAdapter.httpGet;
 import com.doan3.canthotour.Adapter.ServiceAdapter;
 import com.doan3.canthotour.Config;
 import com.doan3.canthotour.Helper.BottomNavigationViewHelper;
+import com.doan3.canthotour.Model.ModelEvent;
 import com.doan3.canthotour.Model.ModelService;
 import com.doan3.canthotour.Model.ObjectClass.Service;
 import com.doan3.canthotour.Model.SessionManager;
@@ -60,7 +61,9 @@ public class MainActivity extends AppCompatActivity {
 
     static {
         try {
-            badgeNumber = Integer.parseInt(new httpGet().execute(Config.URL_HOST + Config.URL_GET_EVENT_NUMBER).get());
+
+            badgeNumber = Integer.parseInt(new httpGet().execute(Config.URL_HOST + Config.URL_GET_EVENT_NUMBER).get())
+                    - ModelEvent.getJsonFileEvent().length();
 
             UIHandler = new Handler(Looper.getMainLooper()); //Khai báo UIHandler để tạo gọi được phương thức runOnUI
 
@@ -75,7 +78,9 @@ public class MainActivity extends AppCompatActivity {
                                 @Override
                                 public void run() {
                                     try {
-                                        badgeNumber = Integer.parseInt(new httpGet().execute(Config.URL_HOST + Config.URL_GET_EVENT_NUMBER).get());
+                                        badgeNumber = Integer.parseInt(new httpGet()
+                                                .execute(Config.URL_HOST + Config.URL_GET_EVENT_NUMBER).get())
+                                                - ModelEvent.getJsonFileEvent().length();
                                     } catch (InterruptedException | ExecutionException e) {
                                         e.printStackTrace();
                                     }
@@ -162,7 +167,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(iSearch);
             }
         });
-
         sessionManager = new SessionManager(getApplicationContext());
         sessionManager.checkLogin();
 

@@ -167,4 +167,5 @@
     <string name="text_Moderator">Mod</string>
     <string name="text_Admin">Quản trị viên</string>
     <string name="text_FieldIsEmpty">Không được để trống</string>
+    <string name="text_ReviewFailure">Đánh giá thất bại</string>
 </resources>

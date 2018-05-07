@@ -26,7 +26,6 @@ import static com.doan3.canthotour.View.Main.MainActivity.menuBotNavBar;
 public class ActivityNotify extends AppCompatActivity {
 
     ArrayList<String> finalArr = new ArrayList<>();
-    EventAdapter eventAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,14 +47,14 @@ public class ActivityNotify extends AppCompatActivity {
                 new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        ArrayList<Event> services = new ModelEvent().getEventList(this, url);
+        ArrayList<Event> events = new ModelEvent().getEventList(this, url);
 
-        eventAdapter = new EventAdapter(recyclerView, services, getApplicationContext());
+        final EventAdapter eventAdapter = new EventAdapter(recyclerView, events, getApplicationContext());
         recyclerView.setAdapter(eventAdapter);
         eventAdapter.notifyDataSetChanged();
 
         //set load more listener for the RecyclerView adapter
-        final ArrayList<Event> finalListService = services;
+        final ArrayList<Event> finalListService = events;
         try {
             finalArr = JsonHelper.parseJsonNoId(new JSONObject
                     (new httpGet().execute(url).get()), Config.GET_KEY_JSON_LOAD);
@@ -97,11 +96,5 @@ public class ActivityNotify extends AppCompatActivity {
                 }
             }
         });
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        eventAdapter.setOnLoadMoreListener(null);
     }
 }
