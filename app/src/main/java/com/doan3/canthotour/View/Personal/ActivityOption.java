@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -21,6 +22,7 @@ import static com.doan3.canthotour.View.Main.MainActivity.menuBotNavBar;
 public class ActivityOption extends AppCompatActivity {
     LinearLayout btnNearRadius;
     TextView txtNearRadius;
+    ImageView btnBack;
     String radius;
     SharedPreferences.Editor editor;
 
@@ -32,6 +34,7 @@ public class ActivityOption extends AppCompatActivity {
 
         btnNearRadius = findViewById(R.id.btnNearLocation);
         txtNearRadius = findViewById(R.id.textViewNearLocation);
+        btnBack = findViewById(R.id.btnBack);
         SharedPreferences sharedPreferences = getSharedPreferences(Config.KEY_DISTANCE, MODE_PRIVATE);
         editor = sharedPreferences.edit();
 
@@ -70,6 +73,13 @@ public class ActivityOption extends AppCompatActivity {
                 });
 
                 dialog.show();
+            }
+        });
+
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
             }
         });
 
