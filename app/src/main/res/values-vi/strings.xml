@@ -170,4 +170,5 @@
     <string name="text_ReviewFailure">Đánh giá thất bại</string>
     <string name="text_All">Tất cả</string>
     <string name="text_Share">CHIA SẺ</string>
+    <string name="text_General">Thông tin chung</string>
 </resources>
