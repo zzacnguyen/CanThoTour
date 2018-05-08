@@ -125,7 +125,7 @@
                         android:background="@null"
                         android:drawableRight="@drawable/ic_arrow"
                         android:onClick="addFragment"
-                        android:text="@string/text_All"
+                        android:text="@string/text_More"
                         android:textAllCaps="false"
                         android:textColor="@color/colorGray"
                         android:textSize="12sp" />
@@ -173,7 +173,7 @@
                         android:background="@null"
                         android:drawableRight="@drawable/ic_arrow"
                         android:onClick="addFragment"
-                        android:text="@string/text_All"
+                        android:text="@string/text_More"
                         android:textAllCaps="false"
                         android:textColor="@color/colorGray"
                         android:textSize="12sp" />
@@ -221,7 +221,7 @@
                         android:background="@null"
                         android:drawableRight="@drawable/ic_arrow"
                         android:onClick="addFragment"
-                        android:text="@string/text_All"
+                        android:text="@string/text_More"
                         android:textAllCaps="false"
                         android:textColor="@color/colorGray"
                         android:textSize="12sp" />
@@ -270,7 +270,7 @@
                         android:background="@null"
                         android:drawableRight="@drawable/ic_arrow"
                         android:onClick="addFragment"
-                        android:text="@string/text_All"
+                        android:text="@string/text_More"
                         android:textAllCaps="false"
                         android:textColor="@color/colorGray"
                         android:textSize="12sp" />
@@ -319,7 +319,7 @@
                         android:background="@null"
                         android:drawableRight="@drawable/ic_arrow"
                         android:onClick="addFragment"
-                        android:text="@string/text_All"
+                        android:text="@string/text_More"
                         android:textAllCaps="false"
                         android:textColor="@color/colorGray"
                         android:textSize="12sp" />

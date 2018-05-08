@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -45,9 +46,9 @@ public class ActivityNearLocation extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences(Config.KEY_DISTANCE, MODE_PRIVATE);
 
         ArrayList<NearLocation> favoriteList = new ModelSearch().getNearLocationList(
-                Config.URL_HOST + Config.URL_SEARCH_SERVICE_NEAR.get(0) + latitude.trim() + "," + longitude.trim() +
-                        Config.URL_SEARCH_SERVICE_NEAR.get(1) + serviceType + Config.URL_SEARCH_SERVICE_NEAR.get(2) +
-                        sharedPreferences.getString(Config.KEY_DISTANCE, Config.DEFAULT_DISTANCE), serviceType, this);
+                Config.URL_HOST + Config.URL_SEARCH_SERVICE_NEAR.get(0) + latitude.trim() + "," + longitude.trim()
+                        + Config.URL_SEARCH_SERVICE_NEAR.get(1) + serviceType + Config.URL_SEARCH_SERVICE_NEAR.get(2)
+                        + sharedPreferences.getString(Config.KEY_DISTANCE, Config.DEFAULT_DISTANCE), serviceType, this);
 
         RecyclerView recyclerView = findViewById(R.id.RecyclerView_NearLocation);
         recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter

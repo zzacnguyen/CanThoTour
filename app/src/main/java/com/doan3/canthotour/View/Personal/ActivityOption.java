@@ -59,8 +59,8 @@ public class ActivityOption extends AppCompatActivity {
                     public void onClick(View view) {
                         radius = etDistance.getText().toString().trim();
                         editor.putString(Config.KEY_DISTANCE, radius);
+                        editor.apply();
                         txtNearRadius.setText(radius + "m");
-
                         dialog.cancel();
                     }
                 });

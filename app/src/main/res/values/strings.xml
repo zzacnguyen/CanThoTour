@@ -19,7 +19,7 @@
     <string name="text_Hotelsde">Hotels</string>
     <string name="text_ThingsToDo">Things to do</string>
     <string name="text_Transport">Transport</string>
-    <string name="text_All">More</string>
+    <string name="text_More">More</string>
     <string name="text_Like">Like</string>
     <string name="text_UnLike">UnLike</string>
     <string name="text_Near">Near</string>
@@ -129,7 +129,7 @@
     <string name="text_EndDate">End Date</string>
     <string name="text_CreateTrip">Create trip</string>
     <string name="text_Create">Create</string>
-    <string name="text_BusinessRegistration">Business registration</string>
+    <string name="text_Memberupgrades">Member upgrades</string>
     <string name="text_ChangeProfilePhoto">Change profile photo</string>
     <string name="text_Gender">Gender</string>
     <string name="text_Birthdate">Birthdate</string>
@@ -184,4 +184,6 @@
     <string name="text_Admin">Admin</string>
     <string name="text_FieldIsEmpty">The field is empty</string>
     <string name="text_ReviewFailure">Review failure</string>
+    <string name="text_All">All</string>
+    <string name="text_Share">SHARE</string>
 </resources>

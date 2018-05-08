@@ -41,7 +41,7 @@ import com.doan3.canthotour.View.Main.Content.FragmentService;
 import com.doan3.canthotour.View.Notify.ActivityNotify;
 import com.doan3.canthotour.View.Personal.ActivityAddPlace;
 import com.doan3.canthotour.View.Personal.ActivityPersonal;
-import com.doan3.canthotour.View.Search.ActivitySearch;
+import com.doan3.canthotour.View.Search.ActivityAdvancedSearch;
 
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
@@ -163,7 +163,7 @@ public class MainActivity extends AppCompatActivity {
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent iSearch = new Intent(MainActivity.this, ActivitySearch.class);
+                Intent iSearch = new Intent(MainActivity.this, ActivityAdvancedSearch.class);
                 startActivity(iSearch);
             }
         });

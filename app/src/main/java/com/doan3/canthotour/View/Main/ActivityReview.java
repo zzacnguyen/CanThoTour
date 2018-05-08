@@ -83,7 +83,7 @@ public class ActivityReview extends AppCompatActivity {
                     if (idReview.equals("0")) {
                         try {
                             String stt = new httpPost(json).execute(Config.URL_HOST + Config.URL_POST_REVIEW).get();
-                            if (stt.equals("\"status: 200\""))
+                            if (stt.equals("\"status:200\""))
                                 intend(getResources().getString(R.string.text_ReviewCompleted));
                             else
                                 Toast.makeText(ActivityReview.this,
@@ -93,8 +93,8 @@ public class ActivityReview extends AppCompatActivity {
                         }
                     } else {
                         try {
-                            String stt = new httpPut(json).execute(Config.URL_HOST + Config.URL_POST_REVIEW + "/" + idReview).get();
-                            if (stt.equals("\"status: 200\""))
+                            String stt = new httpPut(json).execute(Config.URL_HOST + Config.URL_PUT_REVIEW + idReview).get();
+                            if (stt.equals("\"status:200\""))
                                 intend(getResources().getString(R.string.text_ReviewCompleted));
                             else
                                 Toast.makeText(ActivityReview.this,

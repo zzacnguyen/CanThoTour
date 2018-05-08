@@ -41,7 +41,6 @@
         <activity android:name=".View.Main.ActivityServiceInfo" />
         <activity android:name=".View.Main.Content.ActivityService" />
         <activity android:name=".View.Personal.ActivityAddPlace" />
-        <activity android:name=".View.Search.ActivitySearch" />
         <activity android:name=".View.Personal.ActivityRegCoop" />
         <activity android:name=".View.Personal.ActivityOption" />
         <activity android:name=".View.Search.ActivityNearLocation" />

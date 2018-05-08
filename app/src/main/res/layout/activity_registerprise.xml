@@ -39,7 +39,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:gravity="center"
-                    android:text="@string/text_BusinessRegistration"
+                    android:text="@string/text_Memberupgrades"
                     android:textColor="@color/colorWhite"
                     android:textSize="18sp" />
 

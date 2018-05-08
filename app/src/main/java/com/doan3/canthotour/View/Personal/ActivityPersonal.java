@@ -23,7 +23,7 @@ public class ActivityPersonal extends AppCompatActivity {
     public static int userId;
     public static String userName, userType;
     public static Bitmap avatar;
-    Button btnAddPlace, btnRegEnterprise, btnOption, btnLogin, btnAdvancedSearch, btnLogout, btnTripSchedule, btnAddEvent;
+    Button btnAddPlace, btnRegEnterprise, btnOption, btnLogin, btnLogout, btnTripSchedule, btnAddEvent;
     TextView txtUserName, txtUserType;
     CircleImageView Cavatar;
     LinearLayout addPlace, regEnterprise, Logout, Login, tripSchedule, addEvent;
@@ -36,7 +36,6 @@ public class ActivityPersonal extends AppCompatActivity {
         setContentView(R.layout.activity_personal);
 
         btnTripSchedule = findViewById(R.id.buttonTripSchedule);
-        btnAdvancedSearch = findViewById(R.id.buttonAdvancedSearch);
         btnAddPlace = findViewById(R.id.buttonAddPlace);
         btnRegEnterprise = findViewById(R.id.buttonRegEnterprise);
         btnOption = findViewById(R.id.buttonOption);
@@ -111,13 +110,6 @@ public class ActivityPersonal extends AppCompatActivity {
                 startActivity(iTripSchedule);
             }
         });
-        btnAdvancedSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivityForResult(new Intent(ActivityPersonal.this, ActivityAdvancedSearch.class),
-                        1);
-            }
-        });
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -177,7 +169,6 @@ public class ActivityPersonal extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         btnAddPlace.setOnClickListener(null);
-        btnAdvancedSearch.setOnClickListener(null);
         btnLogin.setOnClickListener(null);
         btnLogout.setOnClickListener(null);
         btnOption.setOnClickListener(null);

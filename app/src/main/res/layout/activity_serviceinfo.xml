@@ -209,7 +209,7 @@
                     android:layout_weight="1"
                     android:background="@color/colorWhite"
                     android:drawableTop="@drawable/ic_share_36dp"
-                    android:text="CHIA SẺ"
+                    android:text="@string/text_Share"
                     android:textColor="@color/bgToolbar"
                     android:textSize="14sp"/>
 

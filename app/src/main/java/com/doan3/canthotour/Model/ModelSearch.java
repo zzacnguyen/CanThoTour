@@ -60,7 +60,8 @@ public class ModelSearch {
                 }
 
                 JSONArray jsonArray = jsonObject.getJSONArray(Config.GET_KEY_SEARCH_NEAR.get(0));
-                for (int i = 0; i < jsonArray.length(); i += 2) {
+                System.out.println(jsonArray);
+                for (int i = 0; i < jsonArray.length(); i++) {
 
                     NearLocation service = new NearLocation();
                     JSONObject jsonObjectData = jsonArray.getJSONObject(i);
@@ -103,64 +104,45 @@ public class ModelSearch {
                 Service service = new Service();
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 arrayList.clear();
-                if (type == 1) {
-                    arrayList = parseJson(jsonObject, Config.GET_KEY_JSON_EAT);
-                } else if (type == 2) {
-                    arrayList = parseJson(jsonObject, Config.GET_KEY_JSON_HOTEL);
-                } else if (type == 3) {
-                    arrayList = parseJson(jsonObject, Config.GET_KEY_JSON_VEHICLE);
-                } else if (type == 4) {
-                    arrayList = parseJson(jsonObject, Config.GET_KEY_JSON_PLACE);
+                if (type == 0) {
+                    arrayList = parseJson(jsonObject, Config.GET_KEY_JSON_SERVICE_LIST);
+
+                    //Set hình ảnh
+                    service.setImage(setImage(Config.URL_HOST + Config.URL_GET_THUMB + arrayList.get(7),
+                            arrayList.get(6), arrayList.get(7)));
+                    //Set mã dịch vụ
+                    service.setId(Integer.parseInt(arrayList.get(0)));
+                    //Set tên dịch vụ tìm kiếm
+                    service.setName(!arrayList.get(1).equals(Config.NULL) ? arrayList.get(1)
+                            : !arrayList.get(2).equals(Config.NULL) ? arrayList.get(2)
+                            : !arrayList.get(3).equals(Config.NULL) ? arrayList.get(3)
+                            : !arrayList.get(4).equals(Config.NULL) ? arrayList.get(4)
+                            : arrayList.get(5));
+
+                    services.add(service);
                 } else {
-                    arrayList = parseJson(jsonObject, Config.GET_KEY_JSON_ENTERTAINMENT);
+                    if (type == 1) {
+                        arrayList = parseJson(jsonObject, Config.GET_KEY_JSON_EAT);
+                    } else if (type == 2) {
+                        arrayList = parseJson(jsonObject, Config.GET_KEY_JSON_HOTEL);
+                    } else if (type == 3) {
+                        arrayList = parseJson(jsonObject, Config.GET_KEY_JSON_VEHICLE);
+                    } else if (type == 4) {
+                        arrayList = parseJson(jsonObject, Config.GET_KEY_JSON_PLACE);
+                    } else {
+                        arrayList = parseJson(jsonObject, Config.GET_KEY_JSON_ENTERTAINMENT);
+                    }
+
+                    //Set hình ảnh
+                    service.setImage(setImage(Config.URL_HOST + Config.URL_GET_THUMB + arrayList.get(3),
+                            arrayList.get(2), arrayList.get(3)));
+                    //Set mã dịch vụ
+                    service.setId(Integer.parseInt(arrayList.get(0)));
+                    //Set tên dịch vụ yêu thích
+                    service.setName(arrayList.get(1));
+
+                    services.add(service);
                 }
-
-                //Set hình ảnh
-                service.setImage(setImage(Config.URL_HOST + Config.URL_GET_THUMB + arrayList.get(3),
-                        arrayList.get(2), arrayList.get(3)));
-                //Set mã dịch vụ
-                service.setId(Integer.parseInt(arrayList.get(0)));
-                //Set tên dịch vụ yêu thích
-                service.setName(arrayList.get(1));
-
-                services.add(service);
-            }
-        } catch (JSONException | InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
-
-        return services;
-    }
-
-    public ArrayList<Service> getSearchList(String url) {
-
-        ArrayList<String> arrayList;
-        ArrayList<Service> services = new ArrayList<>();
-
-        try {
-            arrayList = parseJsonNoId(new JSONObject(new HttpRequestAdapter.httpGet().execute(url).get()), Config.GET_KEY_JSON_LOAD);
-            JSONArray jsonArray = new JSONArray(arrayList.get(0));
-
-            for (int i = 0; i < jsonArray.length(); i++) {
-
-                Service service = new Service();
-                JSONObject jsonObject = jsonArray.getJSONObject(i);
-                arrayList.clear();
-                arrayList = parseJson(jsonObject, Config.GET_KEY_JSON_SERVICE_LIST);
-
-                //Set hình ảnh
-                service.setImage(setImage(Config.URL_HOST + Config.URL_GET_THUMB + arrayList.get(7),
-                        arrayList.get(6), arrayList.get(7)));
-                //Set mã dịch vụ
-                service.setId(Integer.parseInt(arrayList.get(0)));
-                //Set tên dịch vụ tìm kiếm
-                service.setName(!arrayList.get(1).equals(Config.NULL) ? arrayList.get(1)
-                        : !arrayList.get(2).equals(Config.NULL) ? arrayList.get(2)
-                        : !arrayList.get(3).equals(Config.NULL) ? arrayList.get(3)
-                        : !arrayList.get(4).equals(Config.NULL) ? arrayList.get(4)
-                        : arrayList.get(5));
-
-                services.add(service);
             }
         } catch (JSONException | InterruptedException | ExecutionException e) {
             e.printStackTrace();
