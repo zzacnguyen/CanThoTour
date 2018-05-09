@@ -129,7 +129,6 @@
     <string name="text_EndDate">End Date</string>
     <string name="text_CreateTrip">Create trip</string>
     <string name="text_Create">Create</string>
-    <string name="text_Memberupgrades">Member upgrades</string>
     <string name="text_ChangeProfilePhoto">Change profile photo</string>
     <string name="text_Gender">Gender</string>
     <string name="text_Birthdate">Birthdate</string>
@@ -187,4 +186,7 @@
     <string name="text_All">All</string>
     <string name="text_Share">SHARE</string>
     <string name="text_General">General</string>
+    <string name="Text_Default">"Default: "</string>
+    <string name="text_UpgradeMember">Upgrade member</string>
+    <string name="text_YouAre">You are:</string>
 </resources>

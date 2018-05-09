@@ -12,7 +12,6 @@ import android.widget.Toast;
 
 import com.doan3.canthotour.Model.SessionManager;
 import com.doan3.canthotour.R;
-import com.doan3.canthotour.View.Search.ActivityAdvancedSearch;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -23,7 +22,7 @@ public class ActivityPersonal extends AppCompatActivity {
     public static int userId;
     public static String userName, userType;
     public static Bitmap avatar;
-    Button btnAddPlace, btnRegEnterprise, btnOption, btnLogin, btnLogout, btnTripSchedule, btnAddEvent;
+    Button btnAddPlace, btnRegEnterprise, btnGeneral, btnLogin, btnLogout, btnTripSchedule, btnAddEvent;
     TextView txtUserName, txtUserType;
     CircleImageView Cavatar;
     LinearLayout addPlace, regEnterprise, Logout, Login, tripSchedule, addEvent;
@@ -38,7 +37,7 @@ public class ActivityPersonal extends AppCompatActivity {
         btnTripSchedule = findViewById(R.id.buttonTripSchedule);
         btnAddPlace = findViewById(R.id.buttonAddPlace);
         btnRegEnterprise = findViewById(R.id.buttonRegEnterprise);
-        btnOption = findViewById(R.id.buttonOption);
+        btnGeneral = findViewById(R.id.buttonGeneral);
         btnLogin = findViewById(R.id.buttonLogin);
         btnLogout = findViewById(R.id.buttonLogout);
         btnAddEvent = findViewById(R.id.buttonAddEvent);
@@ -132,11 +131,11 @@ public class ActivityPersonal extends AppCompatActivity {
             }
         });
 
-        btnOption.setOnClickListener(new View.OnClickListener() {
+        btnGeneral.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent iCaiDat = new Intent(ActivityPersonal.this, ActivityOption.class);
-                startActivity(iCaiDat);
+                Intent iGeneral = new Intent(ActivityPersonal.this, ActivityGeneral.class);
+                startActivity(iGeneral);
             }
         });
         btnLogout.setOnClickListener(new View.OnClickListener() {
@@ -171,7 +170,7 @@ public class ActivityPersonal extends AppCompatActivity {
         btnAddPlace.setOnClickListener(null);
         btnLogin.setOnClickListener(null);
         btnLogout.setOnClickListener(null);
-        btnOption.setOnClickListener(null);
+        btnGeneral.setOnClickListener(null);
         btnRegEnterprise.setOnClickListener(null);
         btnTripSchedule.setOnClickListener(null);
 

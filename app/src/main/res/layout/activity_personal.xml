@@ -257,7 +257,7 @@
                     android:layout_weight="1"
                     android:background="@null"
                     android:drawableLeft="@drawable/ic_dangkydoanhnghiep"
-                    android:text="@string/text_Memberupgrades"
+                    android:text="@string/text_UpgradeMember"
                     android:textAlignment="textStart"
                     android:textAllCaps="false" />
 
@@ -283,39 +283,13 @@
                 android:padding="5dp">
 
                 <Button
-                    android:id="@+id/button_General"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@null"
-                    android:drawableLeft="@drawable/ic_general_24dp"
-                    android:text="@string/text_General"
-                    android:textAlignment="textStart"
-                    android:textAllCaps="false" />
-
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ic_arrow" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/white_grey_border_bottom"
-                android:orientation="horizontal"
-                android:padding="5dp">
-
-                <Button
-                    android:id="@+id/buttonOption"
+                    android:id="@+id/buttonGeneral"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@null"
                     android:drawableLeft="@drawable/ic_caidat"
-                    android:text="@string/text_Settings"
+                    android:text="@string/text_General"
                     android:textAlignment="textStart"
                     android:textAllCaps="false" />
 

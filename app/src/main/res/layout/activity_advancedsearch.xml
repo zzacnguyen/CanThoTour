@@ -215,9 +215,8 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:padding="17dp"
-                        android:tint="@color/tbPlace"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/ic_sightseeing" />
+                        android:src="@drawable/ic_all" />
 
                     <TextView
                         android:layout_width="match_parent"

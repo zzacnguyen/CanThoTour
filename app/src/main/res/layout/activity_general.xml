@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorGrey"
-    tools:context="com.doan3.canthotour.View.Main.MainActivity">
+    android:background="@color/colorGrey">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -42,7 +41,7 @@
                     android:layout_gravity="center"
                     android:layout_weight="8"
                     android:gravity="center"
-                    android:text="@string/text_Settings"
+                    android:text="@string/text_General"
                     android:textColor="@color/colorWhite"
                     android:textSize="18sp" />
 
@@ -67,7 +66,8 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/white_grey_border_bottom"
                 android:orientation="horizontal"
-                android:padding="5dp">
+                android:padding="5dp"
+                android:visibility="gone">
 
                 <LinearLayout
                     android:id="@+id/btnNearLocation"
@@ -137,10 +137,6 @@
 
             </LinearLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="10dp"
-                android:background="@color/colorGrey" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -199,7 +195,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/white_grey_border_bottom"
+                android:background="@color/colorWhite"
                 android:orientation="horizontal">
 
                 <Button
@@ -223,11 +219,6 @@
 
             </LinearLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="10dp"
-                android:background="@color/colorGrey" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -261,30 +252,5 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <!--Bottom navigation bar-->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:orientation="vertical">
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="4dp"
-            android:layout_gravity="top"
-            android:background="@drawable/shadow" />
-
-        <android.support.design.widget.BottomNavigationView
-            android:id="@+id/bottomNavView_Bar"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@color/colorWhite"
-            app:itemIconTint="@drawable/nav_item_color_state"
-            app:itemTextColor="@drawable/nav_item_color_state"
-            app:menu="@menu/bottom_navigation_menu">
-
-        </android.support.design.widget.BottomNavigationView>
-
-    </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>

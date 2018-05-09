@@ -113,7 +113,7 @@
     <string name="text_EndDate">Ngày kết thúc</string>
     <string name="text_CreateTrip">Tạo chuyến đi</string>
     <string name="text_Create">Tạo</string>
-    <string name="text_Memberupgrades">Nâng cấp thành viên</string>
+    <string name="text_UpgradeMember">Nâng cấp thành viên</string>
     <string name="text_ChangeProfilePhoto">Cập nhật ảnh đại diện</string>
     <string name="text_Gender">Giới tính</string>
     <string name="text_Birthdate">Ngày sinh</string>
@@ -171,4 +171,6 @@
     <string name="text_All">Tất cả</string>
     <string name="text_Share">CHIA SẺ</string>
     <string name="text_General">Thông tin chung</string>
+    <string name="Text_Default">"Mặc định: "</string>
+    <string name="text_YouAre">Bạn là</string>
 </resources>
