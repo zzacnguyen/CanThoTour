@@ -29,7 +29,7 @@ import com.doan3.canthotour.Helper.JsonHelper;
 import com.doan3.canthotour.Model.ModelService;
 import com.doan3.canthotour.Model.ObjectClass.ServiceInfo;
 import com.doan3.canthotour.R;
-import com.doan3.canthotour.View.Personal.ActivityLogin;
+import com.doan3.canthotour.View.Personal.Login_Register.ActivityLogin;
 import com.doan3.canthotour.View.Search.ActivityNearLocation;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;

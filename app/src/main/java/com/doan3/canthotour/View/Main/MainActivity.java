@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
         new QBadgeView(activity).bindTarget(v)
                 .setBadgeNumber(badgeNumber)  //Set số thông báo hiển thị
                 .setBadgeGravity(Gravity.START | Gravity.TOP)
-                .setGravityOffset(26, 0, true);
+                .setGravityOffset(26, 3, true);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override

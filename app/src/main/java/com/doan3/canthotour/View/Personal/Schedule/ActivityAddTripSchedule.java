@@ -1,4 +1,4 @@
-package com.doan3.canthotour.View.Personal;
+package com.doan3.canthotour.View.Personal.Schedule;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;

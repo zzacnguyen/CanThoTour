@@ -12,7 +12,7 @@ import com.doan3.canthotour.R;
 import static com.doan3.canthotour.View.Main.MainActivity.menuBotNavBar;
 
 
-public class ActivityRegCoop extends AppCompatActivity implements View.OnClickListener {
+public class ActivityUpgradeMember extends AppCompatActivity implements View.OnClickListener {
 
     TextView btnCancel, btnSend;
     RadioGroup rgUserType;

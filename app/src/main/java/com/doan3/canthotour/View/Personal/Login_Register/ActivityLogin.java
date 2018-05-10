@@ -1,4 +1,4 @@
-package com.doan3.canthotour.View.Personal;
+package com.doan3.canthotour.View.Personal.Login_Register;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +14,7 @@ import com.doan3.canthotour.Config;
 import com.doan3.canthotour.Helper.JsonHelper;
 import com.doan3.canthotour.Model.SessionManager;
 import com.doan3.canthotour.R;
+import com.doan3.canthotour.View.Personal.ActivityPersonal;
 
 import org.json.JSONException;
 import org.json.JSONObject;

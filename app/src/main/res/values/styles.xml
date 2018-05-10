@@ -7,10 +7,4 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
-    <style name = "editextLoginform">
-        <item name = "android:background">@drawable/edittext_background</item>
-    </style>
-    <style name = "btnLoginform">
-        <item name = "android:background">@drawable/button_background</item>
-    </style>
 </resources>

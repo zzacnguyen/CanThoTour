@@ -41,20 +41,20 @@
         <activity android:name=".View.Main.ActivityServiceInfo" />
         <activity android:name=".View.Main.Content.ActivityService" />
         <activity android:name=".View.Personal.ActivityAddPlace" />
-        <activity android:name=".View.Personal.ActivityRegCoop" />
+        <activity android:name=".View.Personal.ActivityUpgradeMember" />
         <activity android:name=".View.Personal.ActivityOption" />
         <activity android:name=".View.Search.ActivityNearLocation" />
         <activity android:name=".View.Personal.ActivityAddService" />
-        <activity android:name=".View.Personal.ActivityLogin" />
+        <activity android:name=".View.Personal.Login_Register.ActivityLogin" />
         <activity android:name=".View.Main.ActivityReview" />
         <activity android:name=".View.Main.ActivityReviewList" />
-        <activity android:name=".View.Personal.ActivityRegister" />
+        <activity android:name=".View.Personal.Login_Register.ActivityRegister" />
         <activity android:name=".View.Search.ActivityAdvancedSearch" />
         <activity android:name=".View.Main.FullImageActivity" />
         <activity android:name=".View.Main.ActivitySearchHistory" />
-        <activity android:name=".View.Personal.ActivityAddTripSchedule" />
-        <activity android:name=".View.Personal.ActivityTripSchedule" />
-        <activity android:name=".View.Personal.ActivityTripScheduleInfo"/>
+        <activity android:name=".View.Personal.Schedule.ActivityAddTripSchedule" />
+        <activity android:name=".View.Personal.Schedule.ActivityTripSchedule" />
+        <activity android:name=".View.Personal.Schedule.ActivityTripScheduleInfo"/>
         <activity android:name=".View.Personal.ActivityAddEvent"/>
     </application>
 

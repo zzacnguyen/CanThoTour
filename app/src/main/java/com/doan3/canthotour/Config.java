@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.Collections;
 
 public class Config {
-    public static final String URL_HOST = "http://192.168.1.20/doan3_canthotour/";
+    public static final String URL_HOST = "http://192.168.1.57/doan3_canthotour/";
     public static final String URL_LOGIN = "login-mobile";
     public static final String URL_GET_PROVINCE = "province";
     public static final String URL_GET_DISTRICT = "district/";

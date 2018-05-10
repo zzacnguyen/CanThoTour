@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.doan3.canthotour.Interface.OnLoadMoreListener;
 import com.doan3.canthotour.Model.ObjectClass.TripSchedule;
 import com.doan3.canthotour.R;
-import com.doan3.canthotour.View.Personal.ActivityTripScheduleInfo;
+import com.doan3.canthotour.View.Personal.Schedule.ActivityTripScheduleInfo;
 
 import java.util.ArrayList;
 

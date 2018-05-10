@@ -12,6 +12,8 @@ import android.widget.Toast;
 
 import com.doan3.canthotour.Model.SessionManager;
 import com.doan3.canthotour.R;
+import com.doan3.canthotour.View.Personal.Login_Register.ActivityLogin;
+import com.doan3.canthotour.View.Personal.Schedule.ActivityTripSchedule;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -126,7 +128,7 @@ public class ActivityPersonal extends AppCompatActivity {
         btnRegEnterprise.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent iDangKyDoanhNghiep = new Intent(ActivityPersonal.this, ActivityRegCoop.class);
+                Intent iDangKyDoanhNghiep = new Intent(ActivityPersonal.this, ActivityUpgradeMember.class);
                 startActivity(iDangKyDoanhNghiep);
             }
         });

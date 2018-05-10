@@ -1,4 +1,4 @@
-package com.doan3.canthotour.View.Personal;
+package com.doan3.canthotour.View.Personal.Schedule;
 
 import android.os.Bundle;
 import android.os.Handler;
