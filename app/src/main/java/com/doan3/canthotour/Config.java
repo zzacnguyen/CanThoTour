@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.Collections;
 
 public class Config {
-    public static final String URL_HOST = "http://192.168.1.7/doan3_canthotour/";
+    public static final String URL_HOST = "http://192.168.1.20/doan3_canthotour/";
     public static final String URL_LOGIN = "login-mobile";
     public static final String URL_GET_PROVINCE = "province";
     public static final String URL_GET_DISTRICT = "district/";
@@ -40,8 +40,9 @@ public class Config {
     public static final String URL_POST_SERVICE = "add-services/";
     public static final String URL_POST_IMAGE = "upload-image/";
     public static final String URL_GET_EVENT_NUMBER = "counter-events";
+    public static final String URL_GET_TRIP_SCHEDULE_INFO = "list-schedule-details/";
     public static final String URL_GET_TRIP_SCHEDULE = "list-schedule/";
-    public static final String URL_POST_TRIP_SCHEDULE = "post-schedule";
+    public static final String URL_POST_TRIP_SCHEDULE = "post-schedule/user=";
 
     public static final String FOLDER = "/vietnamtour";
     public static final String FOLDER_AVATAR = "avatar";
@@ -124,8 +125,7 @@ public class Config {
             new ArrayList<>(Arrays.asList("\"username\"", "\"password\""));
 
     public static final ArrayList<String> POST_KEY_TRIP_SCHEDULE =
-            new ArrayList<>(Arrays.asList("\"tripname\"", "\"trip_startdate\"", "\"trip_enddate\"",
-                    "\"service_id\"", "\"user_id\""));
+            new ArrayList<>(Arrays.asList("\"trip_name\"", "\"trip_startdate\"", "\"trip_enddate\""));
 
     public static final ArrayList<String> POST_KEY_JSON_REVIEW =
             new ArrayList<>(Arrays.asList("\"service_id\"", "\"user_id\"", "\"vr_rating\"",

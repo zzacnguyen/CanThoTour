@@ -3,6 +3,7 @@ package com.doan3.canthotour.Model;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Environment;
+import android.support.annotation.Nullable;
 
 import com.doan3.canthotour.Adapter.HttpRequestAdapter.httpGet;
 import com.doan3.canthotour.Adapter.HttpRequestAdapter.httpGetImage;
@@ -320,6 +321,7 @@ public class ModelService {
         return arrayList;
     }
 
+    @Nullable
     private String yandexApiTranslate(String key, String lang) {
         String stringTranslated = null;
         if (Objects.equals(key, "")) {

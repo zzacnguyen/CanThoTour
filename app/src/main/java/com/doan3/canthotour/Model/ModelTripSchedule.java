@@ -2,6 +2,7 @@ package com.doan3.canthotour.Model;
 
 import com.doan3.canthotour.Adapter.HttpRequestAdapter;
 import com.doan3.canthotour.Config;
+import com.doan3.canthotour.Model.ObjectClass.Service;
 import com.doan3.canthotour.Model.ObjectClass.TripSchedule;
 
 import org.json.JSONArray;
@@ -13,6 +14,7 @@ import java.util.concurrent.ExecutionException;
 
 import static com.doan3.canthotour.Helper.JsonHelper.parseJson;
 import static com.doan3.canthotour.Helper.JsonHelper.parseJsonNoId;
+import static com.doan3.canthotour.Model.ModelService.setImage;
 
 
 public class ModelTripSchedule {

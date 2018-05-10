@@ -18,8 +18,8 @@ import java.util.ArrayList;
 
 
 public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ViewHolder> {
-    ArrayList<Service> services;
-    Context context;
+    private ArrayList<Service> services;
+    private Context context;
 
     public ServiceAdapter(ArrayList<Service> service, Context context) {
         this.services = service;
@@ -56,12 +56,12 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ViewHold
         return services.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder { //ViewHolder chạy thứ 2, phần này giúp cho recycler view ko bị load lại dữ liệu khi thực hiện thao tác vuốt màn hình
+    class ViewHolder extends RecyclerView.ViewHolder { //ViewHolder chạy thứ 2, phần này giúp cho recycler view ko bị load lại dữ liệu khi thực hiện thao tác vuốt màn hình
         TextView txtTen;
         ImageView imgHinh;
         CardView cardView;
 
-        public ViewHolder(View itemView) {
+        ViewHolder(View itemView) {
             super(itemView);
 
             txtTen = itemView.findViewById(R.id.txtPlaceName);

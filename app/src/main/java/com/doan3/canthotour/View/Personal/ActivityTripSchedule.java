@@ -55,11 +55,12 @@ public class ActivityTripSchedule extends AppCompatActivity {
                 startActivityForResult(new Intent(ActivityTripSchedule.this, ActivityAddTripSchedule.class), 1);
             }
         });
-//        loadTripList(Config.URL_HOST + Config.URL_GET_TRIP_SCHEDULE);
+        loadTripList(Config.URL_HOST + Config.URL_GET_TRIP_SCHEDULE);
         menuBotNavBar(this, 3);
     }
 
     private void loadTripList(String url) {
+        url += userId;
         final RecyclerView recyclerView = findViewById(R.id.RecyclerView_TripScheduleList);
         recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
 
@@ -67,7 +68,7 @@ public class ActivityTripSchedule extends AppCompatActivity {
                 new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        ArrayList<TripSchedule> tripScheduleList = new ModelTripSchedule().getTripScheduleList(url + "/" + userId);
+        ArrayList<TripSchedule> tripScheduleList = new ModelTripSchedule().getTripScheduleList(url);
 
         final ListOfTripScheduleAdapter listOfTripScheduleAdapter =
                 new ListOfTripScheduleAdapter(recyclerView, getApplicationContext(), tripScheduleList);
