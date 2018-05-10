@@ -18,7 +18,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textView_TripName"
+                android:id="@+id/textViewTripName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -29,7 +29,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textView_TripStartDate"
+                android:id="@+id/textViewTripStartDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="3dp"
@@ -38,7 +38,7 @@
                 android:textSize="14sp" />
 
             <TextView
-                android:id="@+id/textView_TripEndDate"
+                android:id="@+id/textViewTripEndDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="3dp"
@@ -49,12 +49,11 @@
 
         </LinearLayout>
 
-    </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorGrey" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/colorGrey"
-        android:layout_gravity="bottom"/>
+    </LinearLayout>
 
 </android.support.v7.widget.CardView>
