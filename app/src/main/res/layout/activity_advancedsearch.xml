@@ -87,9 +87,9 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:padding="17dp"
-                        android:tint="@color/tbPlace"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/ic_sightseeing" />
+                        android:src="@drawable/ic_sightseeing"
+                        android:tint="@color/tbPlace" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -245,7 +245,7 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/RecyclerView_SearchList"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:background="@color/colorWhite"/>
 
     </LinearLayout>
